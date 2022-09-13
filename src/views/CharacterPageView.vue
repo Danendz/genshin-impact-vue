@@ -11,11 +11,8 @@
 </template>
 
 <script setup lang="ts">
-//interfaces
-import { Character } from '@/Interfaces/CharacterInterface';
-
-//api
-import CharacterService from '@/API/CharacterService';
+//composables 
+import { useGetCharacterByName } from '@/Composables/useGetCharacters';
 
 //enums
 import { ErrorMessages } from '@/Enums/ErrorMessages';
@@ -25,19 +22,7 @@ import ErrorPage from '@/components/UI/ErrorPage.vue';
 
 //vue
 import { useRoute } from 'vue-router';
-import { ref, onMounted } from 'vue'
 
 const name: string = useRoute().params.name.toString();
-const character = ref<Character | null | ErrorMessages.NOT_FOUND>(null)
-const characterService = new CharacterService();
-
-const getCharacter = async () => {
-    const data: Character | ErrorMessages.NOT_FOUND = await characterService.getByName(name)
-    character.value = data
-}
-
-onMounted(() => {
-    getCharacter();
-})
-
+const { character } = useGetCharacterByName(name)
 </script>
