@@ -23,15 +23,20 @@ import CharactersList from '../components/CharactersList.vue';
 //vue
 import { useStore } from 'vuex';
 import { watch } from 'vue';
+import { CharactersStore, WeaponsStore } from '@/Enums/StoreEnums';
 
 const store = useStore()
 const { characters } = useGetCharacters()
 const { weapons } = useGetWeapons()
 
 watch(characters, () => {
-    store.commit('setCharacters', characters)
+    if (characters.value && characters.value !== ErrorMessages.NOT_FOUND) {
+        store.commit(CharactersStore.SET_CHARACTERS, characters)
+    }
 })
 watch(weapons, () => {
-    store.commit('setWeapons', weapons)
+    if (weapons.value && weapons.value !== ErrorMessages.NOT_FOUND) {
+        store.commit(WeaponsStore.SET_WEAPONS, weapons)
+    }
 })
 </script>
