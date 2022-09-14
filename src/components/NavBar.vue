@@ -16,6 +16,11 @@
                     <img alt="inventory link" src="@/assets/NavIcons/Icon_Inventory.webp" />
                 </router-link>
             </li>
+            <li>
+                <router-link :to="{name: 'characters'}">
+                    <img alt="characters link" src="@/assets/NavIcons/Icon_Character.webp" />
+                </router-link>
+            </li>
         </ul>
         <button :class="['arrow', {rotateArrow: showNav}]" @click="toggleNav">></button>
     </nav>
