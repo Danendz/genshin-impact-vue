@@ -2,8 +2,8 @@
     <div v-if="characters === ErrorMessages.NOT_FOUND">
         <ErrorPage :error-message="ErrorMessages.NOT_FOUND" />
     </div>
-    <div v-else-if="characters" class="characters-container">
-        <CharacterPanel :active-character="activeCharacter" :characters="characters"
+    <div v-else-if="characters && currentCharacter" class="characters-container">
+        <CharacterPanel :current-character="currentCharacter" :active-character="activeCharacter" :characters="characters"
             @set-active-character="setActiveCharacter" />
         <div class="characters-central">
             <div class="options">
@@ -64,11 +64,19 @@ import ErrorPage from '@/components/UI/ErrorPage.vue';
 import { ErrorMessages } from '@/Enums/ErrorMessages';
 
 //vue
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import { Character } from '@/Interfaces/CharacterInterface';
 
 const activeCharacter = ref<number>(0)
 
 const { characters } = useGetCharacters()
+const currentCharacter= ref<Character | null >(null)
+
+watch([activeCharacter, characters], () => {
+    if (Array.isArray(characters.value)) {
+        currentCharacter.value = characters.value[activeCharacter.value]
+    }
+})
 
 const setActiveCharacter = (id: number): void => {
     activeCharacter.value = id
@@ -76,7 +84,6 @@ const setActiveCharacter = (id: number): void => {
 </script>
 
 <style lang="scss">
-
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
 * {
@@ -99,9 +106,10 @@ const setActiveCharacter = (id: number): void => {
     border-radius: 10px;
 }
 
-*::-webkit-scrollbar-thumb:hover{
+*::-webkit-scrollbar-thumb:hover {
     cursor: pointer;
 }
+
 .characters-container {
     display: flex;
     flex-direction: column;

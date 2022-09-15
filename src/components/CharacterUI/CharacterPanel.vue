@@ -4,7 +4,7 @@
             <div class="info">
                 <img alt="vision"
                     src="https://static.wikia.nocookie.net/gensin-impact/images/1/1d/Vision_Mondstadt_Cryo.png/" />
-                <p class="visionAndName">Cryo/ Ganyu</p>
+                <p class="visionAndName">{{currentCharacter.vision}}/ {{currentCharacter.name}}</p>
             </div>
             <div ref="characters_scroll" class="characters">
                 <div @click="emit('set-active-character', index)"
@@ -35,11 +35,12 @@ import { ref, watch } from 'vue';
 
 interface Props {
     characters: Character[],
-    activeCharacter: number
+    activeCharacter: number,
+    currentCharacter: Character
 }
 
-const props = defineProps<Props>()
-    
+const props = defineProps<Props>();
+
 const emit = defineEmits<{
     (event: 'set-active-character', number: number): void
 }>()
@@ -69,12 +70,11 @@ $transparency: rgba(0, 0, 0, 0.11);
         display: flex;
         flex-shrink: 1;
         align-items: center;
-        justify-content: space-between;
 
         .info {
             display: flex;
             align-items: center;
-
+            width: 25%;
             img {
                 width: 70px;
             }
@@ -123,7 +123,7 @@ $transparency: rgba(0, 0, 0, 0.11);
         .close {
             display: flex;
             justify-content: flex-end;
-
+            margin-left: auto;
             button {
                 cursor: pointer;
                 transition: .2s;
@@ -158,6 +158,7 @@ $transparency: rgba(0, 0, 0, 0.11);
             position: relative;
 
             .info {
+                width: fit-content;
                 img {
                     width: 40px;
                 }
