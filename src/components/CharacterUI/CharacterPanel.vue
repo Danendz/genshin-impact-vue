@@ -170,7 +170,7 @@ $transparency: rgba(0, 0, 0, 0.11);
                 overflow-x: hidden;
                 overflow-y: scroll;
                 min-width: fit-content;
-                height: calc(95vh - 40px);
+                height: calc(100vh - 40px);
                 top: 40px;
                 padding: 5px;
                 gap: 10px;
@@ -193,15 +193,15 @@ $transparency: rgba(0, 0, 0, 0.11);
         }
     }
 }
-
+/* 
 @media only screen and (max-height: 500px) {
     .characters-panel {
         .panel-content {
             .characters {
-                height: calc(93vh - 40px);
+                height: calc(100vh - 40px);
             }
         }
     }
 
-}
+} */
 </style>
