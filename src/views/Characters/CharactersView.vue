@@ -1,6 +1,10 @@
 <template>
-    <div class="characters-container">
-       <CharacterPanel />
+    <div v-if="characters === ErrorMessages.NOT_FOUND">
+        <ErrorPage :error-message="ErrorMessages.NOT_FOUND" />
+    </div>
+    <div v-else-if="characters" class="characters-container">
+        <CharacterPanel :active-character="activeCharacter" :characters="characters"
+            @set-active-character="setActiveCharacter" />
         <div class="characters-central">
             <div class="options">
                 <ul>
@@ -45,13 +49,34 @@
             </div>
         </div>
     </div>
+    <div v-else> Loading ...</div>
 </template>
 
 <script setup lang="ts">
-    import CharacterPanel from '@/components/CharacterUI/CharacterPanel.vue'
+//composables
+import { useGetCharacters } from '@/Composables/useGetCharacters';
+
+//components
+import CharacterPanel from '@/components/CharacterUI/CharacterPanel.vue'
+import ErrorPage from '@/components/UI/ErrorPage.vue';
+
+//enums
+import { ErrorMessages } from '@/Enums/ErrorMessages';
+
+//vue
+import { ref } from 'vue';
+
+const activeCharacter = ref<number>(0)
+
+const { characters } = useGetCharacters()
+
+const setActiveCharacter = (id: number): void => {
+    activeCharacter.value = id
+}
 </script>
 
 <style lang="scss">
+
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
 * {
@@ -61,26 +86,28 @@
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-    width: 10px;
-    height: 0px;
+    width: 8px;
+    height: 8px;
 }
 
 *::-webkit-scrollbar-track {
-    background: #ffffff;
+    background: transparent;
 }
 
 *::-webkit-scrollbar-thumb {
     background-color: #7a7a7a;
     border-radius: 10px;
-    border: 3px solid #ffffff;
 }
 
+*::-webkit-scrollbar-thumb:hover{
+    cursor: pointer;
+}
 .characters-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0 auto;
 
-    
+
 }
 </style>

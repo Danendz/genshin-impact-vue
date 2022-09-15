@@ -4,11 +4,13 @@
             <div class="info">
                 <img alt="vision"
                     src="https://static.wikia.nocookie.net/gensin-impact/images/1/1d/Vision_Mondstadt_Cryo.png/" />
-                <p>Cryo/ Ganyu</p>
+                <p class="visionAndName">Cryo/ Ganyu</p>
             </div>
             <div ref="characters_scroll" class="characters">
-                <div class="char-icon" v-for="(url, index) in props.urlToImages" :key="index">
-                    <img :alt="`char icon ${index}`" :src="url" />
+                <div @click="emit('set-active-character', index)"
+                    :class="['char-icon', {'active-character': activeCharacter === index}]"
+                    v-for="(character, index) in props.characters" :key="index">
+                    <img :alt="`${index}`" :src="CharacterHelper.getCharacterSideImage(character.name)" />
                 </div>
             </div>
             <div class="close">
@@ -19,58 +21,48 @@
 </template>
 
 <script setup lang="ts">
+//interfaces
+import { Character } from '@/Interfaces/CharacterInterface';
+
+//helpers
+import CharacterHelper from '@/helpers/CharacterHelper'
+
+//composables
+import useCreateScroll from '@/Composables/useCreateScroll';
+
+//vue
 import { ref, watch } from 'vue';
+
 interface Props {
-    urlToImages?: string[]
+    characters: Character[],
+    activeCharacter: number
 }
 
-const props = withDefaults(defineProps<Props>(), {
-    urlToImages: () => ['https://api.genshin.dev/characters/ganyu/icon-side', 'https://api.genshin.dev/characters/albedo/icon-side']
-})
+const props = defineProps<Props>()
+    
+const emit = defineEmits<{
+    (event: 'set-active-character', number: number): void
+}>()
 
+//creating horizontal drag scroll
 const characters_scroll = ref<null | HTMLDivElement>(null)
+
 watch(characters_scroll, () => {
     if (characters_scroll.value) {
-        characters_scroll.value.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            if (characters_scroll.value) {
-                characters_scroll.value.scrollLeft += e.deltaY
-            }
-        })
-        characters_scroll.value.addEventListener('mousedown', (e) => {
-            if (characters_scroll.value) {
-                const pos = {
-                    left: characters_scroll.value.scrollLeft,
-                    x: e.clientX,
-                }
-                const mouseMoveHandler = (event: MouseEvent) => {
-                    const dx = event.clientX - pos.x
-                    if (characters_scroll.value) {
-                        characters_scroll.value.scrollLeft = pos.left - dx
-                    }
-                }
-                const mouseUpHandler = () => {
-                    if (characters_scroll.value) {
-                        characters_scroll.value.removeEventListener('mousemove', mouseMoveHandler)
-                        characters_scroll.value.removeEventListener('mouseup', mouseUpHandler)
-                    }
-                }
-                characters_scroll.value.addEventListener('mousemove', mouseMoveHandler)
-                characters_scroll.value.addEventListener('mouseup', mouseUpHandler)
-                characters_scroll.value.addEventListener('mouseleave', mouseUpHandler)
-            }
-        })
+        useCreateScroll(characters_scroll.value)
     }
 })
 
 </script>
 
 <style lang="scss">
+$transparency: rgba(0, 0, 0, 0.11);
+
 .characters-panel {
     width: 100%;
     display: flex;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.11);
+    background-color: $transparency;
 
     .panel-content {
         width: 70%;
@@ -92,27 +84,37 @@ watch(characters_scroll, () => {
             display: flex;
             gap: 15px;
             min-width: 25%;
-            max-width: 50%;
+            max-width: 60%;
             overflow-x: scroll;
+            overflow-y: hidden;
             transition: .5s;
             user-select: none;
+            padding: 5px 0;
 
             .char-icon {
                 display: flex;
+                justify-content: center;
+                align-items: flex-end;
                 border-radius: 50%;
-                width: 55px;
+                min-width: 55px;
+                min-height: 55px;
+                transition: .3s;
                 background-color: #20466a;
                 border: 3px solid #6c9992;
+                cursor: pointer;
 
                 img {
-                    transform: translateX(10px);
+                    transform: translateX(5px);
                     user-select: none;
-                    width: 100%;
+                    width: 40px;
+                    height: 45px;
+                    border-radius: 50%;
                     -webkit-user-drag: none;
                 }
             }
 
-            .active-character {
+            .active-character,
+            .char-icon:hover {
                 background-color: #5bb8d9;
                 border: 3px solid #7ec8b9;
             }
@@ -123,7 +125,79 @@ watch(characters_scroll, () => {
             justify-content: flex-end;
 
             button {
+                cursor: pointer;
+                transition: .2s;
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+                border-radius: 50%;
+                border: 5px solid #b3b3b35d;
+                background-color: #e0dada;
                 margin-right: 5px;
+
+                &:hover {
+                    transform: scale(1.1)
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1366px) {
+    .characters-panel {
+        .panel-content {
+            width: 100%;
+        }
+    }
+}
+
+@media only screen and (max-width: 915px) {
+    .characters-panel {
+        .panel-content {
+            width: 100%;
+            position: relative;
+
+            .info {
+                img {
+                    width: 40px;
+                }
+            }
+
+            .characters {
+                position: absolute;
+                flex-direction: column;
+                overflow-x: hidden;
+                overflow-y: scroll;
+                min-width: fit-content;
+                height: calc(95vh - 40px);
+                top: 40px;
+                padding: 5px;
+                gap: 10px;
+                background-color: $transparency;
+
+                .char-icon {
+                    img {
+                        width: 45px;
+                    }
+                }
+            }
+
+            .close {
+                button {
+                    width: 30px;
+                    height: 30px;
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-height: 500px) {
+    .characters-panel {
+        .panel-content {
+            .characters {
+                height: calc(93vh - 40px);
             }
         }
     }
