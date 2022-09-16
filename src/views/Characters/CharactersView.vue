@@ -80,7 +80,7 @@ const characters = useGetCharacters()
 
 const characterFiltered = computed(() => {
     if (Array.isArray(characters.value) && name) {
-        return characters.value.filter((char) => char.name.toLowerCase().includes(name.toString().toLowerCase()))
+        return characters.value.filter((char) => char.name.toLowerCase().replaceAll(' ', '').includes(name.toString().toLowerCase()))
     }
     return characters.value
 })
