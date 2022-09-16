@@ -40,7 +40,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
+console.log(props.characters)
 const emit = defineEmits<{
     (event: 'set-active-character', number: number): void
 }>()
@@ -57,7 +57,7 @@ watch(characters_scroll, () => {
 </script>
 
 <style lang="scss">
-$transparency: rgba(0, 0, 0, 0.11);
+$transparency: rgba(0, 0, 0, 0.21);
 
 .characters-panel {
     width: 100%;
@@ -75,8 +75,13 @@ $transparency: rgba(0, 0, 0, 0.11);
             display: flex;
             align-items: center;
             width: 25%;
+
             img {
                 width: 70px;
+            }
+
+            .visionAndName {
+                color: #e0dac0;
             }
         }
 
@@ -89,6 +94,7 @@ $transparency: rgba(0, 0, 0, 0.11);
             overflow-y: hidden;
             transition: .5s;
             user-select: none;
+            position: relative;
             padding: 5px 0;
 
             .char-icon {
@@ -99,7 +105,6 @@ $transparency: rgba(0, 0, 0, 0.11);
                 min-width: 55px;
                 min-height: 55px;
                 transition: .3s;
-                background-color: #20466a;
                 border: 3px solid #6c9992;
                 cursor: pointer;
 
@@ -124,6 +129,7 @@ $transparency: rgba(0, 0, 0, 0.11);
             display: flex;
             justify-content: flex-end;
             margin-left: auto;
+
             button {
                 cursor: pointer;
                 transition: .2s;
@@ -159,6 +165,7 @@ $transparency: rgba(0, 0, 0, 0.11);
 
             .info {
                 width: fit-content;
+
                 img {
                     width: 40px;
                 }
@@ -193,6 +200,7 @@ $transparency: rgba(0, 0, 0, 0.11);
         }
     }
 }
+
 /* 
 @media only screen and (max-height: 500px) {
     .characters-panel {

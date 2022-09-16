@@ -25,7 +25,7 @@ const useGetCharacters = () => {
     }
     getCharacters();
 
-    return { characters }
+    return characters
 }
 
 const useGetCharacterByName = (name: string) => {
@@ -36,7 +36,7 @@ const useGetCharacterByName = (name: string) => {
         character.value = data
     }
     getCharacter();
-    return { character }
+    return character
 }
 
 export { useGetCharacters, useGetCharacterByName }

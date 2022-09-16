@@ -1,10 +1,12 @@
 <template>
-    <div v-if="characters === ErrorMessages.NOT_FOUND">
+    <div v-if="characterFiltered === ErrorMessages.NOT_FOUND || characterFiltered?.length === 0">
         <ErrorPage :error-message="ErrorMessages.NOT_FOUND" />
     </div>
-    <div v-else-if="characters && currentCharacter" class="characters-container">
-        <CharacterPanel :current-character="currentCharacter" :active-character="activeCharacter" :characters="characters"
-            @set-active-character="setActiveCharacter" />
+    <div v-else-if="characterFiltered && currentCharacter" class="characters-container">
+        <CharacterBG :character="currentCharacter" />
+        <CharacterPanel :current-character="currentCharacter" :active-character="activeCharacter"
+            :characters="characterFiltered" @set-active-character="setActiveCharacter" />
+
         <div class="characters-central">
             <div class="options">
                 <ul>
@@ -59,22 +61,35 @@ import { useGetCharacters } from '@/Composables/useGetCharacters';
 //components
 import CharacterPanel from '@/components/CharacterUI/CharacterPanel.vue'
 import ErrorPage from '@/components/UI/ErrorPage.vue';
+import CharacterBG from '@/components/CharacterUI/CharacterBG.vue';
+
+//interfaces
+import { Character } from '@/Interfaces/CharacterInterface';
 
 //enums
 import { ErrorMessages } from '@/Enums/ErrorMessages';
 
 //vue
-import { ref, watch } from 'vue';
-import { Character } from '@/Interfaces/CharacterInterface';
+import { ref, watch, computed } from 'vue';
+import { useRoute } from 'vue-router';
 
 const activeCharacter = ref<number>(0)
 
-const { characters } = useGetCharacters()
-const currentCharacter= ref<Character | null >(null)
+const name: string | string[] = useRoute().params.name;
+const characters = useGetCharacters()
+
+const characterFiltered = computed(() => {
+    if (Array.isArray(characters.value) && name) {
+        return characters.value.filter((char) => char.name.toLowerCase().includes(name.toString().toLowerCase()))
+    }
+    return characters.value
+})
+
+const currentCharacter = ref<Character | null>(null)
 
 watch([activeCharacter, characters], () => {
-    if (Array.isArray(characters.value)) {
-        currentCharacter.value = characters.value[activeCharacter.value]
+    if (Array.isArray(characterFiltered.value)) {
+        currentCharacter.value = characterFiltered.value[activeCharacter.value]
     }
 })
 
@@ -93,7 +108,7 @@ const setActiveCharacter = (id: number): void => {
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-    width: 8px;
+    width: 5px;
     height: 8px;
 }
 
@@ -102,7 +117,7 @@ const setActiveCharacter = (id: number): void => {
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: #7a7a7a;
+    background-color: #e0dac0;
     border-radius: 10px;
 }
 

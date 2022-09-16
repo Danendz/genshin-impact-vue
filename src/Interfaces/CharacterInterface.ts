@@ -2,6 +2,7 @@ import { CharacterRarity, CharacterWeapon, CharacterElement, CharacterRegion } f
 
 interface BaseInformation {
     name: string,
+    trueName: string,
     nation: CharacterRegion,
     vision: CharacterElement,
     weapon: CharacterWeapon,
