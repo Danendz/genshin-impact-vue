@@ -1,6 +1,6 @@
-const useRequireImage = (name: string): string => {
+const useRequireImage = (url: string): string => {
     try {
-        return require(`@/assets/CharactersCards/${name}.jpg`)
+        return require(`@/assets/${url}`)
     } catch (e) {
         return ''
     }

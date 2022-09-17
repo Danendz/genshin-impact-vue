@@ -1,57 +1,17 @@
 <template>
-    <div v-if="characterFiltered === ErrorMessages.NOT_FOUND || characterFiltered?.length === 0">
-        <ErrorPage :error-message="ErrorMessages.NOT_FOUND" />
-    </div>
-    <div v-else-if="characterFiltered && currentCharacter" class="characters-container">
-        <CharacterBG :character="currentCharacter" />
-        <CharacterPanel :current-character="currentCharacter" :active-character="activeCharacter"
-            :characters="characterFiltered" @set-active-character="setActiveCharacter" />
-
-        <div class="characters-central">
-            <div class="options">
-                <ul>
-                    <li>Attributes</li>
-                    <li>Weapons</li>
-                    <li>Artifacts</li>
-                    <li>Constellation</li>
-                    <li>Talents</li>
-                    <li>Profile</li>
-                </ul>
-            </div>
-            <div class="centerContent">
-
-            </div>
-            <div class="rightContent">
-                <h1 class="name">Ganyu</h1>
-                <p class="rarity">*****</p>
-                <p>Level 90 / <span class="max-lvl">90</span></p>
-                <progress value="0" />
-                <div class="stats-bar">
-                    <div class="stat">
-                        <img />
-                        <span>Max Hp</span>
-                        <span>15,033</span>
-                    </div>
-                </div>
-                <button>Details</button>
-                <div class="friendship">
-                    <span>Friendship</span>
-                    <span>8</span>
-                </div>
-                <progress value="0" />
-                <p>Description</p>
-            </div>
+    <transition name="fade" appear mode="out-in">
+        <div v-if="characterFiltered === ErrorMessages.NOT_FOUND || characterFiltered?.length === 0">
+            <ErrorPage :error-message="ErrorMessages.NOT_FOUND" />
         </div>
-        <div class="characters-bottom">
-            <div class="toggleView">
-                <button><img />T</button>
-            </div>
-            <div class="rightButtons">
-                <button><img /><span>Dressing Room</span></button>
-            </div>
+        <div v-else-if="characterFiltered && currentCharacter" class="characters-container">
+            <CharacterBG :character="currentCharacter" />
+            <CharacterPanel :current-character="currentCharacter" :active-character="activeCharacter"
+                :characters="characterFiltered" @set-active-character="setActiveCharacter" />
+            <CharactersContent />
+            <CharactersBottom />
         </div>
-    </div>
-    <div v-else> Loading ...</div>
+        <LoaderPage title="персонажей" v-else />
+    </transition>
 </template>
 
 <script setup lang="ts">
@@ -62,6 +22,9 @@ import { useGetCharacters } from '@/Composables/useGetCharacters';
 import CharacterPanel from '@/components/CharacterUI/CharacterPanel.vue'
 import ErrorPage from '@/components/UI/ErrorPage.vue';
 import CharacterBG from '@/components/CharacterUI/CharacterBG.vue';
+import LoaderPage from '@/components/UI/LoaderPage.vue';
+import CharactersContent from '@/components/CharacterUI/CharactersContent.vue';
+import CharactersBottom from '../../components/CharacterUI/CharactersBottom.vue';
 
 //interfaces
 import { Character } from '@/Interfaces/CharacterInterface';
@@ -99,14 +62,13 @@ const setActiveCharacter = (id: number): void => {
 </script>
 
 <style lang="scss">
-/* ===== Scrollbar CSS ===== */
-/* Firefox */
+@import '@/assets/Styles/animations';
+
 * {
     scrollbar-width: thin;
     scrollbar-color: #7a7a7a #ffffff;
 }
 
-/* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
     width: 5px;
     height: 8px;
@@ -117,7 +79,7 @@ const setActiveCharacter = (id: number): void => {
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: #e0dac0;
+    background-color: #e4dfc9;
     border-radius: 10px;
 }
 
@@ -130,7 +92,5 @@ const setActiveCharacter = (id: number): void => {
     flex-direction: column;
     align-items: center;
     margin: 0 auto;
-
-
 }
 </style>

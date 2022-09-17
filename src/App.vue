@@ -13,4 +13,7 @@ import NavBar from '@/components/NavBar.vue'
   padding: 0;
   box-sizing: border-box;
 }
+body{
+  background-color: #dfdcd1;
+}
 </style>

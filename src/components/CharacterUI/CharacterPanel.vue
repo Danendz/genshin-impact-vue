@@ -40,7 +40,6 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-console.log(props.characters)
 const emit = defineEmits<{
     (event: 'set-active-character', number: number): void
 }>()

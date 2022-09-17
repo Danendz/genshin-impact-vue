@@ -7,24 +7,24 @@
 </template>
 
 <script setup lang="ts">
+
 import { Character } from '@/Interfaces/CharacterInterface';
 import { computed } from 'vue'
 import useRequireImage from '@/Composables/useRequireImage'
 interface Props {
     character: Character
 }
+
 const props = defineProps<Props>()
 
 const backgroundCard = computed(() => {
-
     const name = props.character.name.toLowerCase().replaceAll(' ', '-')
-    const image = useRequireImage(name)
+    const image = useRequireImage(`CharactersCards/${name}.jpg`)
     return {
         backgroundImage: `url(${image})`
     }
 
 })
-
 </script>
 
 <style lang="scss">
@@ -67,13 +67,5 @@ const backgroundCard = computed(() => {
     background-color: $cryo;
 }
 
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.5s ease;
-}
 
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-}
 </style>
