@@ -1,11 +1,13 @@
 <template>
+    <PageTransition>
     <div v-if="characters === ErrorMessages.NOT_FOUND">
         <ErrorPage :errorMessage="ErrorMessages.NOT_FOUND" />
     </div>
     <div v-else-if="characters">
         <CharactersList />
     </div>
-    <div v-else>Loading...</div>
+    <LoaderPage title="молитвы..." />
+    </PageTransition>
 </template>
 
 <script setup lang="ts">
@@ -25,10 +27,12 @@ import CharactersList from '../components/CharactersList.vue';
 import { useStore } from 'vuex';
 import { watch } from 'vue';
 import { IWishItemsList } from '@/Interfaces/IWish';
+import LoaderPage from '@/components/UI/LoaderPage.vue';
+import PageTransition from '@/components/UI/PageTransition.vue';
 /* import useMakeWish from '@/Composables/useMakeWish'; */
 
 const store = useStore()
-const { characters } = useGetCharacters()
+const characters = useGetCharacters()
 const { weapons } = useGetWeapons()
 /* const { makeWishes } = useMakeWish(); */
 const wishList: IWishItemsList = {

@@ -19,7 +19,7 @@ const props = defineProps<Props>()
 
 const backgroundCard = computed(() => {
     const name = props.character.name.toLowerCase().replaceAll(' ', '-')
-    const image = useRequireImage(`CharactersCards/${name}.jpg`)
+    const image = useRequireImage(`CharactersCards/${name}.webp`)
     return {
         backgroundImage: `url(${image})`
     }

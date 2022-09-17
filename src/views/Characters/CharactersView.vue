@@ -1,5 +1,5 @@
 <template>
-    <transition name="fade" appear mode="out-in">
+    <PageTransition>
         <div v-if="characterFiltered === ErrorMessages.NOT_FOUND || characterFiltered?.length === 0">
             <ErrorPage :error-message="ErrorMessages.NOT_FOUND" />
         </div>
@@ -11,7 +11,7 @@
             <CharactersBottom />
         </div>
         <LoaderPage title="персонажей" v-else />
-    </transition>
+    </PageTransition>
 </template>
 
 <script setup lang="ts">
@@ -25,6 +25,7 @@ import CharacterBG from '@/components/CharacterUI/CharacterBG.vue';
 import LoaderPage from '@/components/UI/LoaderPage.vue';
 import CharactersContent from '@/components/CharacterUI/CharactersContent.vue';
 import CharactersBottom from '../../components/CharacterUI/CharactersBottom.vue';
+import PageTransition from '@/components/UI/PageTransition.vue';
 
 //interfaces
 import { Character } from '@/Interfaces/CharacterInterface';
@@ -39,6 +40,7 @@ import { useRoute } from 'vue-router';
 const activeCharacter = ref<number>(0)
 
 const name: string | string[] = useRoute().params.name;
+
 const characters = useGetCharacters()
 
 const characterFiltered = computed(() => {
