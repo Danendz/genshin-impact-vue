@@ -18,14 +18,17 @@ export default abstract class ServiceController {
 
     //get item by name
     public async getByName<T extends fetchingItemsType>(name: string): Promise<T | ErrorMessages.NOT_FOUND> {
-        const data: T | ErrorMessages.NOT_FOUND = await fetch(`${this.fetchUrl}${name}`)
+        let data: T | ErrorMessages.NOT_FOUND = await fetch(`${this.fetchUrl}${name}`)
             .then((res) => {
                 if (res.ok) {
-                    return res.json()
+                    return res.json();
                 }
                 return ErrorMessages.NOT_FOUND
             })
             .catch((e) => console.log(e))
+        if(data !== ErrorMessages.NOT_FOUND){
+            data = {...data, trueName: name}
+        }
         return data;
     }
 

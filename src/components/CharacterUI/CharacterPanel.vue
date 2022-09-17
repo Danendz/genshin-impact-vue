@@ -3,7 +3,7 @@
         <div class="panel-content">
             <div class="info">
                 <img alt="vision"
-                    src="https://static.wikia.nocookie.net/gensin-impact/images/1/1d/Vision_Mondstadt_Cryo.png/" />
+                    :src="visionImage" />
                 <p class="visionAndName">{{currentCharacter.vision}}/ {{currentCharacter.name}}</p>
             </div>
             <div ref="characters_scroll" class="characters">
@@ -29,9 +29,10 @@ import CharacterHelper from '@/helpers/CharacterHelper'
 
 //composables
 import useCreateScroll from '@/Composables/useCreateScroll';
+import useRequireImage from '@/Composables/useRequireImage';
 
 //vue
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 
 interface Props {
     characters: Character[],
@@ -46,17 +47,26 @@ const emit = defineEmits<{
 
 //creating horizontal drag scroll
 const characters_scroll = ref<null | HTMLDivElement>(null)
-
 watch(characters_scroll, () => {
     if (characters_scroll.value) {
         useCreateScroll(characters_scroll.value)
     }
 })
 
+
+//dynamically changing vision image
+const visionImage = computed(() => {
+    const image = useRequireImage(`CharacterVisions/${props.currentCharacter.vision}.webp`)
+    if(image){
+        return image
+    }
+    return ''
+})
 </script>
 
 <style lang="scss">
 $transparency: rgba(0, 0, 0, 0.21);
+$infoHeight: 40px;
 
 .characters-panel {
     width: 100%;
@@ -67,16 +77,18 @@ $transparency: rgba(0, 0, 0, 0.21);
     .panel-content {
         width: 70%;
         display: flex;
-        flex-shrink: 1;
         align-items: center;
 
         .info {
             display: flex;
             align-items: center;
             width: 25%;
+            height: $infoHeight;
+            gap: 10px;
 
             img {
-                width: 70px;
+                width: auto;
+                height: $infoHeight;
             }
 
             .visionAndName {
@@ -164,9 +176,10 @@ $transparency: rgba(0, 0, 0, 0.21);
 
             .info {
                 width: fit-content;
-
-                img {
-                    width: 40px;
+                img{
+                    height: 30px;
+                    margin-left: 20px;
+                    margin-right: 10px;
                 }
             }
 
@@ -176,7 +189,7 @@ $transparency: rgba(0, 0, 0, 0.21);
                 overflow-x: hidden;
                 overflow-y: scroll;
                 min-width: fit-content;
-                height: calc(100vh - 40px);
+                height: calc(100vh - $infoHeight);
                 top: 40px;
                 padding: 5px;
                 gap: 10px;

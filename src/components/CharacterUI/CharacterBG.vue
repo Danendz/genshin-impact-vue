@@ -1,7 +1,8 @@
 <template>
-    <transition name="fade">
+    <transition name="fade" appear>
         <div :key="character.name" :style="backgroundCard"
             :class="`character-background ${character.vision.toLowerCase()} `">
+            <img :src="`https://api.genshin.dev/characters/${character.trueName}/gacha-splash`" />
         </div>
     </transition>
 </template>
@@ -41,6 +42,24 @@ const backgroundCard = computed(() => {
     width: 100%;
     height: 100vh;
     z-index: -9;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        width: 100%;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.116);
+        position: absolute;
+    }
+
+    img {
+        user-select: none;
+        -webkit-user-drag: none;
+        width: auto;
+        height: 100vh;
+        margin-top: auto;
+    }
 }
 
 .anemo {
@@ -66,6 +85,4 @@ const backgroundCard = computed(() => {
 .cryo {
     background-color: $cryo;
 }
-
-
 </style>

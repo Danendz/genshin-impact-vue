@@ -44,9 +44,16 @@ const name: string | string[] = useRoute().params.name;
 const characters = useGetCharacters()
 
 const characterFiltered = computed(() => {
-    if (Array.isArray(characters.value) && name) {
-        return characters.value.filter((char) => char.name.toLowerCase().replaceAll(' ', '').includes(name.toString().toLowerCase()))
-    }
+    //filter characters by name
+    /*  if (Array.isArray(characters.value) && name) {
+         return characters.value.filter((char) => char.name.toLowerCase().replaceAll(' ', '').includes(name.toString().toLowerCase()))
+     } */
+
+     //find character by exactly name
+     if(Array.isArray(characters.value) && name){
+        return characters.value.filter((char) => char.trueName === name)
+     }
+     
     return characters.value
 })
 

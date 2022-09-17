@@ -35,3 +35,9 @@
                 </div>
             </div>
 </template>
+
+<style lang="scss">
+.characters-central{
+    color: white;
+}
+</style>
