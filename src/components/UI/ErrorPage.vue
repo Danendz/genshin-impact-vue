@@ -1,5 +1,5 @@
 <template>
-    <div class="errorPage" v-if="props.errorMessage === ErrorMessages.NOT_FOUND">
+    <div class="errorPage" v-if="props.errorMessage === ErrorMessages.NOT_FOUND || !props.errorMessage">
         <img class="surprisedPaimon " src="@/assets/paimonImages/surprisedPaimon.webp" />
         <p class="notFoundText">Упс... Мы не нашли такую страничку!</p>
     </div>
@@ -9,7 +9,7 @@
 import { ErrorMessages } from '@/Enums/ErrorMessages';
 
 interface Props {
-    errorMessage: ErrorMessages
+    errorMessage?: ErrorMessages
 }
 const props = defineProps<Props>()
 

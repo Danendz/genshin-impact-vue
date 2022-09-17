@@ -23,12 +23,16 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/characters',
     name: 'characters',
-    component: () => import('../views/Characters/CharactersView.vue')
+    component: () => import('../views/CharactersView.vue')
   },
   {
     path: '/characters/:name',
     name: 'CharacterPage',
-    component: () => import('../views/Characters/CharactersView.vue')
+    component: () => import('../views/CharactersView.vue')
+  },{
+    path: '/:pathMatch(.*)*',
+    name: 'notFound',
+    component: () => import('@/components/UI/ErrorPage.vue')
   }
 ]
 
