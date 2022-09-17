@@ -1,73 +1,63 @@
 <template>
     <PageTransition>
-        <div v-if="characterFiltered === ErrorMessages.NOT_FOUND || characterFiltered?.length === 0">
-            <ErrorPage :error-message="ErrorMessages.NOT_FOUND" />
-        </div>
-        <div v-else-if="characterFiltered && currentCharacter" class="characters-container">
-            <CharacterBG :character="currentCharacter" />
-            <CharacterPanel :current-character="currentCharacter" :active-character="activeCharacter"
-                :characters="characterFiltered" @set-active-character="setActiveCharacter" />
-            <CharactersContent />
-            <CharactersBottom />
-        </div>
-        <LoaderPage title="персонажей" v-else />
+        <ErrorPage v-if="characters === ErrorMessages.NOT_FOUND || characters?.length === 0"
+            :error-message="ErrorMessages.NOT_FOUND" />
+
+        <CharacterLayout v-else-if="characters" :characters="characters" />
+
+        <LoaderPage v-else title="персонажей" />
+
     </PageTransition>
 </template>
 
 <script setup lang="ts">
-//composables
-import { useGetCharacters } from '@/Composables/useGetCharacters';
-
 //components
-import CharacterPanel from '@/components/CharacterUI/CharacterPanel.vue'
-import ErrorPage from '@/components/UI/ErrorPage.vue';
-import CharacterBG from '@/components/CharacterUI/CharacterBG.vue';
-import LoaderPage from '@/components/UI/LoaderPage.vue';
-import CharactersContent from '@/components/CharacterUI/CharactersContent.vue';
-import CharactersBottom from '../../components/CharacterUI/CharactersBottom.vue';
-import PageTransition from '@/components/UI/PageTransition.vue';
+import CharacterLayout from '@/components/CharacterUI/CharacterLayout.vue';
+import PageTransition from '@/components/UI/PageTransition.vue'
+import LoaderPage from '@/components/UI/LoaderPage.vue'
+import ErrorPage from '@/components/UI/ErrorPage.vue'
+
+//composables
+import { useGetCharacterByName, useGetCharacters } from '@/Composables/useGetCharacters';
 
 //interfaces
 import { Character } from '@/Interfaces/CharacterInterface';
 
-//enums
+//types 
+import { CharacterType } from '@/Types/CharacterType'
+
+//enums 
 import { ErrorMessages } from '@/Enums/ErrorMessages';
 
 //vue
-import { ref, watch, computed } from 'vue';
+import { computed, Ref } from 'vue';
 import { useRoute } from 'vue-router';
-
-const activeCharacter = ref<number>(0)
 
 const name: string | string[] = useRoute().params.name;
 
-const characters = useGetCharacters()
+//if name exists - fetch only one character
+//else fetch all characters
+const fetchCharacters: Ref<CharacterType> = name ? useGetCharacterByName(name.toString()) : useGetCharacters()
 
-const characterFiltered = computed(() => {
-    //filter characters by name
-    /*  if (Array.isArray(characters.value) && name) {
-         return characters.value.filter((char) => char.name.toLowerCase().replaceAll(' ', '').includes(name.toString().toLowerCase()))
-     } */
+//type guard for character
+const isCharacter = (character: CharacterType): character is Character => {
+    if (!character) {
+        return false
+    }
+    return (character as Character).name !== undefined
+}
 
-     //find character by exactly name
-     if(Array.isArray(characters.value) && name){
-        return characters.value.filter((char) => char.trueName === name)
-     }
-     
-    return characters.value
-})
-
-const currentCharacter = ref<Character | null>(null)
-
-watch([activeCharacter, characters], () => {
-    if (Array.isArray(characterFiltered.value)) {
-        currentCharacter.value = characterFiltered.value[activeCharacter.value]
+//this computed property checks if the character isn't array
+//then returns the character as array
+//else just returns the array or other stuff from CharacterType
+const characters = computed(() => {
+    if (isCharacter(fetchCharacters.value)) {
+        return [fetchCharacters.value]
+    } else {
+        return fetchCharacters.value
     }
 })
 
-const setActiveCharacter = (id: number): void => {
-    activeCharacter.value = id
-}
 </script>
 
 <style lang="scss">
@@ -94,12 +84,5 @@ const setActiveCharacter = (id: number): void => {
 
 *::-webkit-scrollbar-thumb:hover {
     cursor: pointer;
-}
-
-.characters-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
 }
 </style>

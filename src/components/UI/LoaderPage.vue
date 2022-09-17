@@ -1,6 +1,6 @@
 <template>
     <div class="loader">
-        <img src="@/assets/loaderImages/paimonExcited.webp"/>
+        <img src="@/assets/paimonImages/paimonExcited.webp"/>
         <p>Загружаем {{props.title}}...</p>
     </div>
 </template>
