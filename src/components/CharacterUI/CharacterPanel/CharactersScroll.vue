@@ -4,7 +4,7 @@
             :class="['char-icon', {'active-character': activeCharacterId === index}]"
             v-for="(character, index) in props.characters" :key="index">
 
-            <img :alt="`${index}`" :src="CharacterHelper.getCharacterSideImage(character.name)" />
+            <img :alt="`${index}`" :src="CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_SIDE)" />
         </div>
     </div>
 </template>
@@ -18,6 +18,9 @@ import CharacterHelper from '@/helpers/CharacterHelper'
 
 //composables
 import useCreateScroll from '@/Composables/useCreateScroll';
+
+//enums
+import { CharacterImage } from '@/Enums/CharacterEnums';
 
 //vue
 import { onMounted, ref } from 'vue';
@@ -60,6 +63,7 @@ onMounted(() => {
 
     .char-icon {
         display: flex;
+        position: relative;
         justify-content: center;
         align-items: flex-end;
         border-radius: 50%;
@@ -70,11 +74,13 @@ onMounted(() => {
         cursor: pointer;
 
         img {
+            position: absolute;
             transform: translateX(5px);
             user-select: none;
-            width: 40px;
-            height: 45px;
-            border-radius: 50%;
+            width: auto;
+            height: 100%;
+            border-bottom-left-radius: 35%;
+            border-bottom-right-radius: 50%;
             -webkit-user-drag: none;
         }
     }
@@ -92,18 +98,11 @@ onMounted(() => {
         flex-direction: column;
         overflow-x: hidden;
         overflow-y: scroll;
-        min-width: fit-content;
         height: calc(100vh - $infoHeight);
         top: 40px;
-        padding: 5px;
+        min-width: 45px;
         gap: 10px;
         background-color: $transparency;
-
-        .char-icon {
-            img {
-                width: 45px;
-            }
-        }
     }
 }
 </style>

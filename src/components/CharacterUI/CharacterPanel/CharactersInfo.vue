@@ -1,6 +1,6 @@
 <template>
     <div class="info">
-        <img alt="vision" :src="visionImage" />
+        <img alt="vision" :src="CharacterHelper.getElementImage(props.currentCharacter.vision.toLowerCase())" />
         <p class="visionAndName">{{currentCharacter.vision}}/ {{currentCharacter.name}}</p>
     </div>
 </template>
@@ -9,26 +9,14 @@
 //interfaces
 import { Character } from '@/Interfaces/CharacterInterface';
 
-//composables
-import useRequireImage from '@/Composables/useRequireImage';
-
-//vue
-import { computed } from 'vue'
+//helpers
+import CharacterHelper from '@/helpers/CharacterHelper';
 
 interface Props {
     currentCharacter: Character
 }
 
 const props = defineProps<Props>();
-
-//dynamically changing vision image
-const visionImage = computed(() => {
-    const image = useRequireImage(`CharacterVisions/${props.currentCharacter.vision}.webp`)
-    if (image) {
-        return image
-    }
-    return ''
-})
 
 </script>
 
@@ -58,7 +46,7 @@ const visionImage = computed(() => {
 
         img {
             height: 30px;
-            margin-left: 20px;
+            margin-left: 15px;
             margin-right: 10px;
         }
     }

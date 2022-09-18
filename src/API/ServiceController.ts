@@ -18,7 +18,7 @@ export default abstract class ServiceController {
 
     //get item by name
     public async getByName<T extends fetchingItemsType>(name: string): Promise<T | ErrorMessages.NOT_FOUND> {
-        let data: T | ErrorMessages.NOT_FOUND = await fetch(`${this.fetchUrl}${name}`)
+        const data: T | ErrorMessages.NOT_FOUND = await fetch(`${this.fetchUrl}${name}`)
             .then((res) => {
                 if (res.ok) {
                     return res.json();
@@ -26,26 +26,21 @@ export default abstract class ServiceController {
                 return ErrorMessages.NOT_FOUND
             })
             .catch((e) => console.log(e))
-        if(data !== ErrorMessages.NOT_FOUND){
-            data = {...data, trueName: name}
-        }
         return data;
     }
 
     //get all items with full information
     public async get<T extends fetchingItemsType>(): Promise<T[] | ErrorMessages.NOT_FOUND> {
-        const names: string[] = await this.getNames();
 
-        const data: (ErrorMessages.NOT_FOUND | T)[] = await Promise.all(names.map(async (name) => {
-            return await this.getByName(name)
-        }));
-
-        const errorFound = data.find((value) => value === ErrorMessages.NOT_FOUND)
-
-        if (errorFound) {
+        const data: T[] | ErrorMessages.NOT_FOUND = await fetch(`${this.fetchUrl}all`)
+        .then((res) => {
+            if (res.ok) {
+                return res.json();
+            }
             return ErrorMessages.NOT_FOUND
-        }
+        })
+        .catch((e) => console.log(e))
 
-        return data as T[]
+        return data
     }
 }

@@ -1,30 +1,35 @@
 <template>
     <transition name="fade" appear>
-        <div :key="character.name" :style="backgroundCard"
+        <div :key="character.name" :style="backgroundImage"
             :class="`character-background ${character.vision.toLowerCase()} `">
-            <img :src="`https://api.genshin.dev/characters/${character.trueName}/gacha-splash`" />
+            <img :src="CharacterHelper.getCharacterImage(character.name_key, CharacterImage.GACHA_SPLASH)" />
         </div>
     </transition>
 </template>
 
 <script setup lang="ts">
-
+//interfaces
 import { Character } from '@/Interfaces/CharacterInterface';
+
+//helpers
+import CharacterHelper from '@/helpers/CharacterHelper';
+
+//enums
+import { CharacterImage } from '@/Enums/CharacterEnums'
+
+//vue
 import { computed } from 'vue'
-import useRequireImage from '@/Composables/useRequireImage'
+
 interface Props {
     character: Character
 }
 
 const props = defineProps<Props>()
 
-const backgroundCard = computed(() => {
-    const name = props.character.name.toLowerCase().replaceAll(' ', '-')
-    const image = useRequireImage(`CharactersCards/${name}.webp`)
+const backgroundImage = computed(() => {
     return {
-        backgroundImage: `url(${image})`
+        backgroundImage: `url(${CharacterHelper.getCharacterImage(props.character.name_key, CharacterImage.NAMECARD_HQ)})`
     }
-
 })
 </script>
 

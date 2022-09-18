@@ -27,3 +27,10 @@ export enum CharacterRegion {
     LIYUE = 'Liyue',
     SUMERU = 'Sumeru'
 }
+
+export enum CharacterImage {
+    CARD = 'card',
+    ICON_SIDE = 'icon-side',
+    GACHA_SPLASH = 'gacha-splash',
+    NAMECARD_HQ = 'namecard-bg-hq'
+}
