@@ -5,7 +5,7 @@
             <CharactersScroll :characters="props.characters" :active-character-id="props.activeCharacterId"
                 @set-active-character="props.setActiveCharacter" />
             <div class="close">
-                <button>X</button>
+                <button @click="router.go(-1)">X</button>
             </div>
         </div>
     </div>
@@ -18,6 +18,9 @@ import CharactersScroll from './CharactersScroll.vue';
 
 //interfaces
 import { Character } from '@/Interfaces/CharacterInterface';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 interface Props {
     characters: Character[],

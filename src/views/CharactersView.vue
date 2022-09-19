@@ -6,7 +6,6 @@
         <CharacterLayout v-else-if="characters" :characters="characters" />
 
         <LoaderPage v-else title="персонажей" />
-
     </PageTransition>
 </template>
 
@@ -30,14 +29,14 @@ import { CharacterType } from '@/Types/CharacterType'
 import { ErrorMessages } from '@/Enums/ErrorMessages';
 
 //vue
-import { computed, Ref } from 'vue';
+import { computed,Ref } from 'vue';
 import { useRoute } from 'vue-router';
 
-const name: string | string[] = useRoute().params.name;
+const name = useRoute().params.name
 
 //if name exists - fetch only one character
 //else fetch all characters
-const fetchCharacters: Ref<CharacterType> = name ? useGetCharacterByName(name.toString()) : useGetCharacters()
+const fetchedCharacters: Ref<CharacterType> = name ?  useGetCharacterByName(name.toString()) : useGetCharacters();
 
 //type guard for character
 const isCharacter = (character: CharacterType): character is Character => {
@@ -51,10 +50,10 @@ const isCharacter = (character: CharacterType): character is Character => {
 //then returns the character as array
 //else just returns the array or other stuff from CharacterType
 const characters = computed(() => {
-    if (isCharacter(fetchCharacters.value)) {
-        return [fetchCharacters.value]
+    if (isCharacter(fetchedCharacters.value)) {
+        return [fetchedCharacters.value]
     } else {
-        return fetchCharacters.value
+        return fetchedCharacters.value
     }
 })
 

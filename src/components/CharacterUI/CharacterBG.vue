@@ -1,8 +1,11 @@
 <template>
     <transition name="fade" appear>
-        <div :key="character.name" :style="backgroundImage"
-            :class="`character-background ${character.vision.toLowerCase()} `">
-            <img :src="CharacterHelper.getCharacterImage(character.name_key, CharacterImage.GACHA_SPLASH)" />
+        <div :class="`character-background-container ${character.vision.toLowerCase()} `" :key="character.name">
+            <transition-group name="fade" appear mode="out-in">
+                <div v-if="bgImage" class="character-background" :style="{backgroundImage: `url(${bgImage})`}"></div>
+                <img class="gacha-image" v-if="gachaImage" :src="gachaImage" />
+                <LoaderContent :key="gachaImage" v-if="gachaImage === '' || bgImage===''" />
+            </transition-group>
         </div>
     </transition>
 </template>
@@ -11,14 +14,15 @@
 //interfaces
 import { Character } from '@/Interfaces/CharacterInterface';
 
-//helpers
-import CharacterHelper from '@/helpers/CharacterHelper';
-
 //enums
 import { CharacterImage } from '@/Enums/CharacterEnums'
 
+//components
+import LoaderContent from '@/components/UI/LoaderContent.vue'
+
 //vue
-import { computed } from 'vue'
+import { watch, onMounted } from 'vue'
+import usePreloadImage from '@/Composables/usePreloadImage';
 
 interface Props {
     character: Character
@@ -26,45 +30,68 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const backgroundImage = computed(() => {
-    return {
-        backgroundImage: `url(${CharacterHelper.getCharacterImage(props.character.name_key, CharacterImage.NAMECARD_HQ)})`
-    }
+//preload images
+const [gachaImage, loadGachaImage] = usePreloadImage()
+const [bgImage, loadBgImage] = usePreloadImage()
+
+const loadAllImages = (): void => {
+    loadGachaImage(props.character.name_key, CharacterImage.GACHA_SPLASH)
+    loadBgImage(props.character.name_key, CharacterImage.NAMECARD_HQ)
+}
+onMounted(() => {
+    loadAllImages()
 })
+watch(() => props.character, () => {
+    loadAllImages();
+})
+
 </script>
 
 <style lang="scss">
 @import '@/assets/Styles/vision_colors';
 
-.character-background {
+.character-background-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: absolute;
     width: 100%;
     height: 100vh;
     z-index: -9;
+    position: absolute;
     overflow: hidden;
 
-    &::after {
-        content: '';
-        width: 100%;
-        top: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.116);
+    p {
         position: absolute;
     }
 
-    img {
+    .gacha-image {
         user-select: none;
         -webkit-user-drag: none;
         width: auto;
         height: 100vh;
         margin-top: auto;
+        position: absolute;
     }
+
+    .character-background {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+
+        &::after {
+            content: '';
+            width: 100%;
+            top: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.116);
+            position: absolute;
+        }
+    }
+
+
 }
 
 .anemo {
