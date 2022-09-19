@@ -14,14 +14,14 @@ const usePreloadImage = (): [Ref<string>, (name_key: string, type: CharacterImag
         preloadImage.value = ''
         const img = new Image();
 
-        //add name_key to array
+        //add name_key to lastImage
         lastImageName = name_key
 
         const url = CharacterHelper.getCharacterImage(name_key, type);
 
         img.onload = () => {
             //check if loaded image is the last required 
-            //if true - set url and clear queue
+            //if true - set url and clear lastImag
             if (lastImageName === name_key) {
                 preloadImage.value = url;
                 lastImageName = ''
