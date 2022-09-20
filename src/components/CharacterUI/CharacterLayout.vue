@@ -7,8 +7,6 @@
 
         <CharactersContent />
 
-        <CharactersBottom />
-
     </div>
 
 </template>
@@ -17,8 +15,7 @@
 //components
 import CharactersPanel from '@/components/CharacterUI/CharacterPanel/CharactersPanel.vue'
 import CharacterBG from '@/components/CharacterUI/CharacterBG.vue';
-import CharactersContent from '@/components/CharacterUI/CharactersContent.vue';
-import CharactersBottom from '../../components/CharacterUI/CharactersBottom.vue';
+import CharactersContent from '@/components/CharacterUI/CharacterContent/CharactersContent.vue';
 
 //interfaces
 import { Character } from '@/Interfaces/CharacterInterface';
@@ -49,5 +46,6 @@ const setActiveCharacter = (id: number): void => {
     flex-direction: column;
     align-items: center;
     margin: 0 auto;
+    height: 100vh;
 }
 </style>

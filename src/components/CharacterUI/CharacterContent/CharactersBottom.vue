@@ -8,3 +8,11 @@
         </div>
     </div>
 </template>
+
+
+<style lang="scss">
+    .characters-bottom{
+        width: 100%;
+        display: flex;
+    }
+</style>
