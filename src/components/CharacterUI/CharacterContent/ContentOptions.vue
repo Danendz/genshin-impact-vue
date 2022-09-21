@@ -1,32 +1,28 @@
 <template>
     <aside class="options">
         <ul>
-            <li v-for="option, index in options_list" :key="index"
-                :class="[{'active-option': active_content === index}]" @click="emit('setActiveContent',index)">
-                {{option}}
+            <li v-for="value, key, index in optionsList" :key="index"
+                :class="[{'active-option': props.active_content === key}]" @click="emit('setActiveContent',key)">
+                {{key}}
             </li>
         </ul>
     </aside>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts">import { OptionsKeys } from '@/Enums/OptionsKeys';
+
 interface Props {
-    active_content: number
+    active_content: string
+    optionsList: {
+        [Property in OptionsKeys]: () => Promise<unknown>
+    }
 }
 const props = defineProps<Props>();
 
 const emit = defineEmits<{
-    (event: 'setActiveContent', index: number): void
+    (event: 'setActiveContent', key: OptionsKeys): void
 }>()
 
-const options_list: string[] = [
-    'Attributes',
-    'Weapons',
-    'Artifacts',
-    'Constellation',
-    'Talents',
-    'Profile'
-]
 
 </script>
 
@@ -36,6 +32,7 @@ const options_list: string[] = [
         list-style: none;
         font-size: 30px;
         font-weight: bold;
+
         li {
             display: flex;
             align-items: center;
@@ -74,23 +71,27 @@ const options_list: string[] = [
         }
     }
 }
+
 @media only screen and (max-width: 915px) and (orientation: landscape) {
-    .options{
-        ul{
+    .options {
+        ul {
             font-size: 20px;
         }
     }
 }
+
 @media only screen and (max-width: 700px) and (orientation: portrait) {
-    .options{
+    .options {
         order: 2;
-        ul{
+
+        ul {
             font-size: 20px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
-            li{
+
+            li {
                 padding-bottom: 5px;
             }
         }

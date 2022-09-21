@@ -1,23 +1,18 @@
 <template>
-    <div class="info">
-        <img alt="vision" :src="CharacterHelper.getElementImage(props.currentCharacter.vision.toLowerCase())" />
-        <p class="visionAndName">{{currentCharacter.vision}}/ {{currentCharacter.name}}</p>
+    <div class="info" v-if="store.currentCharacter">
+        <img alt="vision" :src="CharacterHelper.getElementImage(store.currentCharacter.vision.toLowerCase())" />
+        <p class="visionAndName">{{store.currentCharacter.vision}}/ {{store.currentCharacter.name}}</p>
     </div>
 </template>
 
 <script setup lang="ts">
-//interfaces
-import { Character } from '@/Interfaces/CharacterInterface';
-
 //helpers
 import CharacterHelper from '@/helpers/CharacterHelper';
 
-interface Props {
-    currentCharacter: Character
-}
+//stores
+import { useCurrentCharacter } from '@/store/currentCharacter';
 
-const props = defineProps<Props>();
-
+const store = useCurrentCharacter()
 </script>
 
 <style lang="scss">

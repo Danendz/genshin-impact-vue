@@ -1,7 +1,7 @@
 <template>
     <div class="characters-panel">
         <div class="panel-content">
-            <CharactersInfo :current-character="props.currentCharacter" />
+            <CharactersInfo />
             <CharactersScroll :characters="props.characters" :active-character-id="props.activeCharacterId"
                 @set-active-character="props.setActiveCharacter" />
             <div class="close">
@@ -20,12 +20,12 @@ import CharactersScroll from './CharactersScroll.vue';
 import { Character } from '@/Interfaces/CharacterInterface';
 import { useRouter } from 'vue-router';
 
+
 const router = useRouter()
 
 interface Props {
     characters: Character[],
     activeCharacterId: number,
-    currentCharacter: Character
     setActiveCharacter: (num: number) => void
 }
 

@@ -1,5 +1,7 @@
 <template>
-   <BottomCharacter image-url="smallCharactersImg/hutao-thumb-star.webp" :text="text"/>
+    <div class="loader-content">
+    <BottomCharacter image-url="smallCharactersImg/hutao-thumb-star.webp" :text="text"/>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -15,4 +17,14 @@ const text = dialogs[randomNum]
 </script>
 
 <style lang="scss">
+    .loader-content{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    @media only screen and (orientation: portrait){
+        .loader-content{
+            display:none;
+        }
+    }
 </style>

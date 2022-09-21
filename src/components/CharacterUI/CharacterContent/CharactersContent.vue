@@ -1,11 +1,17 @@
 <template>
     <div class="characters-central">
-        <ContentOptions :active_content="active_content" @set-active-content="setActiveContent" />
+        <ContentOptions :options-list="options_list" :active_content="active_content"
+            @set-active-content="setActiveContent" />
         <div class="centerContent">
 
         </div>
-        <AttributesContent />
-
+        <aside class="rightContent">
+            <Transition name="fade-content" mode="out-in">
+                <div :style="{width: '100%'}" :key="active_content">
+                    <component :is="content_component" />
+                </div>
+            </Transition>
+        </aside>
         <CharactersBottom />
     </div>
 </template>
@@ -13,16 +19,30 @@
 <script setup lang="ts">
 //components
 import ContentOptions from './ContentOptions.vue';
-import AttributesContent from './ContentRight/AttributesContent.vue';
 import CharactersBottom from './CharactersBottom.vue'
 
+//enums
+import { OptionsKeys } from '@/Enums/OptionsKeys';
+
 //vue
-import { ref } from 'vue'
+import { ref, computed, defineAsyncComponent } from 'vue'
 
+const options_list = {
+    'Attributes': () => import('./ContentRight/AttributesContent/AttributesContent.vue'),
+    'Weapons': () => import('./ContentRight/WeaponsContent.vue'),
+    'Artifacts': () => import('./ContentRight/AttributesContent/AttributesContent.vue'),
+    'Constellation': () => import('./ContentRight/AttributesContent/AttributesContent.vue'),
+    'Talents': () => import('./ContentRight/AttributesContent/AttributesContent.vue'),
+    'Profile': () => import('./ContentRight/AttributesContent/AttributesContent.vue')
+}
 
-const active_content = ref<number>(0)
-const setActiveContent = (index: number): void => {
-    active_content.value = index
+const active_content = ref<OptionsKeys>(OptionsKeys.ATTRIBUTES)
+
+const content_component = computed(() => {
+    return defineAsyncComponent(options_list[active_content.value])
+})
+const setActiveContent = (key: OptionsKeys): void => {
+    active_content.value = key
 }
 </script>
 
@@ -33,7 +53,7 @@ const setActiveContent = (index: number): void => {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start;
     text-shadow:
         0.07em 0 black,
         0 0.07em black,
@@ -41,6 +61,10 @@ const setActiveContent = (index: number): void => {
     width: 80%;
     height: 50%;
     margin-top: 10px;
+
+    .rightContent {
+        width: 250px;
+    }
 }
 
 @media only screen and (max-width: 1366px) {
@@ -55,6 +79,11 @@ const setActiveContent = (index: number): void => {
     .characters-central {
         align-items: center;
         height: 100%;
+        .rightContent{
+            display: flex;
+            align-items: center;
+            
+        }
     }
 }
 
@@ -63,6 +92,21 @@ const setActiveContent = (index: number): void => {
         flex-direction: column;
         align-items: center;
         height: 100%;
+
+        .rightContent {
+            width: 85%;
+            background-color: rgba(0, 0, 0, 0.295);
+            padding: 10px;
+            border-radius: 10px;
+
+        }
+    }
+}
+
+@media only screen and (max-width: 915px) and (orientation: landscape) {
+    .rightContent {
+        width: 200px;
+        gap: 5px;
     }
 }
 </style>

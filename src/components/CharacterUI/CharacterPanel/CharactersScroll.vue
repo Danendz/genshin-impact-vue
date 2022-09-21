@@ -50,7 +50,7 @@ onMounted(() => {
     }
 })
 
-const characters_state_display = ref(true)
+const characters_state_display = ref(false)
 const closeCharacters = () => {
     characters_state_display.value = !characters_state_display.value
 }

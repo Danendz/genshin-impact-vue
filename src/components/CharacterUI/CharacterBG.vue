@@ -1,6 +1,9 @@
 <template>
     <transition name="fade" appear>
-        <div :class="`character-background-container ${character.vision.toLowerCase()} `" :key="character.name">
+        <div 
+        v-if="store.currentCharacter"
+        :class="`character-background-container ${store.currentCharacter.vision.toLowerCase()} `" 
+        :key="store.currentCharacter.name">
             <transition-group name="fade" appear mode="out-in">
                 <div v-if="bgImage" class="character-background" :style="{backgroundImage: `url(${bgImage})`}"></div>
                 <img class="gacha-image" v-if="gachaImage" :src="gachaImage" />
@@ -11,37 +14,37 @@
 </template>
 
 <script setup lang="ts">
-//interfaces
-import { Character } from '@/Interfaces/CharacterInterface';
-
 //enums
 import { CharacterImage } from '@/Enums/CharacterEnums'
+
+//stores
+import { useCurrentCharacter } from '@/store/currentCharacter';
 
 //components
 import LoaderContent from '@/components/UI/LoaderContent.vue'
 
-//vue
-import { watch, onMounted } from 'vue'
+//composables
 import usePreloadImage from '@/Composables/usePreloadImage';
 
-interface Props {
-    character: Character
-}
+//vue
+import { watch, onMounted } from 'vue'
 
-const props = defineProps<Props>()
+const store = useCurrentCharacter();
 
 //preload images
 const [gachaImage, loadGachaImage] = usePreloadImage()
 const [bgImage, loadBgImage] = usePreloadImage()
 
 const loadAllImages = (): void => {
-    loadGachaImage(props.character.name_key, CharacterImage.GACHA_SPLASH)
-    loadBgImage(props.character.name_key, CharacterImage.NAMECARD_HQ)
+    if(store.currentCharacter){
+        loadGachaImage(store.currentCharacter.name_key, CharacterImage.GACHA_SPLASH)
+        loadBgImage(store.currentCharacter.name_key, CharacterImage.NAMECARD_HQ)
+    }
 }
 onMounted(() => {
     loadAllImages()
 })
-watch(() => props.character, () => {
+watch(() => store.currentCharacter, () => {
     loadAllImages();
 })
 

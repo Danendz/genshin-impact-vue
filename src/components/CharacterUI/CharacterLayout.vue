@@ -1,8 +1,8 @@
 <template>
     <div class="characters-container">
-        <CharacterBG :character="currentCharacter" />
+        <CharacterBG />
 
-        <CharactersPanel :current-character="currentCharacter" :active-character-id="activeCharacterId"
+        <CharactersPanel :active-character-id="activeCharacterId"
             :characters="characters" :set-active-character="setActiveCharacter" />
 
         <CharactersContent />
@@ -11,17 +11,19 @@
 
 </template>
 <script setup lang="ts">
-
 //components
 import CharactersPanel from '@/components/CharacterUI/CharacterPanel/CharactersPanel.vue'
 import CharacterBG from '@/components/CharacterUI/CharacterBG.vue';
 import CharactersContent from '@/components/CharacterUI/CharacterContent/CharactersContent.vue';
 
+//stores
+import { useCurrentCharacter } from '@/store/currentCharacter';
+
 //interfaces
 import { Character } from '@/Interfaces/CharacterInterface';
 
 //vue
-import { ref, computed } from 'vue';
+import { ref, onMounted } from 'vue';
 
 interface Props {
     characters: Character[]
@@ -30,13 +32,16 @@ interface Props {
 const props = defineProps<Props>()
 
 const activeCharacterId = ref<number>(0)
+const storeCurrentCharacter = useCurrentCharacter()
 
-const currentCharacter = computed(() => {
-    return props.characters[activeCharacterId.value]
+onMounted(() => {
+    setActiveCharacter(0)
 })
 
 const setActiveCharacter = (id: number): void => {
     activeCharacterId.value = id
+    storeCurrentCharacter.setCurrentCharacter(props.characters[activeCharacterId.value])
+    console.log(storeCurrentCharacter.currentCharacter)
 }
 
 </script>
