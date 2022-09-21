@@ -28,6 +28,7 @@ const emit = defineEmits<{
     left: 0;
     bottom: 0;
     width: 100%;
+    height: 100vh;
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.767);
@@ -37,7 +38,7 @@ const emit = defineEmits<{
     .details {
         display: flex;
         width: 50%;
-        height: 100vh;
+        height: 100%;
         justify-content: center;
     }
 }
