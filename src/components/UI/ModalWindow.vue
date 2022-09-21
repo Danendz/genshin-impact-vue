@@ -27,7 +27,7 @@ const emit = defineEmits<{
     top: 0;
     left: 0;
     bottom: 0;
-    width: 100%;
+    width: 100vh;
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.767);
