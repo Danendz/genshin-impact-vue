@@ -64,6 +64,7 @@ const closeCharacters = () => {
     min-width: 25%;
     max-width: 60%;
     position: relative;
+    z-index: 99;
 
     .characters {
         display: flex;

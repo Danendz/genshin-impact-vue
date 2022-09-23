@@ -1,8 +1,9 @@
 <template>
     <div class="base-info">
-        <h1 class="name">{{props.currentCharacter.name}} <p><span class="rarity"
-                    v-for="rarity in props.currentCharacter.rarity" :key="rarity">*</span></p>
+        <h1 class="name">{{props.currentCharacter.name}} 
         </h1>
+        <p><span class="rarity"
+                    v-for="rarity in props.currentCharacter.rarity" :key="rarity">*</span></p>
         <p class="base-lvl">Level 90 / <span class="max-lvl">90</span></p>
         <progress class="lvl-progress" value="100" max="100" />
     </div>
@@ -21,8 +22,6 @@ const props = defineProps<Props>();
 <style lang="scss">
 .base-info {
     .name {
-        display: flex;
-        flex-direction: column;
         font-size: 28px;
         font-weight: bold;
     }
@@ -40,12 +39,12 @@ const props = defineProps<Props>();
     .attributes-content {
         .base-info {
             .name {
-                font-size: 17px;
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
+                font-size: 16px;
+               
             }
-
+            .rarity{
+                font-size: 12px;
+            }
             .base-lvl {
                 font-size: 13px;
             }

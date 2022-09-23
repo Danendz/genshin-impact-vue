@@ -125,7 +125,7 @@ const setActiveDetails = () => {
         gap: 5px;
 
         .details-btn {
-            font-size: 15px;
+            font-size: 14px;
             padding: 2px;
         }
 
@@ -136,11 +136,11 @@ const setActiveDetails = () => {
             }
 
             img {
-                width: 15px;
+                width: 13px;
             }
 
             span {
-                font-size: 12px;
+                font-size: 11px;
                 font-weight: bold;
                 width: 100%;
             }
