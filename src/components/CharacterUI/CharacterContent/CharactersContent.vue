@@ -107,7 +107,9 @@ const setActiveContent = (key: OptionsKeys): void => {
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .characters-central {
         .rightContent {
+            background-color: transparent;
             width: 220px;
+            padding: 0;
             gap: 5px;
         }
     }

@@ -11,7 +11,7 @@
 
 .characters-bottom {
     left: 0;
-    bottom: 5px;
+    bottom: 0px;
     position: absolute;
     display: flex;
     justify-content: center;
