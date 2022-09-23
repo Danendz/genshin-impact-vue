@@ -1,6 +1,6 @@
 <template>
     <div class="friendship">
-        <img />
+        <img alt="friendship" src="@/assets/StatsIcons/friendship.webp" />
         <span>Friendship</span>
         <span class="friendship-lvl">8</span>
     </div>
@@ -24,13 +24,19 @@ const props = defineProps<Props>();
     .friendship {
         display: flex;
         font-size: 17px;
-
+        align-items: center;
+        img{
+            width: auto;
+            height: 12px;
+            margin-right: 5px;
+        }
         .friendship-lvl {
             margin-left: auto;
         }
     }
 
     .content-right-description {
+        padding: 0px 5px;
         overflow-y: auto;
         overflow-x: hidden;
         max-height: 100px;
@@ -51,11 +57,11 @@ const props = defineProps<Props>();
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .attributes-content {
         .friendship {
-            font-size: 15px;
+            font-size: 13px;
         }
 
         .content-right-description {
-            font-size: 15px;
+            font-size: 13px;
             max-height: 60px;
         }
     }

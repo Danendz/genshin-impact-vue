@@ -28,6 +28,7 @@ const emit = defineEmits<{
     left: 0;
     bottom: 0;
     width: 100%;
+    z-index: 99;
     height: 100vh;
     justify-content: center;
     align-items: center;

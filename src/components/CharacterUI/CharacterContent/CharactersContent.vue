@@ -59,11 +59,17 @@ const setActiveContent = (key: OptionsKeys): void => {
         0 0.07em black,
         -0.07em 0 black;
     width: 80%;
-    height: 50%;
+    height: 100%;
     margin-top: 10px;
 
     .rightContent {
-        width: 250px;
+        background-color: rgba(0, 0, 0, 0.418);
+        width: 300px;
+        padding: 10px;
+        min-height: 50%;
+        
+        
+        border-radius: 10px;
     }
 }
 
@@ -78,8 +84,8 @@ const setActiveContent = (key: OptionsKeys): void => {
 @media only screen and (orientation: portrait) {
     .characters-central {
         align-items: center;
-        height: 100%;
-        .rightContent{
+
+        .rightContent {
             display: flex;
             align-items: center;
             
@@ -91,22 +97,19 @@ const setActiveContent = (key: OptionsKeys): void => {
     .characters-central {
         flex-direction: column;
         align-items: center;
-        height: 100%;
 
         .rightContent {
             width: 85%;
-            background-color: rgba(0, 0, 0, 0.295);
-            padding: 10px;
-            border-radius: 10px;
-
         }
     }
 }
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
-    .rightContent {
-        width: 200px;
-        gap: 5px;
+    .characters-central {
+        .rightContent {
+            width: 220px;
+            gap: 5px;
+        }
     }
 }
 </style>

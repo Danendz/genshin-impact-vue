@@ -7,7 +7,7 @@
             <transition-group name="fade" appear mode="out-in">
                 <div v-if="bgImage" class="character-background" :style="{backgroundImage: `url(${bgImage})`}"></div>
                 <img class="gacha-image" v-if="gachaImage" :src="gachaImage" />
-                <LoaderContent :key="gachaImage" v-if="gachaImage === '' || bgImage===''" />
+                <!-- <LoaderContent :key="gachaImage" v-if="gachaImage === '' || bgImage===''" /> -->
             </transition-group>
         </div>
     </transition>
@@ -20,8 +20,8 @@ import { CharacterImage } from '@/Enums/CharacterEnums'
 //stores
 import { useCurrentCharacter } from '@/store/currentCharacter';
 
-//components
-import LoaderContent from '@/components/UI/LoaderContent.vue'
+/* //components
+import LoaderContent from '@/components/UI/LoaderContent.vue' */
 
 //composables
 import usePreloadImage from '@/Composables/usePreloadImage';

@@ -23,12 +23,12 @@ const props = defineProps<Props>();
     .name {
         display: flex;
         flex-direction: column;
-        font-size: 30px;
+        font-size: 28px;
         font-weight: bold;
     }
 
     .base-lvl {
-        font-size: 22px;
+        font-size: 21px;
 
         .max-lvl {
             color: rgb(185, 185, 185);
@@ -40,14 +40,14 @@ const props = defineProps<Props>();
     .attributes-content {
         .base-info {
             .name {
-                font-size: 20px;
+                font-size: 17px;
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
             }
 
             .base-lvl {
-                font-size: 16px;
+                font-size: 13px;
             }
         }
     }

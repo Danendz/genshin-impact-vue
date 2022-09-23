@@ -5,7 +5,8 @@
         <button @click="setActiveDetails" class="details-btn">Details</button>
         <FriendshipAndDescription :current-character="store.currentCharacter" />
         <div class="rightButtons">
-            <button><img /><span>Dressing Room</span></button>
+            <button><img alt="dressing_room" src="@/assets/StatsIcons/dressing_room.webp" /><span>Dressing
+                    Room</span></button>
         </div>
     </div>
     <ModalWindow @close-modal="setActiveDetails" :active_state="active_details" :modalStyle="'details'">
@@ -38,17 +39,50 @@ const setActiveDetails = () => {
 </script>
 
 <style lang="scss">
+@import '@/assets/Styles/colors';
+
 .attributes-content {
     display: flex;
     flex-direction: column;
     gap: 10px;
 
+    .rightButtons {
+
+        button {
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            padding: 7px 5px;
+            background-color: $main_color;
+            border: 0;
+            border-radius: 20px;
+            width: 100%;
+            transition: .3s;
+
+            &:hover{
+                transform: translateY(-2px);
+            }
+            &:active{
+                transform: translateY(-1px);
+            }
+        }
+
+        img {
+            width: 20px;
+            height: auto;
+        }
+
+        span {
+            font-weight: bold;
+            width: 100%;
+        }
+    }
 
     .lvl-progress,
     .friendship-progress {
         border-radius: 7px;
         width: 100%;
-        height: 5px;
+        height: 3px;
         margin-top: 2px;
         display: block;
     }
@@ -88,16 +122,29 @@ const setActiveDetails = () => {
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .attributes-content {
+        gap: 5px;
+
         .details-btn {
             font-size: 15px;
             padding: 2px;
         }
-    }
-}
 
-@media only screen and (max-width: 915px) and (orientation: landscape) {
-    .attributes-content {
-        gap: 5px;
+        .rightButtons {
+            margin-top: 3px;
+            button {
+                padding: 3px 5px;
+            }
+
+            img {
+                width: 15px;
+            }
+
+            span {
+                font-size: 12px;
+                font-weight: bold;
+                width: 100%;
+            }
+        }
     }
 }
 </style>
