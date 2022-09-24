@@ -5,7 +5,8 @@
                 :class="['char-icon', {'active-character': activeCharacterId === index}]"
                 v-for="(character, index) in props.characters" :key="index">
 
-                <img :class="[{'active-character-img': activeCharacterId === index}]" :alt="`${index}`"
+                <img @mousedown="(e: MouseEvent) => e.preventDefault()"
+                    :class="[{'active-character-img': activeCharacterId === index}]" :alt="`${index}`"
                     :src="CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_SIDE)" />
             </div>
         </div>

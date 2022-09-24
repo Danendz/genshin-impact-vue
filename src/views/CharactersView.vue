@@ -29,14 +29,14 @@ import { CharacterType } from '@/Types/CharacterType'
 import { ErrorMessages } from '@/Enums/ErrorMessages';
 
 //vue
-import { computed,Ref } from 'vue';
+import { computed, Ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 const name = useRoute().params.name
 
 //if name exists - fetch only one character
 //else fetch all characters
-const fetchedCharacters: Ref<CharacterType> = name ?  useGetCharacterByName(name.toString()) : useGetCharacters();
+const fetchedCharacters: Ref<CharacterType> = name ? useGetCharacterByName(name.toString()) : useGetCharacters();
 
 //type guard for character
 const isCharacter = (character: CharacterType): character is Character => {
@@ -64,7 +64,7 @@ const characters = computed(() => {
 
 * {
     scrollbar-width: thin;
-    scrollbar-color: #7a7a7a #ffffff;
+    scrollbar-color: #e4dfc9 transparent;
 }
 
 *::-webkit-scrollbar {
