@@ -63,6 +63,7 @@ const setActiveContent = (key: OptionsKeys): void => {
 .characters-central {
     color: white;
     display: flex;
+    position: relative;
     justify-content: space-evenly;
     flex-wrap: wrap;
     align-items: flex-start;

@@ -21,7 +21,7 @@ const toggleAllCharacters = () => {
 
 .characters-bottom {
     left: 0;
-    bottom: 0px;
+    bottom: 5px;
     position: absolute;
     display: flex;
     justify-content: center;
