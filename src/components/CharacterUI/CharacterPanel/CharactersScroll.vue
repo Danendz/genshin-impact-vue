@@ -5,7 +5,7 @@
                 :class="['char-icon', {'active-character': activeCharacterId === index}]"
                 v-for="(character, index) in props.characters" :key="index">
 
-                <img :alt="`${index}`"
+                <img :class="[{'active-character-img': activeCharacterId === index}]" :alt="`${index}`"
                     :src="CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_SIDE)" />
             </div>
         </div>
@@ -97,6 +97,11 @@ const closeCharacters = () => {
                 border-bottom-left-radius: 35%;
                 border-bottom-right-radius: 50%;
                 -webkit-user-drag: none;
+                transition: .3s;
+            }
+
+            .active-character-img {
+                transform: translateX(5px) scale(1.15) translateY(-3px);
             }
         }
 

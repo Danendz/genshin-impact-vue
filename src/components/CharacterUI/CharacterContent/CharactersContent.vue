@@ -1,17 +1,23 @@
 <template>
     <div class="characters-central">
-        <ContentOptions :options-list="options_list" :active_content="active_content"
-            @set-active-content="setActiveContent" />
-        <div class="centerContent">
+        <Transition name="fade-right" appear>
+            <ContentOptions v-show="!props.showAllCharacters" :options-list="options_list"
+                :active_content="active_content" @set-active-content="setActiveContent" />
+        </Transition>
+            <Transition name="fade-right" appear>
+                <div v-show="!props.showAllCharacters" class="centerContent">
 
-        </div>
-        <aside class="rightContent">
-            <Transition name="fade-content" mode="out-in">
-                <div :style="{width: '100%'}" :key="active_content">
-                    <component :is="content_component" />
                 </div>
             </Transition>
-        </aside>
+            <Transition name="fade-right" appear>
+                <aside v-show="!props.showAllCharacters" class="rightContent">
+                    <Transition name="fade-content" mode="out-in">
+                        <div :style="{width: '100%'}" :key="active_content">
+                            <component :is="content_component" />
+                        </div>
+                    </Transition>
+                </aside>
+            </Transition>
         <CharactersBottom />
     </div>
 </template>
@@ -26,6 +32,12 @@ import { OptionsKeys } from '@/Enums/OptionsKeys';
 
 //vue
 import { ref, computed, defineAsyncComponent } from 'vue'
+
+interface Props {
+    showAllCharacters: boolean
+}
+
+const props = defineProps<Props>()
 
 const options_list = {
     'Attributes': () => import('./ContentRight/AttributesContent/AttributesContent.vue'),
@@ -67,8 +79,8 @@ const setActiveContent = (key: OptionsKeys): void => {
         width: 300px;
         padding: 10px;
         min-height: 50%;
-        
-        
+
+
         border-radius: 10px;
     }
 }
@@ -88,7 +100,7 @@ const setActiveContent = (key: OptionsKeys): void => {
         .rightContent {
             display: flex;
             align-items: center;
-            
+
         }
     }
 }
@@ -106,6 +118,8 @@ const setActiveContent = (key: OptionsKeys): void => {
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .characters-central {
+        height: 100vh;
+
         .rightContent {
             background-color: transparent;
             width: 220px;

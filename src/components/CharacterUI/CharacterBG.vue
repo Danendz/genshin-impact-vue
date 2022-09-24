@@ -1,14 +1,18 @@
 <template>
     <transition name="fade" appear>
-        <div 
-        v-if="store.currentCharacter"
-        :class="`character-background-container ${store.currentCharacter.vision.toLowerCase()} `" 
-        :key="store.currentCharacter.name">
+        <div v-if="store.currentCharacter"
+            :class="`character-background-container ${store.currentCharacter.vision.toLowerCase()} `"
+            :key="store.currentCharacter.name">
             <transition-group name="fade" appear mode="out-in">
                 <div v-if="bgImage" class="character-background" :style="{backgroundImage: `url(${bgImage})`}"></div>
-                <img class="gacha-image" v-if="gachaImage" :src="gachaImage" />
+
+                <img class="gacha-image" v-if="gachaImage && !storeShowAllCharacters.showAllCharacters"
+                    :src="gachaImage" />
                 <!-- <LoaderContent :key="gachaImage" v-if="gachaImage === '' || bgImage===''" /> -->
             </transition-group>
+            <transition name="translate-right">
+                <img class="gacha-image gacha-imgae-right" v-if="storeShowAllCharacters.showAllCharacters" :src="gachaImage" />
+            </transition>
         </div>
     </transition>
 </template>
@@ -19,6 +23,8 @@ import { CharacterImage } from '@/Enums/CharacterEnums'
 
 //stores
 import { useCurrentCharacter } from '@/store/currentCharacter';
+import { useShowAllCharacters } from '@/store/showAllCharacters';
+
 
 /* //components
 import LoaderContent from '@/components/UI/LoaderContent.vue' */
@@ -30,13 +36,14 @@ import usePreloadImage from '@/Composables/usePreloadImage';
 import { watch, onMounted } from 'vue'
 
 const store = useCurrentCharacter();
+const storeShowAllCharacters = useShowAllCharacters()
 
 //preload images
 const [gachaImage, loadGachaImage] = usePreloadImage()
 const [bgImage, loadBgImage] = usePreloadImage()
 
 const loadAllImages = (): void => {
-    if(store.currentCharacter){
+    if (store.currentCharacter) {
         loadGachaImage(store.currentCharacter.name_key, CharacterImage.GACHA_SPLASH)
         loadBgImage(store.currentCharacter.name_key, CharacterImage.NAMECARD_HQ)
     }
@@ -75,7 +82,9 @@ watch(() => store.currentCharacter, () => {
         margin-top: auto;
         position: absolute;
     }
-
+    .gacha-imgae-right{
+        transform: translateX(40%);
+    }
     .character-background {
         background-size: cover;
         background-position: center;

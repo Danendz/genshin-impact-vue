@@ -1,10 +1,20 @@
 <template>
     <div class="characters-bottom">
         <div class="footer">
-            <button><img alt='toggle characters' src='@/assets/Icons/menu.webp'/></button>
+            <button @click="toggleAllCharacters"><img alt='toggle characters' src='@/assets/Icons/menu.webp' /></button>
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+import { useShowAllCharacters } from '@/store/showAllCharacters';
+
+const storeShowAllCharacters = useShowAllCharacters();
+
+const toggleAllCharacters = () => {
+    storeShowAllCharacters.setShowAllCharacters();
+}
+</script>
 
 <style lang="scss">
 @import '@/assets/Styles/characters_panel';
@@ -25,8 +35,9 @@
     .footer {
         width: 100%;
         margin: 0 10px;
+
         button {
-            
+
             width: 30px;
             height: 30px;
             padding: 2px;
@@ -35,10 +46,12 @@
             cursor: pointer;
             border-radius: 5px;
             transition: .3s;
-            img{
+
+            img {
                 width: 100%;
             }
-            &:hover{
+
+            &:hover {
                 transform: scale(1.05);
             }
         }
@@ -46,16 +59,18 @@
 }
 
 @media only screen and (orientation: portrait) {
-    .characters-bottom{
+    .characters-bottom {
         display: none;
-        
+
     }
 }
+
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .characters-bottom {
         .footer {
             width: 95%;
-            button{
+
+            button {
                 width: 25px;
                 height: 25px;
             }

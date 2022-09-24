@@ -18,3 +18,36 @@
     opacity: 0;
 }
 
+
+.fade-right-enter-active,
+.fade-right-leave-active {
+    transition: all 0.5s ease;
+}
+
+.fade-right-enter-from,
+.fade-right-leave-to {
+    transform: translateX(100px);
+    opacity: 0;
+}
+
+.fade-up-enter-active,
+.fade-up-leave-active {
+    transition: all 0.5s ease;
+}
+
+.fade-up-enter-from,
+.fade-up-leave-to {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.translate-right-enter-active,
+.translate-right-leave-active {
+    transition: all 0.5s ease;
+}
+
+.translate-right-enter-from,
+.translate-right-leave-to {
+    transform: translateX(50%)!important;
+    opacity: 0;
+}
