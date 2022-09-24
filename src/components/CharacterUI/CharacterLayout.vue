@@ -54,6 +54,7 @@ const setActiveCharacter = (id: number): void => {
     display: flex;
     overflow: hidden;
     flex-direction: column;
+    position: relative;
     align-items: center;
     margin: 0 auto;
     height: 100vh;
