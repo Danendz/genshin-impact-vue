@@ -2,11 +2,11 @@
     <div class="characters-container">
         <CharacterBG />
         <Transition name="fade-up">
-            <CharactersPanel v-if="!storeShowAllCharacters.showAllCharacters" :active-character-id="activeCharacterId"
+            <CharactersPanel v-if="!hideLayout.hide" :active-character-id="activeCharacterId"
                 :characters="characters" :set-active-character="setActiveCharacter" />
         </Transition>
-        <CharactersContent :show-all-characters="storeShowAllCharacters.showAllCharacters" />
-        <AllCharacters v-show="storeShowAllCharacters.showAllCharacters" />
+        <CharactersContent :show-all-characters="hideLayout.hide" />
+        <AllCharacters v-show="hideLayout.hide" />
     </div>
 
 </template>
@@ -18,7 +18,7 @@ import CharactersContent from '@/components/CharacterUI/CharacterContent/Charact
 
 //stores
 import { useCurrentCharacter } from '@/store/currentCharacter';
-import { useShowAllCharacters } from '@/store/showAllCharacters';
+import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
 //interfaces
 import { Character } from '@/Interfaces/CharacterInterface';
@@ -33,7 +33,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const storeShowAllCharacters = useShowAllCharacters()
+const hideLayout = useHideMainCharactersLayout()
 
 const activeCharacterId = ref<number>(0)
 const storeCurrentCharacter = useCurrentCharacter()

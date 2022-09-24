@@ -7,12 +7,12 @@
 </template>
 
 <script setup lang="ts">
-import { useShowAllCharacters } from '@/store/showAllCharacters';
+import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
-const storeShowAllCharacters = useShowAllCharacters();
+const hideLayout = useHideMainCharactersLayout();
 
 const toggleAllCharacters = () => {
-    storeShowAllCharacters.setShowAllCharacters();
+    hideLayout.setHide();
 }
 </script>
 

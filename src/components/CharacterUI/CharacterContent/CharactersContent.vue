@@ -79,13 +79,11 @@ const setActiveContent = (key: OptionsKeys): void => {
         width: 300px;
         padding: 10px;
         min-height: 50%;
-
-
         border-radius: 10px;
     }
 }
 
-@media only screen and (max-width: 1366px) {
+@media only screen and (max-width: 1600px) {
     .characters-central {
         width: 95%;
         justify-content: space-between;

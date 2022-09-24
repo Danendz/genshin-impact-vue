@@ -6,12 +6,12 @@
             <transition-group name="fade" appear mode="out-in">
                 <div v-if="bgImage" class="character-background" :style="{backgroundImage: `url(${bgImage})`}"></div>
 
-                <img class="gacha-image" v-if="gachaImage && !storeShowAllCharacters.showAllCharacters"
+                <img class="gacha-image" v-if="gachaImage && !hideLayout.hide"
                     :src="gachaImage" />
                 <!-- <LoaderContent :key="gachaImage" v-if="gachaImage === '' || bgImage===''" /> -->
             </transition-group>
             <transition name="translate-right">
-                <img class="gacha-image gacha-imgae-right" v-if="storeShowAllCharacters.showAllCharacters" :src="gachaImage" />
+                <img class="gacha-image gacha-imgae-right" v-if="hideLayout.hide" :src="gachaImage" />
             </transition>
         </div>
     </transition>
@@ -23,7 +23,7 @@ import { CharacterImage } from '@/Enums/CharacterEnums'
 
 //stores
 import { useCurrentCharacter } from '@/store/currentCharacter';
-import { useShowAllCharacters } from '@/store/showAllCharacters';
+import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
 
 /* //components
@@ -36,7 +36,7 @@ import usePreloadImage from '@/Composables/usePreloadImage';
 import { watch, onMounted } from 'vue'
 
 const store = useCurrentCharacter();
-const storeShowAllCharacters = useShowAllCharacters()
+const hideLayout = useHideMainCharactersLayout()
 
 //preload images
 const [gachaImage, loadGachaImage] = usePreloadImage()
