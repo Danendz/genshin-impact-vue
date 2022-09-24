@@ -20,8 +20,7 @@ const toggleAllCharacters = () => {
 @import '@/assets/Styles/characters_panel';
 
 .characters-bottom {
-    left: 0;
-    bottom: 5px;
+    bottom: 10px;
     position: absolute;
     display: flex;
     justify-content: center;
