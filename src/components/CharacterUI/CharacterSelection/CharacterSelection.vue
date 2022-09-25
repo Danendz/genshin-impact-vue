@@ -61,7 +61,7 @@ onMounted(() => {
 @import '@/assets/Styles/colors';
 
 .character-selection-main {
-    width: 100%;
+    width: 50%;
     position: absolute;
     height: 100vh;
 
