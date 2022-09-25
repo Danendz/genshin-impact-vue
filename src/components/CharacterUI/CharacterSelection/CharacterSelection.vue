@@ -43,7 +43,18 @@ onMounted(() => {
     if (characters_scroll.value) {
         useCreateScroll(characters_scroll.value, 'vertical')
     }
+    if (screen.orientation) {
+        screen.orientation.addEventListener("change", () => {
+            if (screen.orientation.type === 'portrait-primary') {
+                if (hideLayout.hide) {
+                    hideLayout.setHide()
+                }
+            }
+
+        })
+    }
 })
+
 </script>
 
 <style lang="scss">
@@ -90,6 +101,12 @@ onMounted(() => {
         border: 0;
         background-color: white;
         cursor: pointer;
+    }
+}
+
+@media only screen and (orientation: portrait) {
+    .character-selection-main {
+        display: none;
     }
 }
 
