@@ -20,7 +20,7 @@ const toggleAllCharacters = () => {
 @import '@/assets/Styles/characters_panel';
 
 .characters-bottom {
-    bottom: 10px;
+    bottom: 12px;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -68,11 +68,6 @@ const toggleAllCharacters = () => {
     .characters-bottom {
         .footer {
             width: 95%;
-
-            button {
-                width: 25px;
-                height: 25px;
-            }
         }
     }
 }

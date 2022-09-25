@@ -90,6 +90,7 @@ const changedStyle = ref(false)
 @media only screen and (orientation: portrait) {
     .characters-central {
         align-items: center;
+        height: 100vh;
     }
 }
 
