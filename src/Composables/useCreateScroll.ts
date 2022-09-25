@@ -9,20 +9,22 @@ const useCreateScroll = <T extends HTMLElement>(htmlElement: T): void => {
     let mouseMoveCallback: (event: MouseEvent) => void;
     let velX: number;
     let momentumID: number;
+    let prevScrollLeft: number;
     
     htmlElement.addEventListener('wheel', () => {
         cancelMomentumTracking(); // Stop the drag momentum loop
     });
-    
+
     const mousedownHolder = (e: MouseEvent) => {
         const pos = {
             dir: htmlElement[direction.scrollDirection],
             clientDir: e[direction.clientDirection],
         }
         mouseMoveCallback = (event: MouseEvent): void => {
+            cancelMomentumTracking();
             mouseMoveHandler(event, pos)
         }
-        cancelMomentumTracking();
+
         htmlElement.addEventListener('mousemove', mouseMoveCallback)
         htmlElement.addEventListener('mouseup', mouseUpHandler)
         htmlElement.addEventListener('mouseleave', mouseUpHandler)
@@ -32,16 +34,18 @@ const useCreateScroll = <T extends HTMLElement>(htmlElement: T): void => {
     const mouseMoveHandler = (event: MouseEvent, pos?: Record<string, number>) => {
         if (pos) {
             const dir = event[direction.clientDirection] - pos.clientDir
-            const prevScrollLeft = htmlElement.scrollLeft
+            prevScrollLeft = htmlElement[direction.scrollDirection]
             htmlElement[direction.scrollDirection] = pos.dir - dir
-            velX = htmlElement.scrollLeft - prevScrollLeft
+            velX = htmlElement[direction.scrollDirection] - prevScrollLeft
         }
 
     }
     const mouseUpHandler = () => {
         htmlElement.removeEventListener('mousemove', mouseMoveCallback)
         htmlElement.removeEventListener('mouseup', mouseUpHandler)
-        beginMomentumTracking();
+        if (velX >= 1.5 || velX <= -1.5) {
+            beginMomentumTracking();
+        }
     }
     function beginMomentumTracking() {
         cancelMomentumTracking();

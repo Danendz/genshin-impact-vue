@@ -1,7 +1,7 @@
 <template>
     <div :class="['characters-scroll-container', {'hide-characters-scroll': !characters_state_display}]">
         <div ref="characters_scroll" class="characters">
-            <div @click="emit('set-active-character', index)"
+            <div @mouseup="handleMouseup(index)" @mousemove="handleMousemove" @mousedown="handleMousedown"
                 :class="['char-icon', {'active-character': activeCharacterId === index}]"
                 v-for="(character, index) in props.characters" :key="index">
 
@@ -52,10 +52,28 @@ onMounted(() => {
 })
 
 const characters_state_display = ref(false)
-const closeCharacters = () => {
+const closeCharacters = (): void => {
     characters_state_display.value = !characters_state_display.value
 }
 
+const mousemoved = ref(false);
+const clicked = ref(false)
+const handleMousedown = () => {
+    clicked.value = true
+}
+const handleMousemove = () => {
+    if (clicked.value) {
+        mousemoved.value = true
+    }
+}
+
+const handleMouseup = (index: number): void => {
+    if (!mousemoved.value) {
+        emit('set-active-character', index)
+    }
+    clicked.value = false
+    mousemoved.value = false
+}
 </script>
 
 <style lang="scss">
@@ -92,12 +110,16 @@ const closeCharacters = () => {
             img {
                 position: absolute;
                 transform: translateX(5px);
+                user-drag: none;
                 user-select: none;
+                -moz-user-select: none;
+                -webkit-user-drag: none;
+                -webkit-user-select: none;
+                -ms-user-select: none;
                 width: auto;
                 height: 100%;
                 border-bottom-left-radius: 35%;
                 border-bottom-right-radius: 50%;
-                -webkit-user-drag: none;
                 transition: .3s;
             }
 
