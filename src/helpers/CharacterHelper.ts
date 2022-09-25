@@ -8,7 +8,10 @@ export default class CharacterHelper {
         if (name) {
             const completeUrl = this.characterUrl + name.toLowerCase() + '/'
             let iconSideArgs = ''
-            if(name.includes('traveler') && type === CharacterImage.ICON_SIDE){
+
+            const typeExceptions = [CharacterImage.ICON_BIG, CharacterImage.ICON_SIDE]
+
+            if (name.includes('traveler') && typeExceptions.includes(type)) {
                 iconSideArgs = '-lumine'
             }
             return completeUrl + type + iconSideArgs;

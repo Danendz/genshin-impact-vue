@@ -6,13 +6,10 @@
             <transition-group name="fade" appear mode="out-in">
                 <div v-if="bgImage" class="character-background" :style="{backgroundImage: `url(${bgImage})`}"></div>
 
-                <img class="gacha-image" v-if="gachaImage && !hideLayout.hide"
-                    :src="gachaImage" />
+                <img :class="['gacha-image', {'gacha-image-right': hideLayout.hide}]" v-if="gachaImage" :src="gachaImage" />
                 <!-- <LoaderContent :key="gachaImage" v-if="gachaImage === '' || bgImage===''" /> -->
             </transition-group>
-            <transition name="translate-right">
-                <img class="gacha-image gacha-imgae-right" v-if="hideLayout.hide" :src="gachaImage" />
-            </transition>
+            
         </div>
     </transition>
 </template>
@@ -80,11 +77,14 @@ watch(() => store.currentCharacter, () => {
         width: auto;
         height: 100vh;
         margin-top: auto;
+        transition: .5s;
         position: absolute;
+        transform: translateX(0);
     }
-    .gacha-imgae-right{
-        transform: translateX(40%);
+    .gacha-image-right{
+        transform: translateX(30%);
     }
+
     .character-background {
         background-size: cover;
         background-position: center;
@@ -102,10 +102,7 @@ watch(() => store.currentCharacter, () => {
             position: absolute;
         }
     }
-
-
 }
-
 .anemo {
     background-color: $anemo;
 }

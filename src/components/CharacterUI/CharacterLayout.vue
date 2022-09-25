@@ -1,12 +1,14 @@
 <template>
     <div class="characters-container">
         <CharacterBG />
-        <Transition name="fade-up">
-            <CharactersPanel v-if="!hideLayout.hide" :active-character-id="activeCharacterId"
-                :characters="characters" :set-active-character="setActiveCharacter" />
+        <Transition name="fade-up" appear>
+            <CharactersPanel v-if="!hideLayout.hide" :active-character-id="activeCharacterId" :characters="characters"
+                :set-active-character="setActiveCharacter" />
         </Transition>
-        <CharactersContent :show-all-characters="hideLayout.hide" />
-        <AllCharacters v-show="hideLayout.hide" />
+        <CharactersContent :hide="hideLayout.hide" />
+        <Transition name="fade-left" appear>
+            <CharacterSelection v-if="hideLayout.hide" :characters="characters" />
+        </Transition>
     </div>
 
 </template>
@@ -15,6 +17,7 @@
 import CharactersPanel from '@/components/CharacterUI/CharacterPanel/CharactersPanel.vue'
 import CharacterBG from '@/components/CharacterUI/CharacterBG.vue';
 import CharactersContent from '@/components/CharacterUI/CharacterContent/CharactersContent.vue';
+import CharacterSelection from './CharacterSelection/CharacterSelection.vue';
 
 //stores
 import { useCurrentCharacter } from '@/store/currentCharacter';
@@ -25,7 +28,6 @@ import { Character } from '@/Interfaces/CharacterInterface';
 
 //vue
 import { ref, onMounted } from 'vue';
-import AllCharacters from './AllCharacters/AllCharacters.vue';
 
 interface Props {
     characters: Character[]

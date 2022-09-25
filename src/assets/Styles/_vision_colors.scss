@@ -1,6 +1,29 @@
-$pyro: #ff7979;
 $anemo: #27ae60;
+$pyro: #ff7979;
 $geo: #f39c12;
 $hydro: #54a0ff;
-$electro: #9b59b6;
 $cryo: #82ccdd;
+$electro: #9b59b6;
+$dendro: #228b4e;
+
+.anemo-bg {
+  background-color: $anemo;
+}
+.pyro-bg {
+  background-color: $pyro;
+}
+.geo-bg {
+  background-color: $geo;
+}
+.hydro-bg {
+  background-color: $hydro;
+}
+.cryo-bg {
+  background-color: $cryo;
+}
+.electro-bg {
+  background-color: $electro;
+}
+.dendro-bg{
+    background-color: $dendro;
+}

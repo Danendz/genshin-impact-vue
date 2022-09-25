@@ -95,11 +95,13 @@ const setActiveDetails = () => {
 
     .lvl-progress::-webkit-progress-value {
         background-color: #3ed2ff;
+        box-shadow: 0px 0px 8px #3ed2ff;
         border-radius: 10px;
     }
 
     .friendship-progress::-webkit-progress-value {
         background-color: #fc8ef3;
+        box-shadow: 0px 0px 8px #fc8ef3;
         border-radius: 10px;
     }
 
