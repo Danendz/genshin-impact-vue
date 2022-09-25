@@ -82,7 +82,7 @@ watch(() => store.currentCharacter, () => {
         transform: translateX(0);
     }
     .gacha-image-right{
-        transform: translateX(30%);
+        transform: translateX(5%);
     }
 
     .character-background {
@@ -101,6 +101,11 @@ watch(() => store.currentCharacter, () => {
             background-color: rgba(0, 0, 0, 0.116);
             position: absolute;
         }
+    }
+}
+@media only screen and (max-width: 1600px) {
+    .gacha-image-right{
+        transform: translateX(15%);
     }
 }
 .anemo {

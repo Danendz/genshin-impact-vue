@@ -2,7 +2,8 @@
     <figure @click="setCurrentCharacter" v-if="store.currentCharacter"
         :class="['character-card', {'active-character-card': character.name === store.currentCharacter.name}]">
         <div :class="['character-top-bg', `rarity-${character.rarity}`]"></div>
-        <img class="character-icon" alt="character" :src="CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_BIG)" />
+        <img class="character-icon" alt="character"
+            :src="CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_BIG)" />
         <img class="vision-icon" alt="vision" :src="CharacterHelper.getElementImage(character.vision.toLowerCase())" />
         <p class="character-lvl">Lvl 90</p>
     </figure>
@@ -35,6 +36,7 @@ const setCurrentCharacter = () => {
 
 <style lang="scss">
 @import '@/assets/Styles/rarity_colors';
+@import '@/assets/Styles/images_rules';
 
 .character-card {
     width: 100px;
@@ -62,17 +64,12 @@ const setCurrentCharacter = () => {
 
     .character-icon {
         width: auto;
-        user-drag: none;
-        user-select: none;
-        -moz-user-select: none;
-        -webkit-user-drag: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
+
         height: 100px;
         border-bottom-right-radius: 25%;
     }
 
-    .vision-icon{
+    .vision-icon {
         position: absolute;
         width: 33px;
         height: auto;
@@ -89,5 +86,4 @@ const setCurrentCharacter = () => {
     box-shadow: 0px 0px 5px 2px white;
     transform: scale(1.05);
 }
-
 </style>

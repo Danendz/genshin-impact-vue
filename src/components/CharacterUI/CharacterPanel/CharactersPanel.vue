@@ -38,6 +38,7 @@ const props = defineProps<Props>();
 
 .characters-panel {
     width: 100%;
+    height: 75px;
     display: flex;
     justify-content: center;
     background-color: $transparency;
@@ -82,6 +83,7 @@ const props = defineProps<Props>();
 
 @media only screen and (max-width: 915px) {
     .characters-panel {
+        height: 40px;
         .panel-content {
             width: 100%;
             position: relative;

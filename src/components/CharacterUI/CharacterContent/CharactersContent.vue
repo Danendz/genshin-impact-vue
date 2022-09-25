@@ -1,6 +1,6 @@
 <template>
-    <div class="characters-central">
-        <Transition name="fade-right" appear>
+    <div :class="['characters-central', {'hided': changedStyle}]">
+        <Transition @after-leave="changedStyle = true" @before-enter="changedStyle = false" name="fade-right" appear>
             <ContentOptions v-if="!props.hide" :options-list="options_list" :active_content="active_content"
                 @set-active-content="setActiveContent" />
         </Transition>
@@ -9,9 +9,9 @@
 
             </div>
         </Transition>
-        <Transition name="fade-right" appear>
-            <ContentRight v-if="!props.hide" :options_list="options_list" :active_content="active_content" />
-        </Transition>
+
+        <ContentRight :options_list="options_list" :active_content="active_content" />
+
         <Transition name="fade-down" appear>
             <CharactersBottom v-if="!props.hide" />
         </Transition>
@@ -55,29 +55,35 @@ watch(() => props.hide, () => {
         setActiveContent(OptionsKeys.ATTRIBUTES)
     }
 })
+
+const changedStyle = ref(false)
 </script>
 
 
 <style lang="scss">
 .characters-central {
     color: white;
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: max-content max-content max-content;
+    justify-content: space-between;
     text-shadow:
         0.07em 0 black,
         0 0.07em black,
         -0.07em 0 black;
-    width: 80%;
-    height: 100%;
+    width: 60%;
+    min-height: 50%;
+
     margin-top: 10px;
 }
 
-@media only screen and (max-width: 1600px) {
+.hided {
+    justify-content: flex-end;
+    margin-top: 85px;
+}
+
+@media only screen and (max-width: 1800px) {
     .characters-central {
         width: 95%;
-        justify-content: space-between;
     }
 }
 
@@ -89,14 +95,18 @@ watch(() => props.hide, () => {
 
 @media only screen and (max-width: 700px) and (orientation: portrait) {
     .characters-central {
+        display: flex;
         flex-direction: column;
-        align-items: center;
     }
 }
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .characters-central {
         height: 100vh;
+    }
+
+    .hided {
+        margin-top: 50px
     }
 }
 </style>

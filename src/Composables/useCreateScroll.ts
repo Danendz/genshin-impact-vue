@@ -2,15 +2,23 @@ enum HorizontalScroll {
     scrollDirection = 'scrollLeft',
     clientDirection = 'clientX'
 }
+enum VerticalScroll {
+    scrollDirection = 'scrollTop',
+    clientDirection = 'clientY'
+}
+type directions = 'horizontal' | 'vertical'
+const useCreateScroll = <T extends HTMLElement>(htmlElement: T, userDir: directions = 'horizontal'): void => {
 
-const useCreateScroll = <T extends HTMLElement>(htmlElement: T): void => {
-    const direction: typeof HorizontalScroll = HorizontalScroll;
+    let direction: typeof HorizontalScroll | typeof VerticalScroll = HorizontalScroll;
+    if (userDir === 'vertical') {
+        direction = VerticalScroll;
+    }
 
     let mouseMoveCallback: (event: MouseEvent) => void;
     let velX: number;
     let momentumID: number;
     let prevScrollLeft: number;
-    
+
     htmlElement.addEventListener('wheel', () => {
         cancelMomentumTracking(); // Stop the drag momentum loop
     });
@@ -56,7 +64,7 @@ const useCreateScroll = <T extends HTMLElement>(htmlElement: T): void => {
     }
 
     function momentumLoop() {
-        htmlElement.scrollLeft += velX; // Apply the velocity to the scroll position
+        htmlElement[direction.scrollDirection] += velX; // Apply the velocity to the scroll position
         velX *= 0.95; // Slow the velocity slightly
         if (Math.abs(velX) > 0.5) { // Still moving?
             momentumID = requestAnimationFrame(momentumLoop); // Keep looping 
