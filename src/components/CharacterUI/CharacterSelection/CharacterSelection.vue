@@ -63,13 +63,14 @@ onMounted(() => {
 .character-selection-main {
     width: 50%;
     position: absolute;
+    left:0;
     height: 100vh;
 
     .CharacterSelection {
         display: flex;
         flex-direction: column;
         margin-left: 10px;
-        width: 50%;
+        width: 100%;
         max-width: 560px;
         height: 100vh;
 
