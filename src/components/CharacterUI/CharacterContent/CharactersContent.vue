@@ -77,7 +77,6 @@ const changedStyle = ref(false)
 }
 
 .hided {
-    z-index:9;
     justify-content: flex-end;
     margin-top: 85px;
 }
