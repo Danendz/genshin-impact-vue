@@ -69,6 +69,7 @@ const closeCharacters = (): void => {
 
 const mousemoved = ref(false);
 const clicked = ref(false)
+
 const handleMousedown = () => {
     clicked.value = true
 }

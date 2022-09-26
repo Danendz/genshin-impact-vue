@@ -43,17 +43,19 @@ const store = useCurrentCharacter()
 //creating horizontal drag scroll
 const characters_scroll = ref<null | HTMLDivElement>(null)
 
-let heightWithGap = 152
-let columns = 5
 onMounted(() => {
+    let heightWithGap = 152
+    let columns = 5
     if (characters_scroll.value) {
         useCreateScroll(characters_scroll.value, 'vertical')
-        if (screen.availWidth <= 1600) {
-            heightWithGap -= 4
-            columns = 4
-        } else if (screen.availWidth <= 740) {
-            heightWithGap -= 4
+        if (screen.availWidth <= 740) {
+            heightWithGap = 89
             columns = 3
+        } else if (screen.availWidth <= 915) {
+            heightWithGap = 89
+            columns = 4
+        } else if (screen.availWidth <= 1600) {
+            columns = 4
         }
         characters_scroll.value.scrollTop += heightWithGap * Math.floor(store.currentCharacterIndex / columns)
     }
