@@ -2,8 +2,7 @@
     <header class="characters-panel">
         <section class="panel-content">
             <CharactersInfo />
-            <CharactersScroll :characters="props.characters" :active-character-id="props.activeCharacterId"
-                @set-active-character="props.setActiveCharacter" />
+            <CharactersScroll :characters="props.characters" />
             <section class="close">
                 <button @click="router.go(-1)">X</button>
             </section>
@@ -24,9 +23,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter()
 
 interface Props {
-    characters: Character[],
-    activeCharacterId: number,
-    setActiveCharacter: (num: number) => void
+    characters: Character[]
 }
 
 const props = defineProps<Props>();
@@ -84,6 +81,7 @@ const props = defineProps<Props>();
 @media only screen and (max-width: 915px) {
     .characters-panel {
         height: 40px;
+
         .panel-content {
             width: 100%;
             position: relative;

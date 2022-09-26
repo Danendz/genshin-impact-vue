@@ -2,12 +2,11 @@
     <main class="characters-container">
         <CharacterBG />
         <Transition name="fade-up" appear>
-            <CharactersPanel v-if="!hideLayout.hide" :active-character-id="activeCharacterId" :characters="characters"
-                :set-active-character="setActiveCharacter" />
+            <CharactersPanel v-if="!hideLayout.hide" :characters="characters" />
         </Transition>
         <CharactersContent :hide="hideLayout.hide" />
         <Transition name="fade-left" appear>
-            <CharacterSelection v-if="hideLayout.hide" :characters="characters" />
+            <CharacterSelection v-if="hideLayout.hide" :characters="props.characters" />
         </Transition>
     </main>
 
@@ -20,14 +19,15 @@ import CharactersContent from '@/components/CharacterUI/CharacterContent/Charact
 import CharacterSelection from './CharacterSelection/CharacterSelection.vue';
 
 //stores
-import { useCurrentCharacter } from '@/store/currentCharacter';
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
+import { useCurrentCharacter } from '@/store/currentCharacter';
 
 //interfaces
 import { Character } from '@/Interfaces/CharacterInterface';
 
 //vue
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
+
 
 interface Props {
     characters: Character[]
@@ -36,20 +36,11 @@ interface Props {
 const props = defineProps<Props>()
 
 const hideLayout = useHideMainCharactersLayout()
-
-const activeCharacterId = ref<number>(0)
-const storeCurrentCharacter = useCurrentCharacter()
+const store = useCurrentCharacter()
 
 onMounted(() => {
-    setActiveCharacter(0)
+    store.setCurrentCharacter(props.characters[0], 0)
 })
-
-const setActiveCharacter = (id: number): void => {
-    activeCharacterId.value = id
-    storeCurrentCharacter.setCurrentCharacter(props.characters[activeCharacterId.value])
-
-}
-
 </script>
 <style lang="scss">
 .characters-container {

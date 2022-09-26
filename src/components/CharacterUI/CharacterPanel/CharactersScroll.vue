@@ -2,14 +2,15 @@
     <section :class="['characters-scroll-container', {'hide-characters-scroll': !characters_state_display}]">
         <section ref="characters_scroll" class="characters">
             <figure @mouseup="handleMouseup(index)" @mousemove="handleMousemove" @mousedown="handleMousedown"
-                :class="['char-icon', {'active-character': activeCharacterId === index}]"
+                :class="['char-icon', {'active-character': store.currentCharacterIndex === index}]"
                 v-for="(character, index) in props.characters" :key="index">
 
                 <img v-lazy="{
                     src: CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_SIDE),
                     loading: CharacterHelper.getPlaceholderIcon(CharacterImage.ICON_SIDE)
                 }" @mousedown="(e: MouseEvent) => e.preventDefault()"
-                    :class="[{'active-character-img': activeCharacterId === index}]" :alt="`${character.name}`" />
+                    :class="[{'active-character-img': store.currentCharacterIndex === index}]"
+                    :alt="`${character.name}`" />
             </figure>
         </section>
         <button @click="closeCharacters"
@@ -33,17 +34,14 @@ import { CharacterImage } from '@/Enums/CharacterEnums';
 
 //vue
 import { onMounted, ref } from 'vue';
+import { useCurrentCharacter } from '@/store/currentCharacter';
 
 interface Props {
-    activeCharacterId: number,
     characters: Character[]
 }
 
-const emit = defineEmits<{
-    (event: 'set-active-character', number: number): void
-}>()
-
 const props = defineProps<Props>();
+const store = useCurrentCharacter()
 
 //creating horizontal drag scroll
 const characters_scroll = ref<null | HTMLDivElement>(null)
@@ -51,7 +49,18 @@ onMounted(() => {
     if (characters_scroll.value) {
         useCreateScroll(characters_scroll.value)
     }
+    let heightWithGap;
+    if (characters_scroll.value) {
+        if (screen.availWidth <= 915) {
+            heightWithGap = 65
+            characters_scroll.value.scrollTop += heightWithGap * store.currentCharacterIndex
+        } else {
+            heightWithGap = 70
+            characters_scroll.value.scrollLeft += heightWithGap * store.currentCharacterIndex
+        }
+    }
 })
+
 
 const characters_state_display = ref(false)
 const closeCharacters = (): void => {
@@ -71,7 +80,7 @@ const handleMousemove = () => {
 
 const handleMouseup = (index: number): void => {
     if (!mousemoved.value) {
-        emit('set-active-character', index)
+        store.setCurrentCharacter(props.characters[index], index)
     }
     clicked.value = false
     mousemoved.value = false

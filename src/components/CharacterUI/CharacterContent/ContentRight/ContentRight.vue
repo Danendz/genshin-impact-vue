@@ -53,13 +53,6 @@ const content_component = computed(() => {
     }
 }
 
-@media only screen and (max-width: 700px) and (orientation: portrait) {
-    .characters-content {
-        .rightContent {
-            width: 85%;
-        }
-    }
-}
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .characters-content {
