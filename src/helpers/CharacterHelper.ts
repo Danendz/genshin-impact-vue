@@ -26,4 +26,8 @@ export default class CharacterHelper {
     public static getGenshinSiteIcons(iconUrl: string): string {
         return this.genshinSiteUrl + iconUrl
     }
+
+    public static getPlaceholderIcon(iconType: CharacterImage): string{
+        return this.genshinSiteUrl + 'placeholder-icons/' + iconType + '-placeholder'
+    }
 }

@@ -5,10 +5,12 @@
                 :class="['char-icon', {'active-character': activeCharacterId === index}]"
                 v-for="(character, index) in props.characters" :key="index">
 
-                <img @mousedown="(e: MouseEvent) => e.preventDefault()"
-                    :class="[{'active-character-img': activeCharacterId === index}]" :alt="`${character.name}`"
-                    :src="CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_SIDE)" />
-        </figure>
+                <img v-lazy="{
+                    src: CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_SIDE),
+                    loading: CharacterHelper.getPlaceholderIcon(CharacterImage.ICON_SIDE)
+                }" @mousedown="(e: MouseEvent) => e.preventDefault()"
+                    :class="[{'active-character-img': activeCharacterId === index}]" :alt="`${character.name}`" />
+            </figure>
         </section>
         <button @click="closeCharacters"
             :class="['close-character-scroll', {'close-character-scroll-hidden': !characters_state_display}]"> >
@@ -78,6 +80,7 @@ const handleMouseup = (index: number): void => {
 
 <style lang="scss">
 @import '@/assets/Styles/characters_panel';
+@import '@/assets/Styles/placeholder_animation';
 
 .characters-scroll-container {
     min-width: 25%;

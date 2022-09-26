@@ -2,9 +2,12 @@
     <figure @click="setCurrentCharacter" v-if="store.currentCharacter"
         :class="['character-card', {'active-character-card': character.name === store.currentCharacter.name}]">
         <div :class="['character-top-bg', `rarity-${character.rarity}`]"></div>
-        <img class="character-icon" alt="character"
-            :src="CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_BIG)" />
-        <img class="vision-icon" alt="vision" :src="CharacterHelper.getElementImage(character.vision.toLowerCase())" />
+        <img v-lazy="{
+            src: CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_BIG),
+            loading: CharacterHelper.getPlaceholderIcon(CharacterImage.ICON_BIG)
+        }" class="character-icon" alt="character" />
+        <img v-lazy="{src: CharacterHelper.getElementImage(character.vision.toLowerCase())}" class="vision-icon"
+            alt="vision" />
         <figcaption class="character-lvl">Lvl 90</figcaption>
     </figure>
 </template>

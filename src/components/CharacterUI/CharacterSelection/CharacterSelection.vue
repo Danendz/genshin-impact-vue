@@ -95,7 +95,7 @@ onMounted(() => {
     .character-selection-back {
         position: absolute;
         top: 20px;
-        right: 20%;
+        right: -60%;
         width: 35px;
         height: 35px;
         border-radius: 50%;
@@ -126,7 +126,7 @@ onMounted(() => {
     .character-selection-main {
         .character-selection-back {
             top: 10px;
-            right: -100%;
+            right: -95%;
         }
 
     }
