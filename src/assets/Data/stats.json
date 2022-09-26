@@ -1,0 +1,126 @@
+{
+    "Base Stats": {
+        "stat": {
+            "Max HP": {
+                "value": "9,514",
+                "icon": "stats-icons/hp"
+            },
+            "ATK": {
+                "value": "534",
+                "icon": "stats-icons/atk"
+            },
+            "DEF": {
+                "value": "705",
+                "icon": "stats-icons/def"
+            },
+            "Elementary Mastery": {
+                "value": "120",
+                "icon": "stats-icons/em"
+            },
+            "Max Stamina": {
+                "value": "240",
+                "icon": "stats-icons/stamina"
+            }
+        }
+    },
+    "Advanced Stats": {
+        "stat": {
+            "CRIT Rate": {
+                "value": "5.0%",
+                "icon": "stats-icons/crit"
+            },
+            "CRIT DMG": {
+                "value": "50.0%",
+                "icon": ""
+            },
+            "Healing Bonus": {
+                "value": "0.0%",
+                "icon": "stats-icons/healing_bonus"
+            },
+            "Incoming Healing Bonus": {
+                "value": "0.0%",
+                "icon": ""
+            },
+            "Energy Recharge": {
+                "value": "100.0%",
+                "icon": "stats-icons/er"
+            },
+            "CD Reduction": {
+                "value": "0.0%",
+                "icon": "stats-icons/cd_reduction"
+            },
+            "Shield Strength": {
+                "value": "0.0%",
+                "icon": "stats-icons/shield_strength"
+            }
+        }
+    },
+    "Elemental Type": {
+        "stat": {
+            "Pyro DMG Bonus": {
+                "value": "0.0%",
+                "icon": "stats-icons/pyro"
+            },
+            "Pyro RES": {
+                "value": "0.0%",
+                "icon": ""
+            },
+            "Hydro DMG Bonus": {
+                "value": "0.0%",
+                "icon": "stats-icons/hydro"
+            },
+            "Hydro RES": {
+                "value": "0.0%",
+                "icon": ""
+            },
+            "Dendro DMG Bonus": {
+                "value": "0.0%",
+                "icon": "stats-icons/dendro"
+            },
+            "Dendro RES": {
+                "value": "0.0%",
+                "icon": ""
+            },
+            "Electro DMG Bonus": {
+                "value": "0.0%",
+                "icon": "stats-icons/electro"
+            },
+            "Electro RES": {
+                "value": "0.0%",
+                "icon": ""
+            },
+            "Anemo DMG Bonus": {
+                "value": "0.0%",
+                "icon": "stats-icons/anemo"
+            },
+            "Anemo RES": {
+                "value": "0.0%",
+                "icon": ""
+            },
+            "Cryo DMG Bonus": {
+                "value": "0.0%",
+                "icon": "stats-icons/cryo"
+            },
+            "Cryo RES": {
+                "value": "0.0%",
+                "icon": ""
+            },
+            "Geo DMG Bonus": {
+                "value": "0.0%",
+                "icon": "stats-icons/geo"
+            },
+            "Geo RES": {
+                "value": "0.0%",
+                "icon": ""
+            },
+            "Physical DMG Bonus": {
+                "value": "0.0%",
+                "icon": "stats-icons/physical"
+            },
+            "Physical RES": {
+                "value": "0.0%",
+                "icon": ""
+            }
+        }
+    }
+}

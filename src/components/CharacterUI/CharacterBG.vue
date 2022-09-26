@@ -1,16 +1,20 @@
 <template>
     <transition name="fade" appear>
-        <div v-if="store.currentCharacter"
+        <figure v-if="store.currentCharacter"
             :class="`character-background-container ${store.currentCharacter.vision.toLowerCase()} `"
-            :key="store.currentCharacter.name">
-            <transition-group name="fade" appear mode="out-in">
-                <div v-if="bgImage" class="character-background" :style="{backgroundImage: `url(${bgImage})`}"></div>
+            :key="store.currentCharacter.name_key">
 
-                <img :class="['gacha-image', {'gacha-image-right': hideLayout.hide}]" v-if="gachaImage" :src="gachaImage" />
-                <!-- <LoaderContent :key="gachaImage" v-if="gachaImage === '' || bgImage===''" /> -->
+            <transition-group name="fade" appear mode="out-in">
+
+                <div alt="background-character" v-if="bgImage" class="character-background"
+                    :style="{backgroundImage: `url(${bgImage})`}"></div>
+
+                <img alt="gacha-character" :class="['gacha-image', {'gacha-image-right': hideLayout.hide}]"
+                    v-if="gachaImage" :src="gachaImage" />
+
             </transition-group>
-            
-        </div>
+
+        </figure>
     </transition>
 </template>
 
@@ -21,10 +25,6 @@ import { CharacterImage } from '@/Enums/CharacterEnums'
 //stores
 import { useCurrentCharacter } from '@/store/currentCharacter';
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
-
-
-/* //components
-import LoaderContent from '@/components/UI/LoaderContent.vue' */
 
 //composables
 import usePreloadImage from '@/Composables/usePreloadImage';
@@ -81,7 +81,8 @@ watch(() => store.currentCharacter, () => {
         position: absolute;
         transform: translateX(0);
     }
-    .gacha-image-right{
+
+    .gacha-image-right {
         transform: translateX(5%);
     }
 
@@ -103,11 +104,13 @@ watch(() => store.currentCharacter, () => {
         }
     }
 }
+
 @media only screen and (max-width: 1600px) {
-    .gacha-image-right{
+    .gacha-image-right {
         transform: translateX(15%);
     }
 }
+
 .anemo {
     background-color: $anemo;
 }

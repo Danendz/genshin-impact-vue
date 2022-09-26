@@ -1,9 +1,9 @@
 <template>
-    <div class="friendship">
-        <img alt="friendship" src="@/assets/StatsIcons/friendship.webp" />
-        <span>Friendship</span>
-        <span class="friendship-lvl">8</span>
-    </div>
+    <figure class="friendship">
+        <img alt="friendship" :src="CharacterHelper.getGenshinSiteIcons('stats-icons/friendship')" />
+        <figcaption>Friendship</figcaption>
+        <figcaption class="friendship-lvl">8</figcaption>
+    </figure>
     <progress class="friendship-progress" value="90" max="100" />
     <p class="content-right-description">
         {{props.currentCharacter.description}}
@@ -11,7 +11,11 @@
 </template>
 
 <script setup lang="ts">
+//interfaces
 import { Character } from '@/Interfaces/CharacterInterface';
+
+//helpers
+import CharacterHelper from '@/helpers/CharacterHelper';
 
 interface Props {
     currentCharacter: Character
@@ -25,11 +29,13 @@ const props = defineProps<Props>();
         display: flex;
         font-size: 17px;
         align-items: center;
-        img{
+
+        img {
             width: auto;
             height: 12px;
             margin-right: 5px;
         }
+
         .friendship-lvl {
             margin-left: auto;
         }

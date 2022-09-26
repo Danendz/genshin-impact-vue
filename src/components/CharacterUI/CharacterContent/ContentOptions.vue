@@ -1,7 +1,7 @@
 <template>
     <aside class="options">
         <ul>
-            <li v-for="value, key, index in optionsList" :key="index"
+            <li v-for="_, key, index in optionsList" :key="index"
                 :class="[{'active-option': props.active_content === key}]" @click="emit('setActiveContent',key)">
                 {{key}}
             </li>

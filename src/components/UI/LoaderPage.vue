@@ -1,8 +1,8 @@
 <template>
-    <div class="loader">
-        <img src="@/assets/paimonImages/paimonExcited.webp"/>
-        <p>Загружаем {{props.title}}...</p>
-    </div>
+    <figure class="loader">
+        <img alt="loading character" src="@/assets/paimonImages/paimonExcited.webp"/>
+        <figcaption>Загружаем {{props.title}}...</figcaption>
+    </figure>
 </template>
 
 <script setup lang="ts">
@@ -23,7 +23,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        p{
+        figcaption{
             font-size: 25px;
             font-family:'Times New Roman', Times, serif;
             font-weight: bold;
@@ -45,5 +45,11 @@
             transform: translateY(-2px);
         }
     }
-   
+   @media only screen and (max-height: 412px) and (orientation: landscape){
+    .loader{
+        img{
+            width: 250px;
+        }
+    }
+   }
 </style>

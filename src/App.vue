@@ -9,6 +9,8 @@ import { useRoute } from 'vue-router';
 </script>
 
 <style lang="scss">
+@import '@/assets/Styles/animations';
+
 * {
   margin: 0;
   padding: 0;

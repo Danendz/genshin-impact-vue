@@ -5,7 +5,7 @@
         <img class="character-icon" alt="character"
             :src="CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_BIG)" />
         <img class="vision-icon" alt="vision" :src="CharacterHelper.getElementImage(character.vision.toLowerCase())" />
-        <p class="character-lvl">Lvl 90</p>
+        <figcaption class="character-lvl">Lvl 90</figcaption>
     </figure>
 </template>
 

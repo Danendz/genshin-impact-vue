@@ -1,10 +1,10 @@
 <template>
     <transition name="fade">
-        <div v-show="active_state" @click.self="emit('close-modal')" class="modal">
-            <div :class="['modal-content', props.modalStyle]">
+        <article v-show="active_state" @click.self="emit('close-modal')" class="modal">
+            <section :class="['modal-content', props.modalStyle]">
                 <slot />
-            </div>
-        </div>
+            </section>
+        </article>
     </transition>
 </template>
 

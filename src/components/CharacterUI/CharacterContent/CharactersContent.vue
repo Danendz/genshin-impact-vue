@@ -1,13 +1,13 @@
 <template>
-    <div :class="['characters-central', {'hided': changedStyle}]">
+    <section :class="['characters-content', {'hided': changedStyle}]">
         <Transition @after-leave="changedStyle = true" @before-enter="changedStyle = false" name="fade-right" appear>
             <ContentOptions v-if="!props.hide" :options-list="options_list" :active_content="active_content"
                 @set-active-content="setActiveContent" />
         </Transition>
         <Transition name="fade-right" appear>
-            <div v-if="!props.hide" class="centerContent">
+            <section v-if="!props.hide" class="centerContent">
 
-            </div>
+            </section>
         </Transition>
 
         <ContentRight :options_list="options_list" :active_content="active_content" />
@@ -15,7 +15,7 @@
         <Transition name="fade-down" appear>
             <CharactersBottom v-if="!props.hide" />
         </Transition>
-    </div>
+    </section>
 </template>
 
 <script setup lang="ts">
@@ -61,7 +61,7 @@ const changedStyle = ref(false)
 
 
 <style lang="scss">
-.characters-central {
+.characters-content {
     color: white;
     display: grid;
     grid-template-columns: max-content max-content max-content;
@@ -82,27 +82,27 @@ const changedStyle = ref(false)
 }
 
 @media only screen and (max-width: 1800px) {
-    .characters-central {
+    .characters-content {
         width: 95%;
     }
 }
 
 @media only screen and (orientation: portrait) {
-    .characters-central {
+    .characters-content {
         align-items: center;
         height: 100vh;
     }
 }
 
 @media only screen and (max-width: 700px) and (orientation: portrait) {
-    .characters-central {
+    .characters-content {
         display: flex;
         flex-direction: column;
     }
 }
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
-    .characters-central {
+    .characters-content {
         height: 100vh;
     }
 

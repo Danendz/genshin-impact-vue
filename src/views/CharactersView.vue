@@ -1,11 +1,6 @@
 <template>
-    <PageTransition>
-        <ErrorPage v-if="characters === ErrorMessages.NOT_FOUND || characters?.length === 0"
-            :error-message="ErrorMessages.NOT_FOUND" />
-
-        <CharacterLayout v-else-if="characters" :characters="characters" />
-
-        <LoaderPage v-else title="персонажей" />
+    <PageTransition :condition-item="characters" :loader-title="'персонажей'">
+        <CharacterLayout :characters="(characters as Character[])" />
     </PageTransition>
 </template>
 
@@ -13,8 +8,6 @@
 //components
 import CharacterLayout from '@/components/CharacterUI/CharacterLayout.vue';
 import PageTransition from '@/components/UI/PageTransition.vue'
-import LoaderPage from '@/components/UI/LoaderPage.vue'
-import ErrorPage from '@/components/UI/ErrorPage.vue'
 
 //composables
 import { useGetCharacterByName, useGetCharacters } from '@/Composables/useGetCharacters';
@@ -24,9 +17,6 @@ import { Character } from '@/Interfaces/CharacterInterface';
 
 //types 
 import { CharacterType } from '@/Types/CharacterType'
-
-//enums 
-import { ErrorMessages } from '@/Enums/ErrorMessages';
 
 //vue
 import { computed, Ref } from 'vue';
@@ -58,9 +48,3 @@ const characters = computed(() => {
 })
 
 </script>
-
-<style lang="scss">
-@import '@/assets/Styles/animations';
-
-
-</style>

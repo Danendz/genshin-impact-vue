@@ -1,14 +1,14 @@
 <template>
-    <div class="characters-panel">
-        <div class="panel-content">
+    <header class="characters-panel">
+        <section class="panel-content">
             <CharactersInfo />
             <CharactersScroll :characters="props.characters" :active-character-id="props.activeCharacterId"
                 @set-active-character="props.setActiveCharacter" />
-            <div class="close">
+            <section class="close">
                 <button @click="router.go(-1)">X</button>
-            </div>
-        </div>
-    </div>
+            </section>
+        </section>
+    </header>
 </template>
 
 <script setup lang="ts">

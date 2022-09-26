@@ -21,6 +21,8 @@ const useCreateScroll = <T extends HTMLElement>(htmlElement: T, userDir: directi
 
     htmlElement.addEventListener('wheel', () => {
         cancelMomentumTracking(); // Stop the drag momentum loop
+    }, {
+        passive: true
     });
 
     const mousedownHolder = (e: MouseEvent) => {

@@ -3,6 +3,7 @@ import { CharacterImage } from '@/Enums/CharacterEnums'
 export default class CharacterHelper {
     static characterUrl: string = APIEntries.BASE_URL + APIEntries.CHARACTERS
     static elementsUrl: string = APIEntries.BASE_URL + APIEntries.ELEMENTS
+    static genshinSiteUrl: string = APIEntries.BASE_URL + APIEntries.GENSHIN_SITE
 
     public static getCharacterImage(name: string | undefined, type: CharacterImage): string {
         if (name) {
@@ -20,5 +21,9 @@ export default class CharacterHelper {
     }
     public static getElementImage(element: string): string {
         return this.elementsUrl + element + '/icon'
+    }
+
+    public static getGenshinSiteIcons(iconUrl: string): string {
+        return this.genshinSiteUrl + iconUrl
     }
 }

@@ -1,32 +1,24 @@
 <template>
-    <div class="stats-bar">
-        <div class="stat">
-            <img alt='max-hp' src="@/assets/StatsIcons/hp.webp"/>
-            <span>Max Hp</span>
-            <span class="stat-value">15,033</span>
-        </div>
-        <div class="stat">
-            <img alt='atk' src="@/assets/StatsIcons/atk.webp" />
-            <span>ATK</span>
-            <span class="stat-value">2,416</span>
-        </div>
-        <div class="stat">
-            <img alt='def' src="@/assets/StatsIcons/def.webp" />
-            <span>DEF</span>
-            <span class="stat-value">891</span>
-        </div>
-        <div class="stat">
-            <img alt="elemental mastery" src="@/assets/StatsIcons/em.webp" />
-            <span>Elemental Mastery</span>
-            <span class="stat-value">0</span>
-        </div>
-        <div class="stat">
-            <img src='@/assets/StatsIcons/stamina.webp' />
-            <span>Max Stamina</span>
-            <span class="stat-value">244</span>
-        </div>
-    </div>
+    <section class="stats-bar">
+        <figure class="stat" v-for="value,key in stats['Base Stats'].stat" :key="key">
+            <img :alt='`${key}`' :src="CharacterHelper.getGenshinSiteIcons(value.icon)" />
+            <figcaption>{{key}}</figcaption>
+            <figcaption class="stat-value">{{value.value}}</figcaption>
+        </figure>
+    </section>
 </template>
+
+<script setup lang="ts">
+//interfaces
+import { IStats } from '@/Interfaces/IStats';
+
+//Data
+import statsData from '@/assets/Data/stats.json'
+import CharacterHelper from '@/helpers/CharacterHelper';
+
+const stats: IStats = statsData;
+
+</script>
 
 <style lang="scss">
 .attributes-content {
@@ -40,11 +32,13 @@
             font-weight: bold;
             padding: 5px;
             border-radius: 5px;
-            img{
+
+            img {
                 width: 12px;
                 height: auto;
                 margin-right: 3px;
             }
+
             .stat-value {
                 margin-left: auto;
             }

@@ -1,14 +1,16 @@
 <template>
-    <div class="attributes-content" v-if="store.currentCharacter">
+    <section class="attributes-content" v-if="store.currentCharacter">
         <BaseInfo :current-character="store.currentCharacter" />
         <StatsBar />
         <button @click="setActiveDetails" class="details-btn">Details</button>
         <FriendshipAndDescription :current-character="store.currentCharacter" />
-        <div class="rightButtons">
-            <button><img alt="dressing_room" src="@/assets/StatsIcons/dressing_room.webp" /><span>Dressing
-                    Room</span></button>
-        </div>
-    </div>
+        <footer class="footer-buttons">
+            <button>
+                <img alt="dressing_room" :src="CharacterHelper.getGenshinSiteIcons('stats-icons/dressing_room')" />
+                <span>Dressing Room</span>
+            </button>
+        </footer>
+    </section>
     <ModalWindow @close-modal="setActiveDetails" :active_state="active_details" :modalStyle="'details'">
         <DetailsInfo />
     </ModalWindow>
@@ -24,6 +26,9 @@ import StatsBar from './StatsBar.vue';
 import FriendshipAndDescription from './FriendshipAndDescription.vue';
 import ModalWindow from '@/components/UI/ModalWindow.vue';
 import DetailsInfo from './DetailsInfo.vue';
+
+//helpers
+import CharacterHelper from '@/helpers/CharacterHelper';
 
 //vue
 import { ref } from 'vue';
@@ -46,7 +51,7 @@ const setActiveDetails = () => {
     flex-direction: column;
     gap: 10px;
 
-    .rightButtons {
+    .footer-buttons {
 
         button {
             display: flex;
@@ -59,10 +64,11 @@ const setActiveDetails = () => {
             width: 100%;
             transition: .3s;
 
-            &:hover{
+            &:hover {
                 transform: translateY(-2px);
             }
-            &:active{
+
+            &:active {
                 transform: translateY(-1px);
             }
         }
@@ -131,8 +137,9 @@ const setActiveDetails = () => {
             padding: 2px;
         }
 
-        .rightButtons {
+        .footer-buttons {
             margin-top: 3px;
+
             button {
                 padding: 3px 5px;
             }

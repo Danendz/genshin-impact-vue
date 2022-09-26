@@ -1,8 +1,8 @@
 <template>
-    <div class="bottom-character-container">
-        <img class="bottom-character" :src="image" />
-        <p class="bottom-text">{{text}}</p>
-    </div>
+    <figure class="bottom-character-container">
+        <img alt="character" class="bottom-character" :src="image" />
+        <figcaption class="bottom-text">{{text}}</figcaption>
+    </figure>
 </template>
 
 <script setup lang="ts">

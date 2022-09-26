@@ -1,9 +1,9 @@
 <template>
     <aside class="rightContent">
         <Transition name="fade-content" mode="out-in">
-            <div :style="{width: '100%'}" :key="active_content">
+            <article :style="{width: '100%'}" :key="active_content">
                 <component :is="content_component" />
-            </div>
+            </article>
         </Transition>
     </aside>
 </template>
@@ -16,7 +16,7 @@ import { OptionsKeys } from '@/Enums/OptionsKeys';
 import { defineAsyncComponent, computed } from 'vue'
 
 type OptionsList = {
-    [Property in OptionsKeys]: () => Promise<typeof defineAsyncComponent>;
+    [Property in OptionsKeys]: () => Promise<ReturnType<typeof defineAsyncComponent>>;
 }
 interface Props {
     options_list: OptionsList,
@@ -31,7 +31,7 @@ const content_component = computed(() => {
 </script>
 
 <style lang="scss">
-.characters-central {
+.characters-content {
     .rightContent {
         background-color: rgba(0, 0, 0, 0.418);
         width: 300px;
@@ -39,12 +39,12 @@ const content_component = computed(() => {
         min-height: 50%;
         border-radius: 10px;
         transition: .5s;
-        
+
     }
 }
 
 @media only screen and (orientation: portrait) {
-    .characters-central {
+    .characters-content {
         .rightContent {
             display: flex;
             align-items: center;
@@ -54,7 +54,7 @@ const content_component = computed(() => {
 }
 
 @media only screen and (max-width: 700px) and (orientation: portrait) {
-    .characters-central {
+    .characters-content {
         .rightContent {
             width: 85%;
         }
@@ -62,7 +62,7 @@ const content_component = computed(() => {
 }
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
-    .characters-central {
+    .characters-content {
         .rightContent {
             background-color: transparent;
             width: 220px;

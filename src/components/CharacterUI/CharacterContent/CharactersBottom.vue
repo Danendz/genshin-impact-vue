@@ -1,9 +1,9 @@
 <template>
-    <div class="characters-bottom">
-        <div class="footer">
+    <footer class="characters-footer">
+        <section class="footer-buttons">
             <button @click="toggleAllCharacters"><img alt='toggle characters' src='@/assets/Icons/menu.webp' /></button>
-        </div>
-    </div>
+        </section>
+    </footer>
 </template>
 
 <script setup lang="ts">
@@ -19,7 +19,7 @@ const toggleAllCharacters = () => {
 <style lang="scss">
 @import '@/assets/Styles/characters_panel';
 
-.characters-bottom {
+.characters-footer {
     bottom: 12px;
     position: absolute;
     display: flex;
@@ -31,7 +31,7 @@ const toggleAllCharacters = () => {
     z-index: 0;
     background-color: rgba(0, 0, 0, 0.363);
 
-    .footer {
+    .footer-buttons{
         width: 100%;
         margin: 0 10px;
 
@@ -58,15 +58,15 @@ const toggleAllCharacters = () => {
 }
 
 @media only screen and (orientation: portrait) {
-    .characters-bottom {
+    .characters-footer{
         display: none;
 
     }
 }
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
-    .characters-bottom {
-        .footer {
+    .characters-footer{
+        .footer-buttons {
             width: 95%;
         }
     }

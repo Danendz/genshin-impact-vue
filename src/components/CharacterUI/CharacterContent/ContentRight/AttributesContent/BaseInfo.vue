@@ -1,12 +1,10 @@
 <template>
-    <div class="base-info">
-        <h1 class="name">{{props.currentCharacter.name}} 
-        </h1>
-        <p><span class="rarity"
-                    v-for="rarity in props.currentCharacter.rarity" :key="rarity">*</span></p>
+    <header class="base-info">
+        <h1 class="name">{{props.currentCharacter.name}}</h1>
+        <p><span class="rarity" v-for="rarity in props.currentCharacter.rarity" :key="rarity">*</span></p>
         <p class="base-lvl">Level 90 / <span class="max-lvl">90</span></p>
         <progress class="lvl-progress" value="100" max="100" />
-    </div>
+    </header>
 </template>
 
 <script setup lang="ts">
@@ -40,11 +38,13 @@ const props = defineProps<Props>();
         .base-info {
             .name {
                 font-size: 16px;
-               
+
             }
-            .rarity{
+
+            .rarity {
                 font-size: 12px;
             }
+
             .base-lvl {
                 font-size: 13px;
             }

@@ -1,37 +1,51 @@
 <template>
-    <nav :class="[{show: showNav}]">
-        <ul>
-            <li>
-                <router-link :to="{name: 'event'}">
-                    <img alt="event link" src="@/assets/NavIcons/Icon_Event.webp" />
-                </router-link>
-            </li>
-            <li>
-                <router-link :to="{name: 'wish'}">
-                    <img alt="wish link" src="@/assets/NavIcons/Icon_Wish.webp" />
-                </router-link>
-            </li>
-            <li>
-                <router-link :to="{name: 'inventory'}">
-                    <img alt="inventory link" src="@/assets/NavIcons/Icon_Inventory.webp" />
-                </router-link>
-            </li>
-            <li>
-                <router-link :to="{name: 'characters'}">
-                    <img alt="characters link" src="@/assets/NavIcons/Icon_Character.webp" />
-                </router-link>
-            </li>
-        </ul>
-        <button :class="['arrow', {rotateArrow: showNav}]" @click="toggleNav">></button>
-    </nav>
+  <nav :class="[{show: showNav}]">
+    <ul>
+      <li v-for="navLink in navLinks" :key="navLink.name">
+        <router-link :to="{name: navLink.name}">
+          <img :alt="`${navLink.name} link`" :src="CharacterHelper.getGenshinSiteIcons(navLink.imgUrl)" />
+        </router-link>
+      </li>
+
+    </ul>
+    <button :class="['arrow', {rotateArrow: showNav}]" @click="toggleNav">></button>
+  </nav>
 </template>
 
 <script setup lang="ts">
+//helpers
+import CharacterHelper from '@/helpers/CharacterHelper';
+
+//vue
 import { ref } from 'vue';
+
+interface INavLinks {
+  name: string,
+  imgUrl: string
+}
+
+const navLinks: INavLinks[] = [
+  {
+    name: 'event',
+    imgUrl: "nav-icons/Icon_Event"
+  },
+  {
+    name: "wish",
+    imgUrl: "nav-icons/Icon_Wish"
+  },
+  {
+    name: "inventory",
+    imgUrl: "nav-icons/Icon_Inventory"
+  },
+  {
+    name: "characters",
+    imgUrl: "nav-icons/Icon_Character"
+  }
+]
 
 const showNav = ref(false)
 const toggleNav = () => {
-    showNav.value = !showNav.value;
+  showNav.value = !showNav.value;
 }
 
 </script>
@@ -63,34 +77,42 @@ nav {
     position: absolute;
     bottom: -20px;
   }
+
   ul {
     padding: 5px 0;
     display: flex;
     gap: 15px;
     list-style: none;
+
     img {
       width: 40px;
       height: 40px;
       transition: 0.3s;
+
       &:hover {
         transform: scale(1.1);
       }
     }
   }
 }
+
 .show {
   transform: translateY(0);
 }
+
 .rotateArrow {
   transform: rotate(180deg);
 }
+
 @media only screen and (max-width: 960px) {
   nav {
     padding: 3px 0;
+
     li {
       padding: 5px 0;
       display: flex;
       gap: 15px;
+
       img {
         width: 30px;
         height: 30px;

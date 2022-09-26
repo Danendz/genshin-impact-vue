@@ -1,8 +1,10 @@
 <template>
-    <div class="info" v-if="store.currentCharacter">
+    <figure class="info" v-if="store.currentCharacter">
         <img alt="vision" :src="CharacterHelper.getElementImage(store.currentCharacter.vision.toLowerCase())" />
-        <p class="visionAndName">{{store.currentCharacter.vision}}/ {{store.currentCharacter.name}}</p>
-    </div>
+        <figcaption class="visionAndName">
+            {{store.currentCharacter.vision}}/ {{store.currentCharacter.name}}
+        </figcaption>
+    </figure>
 </template>
 
 <script setup lang="ts">

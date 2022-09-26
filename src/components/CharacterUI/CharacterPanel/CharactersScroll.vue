@@ -1,19 +1,19 @@
 <template>
-    <div :class="['characters-scroll-container', {'hide-characters-scroll': !characters_state_display}]">
-        <div ref="characters_scroll" class="characters">
-            <div @mouseup="handleMouseup(index)" @mousemove="handleMousemove" @mousedown="handleMousedown"
+    <section :class="['characters-scroll-container', {'hide-characters-scroll': !characters_state_display}]">
+        <section ref="characters_scroll" class="characters">
+            <figure @mouseup="handleMouseup(index)" @mousemove="handleMousemove" @mousedown="handleMousedown"
                 :class="['char-icon', {'active-character': activeCharacterId === index}]"
                 v-for="(character, index) in props.characters" :key="index">
 
                 <img @mousedown="(e: MouseEvent) => e.preventDefault()"
-                    :class="[{'active-character-img': activeCharacterId === index}]" :alt="`${index}`"
+                    :class="[{'active-character-img': activeCharacterId === index}]" :alt="`${character.name}`"
                     :src="CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_SIDE)" />
-            </div>
-        </div>
+        </figure>
+        </section>
         <button @click="closeCharacters"
             :class="['close-character-scroll', {'close-character-scroll-hidden': !characters_state_display}]"> >
         </button>
-    </div>
+    </section>
 </template>
 
 <script setup lang="ts">

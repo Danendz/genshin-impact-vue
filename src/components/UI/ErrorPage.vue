@@ -1,7 +1,7 @@
 <template>
-    <div class="errorPage" v-if="props.errorMessage === ErrorMessages.NOT_FOUND || !props.errorMessage">
+    <article class="errorPage" v-if="props.errorMessage === ErrorMessages.NOT_FOUND || !props.errorMessage">
         <BottomCharacter image-url="paimonImages/surprisedPaimon.webp" text="Упс... Мы не нашли такую страничку!" />
-    </div>
+    </article>
 </template>
 
 <script setup lang="ts">
@@ -12,7 +12,7 @@ import { ErrorMessages } from '@/Enums/ErrorMessages';
 import BottomCharacter from './BottomCharacter.vue';
 
 interface Props {
-    errorMessage?: ErrorMessages
+    errorMessage?: string
 }
 const props = defineProps<Props>()
 
