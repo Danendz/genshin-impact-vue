@@ -1,13 +1,12 @@
 img[lazy=loading]{
     opacity: 0.5;
-    animation: placeholder-loading 2s infinite;
 }
 img[lazy=loaded]{
     opacity: 0;
     animation: placeholder-loaded 1s forwards;
 }
 
-@keyframes placeholder-loading {
+/* @keyframes placeholder-loading {
     0%{
         opacity: 0.5;
     }
@@ -17,7 +16,7 @@ img[lazy=loaded]{
     100%{
         opacity: 0.5;
     }
-}
+} */
 
 @keyframes placeholder-loaded {
     0%{
