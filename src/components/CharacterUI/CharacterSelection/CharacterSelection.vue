@@ -7,7 +7,7 @@
             </header>
             <section @mousedown="(e: MouseEvent) => e.preventDefault()" ref="characters_scroll"
                 class="character-selection-list">
-                <CharacterCard v-for="character, index in characters" :key="index" :character="character" />
+                <CharacterCard v-for="character, index in props.characters" :key="index" :character="character" />
             </section>
         </aside>
         <button @click="hideLayout.setHide()" class="character-selection-back">X</button>
@@ -126,7 +126,7 @@ onMounted(() => {
     .character-selection-main {
         .character-selection-back {
             top: 10px;
-            right: 10px;
+            right: -100%;
         }
 
     }

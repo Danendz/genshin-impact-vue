@@ -1,5 +1,5 @@
 <template>
-    <div class="characters-container">
+    <main class="characters-container">
         <CharacterBG />
         <Transition name="fade-up" appear>
             <CharactersPanel v-if="!hideLayout.hide" :active-character-id="activeCharacterId" :characters="characters"
@@ -9,7 +9,7 @@
         <Transition name="fade-left" appear>
             <CharacterSelection v-if="hideLayout.hide" :characters="characters" />
         </Transition>
-    </div>
+    </main>
 
 </template>
 <script setup lang="ts">

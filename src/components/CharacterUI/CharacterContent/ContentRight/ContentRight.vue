@@ -13,10 +13,10 @@
 import { OptionsKeys } from '@/Enums/OptionsKeys';
 
 //vue
-import { defineAsyncComponent, computed, Component } from 'vue'
+import { defineAsyncComponent, computed } from 'vue'
 
 type OptionsList = {
-    [Property in OptionsKeys]: () => Promise<Component>;
+    [Property in OptionsKeys]: () => Promise<typeof defineAsyncComponent>;
 }
 interface Props {
     options_list: OptionsList,
