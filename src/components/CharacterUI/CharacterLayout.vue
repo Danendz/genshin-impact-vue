@@ -2,11 +2,11 @@
     <main class="characters-container">
         <CharacterBG />
         <Transition name="fade-up" appear>
-            <CharactersPanel v-show="!hideLayout.hide" :characters="characters" />
+            <CharactersPanel v-show="!hideLayout.hide" />
         </Transition>
         <CharactersContent :hide="hideLayout.hide" />
         <Transition name="fade-left" appear>
-            <CharacterSelection v-show="hideLayout.hide" :characters="props.characters" />
+            <CharacterSelection v-show="hideLayout.hide" />
         </Transition>
     </main>
 
@@ -21,6 +21,7 @@ import CharacterSelection from './CharacterSelection/CharacterSelection.vue';
 //stores
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 import { useCurrentCharacter } from '@/store/currentCharacter';
+import { useCharacters } from '@/store/Characters';
 
 //interfaces
 import { Character } from '@/Interfaces/CharacterInterface';
@@ -28,18 +29,15 @@ import { Character } from '@/Interfaces/CharacterInterface';
 //vue
 import { onMounted } from 'vue';
 
-
-interface Props {
-    characters: Character[]
-}
-
-const props = defineProps<Props>()
+const characters: Character[] | null = useCharacters().getCharacters
 
 const hideLayout = useHideMainCharactersLayout()
 const store = useCurrentCharacter()
 
 onMounted(() => {
-    store.setCurrentCharacter(props.characters[0], 0)
+    if (characters) {
+        store.setCurrentCharacter(characters[0], 0)
+    }
 })
 </script>
 <style lang="scss">

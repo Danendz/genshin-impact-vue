@@ -1,7 +1,6 @@
 export enum CharacterRarity {
-    THREE = 3,
-    FOUR,
-    FIVE
+    FOUR = '4',
+    FIVE = '5'
 }
 
 export enum CharacterWeapon {
@@ -18,7 +17,8 @@ export enum CharacterElement {
     PYRO = 'Pyro',
     ANEMO = 'Anemo',
     HYDRO = 'Hydro',
-    DENDRO = 'Dendro'
+    DENDRO = 'Dendro',
+    ELECTRO = 'Electro'
 }
 
 export enum CharacterRegion {

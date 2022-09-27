@@ -1,7 +1,6 @@
 <template>
     <transition name="fade" appear mode="out-in">
-        <ErrorPage v-if="typeof conditionItem === 'string' || conditionItem?.length === 0"
-            :error-message="(conditionItem as string)" />
+        <ErrorPage v-if="error" :error-message="error" />
         <slot v-else-if="conditionItem" />
         <LoaderPage v-else :title="props.loaderTitle" />
     </transition>
@@ -14,9 +13,11 @@ import ErrorPage from './ErrorPage.vue';
 
 //interfaces
 import { Character } from '@/Interfaces/CharacterInterface';
+import { ErrorMessages } from '@/Enums/ErrorMessages';
 
 interface Props {
-    conditionItem: Character[] | string | null,
+    conditionItem: Character[] | null,
+    error: ErrorMessages | null,
     loaderTitle: string
 }
 const props = defineProps<Props>()

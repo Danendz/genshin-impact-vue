@@ -3,7 +3,8 @@
         <section ref="characters_scroll" class="characters">
             <PreventClickEvent @click-function="changeCharacter"
                 :class="['char-icon', {'active-character': store.currentCharacterIndex === index}]" :index="index"
-                v-for="(character, index) in props.characters" :key="index">
+                v-for="(character, index) in characters" :key="index">
+
                 <LazyImg :options="{
                 src: CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_SIDE),
                 loading: CharacterHelper.getPlaceholderIcon(CharacterImage.ICON_SIDE),
@@ -19,9 +20,6 @@
 </template>
 
 <script setup lang="ts">
-//interfaces
-import { Character } from '@/Interfaces/CharacterInterface';
-
 //helpers
 import CharacterHelper from '@/helpers/CharacterHelper';
 
@@ -41,13 +39,11 @@ import { CharacterImage } from '@/Enums/CharacterEnums';
 
 //vue
 import { onMounted, ref, watch, nextTick } from 'vue';
+import { useCharacters } from '@/store/Characters';
 
-interface Props {
-    characters: Character[]
-}
 
-const props = defineProps<Props>();
 const store = useCurrentCharacter()
+const characters = useCharacters().getCharacters
 const hideLayout = useHideMainCharactersLayout()
 
 //creating horizontal drag scroll
@@ -82,7 +78,9 @@ const closeCharacters = (): void => {
 }
 
 const changeCharacter = (index: number): void => {
-    store.setCurrentCharacter(props.characters[index], index)
+    if (characters) {
+        store.setCurrentCharacter(characters[index], index)
+    }
 }
 </script>
 

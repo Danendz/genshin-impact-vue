@@ -7,7 +7,7 @@
             </header>
             <section @mousedown="(e: MouseEvent) => e.preventDefault()" ref="characters_scroll"
                 class="character-selection-list">
-                <CharacterCard v-for="character, index in props.characters" :key="index" :character="character"
+                <CharacterCard v-for="character, index in characters" :key="index" :character="character"
                     :character-index="index" />
             </section>
         </aside>
@@ -16,9 +16,6 @@
 </template>
 
 <script setup lang="ts">
-//interfaces
-import { Character } from '@/Interfaces/CharacterInterface';
-
 //stores
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 import { useCurrentCharacter } from '@/store/currentCharacter';
@@ -31,13 +28,10 @@ import useCreateScroll from '@/Composables/useCreateScroll';
 
 //vue
 import { ref, onMounted, watch, nextTick } from 'vue'
+import { useCharacters } from '@/store/Characters';
 
-interface Props {
-    characters: Character[]
-}
-
-const props = defineProps<Props>()
 const hideLayout = useHideMainCharactersLayout()
+const characters = useCharacters().getCharacters
 const store = useCurrentCharacter()
 
 //creating vertiacal drag scroll

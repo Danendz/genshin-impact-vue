@@ -2,7 +2,7 @@
     <header class="characters-panel">
         <section class="panel-content">
             <CharactersInfo />
-            <CharactersScroll :characters="props.characters" />
+            <CharactersScroll  />
             <section class="close">
                 <button @click="router.go(-1)">X</button>
             </section>
@@ -16,17 +16,9 @@ import CharactersInfo from './CharactersInfo.vue';
 import CharactersScroll from './CharactersScroll.vue';
 
 //interfaces
-import { Character } from '@/Interfaces/CharacterInterface';
 import { useRouter } from 'vue-router';
 
-
 const router = useRouter()
-
-interface Props {
-    characters: Character[]
-}
-
-const props = defineProps<Props>();
 
 </script>
 
