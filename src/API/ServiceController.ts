@@ -31,7 +31,6 @@ export default abstract class ServiceController {
 
     //get all items with full information
     public async get<T extends fetchingItemsType>(): Promise<T[] | ErrorMessages.NOT_FOUND> {
-
         const data: T[] | ErrorMessages.NOT_FOUND = await fetch(`${this.fetchUrl}all`)
         .then((res) => {
             if (res.ok) {

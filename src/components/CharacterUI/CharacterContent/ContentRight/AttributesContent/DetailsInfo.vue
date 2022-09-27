@@ -6,9 +6,12 @@
                 <figure :class="['details-stats-stat', {white: index % 2 === 0, black: index % 2 !== 0}]"
                     v-for="stat, statKey, index in value.stat" :key="statKey">
 
-                    <img :alt="stat.value" :src="stat.icon 
-                    ? CharacterHelper.getGenshinSiteIcons(stat.icon)
-                    : CharacterHelper.getGenshinSiteIcons('stats-icons/empty')" />
+                    <LazyImg :options="{
+                        src: stat.icon 
+                        ? CharacterHelper.getGenshinSiteIcons(stat.icon) 
+                        : CharacterHelper.getGenshinSiteIcons('stats-icons/empty') ,
+                        alt: stat.value
+                    }" />
                     <h3>{{statKey}}</h3>
                     <figcaption>{{stat.value}}</figcaption>
 
@@ -26,8 +29,8 @@ import CharacterHelper from '@/helpers/CharacterHelper';
 import statsData from '@/assets/Data/stats.json'
 
 //interfaces
-import {IStats} from '@/Interfaces/IStats'
-
+import { IStats } from '@/Interfaces/IStats'
+import LazyImg from '@/components/UI/Lazy-Img.vue';
 
 const stats: IStats = statsData;
 </script>
@@ -64,7 +67,6 @@ const stats: IStats = statsData;
                     width: 19px;
                     height: auto;
                     margin-right: 5px;
-
                 }
 
                 &:first-child {

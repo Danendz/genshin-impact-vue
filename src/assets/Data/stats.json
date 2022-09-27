@@ -59,7 +59,7 @@
         "stat": {
             "Pyro DMG Bonus": {
                 "value": "0.0%",
-                "icon": "stats-icons/pyro"
+                "icon": "stats-icons/pyro.svg"
             },
             "Pyro RES": {
                 "value": "0.0%",
@@ -67,7 +67,7 @@
             },
             "Hydro DMG Bonus": {
                 "value": "0.0%",
-                "icon": "stats-icons/hydro"
+                "icon": "stats-icons/hydro.svg"
             },
             "Hydro RES": {
                 "value": "0.0%",
@@ -75,7 +75,7 @@
             },
             "Dendro DMG Bonus": {
                 "value": "0.0%",
-                "icon": "stats-icons/dendro"
+                "icon": "stats-icons/dendro.svg"
             },
             "Dendro RES": {
                 "value": "0.0%",
@@ -83,7 +83,7 @@
             },
             "Electro DMG Bonus": {
                 "value": "0.0%",
-                "icon": "stats-icons/electro"
+                "icon": "stats-icons/electro.svg"
             },
             "Electro RES": {
                 "value": "0.0%",
@@ -91,7 +91,7 @@
             },
             "Anemo DMG Bonus": {
                 "value": "0.0%",
-                "icon": "stats-icons/anemo"
+                "icon": "stats-icons/anemo.svg"
             },
             "Anemo RES": {
                 "value": "0.0%",
@@ -99,7 +99,7 @@
             },
             "Cryo DMG Bonus": {
                 "value": "0.0%",
-                "icon": "stats-icons/cryo"
+                "icon": "stats-icons/cryo.svg"
             },
             "Cryo RES": {
                 "value": "0.0%",
@@ -107,7 +107,7 @@
             },
             "Geo DMG Bonus": {
                 "value": "0.0%",
-                "icon": "stats-icons/geo"
+                "icon": "stats-icons/geo.svg"
             },
             "Geo RES": {
                 "value": "0.0%",
@@ -115,7 +115,7 @@
             },
             "Physical DMG Bonus": {
                 "value": "0.0%",
-                "icon": "stats-icons/physical"
+                "icon": "stats-icons/physical.svg"
             },
             "Physical RES": {
                 "value": "0.0%",
