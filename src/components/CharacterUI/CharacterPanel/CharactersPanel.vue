@@ -38,6 +38,7 @@ const props = defineProps<Props>();
     height: 75px;
     display: flex;
     justify-content: center;
+    z-index: 2;
     background-color: $transparency;
 
     .panel-content {

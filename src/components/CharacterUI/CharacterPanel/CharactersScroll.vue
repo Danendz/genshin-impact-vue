@@ -70,7 +70,7 @@ onMounted(() => {
 watch(() => hideLayout.hide, () => {
     nextTick(() => {
         if (characters_scroll.value && !hideLayout.hide) {
-            characters_scroll.value[scrollTypes] += heightWithGap * store.currentCharacterIndex
+            characters_scroll.value[scrollTypes] = heightWithGap * store.currentCharacterIndex
         }
     })
 })

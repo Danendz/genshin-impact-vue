@@ -72,7 +72,6 @@ const changedStyle = ref(false)
         -0.07em 0 black;
     width: 60%;
     min-height: 50%;
-
     margin-top: 10px;
 }
 

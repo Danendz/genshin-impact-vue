@@ -49,7 +49,6 @@ onMounted(() => {
 watch(() => store.currentCharacter, () => {
     loadAllImages();
 })
-
 </script>
 
 <style lang="scss">
