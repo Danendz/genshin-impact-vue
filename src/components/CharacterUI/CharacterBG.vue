@@ -4,16 +4,14 @@
             :class="`character-background-container ${store.currentCharacter.vision.toLowerCase()} `"
             :key="store.currentCharacter.name_key">
 
-            <transition-group name="fade" appear mode="out-in">
-
+            <transition name="fade" appear>
                 <div alt="background-character" v-if="bgImage" class="character-background"
                     :style="{backgroundImage: `url(${bgImage})`}"></div>
-
+            </transition>
+            <transition name="fade-right" appear>
                 <img alt="gacha-character" :class="['gacha-image', {'gacha-image-right': hideLayout.hide}]"
                     v-if="gachaImage" :src="gachaImage" />
-
-            </transition-group>
-
+            </transition>
         </figure>
     </transition>
 </template>
@@ -79,7 +77,6 @@ watch(() => store.currentCharacter, () => {
         margin-top: auto;
         transition: .5s;
         position: absolute;
-        transform: translateX(0);
     }
 
     .gacha-image-right {

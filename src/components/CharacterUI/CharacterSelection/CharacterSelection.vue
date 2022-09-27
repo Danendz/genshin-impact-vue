@@ -21,6 +21,7 @@ import { Character } from '@/Interfaces/CharacterInterface';
 
 //stores
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
+import { useCurrentCharacter } from '@/store/currentCharacter';
 
 //components
 import CharacterCard from '@/components/UI/CharacterCard.vue';
@@ -29,8 +30,7 @@ import CharacterCard from '@/components/UI/CharacterCard.vue';
 import useCreateScroll from '@/Composables/useCreateScroll';
 
 //vue
-import { ref, onMounted } from 'vue'
-import { useCurrentCharacter } from '@/store/currentCharacter';
+import { ref, onMounted, watch, nextTick } from 'vue'
 
 interface Props {
     characters: Character[]
@@ -40,12 +40,12 @@ const props = defineProps<Props>()
 const hideLayout = useHideMainCharactersLayout()
 const store = useCurrentCharacter()
 
-//creating horizontal drag scroll
+//creating vertiacal drag scroll
 const characters_scroll = ref<null | HTMLDivElement>(null)
+let heightWithGap = 152
+let columns = 5
 
-onMounted(() => {
-    let heightWithGap = 152
-    let columns = 5
+const createScroll = () => {
     if (characters_scroll.value) {
         useCreateScroll(characters_scroll.value, 'vertical')
         if (screen.availWidth <= 740) {
@@ -57,8 +57,10 @@ onMounted(() => {
         } else if (screen.availWidth <= 1600) {
             columns = 4
         }
-        characters_scroll.value.scrollTop += heightWithGap * Math.floor(store.currentCharacterIndex / columns)
     }
+}
+onMounted(() => {
+    createScroll();
     if (screen.orientation) {
         screen.orientation.addEventListener("change", () => {
             if (screen.orientation.type === 'portrait-primary') {
@@ -69,7 +71,13 @@ onMounted(() => {
         })
     }
 })
-
+watch(() => hideLayout.hide, () => {
+    nextTick(() => {
+        if (hideLayout.hide && characters_scroll.value) {
+            characters_scroll.value.scrollTop = heightWithGap * Math.floor((store.currentCharacterIndex / columns))
+        }
+    })
+})
 </script>
 
 <style lang="scss">

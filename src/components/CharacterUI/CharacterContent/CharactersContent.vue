@@ -1,7 +1,7 @@
 <template>
     <section :class="['characters-content', {'hided': changedStyle}]">
         <Transition @after-leave="changedStyle = true" @before-enter="changedStyle = false" name="fade-right" appear>
-            <ContentOptions v-if="!props.hide" :options-list="options_list" :active_content="active_content"
+            <ContentOptions v-show="!props.hide" :options-list="options_list" :active_content="active_content"
                 @set-active-content="setActiveContent" />
         </Transition>
         <Transition name="fade-right" appear>
@@ -9,11 +9,11 @@
 
             </section>
         </Transition>
-
-        <ContentRight :options_list="options_list" :active_content="active_content" />
-
+        <Transition name="fade-right" appear>
+            <ContentRight :options_list="options_list" :active_content="active_content" />
+        </Transition>
         <Transition name="fade-down" appear>
-            <CharactersBottom v-if="!props.hide" />
+            <CharactersBottom v-show="!props.hide" />
         </Transition>
     </section>
 </template>

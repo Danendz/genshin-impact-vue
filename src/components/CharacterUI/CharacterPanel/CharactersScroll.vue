@@ -1,17 +1,16 @@
 <template>
     <section :class="['characters-scroll-container', {'hide-characters-scroll': !characters_state_display}]">
         <section ref="characters_scroll" class="characters">
-            <figure @mouseup="handleMouseup(index)" @mousemove="handleMousemove" @mousedown="handleMousedown"
-                :class="['char-icon', {'active-character': store.currentCharacterIndex === index}]"
+            <PreventClickEvent @click-function="changeCharacter"
+                :class="['char-icon', {'active-character': store.currentCharacterIndex === index}]" :index="index"
                 v-for="(character, index) in props.characters" :key="index">
+                <LazyImg :options="{
+                src: CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_SIDE),
+                loading: CharacterHelper.getPlaceholderIcon(CharacterImage.ICON_SIDE),
+                alt: character.name
+                }" :class="[{'active-character-img': store.currentCharacterIndex === index}]" />
 
-                <img v-lazy="{
-                    src: CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_SIDE),
-                    loading: CharacterHelper.getPlaceholderIcon(CharacterImage.ICON_SIDE)
-                }" @mousedown="(e: MouseEvent) => e.preventDefault()"
-                    :class="[{'active-character-img': store.currentCharacterIndex === index}]"
-                    :alt="`${character.name}`" />
-            </figure>
+            </PreventClickEvent>
         </section>
         <button @click="closeCharacters"
             :class="['close-character-scroll', {'close-character-scroll-hidden': !characters_state_display}]"> >
@@ -24,17 +23,24 @@
 import { Character } from '@/Interfaces/CharacterInterface';
 
 //helpers
-import CharacterHelper from '@/helpers/CharacterHelper'
+import CharacterHelper from '@/helpers/CharacterHelper';
 
 //composables
 import useCreateScroll from '@/Composables/useCreateScroll';
+
+//stores
+import { useCurrentCharacter } from '@/store/currentCharacter';
+import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
+
+//components
+import PreventClickEvent from '@/components/ComponentHelpers/PreventClickEvent.vue';
+import LazyImg from '@/components/UI/Lazy-Img.vue';
 
 //enums
 import { CharacterImage } from '@/Enums/CharacterEnums';
 
 //vue
-import { onMounted, ref } from 'vue';
-import { useCurrentCharacter } from '@/store/currentCharacter';
+import { onMounted, ref, watch, nextTick } from 'vue';
 
 interface Props {
     characters: Character[]
@@ -42,49 +48,41 @@ interface Props {
 
 const props = defineProps<Props>();
 const store = useCurrentCharacter()
+const hideLayout = useHideMainCharactersLayout()
 
 //creating horizontal drag scroll
 const characters_scroll = ref<null | HTMLDivElement>(null)
-onMounted(() => {
+let scrollTypes: 'scrollLeft' | 'scrollTop' = 'scrollLeft'
+let heightWithGap = 70;
+const createScroll = () => {
     if (characters_scroll.value) {
-        useCreateScroll(characters_scroll.value)
-    }
-    let heightWithGap;
-    if (characters_scroll.value) {
+        useCreateScroll(characters_scroll.value, 'horizontal')
         if (screen.availWidth <= 915) {
             heightWithGap = 65
-            characters_scroll.value.scrollTop += heightWithGap * store.currentCharacterIndex
-        } else {
-            heightWithGap = 70
-            characters_scroll.value.scrollLeft += heightWithGap * store.currentCharacterIndex
+            scrollTypes = 'scrollTop'
         }
     }
+}
+onMounted(() => {
+    createScroll()
 })
 
+watch(() => hideLayout.hide, () => {
+    nextTick(() => {
+        if (characters_scroll.value && !hideLayout.hide) {
+            characters_scroll.value[scrollTypes] += heightWithGap * store.currentCharacterIndex
+        }
+    })
+})
 
+//mobile scroll close button
 const characters_state_display = ref(false)
 const closeCharacters = (): void => {
     characters_state_display.value = !characters_state_display.value
 }
 
-const mousemoved = ref(false);
-const clicked = ref(false)
-
-const handleMousedown = () => {
-    clicked.value = true
-}
-const handleMousemove = () => {
-    if (clicked.value) {
-        mousemoved.value = true
-    }
-}
-
-const handleMouseup = (index: number): void => {
-    if (!mousemoved.value) {
-        store.setCurrentCharacter(props.characters[index], index)
-    }
-    clicked.value = false
-    mousemoved.value = false
+const changeCharacter = (index: number): void => {
+    store.setCurrentCharacter(props.characters[index], index)
 }
 </script>
 
@@ -123,12 +121,6 @@ const handleMouseup = (index: number): void => {
             img {
                 position: absolute;
                 transform: translateX(5px);
-                user-drag: none;
-                user-select: none;
-                -moz-user-select: none;
-                -webkit-user-drag: none;
-                -webkit-user-select: none;
-                -ms-user-select: none;
                 width: auto;
                 height: 100%;
                 border-bottom-left-radius: 35%;
@@ -191,7 +183,6 @@ const handleMouseup = (index: number): void => {
         }
 
         .close-character-scroll {
-
             display: block;
             transform: rotate(180deg);
         }

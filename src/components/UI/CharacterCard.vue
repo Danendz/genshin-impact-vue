@@ -1,18 +1,27 @@
 <template>
-    <figure @click="setCurrentCharacter" v-if="store.currentCharacter"
+    <PreventClickEvent :index="characterIndex" @click-function="setCurrentCharacter" v-if="store.currentCharacter"
         :class="['character-card', {'active-character-card': character.name_key === store.currentCharacter.name_key}]">
+
         <div :class="['character-top-bg', `rarity-${character.rarity}`]"></div>
-        <img v-lazy="{
-            src: CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_BIG),
-            loading: CharacterHelper.getPlaceholderIcon(CharacterImage.ICON_BIG)
-        }" class="character-icon" alt="character" />
-        <img v-lazy="{src: CharacterHelper.getElementImage(character.vision.toLowerCase())}" class="vision-icon"
-            alt="vision" />
+        <LazyImg :options="{
+            src: CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_BIG),        
+            loading: CharacterHelper.getPlaceholderIcon(CharacterImage.ICON_BIG),
+            alt: 'character'
+        }" class="character-icon" />
+        <LazyImg :options="{
+            src: CharacterHelper.getElementImage(character.vision.toLowerCase()),
+            alt: 'vision'
+        }" class="vision-icon" />
         <figcaption class="character-lvl">Lvl 90</figcaption>
-    </figure>
+
+    </PreventClickEvent>
 </template>
 
 <script setup lang="ts">
+//components
+import PreventClickEvent from '../ComponentHelpers/PreventClickEvent.vue';
+import LazyImg from './Lazy-Img.vue';
+
 //enums
 import { CharacterImage } from '@/Enums/CharacterEnums';
 
@@ -74,6 +83,7 @@ const setCurrentCharacter = () => {
     }
 
     .character-icon {
+        transition: .3s;
         width: auto;
     }
 
@@ -106,18 +116,12 @@ const setCurrentCharacter = () => {
 .active-character-card {
     box-shadow: 0px 0px 5px 2px white;
     transform: scale(1.04);
-    
+
     &:hover {
         box-shadow: 0px 0px 5px 2px white;
         transform: scale(1.04);
     }
-    &::after{
-        content: '',
-        
-    }
 }
-
-
 
 @media only screen and (max-width: 915px) {
     .character-card {

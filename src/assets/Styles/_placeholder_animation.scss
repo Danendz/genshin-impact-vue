@@ -1,9 +1,9 @@
 img[lazy=loading]{
-    opacity: 0.5;
+    opacity: 0.4!important;
 }
 img[lazy=loaded]{
-    opacity: 0;
-    animation: placeholder-loaded 1s forwards;
+    opacity: 1!important;
+    /* animation: placeholder-loaded 1s forwards; */
 }
 
 /* @keyframes placeholder-loading {
@@ -18,11 +18,11 @@ img[lazy=loaded]{
     }
 } */
 
-@keyframes placeholder-loaded {
+/* @keyframes placeholder-loaded {
     0%{
         opacity: 0;
     }
     to{
         opacity: 1;
     }
-}
+} */

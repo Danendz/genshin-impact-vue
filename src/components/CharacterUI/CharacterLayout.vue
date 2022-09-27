@@ -2,11 +2,11 @@
     <main class="characters-container">
         <CharacterBG />
         <Transition name="fade-up" appear>
-            <CharactersPanel v-if="!hideLayout.hide" :characters="characters" />
+            <CharactersPanel v-show="!hideLayout.hide" :characters="characters" />
         </Transition>
         <CharactersContent :hide="hideLayout.hide" />
         <Transition name="fade-left" appear>
-            <CharacterSelection v-if="hideLayout.hide" :characters="props.characters" />
+            <CharacterSelection v-show="hideLayout.hide" :characters="props.characters" />
         </Transition>
     </main>
 
