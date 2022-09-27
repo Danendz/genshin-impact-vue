@@ -4,7 +4,7 @@
             :class="`character-background-container ${store.currentCharacter.vision.toLowerCase()} `"
             :key="store.currentCharacter.name_key">
 
-            <transition name="fade" appear>
+            <transition name="fade-background" appear>
                 <div alt="background-character" v-if="bgImage" class="character-background"
                     :style="{backgroundImage: `url(${bgImage})`}"></div>
             </transition>
