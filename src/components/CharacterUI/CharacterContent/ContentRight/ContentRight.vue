@@ -1,8 +1,8 @@
 <template>
     <aside class="rightContent">
         <Transition name="fade">
-        <button v-show="hideLayout.hide" @click="hideLayout.setHide()" class="character-selection-back">X</button>
-    </Transition>
+            <button v-show="hideLayout.hide" @click="hideLayout.setHide()" class="character-selection-back">X</button>
+        </Transition>
         <Transition name="fade-content" mode="out-in">
             <article :style="{width: '100%'}" :key="active_content">
                 <component :is="content_component" />
@@ -48,12 +48,11 @@ const hideLayout = useHideMainCharactersLayout()
         min-height: 50%;
         border-radius: 10px;
         transition: .5s;
-        position: relative;
 
         .character-selection-back {
             position: absolute;
-            top: -10%;
-            right: 0;
+            top: 2%;
+            right: 20%;
             width: 35px;
             height: 35px;
             border-radius: 50%;
@@ -75,6 +74,16 @@ const hideLayout = useHideMainCharactersLayout()
 }
 
 
+@media only screen and (max-width: 1800px) {
+    .characters-content {
+        .rightContent {
+            .character-selection-back {
+                right: 3%;
+            }
+        }
+    }
+}
+
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .characters-content {
         .rightContent {
@@ -83,12 +92,7 @@ const hideLayout = useHideMainCharactersLayout()
             padding: 0;
             gap: 5px;
 
-            .character-selection-back {
-                top: -40px;
 
-
-
-            }
         }
 
     }
