@@ -1,5 +1,6 @@
 <template>
-    <PageTransition :error="charactersStore.error" :condition-item="charactersStore.getCharacters" :loader-title="'персонажей'">
+    <PageTransition :error="charactersStore.error" :condition-item="charactersStore.getCharacters"
+        :loader-title="'персонажей'">
         <CharacterLayout />
     </PageTransition>
 </template>
@@ -11,9 +12,10 @@ import PageTransition from '@/components/UI/PageTransition.vue'
 
 //interfaces
 import { useCharacters } from '@/store/Characters';
+import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
 //vue
-import {onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 const name = useRoute().params.name
@@ -21,10 +23,12 @@ const name = useRoute().params.name
 const charactersStore = useCharacters()
 //fetch character
 onMounted(() => {
+    useHideMainCharactersLayout().hide = false
     if (name) {
         charactersStore.fetchCharacters(name.toString())
+    }else{
+        charactersStore.fetchCharacters()
     }
-    charactersStore.fetchCharacters()
 })
 
 

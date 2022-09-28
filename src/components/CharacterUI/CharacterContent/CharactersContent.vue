@@ -29,6 +29,7 @@ import { OptionsKeys } from '@/Enums/OptionsKeys';
 
 //vue
 import { ref, watch } from 'vue'
+import { useCharacters } from '@/store/Characters';
 
 interface Props {
     hide: boolean
@@ -44,19 +45,22 @@ const options_list = {
     'Talents': () => import('./ContentRight/AttributesContent/AttributesContent.vue'),
     'Profile': () => import('./ContentRight/AttributesContent/AttributesContent.vue')
 }
-
+const charactersStore = useCharacters()
 const active_content = ref<OptionsKeys>(OptionsKeys.ATTRIBUTES)
 
 const setActiveContent = (key: OptionsKeys): void => {
     active_content.value = key
 }
 watch(() => props.hide, () => {
+    
     if (props.hide) {
         setActiveContent(OptionsKeys.ATTRIBUTES)
+    }else{
+        charactersStore.setDefaultFilter()
     }
 })
 
-const changedStyle = ref(false)
+const changedStyle = ref(props.hide)
 </script>
 
 

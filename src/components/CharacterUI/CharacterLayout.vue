@@ -21,22 +21,20 @@ import CharacterSelection from './CharacterSelection/CharacterSelection.vue';
 //stores
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 import { useCurrentCharacter } from '@/store/currentCharacter';
-import { useCharacters } from '@/store/Characters';
-
-//interfaces
-import { Character } from '@/Interfaces/CharacterInterface';
 
 //vue
 import { onMounted } from 'vue';
-
-const characters: Character[] | null = useCharacters().getCharacters
+import { useCharacters } from '@/store/Characters';
 
 const hideLayout = useHideMainCharactersLayout()
 const store = useCurrentCharacter()
+const characters = useCharacters()
 
 onMounted(() => {
-    if (characters) {
-        store.setCurrentCharacter(characters[0], 0)
+    if(characters.getCharacters){
+        if(!store.currentCharacter){
+            store.setCurrentCharacter(characters.getCharacters[0])
+        }
     }
 })
 </script>

@@ -6,15 +6,16 @@ import { ErrorMessages } from "@/Enums/ErrorMessages";
 
 //interfaces
 import { Character } from "@/Interfaces/CharacterInterface";
-import { filter } from "@/Interfaces/FilterCharacter";
+import { filter, SortType } from "@/Interfaces/FilterCharacter";
 
 //pinia / vue
 import { defineStore } from "pinia";
 import { computed, ref } from 'vue'
 
 interface ISortAndFilter {
-    sort: '' | 'nation' | 'vision' | 'weapon' | 'name',
-    filter: typeof filter
+    sort: SortType,
+    filter: typeof filter,
+    reverse: boolean
 }
 
 export const useCharacters = defineStore('characters', () => {
@@ -23,16 +24,29 @@ export const useCharacters = defineStore('characters', () => {
     const sortAndFilter = ref<ISortAndFilter>({
         sort: '',
         filter: filter,
+        reverse: false
     })
 
+    //fetching characters
     const fetchCharacters = async (name?: string) => {
-        let data;
-        if (name) {
-            data = await useGetCharacterByName(name.toLowerCase())
-        } else {
-            data = await useGetCharacters()
+        if (!Array.isArray(getCharacters.value)
+            || Array.isArray(getCharacters.value) && getCharacters.value.length <= 1
+            || error.value || name) {
+            characters.value = null
+            error.value = null
+            let data;
+            if (name) {
+                data = await useGetCharacterByName(name.toLowerCase())
+            } else {
+                data = await useGetCharacters()
+            }
+            setData(data)
         }
-        setData(data)
+    }
+
+    const setDefaultFilter = () => {
+        sortAndFilter.value.sort = '',
+        sortAndFilter.value.filter = {...filter}
     }
 
     //type guard for character
@@ -42,6 +56,7 @@ export const useCharacters = defineStore('characters', () => {
         }
         return (character as Character).name !== undefined
     }
+
     //setting data conditionally
     const setData = (data: ErrorMessages.NOT_FOUND | null | Character | Character[]) => {
         if (data) {
@@ -56,25 +71,61 @@ export const useCharacters = defineStore('characters', () => {
         }
     }
 
-    const filterCharacters = computed(() => {
+    const sortCharacters = computed(() => {
         if (characters.value) {
-            return Object.keys(sortAndFilter.value.filter).reduce((result, key) => {
-                result = result.filter((character: Character) => {
-                    const keyFilter = key as keyof typeof sortAndFilter.value.filter
-                    if (key === keyFilter) {
-                        return sortAndFilter.value.filter[key][character[key]] ? true : false
+            const withFilterCharacters = characters.value.map((el) => el)
+            if (withFilterCharacters) {
+                return withFilterCharacters.sort((charA, charB) => {
+                    if (sortAndFilter.value.reverse) {
+                        return sortFunction(charB, charA)
                     }
+                    return sortFunction(charA, charB)
                 })
-                return result
-            }, characters.value)
+            }
         }
+
         return characters.value
     })
 
+    const filterCharacters = computed(() => {
+        if (sortCharacters.value) {
+            return Object.keys(sortAndFilter.value.filter).reduce((result, key) => {
+                const res = result.filter((character: Character) => {
+                    const keyFilter = key as keyof typeof sortAndFilter.value.filter
+                    if (key === keyFilter) {
+                        const filterProperty = character[key]
+                        return sortAndFilter.value.filter[key][filterProperty]
+                    }
+                })
+
+                return res.length > 0 ? result = res : result
+            }, sortCharacters.value)
+        }
+        return sortCharacters.value
+    })
+    const sortFunction = (charA: Character, charB: Character) => {
+        if (sortAndFilter.value.sort !== '') {
+            const key = sortAndFilter.value.sort
+            if (key === 'rarity') {
+                const charARarity = parseInt(charA[key])
+                const charBRarity = parseInt(charB[key])
+                return charBRarity - charARarity
+            }
+            return charA[key].localeCompare(charB[key])
+        }
+        else {
+            return charA.name_key.localeCompare(charB.name_key)
+        }
+    }
+
     const getCharacters = computed(() => {
+        return characters.value
+    })
+
+    const getFilteredCharacter = computed(() => {
         return filterCharacters.value
     })
 
-    return { getCharacters, error, sortAndFilter, fetchCharacters }
+    return { getCharacters, getFilteredCharacter, error, sortAndFilter, fetchCharacters, setDefaultFilter }
 })
 

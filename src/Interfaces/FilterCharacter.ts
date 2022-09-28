@@ -4,22 +4,30 @@ import { CharacterElement, CharacterRarity, CharacterRegion, CharacterWeapon } f
 import { Character } from "./CharacterInterface"
 
 type FilterType = {
-    [Property in keyof Pick<Character, "vision" | "rarity" | 'nation' | 'weapon'>]: Record<string, boolean>
+    [Property in keyof Pick<Character, "vision" | 'weapon'>]: Record<string, boolean>
 }
+
+export type SortType = '' | keyof Pick<Character, 'vision' | 'nation' | 'name' | 'weapon' | 'rarity'>
 
 const createObjectFromEnum = (Enum: Record<string, (string | number)>) => {
     return Object.keys(Enum).reduce((obj, key) => {
-        return { ...obj, [Enum[key as keyof typeof Enum].toString()]: true }
+        return { ...obj, [Enum[key as keyof typeof Enum].toString()]: false }
     }, {})
 }
 
-const vision = createObjectFromEnum(CharacterElement)
 const rarity = createObjectFromEnum(CharacterRarity)
 const nation = createObjectFromEnum(CharacterRegion)
+const vision = createObjectFromEnum(CharacterElement)
 const weapon = createObjectFromEnum(CharacterWeapon)
 export const filter: FilterType = {
     vision,
-    rarity,
-    nation,
     weapon
 }
+export const sort: SortType[] = [
+    '',
+    'name',
+    'nation',
+    'rarity',
+    'vision',
+    'weapon'
+]

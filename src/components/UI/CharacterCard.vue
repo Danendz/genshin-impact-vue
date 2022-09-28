@@ -43,7 +43,7 @@ const props = defineProps<Props>()
 const store = useCurrentCharacter()
 
 const setCurrentCharacter = () => {
-    store.setCurrentCharacter(props.character, props.characterIndex)
+    store.setCurrentCharacter(props.character)
 }
 </script>
 

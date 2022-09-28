@@ -1,5 +1,8 @@
 <template>
     <aside class="rightContent">
+        <Transition name="fade">
+        <button v-show="hideLayout.hide" @click="hideLayout.setHide()" class="character-selection-back">X</button>
+    </Transition>
         <Transition name="fade-content" mode="out-in">
             <article :style="{width: '100%'}" :key="active_content">
                 <component :is="content_component" />
@@ -11,6 +14,9 @@
 <script setup lang="ts">
 //enums
 import { OptionsKeys } from '@/Enums/OptionsKeys';
+
+//stores
+import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
 //vue
 import { defineAsyncComponent, computed } from 'vue'
@@ -28,6 +34,9 @@ const props = defineProps<Props>();
 const content_component = computed(() => {
     return defineAsyncComponent(props.options_list[props.active_content])
 })
+
+
+const hideLayout = useHideMainCharactersLayout()
 </script>
 
 <style lang="scss">
@@ -39,7 +48,19 @@ const content_component = computed(() => {
         min-height: 50%;
         border-radius: 10px;
         transition: .5s;
+        position: relative;
 
+        .character-selection-back {
+            position: absolute;
+            top: -10%;
+            right: 0;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 0;
+            background-color: white;
+            cursor: pointer;
+        }
     }
 }
 
@@ -61,7 +82,15 @@ const content_component = computed(() => {
             width: 220px;
             padding: 0;
             gap: 5px;
+
+            .character-selection-back {
+                top: -40px;
+
+
+
+            }
         }
+
     }
 }
 </style>

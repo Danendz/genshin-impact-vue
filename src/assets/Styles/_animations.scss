@@ -2,6 +2,7 @@
 .fade-leave-active {
     transition: opacity 0.4s ease;
 }
+
 .fade-background-enter-active,
 .fade-background-leave-active {
     transition: opacity .8s ease;
@@ -78,4 +79,15 @@
 .translate-left-leave-to {
     transform: translateX(-50%)!important;
     opacity: 0;
+}
+
+.character-list-move, 
+.character-list-enter-active,
+.character-list-leave-active {
+  transition: all 0.5s ease;
+}
+
+.character-list-enter-from,
+.character-list-leave-to {
+  opacity: 0;
 }

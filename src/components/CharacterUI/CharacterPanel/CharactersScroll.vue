@@ -38,12 +38,15 @@ import LazyImg from '@/components/UI/Lazy-Img.vue';
 import { CharacterImage } from '@/Enums/CharacterEnums';
 
 //vue
-import { onMounted, ref, watch, nextTick } from 'vue';
+import { onMounted, ref, watch, nextTick, computed } from 'vue';
 import { useCharacters } from '@/store/Characters';
 
 
 const store = useCurrentCharacter()
-const characters = useCharacters().getCharacters
+const charactersStore = useCharacters()
+const characters = computed(() => {
+    return charactersStore.getCharacters
+})
 const hideLayout = useHideMainCharactersLayout()
 
 //creating horizontal drag scroll
@@ -61,13 +64,18 @@ const createScroll = () => {
 }
 onMounted(() => {
     createScroll()
+    scrollToCharacter()
 })
+
+const scrollToCharacter = () => {
+    if (characters_scroll.value && !hideLayout.hide) {
+        characters_scroll.value[scrollTypes] = heightWithGap * store.currentCharacterIndex
+    }
+}
 
 watch(() => hideLayout.hide, () => {
     nextTick(() => {
-        if (characters_scroll.value && !hideLayout.hide) {
-            characters_scroll.value[scrollTypes] = heightWithGap * store.currentCharacterIndex
-        }
+        scrollToCharacter()
     })
 })
 
@@ -78,8 +86,8 @@ const closeCharacters = (): void => {
 }
 
 const changeCharacter = (index: number): void => {
-    if (characters) {
-        store.setCurrentCharacter(characters[index], index)
+    if (characters.value) {
+        store.setCurrentCharacter(characters.value[index])
     }
 }
 </script>
