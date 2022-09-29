@@ -13,14 +13,9 @@
 </template>
 
 <script setup lang="ts">
-//stores
-import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
-
 //components
 import CharacterSelectionList from './CharacterSelectionList.vue';
 import CharacterSelectionFilters from './CharacterSelectionFilters.vue';
-
-const hideLayout = useHideMainCharactersLayout()
 </script>
 
 <style lang="scss">

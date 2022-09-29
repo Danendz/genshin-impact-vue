@@ -6,7 +6,7 @@ import { ErrorMessages } from "@/Enums/ErrorMessages";
 
 //interfaces
 import { Character } from "@/Interfaces/CharacterInterface";
-import { filter, SortType } from "@/Interfaces/FilterCharacter";
+import { FilterType, SortType, vision, weapon } from "@/Interfaces/FilterCharacter";
 
 //pinia / vue
 import { defineStore } from "pinia";
@@ -14,16 +14,18 @@ import { computed, ref } from 'vue'
 
 interface ISortAndFilter {
     sort: SortType,
-    filter: typeof filter,
+    filter: FilterType,
     reverse: boolean
 }
+
+
 
 export const useCharacters = defineStore('characters', () => {
     const characters = ref<Character[] | null>(null)
     const error = ref<ErrorMessages | null>(null)
     const sortAndFilter = ref<ISortAndFilter>({
         sort: '',
-        filter: filter,
+        filter: {vision: {...vision}, weapon: {...weapon}},
         reverse: false
     })
 
@@ -46,7 +48,7 @@ export const useCharacters = defineStore('characters', () => {
 
     const setDefaultFilter = () => {
         sortAndFilter.value.sort = '',
-        sortAndFilter.value.filter = {...filter}
+        sortAndFilter.value.filter = {vision: {...vision}, weapon: {...weapon}}
     }
 
     //type guard for character

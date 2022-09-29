@@ -1,6 +1,7 @@
 <template>
     <section :class="['characters-content', {'hided': changedStyle}]">
-        <Transition @after-leave="changedStyle = true" @before-enter="changedStyle = false" name="fade-right" appear>
+        <Transition @after-leave="changedStyle = true" @before-enter="changedStyle = false"
+            @after-enter="setDefaultSort" name="fade-right" appear>
             <ContentOptions v-show="!props.hide" :options-list="options_list" :active_content="active_content"
                 @set-active-content="setActiveContent" />
         </Transition>
@@ -52,13 +53,15 @@ const setActiveContent = (key: OptionsKeys): void => {
     active_content.value = key
 }
 watch(() => props.hide, () => {
-    
+
     if (props.hide) {
         setActiveContent(OptionsKeys.ATTRIBUTES)
-    }else{
-        charactersStore.setDefaultFilter()
     }
 })
+
+const setDefaultSort = () => {
+    charactersStore.setDefaultFilter()
+}
 
 const changedStyle = ref(props.hide)
 </script>

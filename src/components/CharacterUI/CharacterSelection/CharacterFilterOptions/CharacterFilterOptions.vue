@@ -19,7 +19,7 @@ import { useCharacters } from '@/store/Characters';
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
 //vue
-import { watch } from 'vue';
+import { watch, computed } from 'vue';
 
 
 interface Props {
@@ -40,7 +40,8 @@ watch(() => hideLayout.hide, () => {
     }
 })
 
-const charactersFilters = characters.sortAndFilter.filter
+
+const charactersFilters = computed(() => characters.sortAndFilter.filter)
 
 </script>
 
