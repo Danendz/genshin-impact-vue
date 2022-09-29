@@ -12,6 +12,11 @@ import { DataResponseType } from '@/Types/DataResponseType'
 
 const characterService = new CharacterService()
 
+const useGetCharactersNames = async () => {
+    const data: string[] = await characterService.getNames()
+    return data
+}
+
 const useGetCharacters = async () => {
     const data: DataResponseType<Character[], ErrorMessages.NOT_FOUND> = await characterService.get<Character>();
     return data
@@ -22,4 +27,4 @@ const useGetCharacterByName = async (name: string) => {
     return data
 }
 
-export { useGetCharacters, useGetCharacterByName }
+export { useGetCharacters, useGetCharacterByName, useGetCharactersNames }

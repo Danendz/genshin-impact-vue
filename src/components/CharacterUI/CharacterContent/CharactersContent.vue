@@ -2,8 +2,8 @@
     <section :class="['characters-content', {'hided': changedStyle}]">
         <Transition @after-leave="changedStyle = true" @before-enter="changedStyle = false"
             @after-enter="setDefaultSort" name="fade-right" appear>
-            <ContentOptions v-show="!props.hide" :options-list="options_list" :active_content="active_content"
-                @set-active-content="setActiveContent" />
+            <ContentOptions v-show="!props.hide" :options-list="options_list"
+                 />
         </Transition>
         <Transition name="fade-right" appear>
             <section v-if="!props.hide" class="centerContent">
@@ -11,7 +11,7 @@
             </section>
         </Transition>
         <Transition name="fade-right" appear>
-            <ContentRight :options_list="options_list" :active_content="active_content" />
+            <ContentRight :options_list="options_list"  />
         </Transition>
         <Transition name="fade-down" appear>
             <CharactersBottom v-show="!props.hide" />
@@ -25,12 +25,15 @@ import ContentOptions from './ContentOptions.vue';
 import CharactersBottom from './CharactersBottom.vue'
 import ContentRight from './ContentRight/ContentRight.vue';
 
+//stores
+import { useCharacters } from '@/store/Characters';
+import {useActiveCategory} from '@/store/ActiveCategory'
+
 //enums
 import { OptionsKeys } from '@/Enums/OptionsKeys';
 
 //vue
 import { ref, watch } from 'vue'
-import { useCharacters } from '@/store/Characters';
 
 interface Props {
     hide: boolean
@@ -47,15 +50,11 @@ const options_list = {
     'Profile': () => import('./ContentRight/AttributesContent/AttributesContent.vue')
 }
 const charactersStore = useCharacters()
-const active_content = ref<OptionsKeys>(OptionsKeys.ATTRIBUTES)
+const activeCategory = useActiveCategory()
 
-const setActiveContent = (key: OptionsKeys): void => {
-    active_content.value = key
-}
 watch(() => props.hide, () => {
-
     if (props.hide) {
-        setActiveContent(OptionsKeys.ATTRIBUTES)
+        activeCategory.setActiveCategory(OptionsKeys.ATTRIBUTES)
     }
 })
 
@@ -74,9 +73,9 @@ const changedStyle = ref(props.hide)
     grid-template-columns: max-content max-content max-content;
     justify-content: space-between;
     text-shadow:
-        0.07em 0 black,
-        0 0.07em black,
-        -0.07em 0 black;
+        0.07em 0 rgba(0, 0, 0, 0.315),
+        0 0.07em rgba(0, 0, 0, 0.219),
+        -0.07em 0 rgba(0, 0, 0, 0.164);
     width: 60%;
     min-height: 50%;
     margin-top: 10px;

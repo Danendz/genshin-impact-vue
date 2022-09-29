@@ -18,8 +18,6 @@ interface ISortAndFilter {
     reverse: boolean
 }
 
-
-
 export const useCharacters = defineStore('characters', () => {
     const characters = ref<Character[] | null>(null)
     const error = ref<ErrorMessages | null>(null)

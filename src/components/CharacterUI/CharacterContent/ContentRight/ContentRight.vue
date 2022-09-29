@@ -4,7 +4,7 @@
             <button v-show="hideLayout.hide" @click="hideLayout.setHide()" class="character-selection-back">X</button>
         </Transition>
         <Transition name="fade-content" mode="out-in">
-            <article :style="{width: '100%'}" :key="active_content">
+            <article :style="{width: '100%'}" :key="activeCategory.active_category">
                 <component :is="content_component" />
             </article>
         </Transition>
@@ -14,6 +14,7 @@
 <script setup lang="ts">
 //enums
 import { OptionsKeys } from '@/Enums/OptionsKeys';
+import { useActiveCategory } from '@/store/ActiveCategory';
 
 //stores
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
@@ -25,14 +26,14 @@ type OptionsList = {
     [Property in OptionsKeys]: () => Promise<ReturnType<typeof defineAsyncComponent>>;
 }
 interface Props {
-    options_list: OptionsList,
-    active_content: OptionsKeys
+    options_list: OptionsList
 }
 
 const props = defineProps<Props>();
+const activeCategory = useActiveCategory()
 
 const content_component = computed(() => {
-    return defineAsyncComponent(props.options_list[props.active_content])
+    return defineAsyncComponent(props.options_list[activeCategory.active_category])
 })
 
 

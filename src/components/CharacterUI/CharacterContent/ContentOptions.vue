@@ -1,28 +1,26 @@
 <template>
     <aside class="options">
         <ul>
-            <li v-for="_, key, index in optionsList" :key="index"
-                :class="[{'active-option': props.active_content === key}]" @click="emit('setActiveContent',key)">
+            <li v-for="_, key, index in props.optionsList" :key="index"
+                :class="[{'active-option': activeCategory.active_category === key}]"
+                @click="activeCategory.setActiveCategory(key)">
                 {{key}}
             </li>
         </ul>
     </aside>
 </template>
 
-<script setup lang="ts">import { OptionsKeys } from '@/Enums/OptionsKeys';
+<script setup lang="ts">
+import { OptionsKeys } from '@/Enums/OptionsKeys';
+import { useActiveCategory } from '@/store/ActiveCategory';
 
 interface Props {
-    active_content: string
     optionsList: {
         [Property in OptionsKeys]: () => Promise<unknown>
     }
 }
 const props = defineProps<Props>();
-
-const emit = defineEmits<{
-    (event: 'setActiveContent', key: OptionsKeys): void
-}>()
-
+const activeCategory = useActiveCategory()
 
 </script>
 
