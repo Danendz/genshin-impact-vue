@@ -39,7 +39,7 @@ const charactersFilters = useCharacters().sortAndFilter
     justify-content: center;
     gap: 2px;
     padding: 4px 4px;
-    z-index: 10;
+    z-index:3;
     bottom: 42px;
     width: 70%;
     border-radius: 15px;
@@ -83,7 +83,7 @@ const charactersFilters = useCharacters().sortAndFilter
 
 @media only screen and (max-width: 740px) {
     .sort-options-container {
-
+        width: 100%;
         border-radius: 10px;
 
         .sort-option {
