@@ -37,12 +37,12 @@ const charactersFilters = useCharacters().sortAndFilter
     display: flex;
     flex-direction: column;
     justify-content: center;
-
-    padding: 4px 5px;
+    gap: 2px;
+    padding: 4px 4px;
     z-index: 10;
     bottom: 42px;
     width: 70%;
-    border-radius: 20px;
+    border-radius: 15px;
     background-color: #4a5267;
 
     .sort-option {
@@ -53,7 +53,7 @@ const charactersFilters = useCharacters().sortAndFilter
         align-items: center;
         justify-content: space-between;
         user-select: none;
-        border-radius: 20px;
+        border-radius: 15px;
         transition: .2s;
 
         p {
@@ -83,8 +83,13 @@ const charactersFilters = useCharacters().sortAndFilter
 
 @media only screen and (max-width: 740px) {
     .sort-options-container {
+
+        border-radius: 10px;
+
         .sort-option {
             padding: 4px;
+
+            border-radius: 10px;
 
             p {
                 font-size: 12px;
