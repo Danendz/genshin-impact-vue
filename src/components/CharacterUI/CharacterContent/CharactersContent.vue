@@ -77,7 +77,7 @@ const changedStyle = ref(props.hide)
         0 0.07em rgba(0, 0, 0, 0.219),
         -0.07em 0 rgba(0, 0, 0, 0.164);
     width: 60%;
-    min-height: 50%;
+    height: fit-content;
     margin-top: 10px;
 }
 

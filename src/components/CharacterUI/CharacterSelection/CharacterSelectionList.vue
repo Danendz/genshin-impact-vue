@@ -18,6 +18,9 @@ import { useCharacters } from '@/store/Characters';
 import { useCurrentCharacter } from '@/store/currentCharacter';
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
+//vueUse
+import { useWindowSize } from '@vueuse/core';
+
 //vue
 import { onMounted, watch, nextTick, ref, computed } from 'vue';
 
@@ -31,20 +34,30 @@ const characters = computed(() => {
 
 //creating vertiacal drag scroll
 const characters_scroll = ref<null | HTMLDivElement>(null)
+
+const { width } = useWindowSize()
+
+watch(width, () => {
+    createScroll()
+    console.log(heightWithGap)
+    console.log(columns)
+})
 let heightWithGap = 152
 let columns = 5
-
 const createScroll = () => {
     if (characters_scroll.value) {
         useCreateScroll(characters_scroll.value, 'vertical')
-        if (screen.availWidth <= 740) {
+        if (width.value <= 740) {
             heightWithGap = 89
             columns = 3
-        } else if (screen.availWidth <= 915) {
+        } else if (width.value <= 915) {
             heightWithGap = 89
             columns = 4
-        } else if (screen.availWidth <= 1600) {
+        } else if (width.value <= 1600) {
             columns = 4
+        } else {
+            heightWithGap = 152
+            columns = 5
         }
     }
 }

@@ -53,11 +53,12 @@ const charactersFilters = useCharacters().sortAndFilter
         align-items: center;
         justify-content: space-between;
         user-select: none;
+        border-radius: 20px;
+        transition: .2s;
 
         p {
             font-size: 15px;
             font-weight: bold;
-
         }
 
         img {
@@ -70,8 +71,11 @@ const charactersFilters = useCharacters().sortAndFilter
             }
         }
 
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.103);
+        }
+
         &.active {
-            border-radius: 20px;
             background-color: rgba(255, 255, 255, 0.178);
         }
     }
