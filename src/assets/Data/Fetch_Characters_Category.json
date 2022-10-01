@@ -1,0 +1,8 @@
+{
+    "Attributes": ["name", "name_key", "weapon", "nation", "rarity", "vision", "description"],
+    "Weapons": ["weapon_type"],
+    "Artifacts": ["nothing"],
+    "Constellation": ["constellation", "constellations"],
+    "Talents": ["skillTalents", "passiveTalents"],
+    "Profile": ["affiliation", "birthday", "title"]
+}

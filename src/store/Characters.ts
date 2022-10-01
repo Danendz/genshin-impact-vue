@@ -11,6 +11,7 @@ import { FilterType, SortType, vision, weapon } from "@/Interfaces/FilterCharact
 //pinia / vue
 import { defineStore } from "pinia";
 import { computed, ref } from 'vue'
+import {useActiveCategory} from '@/store/ActiveCategory'
 
 interface ISortAndFilter {
     sort: SortType,
@@ -21,11 +22,13 @@ interface ISortAndFilter {
 export const useCharacters = defineStore('characters', () => {
     const characters = ref<Character[] | null>(null)
     const error = ref<ErrorMessages | null>(null)
+    const alreadyLoaded: string[] = ["Attributes"]
     const sortAndFilter = ref<ISortAndFilter>({
         sort: '',
-        filter: {vision: {...vision}, weapon: {...weapon}},
+        filter: { vision: { ...vision }, weapon: { ...weapon } },
         reverse: false
     })
+    const active_category = useActiveCategory()
 
     //fetching characters
     const fetchCharacters = async (name?: string) => {
@@ -41,12 +44,18 @@ export const useCharacters = defineStore('characters', () => {
                 data = await useGetCharacters()
             }
             setData(data)
+        } else {
+            if(!alreadyLoaded.includes(active_category.active_category)){
+                const data = await useGetCharacters()
+                addData(data)
+                alreadyLoaded.push(active_category.active_category)
+            }
         }
     }
 
     const setDefaultFilter = () => {
         sortAndFilter.value.sort = '',
-        sortAndFilter.value.filter = {vision: {...vision}, weapon: {...weapon}}
+            sortAndFilter.value.filter = { vision: { ...vision }, weapon: { ...weapon } }
     }
 
     //type guard for character
@@ -68,6 +77,24 @@ export const useCharacters = defineStore('characters', () => {
             else {
                 characters.value = data
             }
+        }
+    }
+
+    const addData = (data: ErrorMessages.NOT_FOUND | Character[]) => {
+        if (Array.isArray(data)) {
+            data.forEach((values, id) => {
+                Object.keys(values).forEach((key) => {
+                    const charKey = key as keyof Character
+                    if (characters.value) {
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                        //@ts-ignore
+                        characters.value[id][charKey] = values[charKey]
+                    }
+                })
+            })
+        }
+        else{
+            error.value = data
         }
     }
 
