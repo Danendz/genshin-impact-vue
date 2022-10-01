@@ -75,15 +75,13 @@ const charactersFilters = computed(() => characters.sortAndFilter.filter)
             font-weight: bold;
             margin-bottom: 5px;
             cursor: pointer;
-            color: #aeb1b6;
+            color: rgba(38, 50, 64, 0.994);;
             transition: .3s;
-            background-color: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.247);
+            
+            background-color: rgba(255, 255, 255, 0.575);
 
             &:hover {
                 background-color: rgba(255, 255, 255, 0.928);
-                color: black;
-                border: 1px solid transparent;
             }
         }
 

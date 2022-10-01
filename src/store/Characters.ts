@@ -106,6 +106,7 @@ export const useCharacters = defineStore('characters', () => {
                     if (sortAndFilter.value.reverse) {
                         return sortFunction(charB, charA)
                     }
+                    
                     return sortFunction(charA, charB)
                 })
             }
@@ -141,6 +142,7 @@ export const useCharacters = defineStore('characters', () => {
             return charA[key].localeCompare(charB[key])
         }
         else {
+           
             return charA.name_key.localeCompare(charB.name_key)
         }
     }

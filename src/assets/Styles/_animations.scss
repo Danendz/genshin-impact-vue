@@ -61,6 +61,9 @@
     transform: translateX(-100px);
     opacity: 0;
 }
+.fade-left-leave-to {
+    pointer-events: none;
+}
 
 .translate-left-enter-active,
 .translate-left-leave-active,

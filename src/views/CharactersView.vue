@@ -14,15 +14,19 @@ import PageTransition from '@/components/UI/PageTransition.vue'
 import { useCharacters } from '@/store/Characters';
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
+//vueUse
+import { useScreenOrientation } from '@vueuse/core'
+
 //vue
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 const name = useRoute().params.name
-
+const {lockOrientation} = useScreenOrientation()
 const charactersStore = useCharacters()
 //fetch character
 onMounted(() => {
+    lockOrientation('landscape')
     useHideMainCharactersLayout().hide = false
     if (name) {
         charactersStore.fetchCharacters(name.toString())

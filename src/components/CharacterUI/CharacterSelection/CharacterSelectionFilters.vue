@@ -2,24 +2,38 @@
     <section class="filter-buttons">
         <CharacterFilterOptions @toggle-filter-component="toggleFilterComponent" :filter-active="filterActive" />
         <button class="filter" @click="toggleFilterComponent">F</button>
-        <select class="sort" v-model="charactersFilters.sort">
-            <option v-for="sortOption in sort" :key="sortOption" :value="sortOption">{{sortOption}}</option>
-        </select>
+
+        <CharacterSortOptions :sort-active="sortActive" />
+        <button class="sort" @click="toggleSort">
+            <span>{{ charactersFilters.sort ? charactersFilters.sort[0].toUpperCase() +
+            charactersFilters.sort.substring(1) : "All"}}</span>
+            <img alt="arrow" :class="[{active: sortActive}]" src="@/assets/Icons/triangle-up.webp" />
+        </button>
         <button @click="reverse" class="reverse">R</button>
     </section>
 </template>
 
 <script setup lang="ts">
-import { useCharacters } from '@/store/Characters';
-import { sort } from '@/Interfaces/FilterCharacter';
-import { ref } from 'vue';
+//components
 import CharacterFilterOptions from './CharacterFilterOptions/CharacterFilterOptions.vue';
+
+//store
+import { useCharacters } from '@/store/Characters';
+
+//vue
+import { ref } from 'vue';
+import CharacterSortOptions from './CharacterSort/CharacterSortOptions.vue';
 
 const charactersFilters = useCharacters().sortAndFilter
 const filterActive = ref(false)
+const sortActive = ref(false)
 
 const toggleFilterComponent = (e?: MouseEvent, value?: boolean) => {
     filterActive.value = value ?? !filterActive.value
+}
+
+const toggleSort = () => {
+    sortActive.value = !sortActive.value
 }
 
 const reverse = () => {
@@ -39,19 +53,43 @@ const reverse = () => {
             .filter,
             .reverse,
             .sort {
-                border-radius: 20px;
                 border: 0;
                 height: 30px;
                 cursor: pointer;
+                background-color: white;
             }
 
             .filter,
             .reverse {
+                border-radius: 10px;
                 width: 10%;
             }
 
             .sort {
+                border-radius: 20px;
                 width: 70%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                span {
+                    font-weight: bold;
+                    color: #4a5267;
+                    font-size: 15px;
+                    margin-left: 10px;
+                }
+
+                img {
+                    width: 10px;
+                    height: auto;
+                    margin-right: 10px;
+                    transition: .3s;
+
+                    &.active {
+                        transform: rotate(180deg);
+                    }
+                }
+
             }
         }
     }
@@ -62,15 +100,25 @@ const reverse = () => {
         .CharacterSelection {
             .filter-buttons {
 
-                .filter,.reverse,.sort{
+                .filter,
+                .reverse,
+                .sort {
                     height: 20px;
                 }
-                
+
                 .filter,
                 .reverse {
                     width: 15%;
+                    font-size: 11px;
                 }
-                .sort{
+
+                .sort {
+                    span {
+                        font-size: 12px;
+                    }
+                    img {
+                        width: 7px;
+                    }
                     width: 60%
                 }
             }

@@ -1,0 +1,96 @@
+<template>
+    <Transition name="fade">
+        <section ref="target" v-show="props.sortActive" class="sort-options-container">
+            <figure v-for="sortOption in sort" :key="sortOption" @click="charactersFilters.sort = sortOption"
+                :class="['sort-option', {active: charactersFilters.sort === sortOption}]">
+                <p>{{ sortOption ? sortOption[0].toUpperCase() + sortOption.substring(1) : "All"}}</p>
+                <img :class="[{activeImg: charactersFilters.sort === sortOption}]" alt="current"
+                    src="@/assets/Icons/complete.webp" />
+            </figure>
+        </section>
+    </Transition>
+</template>
+
+<script setup lang="ts">
+//store
+import { useCharacters } from '@/store/Characters';
+
+//interfaces
+import { sort } from '@/Interfaces/FilterCharacter';
+
+//vue
+import { ref } from 'vue'
+
+const target = ref(null)
+
+interface Props {
+    sortActive: boolean;
+}
+
+const props = defineProps<Props>()
+
+const charactersFilters = useCharacters().sortAndFilter
+</script>
+<style lang="scss">
+.sort-options-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 4px 5px;
+    z-index: 10;
+    bottom: 42px;
+    width: 70%;
+    border-radius: 20px;
+    background-color: #4a5267;
+
+    .sort-option {
+        color: #e2e2e2;
+        padding: 6px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        user-select: none;
+
+        p {
+            font-size: 15px;
+            font-weight: bold;
+
+        }
+
+        img {
+            width: 14px;
+            height: auto;
+            opacity: 0;
+
+            &.activeImg {
+                opacity: 1;
+            }
+        }
+
+        &.active {
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.178);
+        }
+    }
+}
+
+@media only screen and (max-width: 740px) {
+    .sort-options-container {
+        .sort-option {
+            padding: 4px;
+
+            p {
+                font-size: 12px;
+            }
+
+            img {
+                width: 10px;
+                height: 10px;
+            }
+        }
+    }
+}
+</style>
