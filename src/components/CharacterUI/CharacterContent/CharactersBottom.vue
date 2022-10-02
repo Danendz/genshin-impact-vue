@@ -1,19 +1,43 @@
 <template>
     <footer class="characters-footer">
         <section class="footer-buttons">
-            <button @click="toggleAllCharacters"><img alt='toggle characters' src='@/assets/Icons/menu.webp' /></button>
+            <button @click="toggleSelectionList"><img title="Toggle Characters" alt='toggle characters'
+                    src='@/assets/Icons/menu.webp' /></button>
+            <button @click="toggleVideo"><img title="Toggle Character Demo" alt='toggle video'
+                    src='@/assets/Icons/play-button.webp' /></button>
+
+            <button @click="toggleLayout"><img title="Toggle Character Demo" alt='toggle video'
+                    src='@/assets/Icons/hide.webp' /></button>
         </section>
     </footer>
 </template>
 
 <script setup lang="ts">
+//composables
+import useToggleCharacterSelelectionList from '@/Composables/useToggleSelectionList';
+
+//stores
+import { useShowDemoBGVideo } from '@/store/showDemoBGVideo';
+import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
-const hideLayout = useHideMainCharactersLayout();
+const { toggleSelectionList } = useToggleCharacterSelelectionList()
+const showDemoBGVideo = useShowDemoBGVideo()
+const showCharactersSelectionList = useShowCharactersSelectionList()
+const hideLayout = useHideMainCharactersLayout()
 
-const toggleAllCharacters = () => {
-    hideLayout.setHide();
+const toggleVideo = () => {
+    showDemoBGVideo.toggleShow()
 }
+
+const toggleLayout = () => {
+    if(showCharactersSelectionList.show){
+        toggleSelectionList()
+    }else{
+        hideLayout.setHide()
+    }
+}
+
 </script>
 
 <style lang="scss">
@@ -31,12 +55,13 @@ const toggleAllCharacters = () => {
     z-index: 0;
     background-color: rgba(0, 0, 0, 0.363);
 
-    .footer-buttons{
+    .footer-buttons {
         width: 100%;
         margin: 0 10px;
+        display: flex;
+        gap: 10px;
 
         button {
-
             width: 30px;
             height: 30px;
             padding: 2px;
@@ -58,14 +83,14 @@ const toggleAllCharacters = () => {
 }
 
 @media only screen and (orientation: portrait) {
-    .characters-footer{
+    .characters-footer {
         display: none;
 
     }
 }
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
-    .characters-footer{
+    .characters-footer {
         .footer-buttons {
             width: 95%;
         }

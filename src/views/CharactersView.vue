@@ -6,13 +6,15 @@
 </template>
 
 <script setup lang="ts">
+//composables
+import useSetDefaultLayout from '@/Composables/useSetDefaultLayout'
+
 //components
 import CharacterLayout from '@/components/CharacterUI/CharacterLayout.vue';
 import PageTransition from '@/components/UI/PageTransition.vue'
 
-//interfaces
+//stores
 import { useCharacters } from '@/store/Characters';
-import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
 //vue
 import { onMounted } from 'vue';
@@ -20,9 +22,10 @@ import { useRoute } from 'vue-router';
 
 const name = useRoute().params.name
 const charactersStore = useCharacters()
+const {setLayout} = useSetDefaultLayout()
 //fetch character
 onMounted(() => {
-    useHideMainCharactersLayout().hide = false
+    setLayout()
     if (name) {
         charactersStore.fetchCharacters(name.toString())
     } else {

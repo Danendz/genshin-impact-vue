@@ -5,9 +5,12 @@
 
         <CharacterSortOptions :sort-active="sortActive" />
         <button class="sort" @click="toggleSort">
+
             <span>{{ charactersFilters.sort ? charactersFilters.sort[0].toUpperCase() +
             charactersFilters.sort.substring(1) : "All"}}</span>
+
             <img alt="arrow" :class="[{active: sortActive}]" src="@/assets/Icons/triangle-up.webp" />
+            
         </button>
         <button @click="reverse" class="reverse">R</button>
     </section>
@@ -16,17 +19,19 @@
 <script setup lang="ts">
 //components
 import CharacterFilterOptions from './CharacterFilterOptions/CharacterFilterOptions.vue';
+import CharacterSortOptions from './CharacterSort/CharacterSortOptions.vue';
 
 //store
 import { useCharacters } from '@/store/Characters';
+import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
 //vue
-import { ref } from 'vue';
-import CharacterSortOptions from './CharacterSort/CharacterSortOptions.vue';
+import { ref, watch } from 'vue';
 
 const charactersFilters = useCharacters().sortAndFilter
 const filterActive = ref(false)
 const sortActive = ref(false)
+const hideLayout = useHideMainCharactersLayout()
 
 const toggleFilterComponent = (e?: MouseEvent, value?: boolean) => {
     filterActive.value = value ?? !filterActive.value
@@ -39,6 +44,10 @@ const toggleSort = () => {
 const reverse = () => {
     charactersFilters.reverse = !charactersFilters.reverse
 }
+
+watch(() => hideLayout.hide, () => {
+    sortActive.value = false
+})
 </script>
 
 <style lang="scss">

@@ -1,10 +1,10 @@
 <template>
     <section @mousedown="(e: MouseEvent) => e.preventDefault()" ref="characters_scroll"
         class="character-selection-list">
-        <transition-group name="character-list">
+        <TransitionGroup name="character-list">
             <CharacterCard v-for="character, index in characters" :key="character.name_key" :character="character"
                 :character-index="index" />
-        </transition-group>
+        </TransitionGroup>
     </section>
 </template>
 
@@ -39,8 +39,6 @@ const { width } = useWindowSize()
 
 watch(width, () => {
     createScroll()
-    console.log(heightWithGap)
-    console.log(columns)
 })
 let heightWithGap = 152
 let columns = 5

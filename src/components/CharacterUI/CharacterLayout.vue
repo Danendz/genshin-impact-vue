@@ -6,7 +6,7 @@
         </Transition>
         <CharactersContent :hide="hideLayout.hide" />
         <Transition name="fade-left" appear>
-            <CharacterSelection v-show="hideLayout.hide" />
+            <CharacterSelection v-show="showCharactersSelectionList.show" />
         </Transition>
     </main>
 
@@ -21,6 +21,7 @@ import CharacterSelection from './CharacterSelection/CharacterSelection.vue';
 //stores
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 import { useCurrentCharacter } from '@/store/currentCharacter';
+import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
 
 //vue
 import { onMounted } from 'vue';
@@ -29,6 +30,7 @@ import { useCharacters } from '@/store/Characters';
 const hideLayout = useHideMainCharactersLayout()
 const store = useCurrentCharacter()
 const characters = useCharacters()
+const showCharactersSelectionList = useShowCharactersSelectionList()
 
 onMounted(() => {
     if(characters.getCharacters){

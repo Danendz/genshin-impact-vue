@@ -14,7 +14,7 @@
             <ContentRight :options_list="options_list"  />
         </Transition>
         <Transition name="fade-down" appear>
-            <CharactersBottom v-show="!props.hide" />
+            <CharactersBottom v-show="!showCharactersSelectionList.show" />
         </Transition>
     </section>
 </template>
@@ -28,6 +28,7 @@ import ContentRight from './ContentRight/ContentRight.vue';
 //stores
 import { useCharacters } from '@/store/Characters';
 import {useActiveCategory} from '@/store/ActiveCategory'
+import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
 
 //enums
 import { OptionsKeys } from '@/Enums/OptionsKeys';
@@ -40,6 +41,7 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+const showCharactersSelectionList = useShowCharactersSelectionList()
 
 const options_list = {
     'Attributes': () => import('./ContentRight/AttributesContent/AttributesContent.vue'),

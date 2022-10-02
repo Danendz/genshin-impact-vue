@@ -1,7 +1,7 @@
 <template>
-    <aside class="rightContent">
+    <aside v-show="showCharactersSelectionList.show || !hideLayout.hide" class="rightContent">
         <Transition name="fade">
-            <button v-show="hideLayout.hide" @click="hideLayout.setHide()" class="character-selection-back">X</button>
+            <button v-show="showCharactersSelectionList.show" @click="toggleSelectionList" class="character-selection-back">X</button>
         </Transition>
         <Transition name="fade-content" mode="out-in">
             <article :style="{width: '100%'}" :key="activeCategory.active_category">
@@ -16,7 +16,11 @@
 import { OptionsKeys } from '@/Enums/OptionsKeys';
 import { useActiveCategory } from '@/store/ActiveCategory';
 
+//composables
+import useToggleCharacterSelelectionList from '@/Composables/useToggleSelectionList';
+
 //stores
+import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
 //vue
@@ -31,13 +35,14 @@ interface Props {
 
 const props = defineProps<Props>();
 const activeCategory = useActiveCategory()
+const showCharactersSelectionList = useShowCharactersSelectionList()
+const hideLayout = useHideMainCharactersLayout()
+const { toggleSelectionList } = useToggleCharacterSelelectionList()
 
 const content_component = computed(() => {
     return defineAsyncComponent(props.options_list[activeCategory.active_category])
 })
 
-
-const hideLayout = useHideMainCharactersLayout()
 </script>
 
 <style lang="scss">
