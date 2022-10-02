@@ -18,11 +18,12 @@
     <transition name="fade">
         <div v-if="store.currentCharacter" class="demoVideo" v-show="showDemoBGVideo.show">
             <transition name="fade" appear>
-                <LoaderSpinner v-if="videoLoading"/>
+                <LoaderSpinner v-if="videoLoading" />
             </transition>
             <transition name="fade">
                 <video @ended="showDemoBGVideo.show = false" :key="store.currentCharacter.name_key" ref="bgVideo">
-                    <source :src="videos[store.currentCharacter.name_key]">
+                    <source
+                        :src="store.currentCharacter.name_key.includes('traveler') ? videos['traveler'] : videos[store.currentCharacter.name_key]">
                 </video>
             </transition>
         </div>
@@ -130,6 +131,7 @@ const videos: Record<string, string> = {
     "yoimiya": convertLink("jtl7vpmq4kviv36/yoimiya.mp4?dl=0"),
     "yun-jin": convertLink("pgxqqfpclnbytyr/yun-jin.mp4?dl=0"),
     "zhongli": convertLink("f0yftsp6ai0nscf/zhongli.mp4?dl=0"),
+    "traveler": convertLink("rpylkdpsvslasrn/cyberpunk.mp4?dl=0")
 }
 
 const bgVideo = ref<HTMLVideoElement>()
@@ -150,7 +152,7 @@ const playVideo = () => {
         } else {
             videoLoading.value = true
             const canplay = () => {
-                if(showDemoBGVideo.show){
+                if (showDemoBGVideo.show) {
                     bgVideo.value?.play();
                 }
                 videoLoading.value = false
