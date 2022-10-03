@@ -8,7 +8,8 @@
                 <LazyImg :options="{
                 src: CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_SIDE),
                 loading: CharacterHelper.getPlaceholderIcon(CharacterImage.ICON_SIDE),
-                alt: character.name
+                alt: character.name,
+                delay: 200
                 }" :class="[{'active-character-img': store.currentCharacterIndex === index}]" />
 
             </PreventClickEvent>

@@ -1,7 +1,7 @@
 <template>
     <Transition name="fade">
         <section ref="target" v-show="props.sortActive" class="sort-options-container">
-            <figure v-for="sortOption in sort" :key="sortOption" @click="charactersFilters.sort = sortOption"
+            <figure v-for="sortOption in sort" :key="sortOption" @click="() => chooseSort(sortOption)"
                 :class="['sort-option', {active: charactersFilters.sort === sortOption}]">
                 <p>{{ sortOption ? sortOption[0].toUpperCase() + sortOption.substring(1) : "All"}}</p>
                 <img :class="[{activeImg: charactersFilters.sort === sortOption}]" alt="current"
@@ -16,7 +16,7 @@
 import { useCharacters } from '@/store/Characters';
 
 //interfaces
-import { sort } from '@/Interfaces/FilterCharacter';
+import { sort, SortType } from '@/Interfaces/FilterCharacter';
 
 //vue
 import { ref } from 'vue'
@@ -28,8 +28,17 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+const emit = defineEmits<{
+    (event: 'toggleSort'): void
+}>()
 
 const charactersFilters = useCharacters().sortAndFilter
+
+const chooseSort = (sortOption: SortType) => {
+    charactersFilters.sort = sortOption 
+    emit('toggleSort')
+}
+
 </script>
 <style lang="scss">
 .sort-options-container {

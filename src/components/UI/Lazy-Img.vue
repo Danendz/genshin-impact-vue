@@ -1,7 +1,8 @@
 <template>
     <img v-lazy="{
         src: props.options.src,
-        loading: props.options.loading
+        loading: props.options.loading,
+        delay: props.options.delay
     }" @mousedown="(e: MouseEvent) => e.preventDefault()" :alt="`${props.options.alt}`" />
 </template>
 
@@ -11,6 +12,7 @@ interface Props {
         src: string,
         loading?: string
         alt?: string
+        delay?: number
     }
 }
 const props = defineProps<Props>()

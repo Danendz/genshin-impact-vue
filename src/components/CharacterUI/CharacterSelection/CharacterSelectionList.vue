@@ -17,6 +17,7 @@ import useCreateScroll from '@/Composables/useCreateScroll';
 import { useCharacters } from '@/store/Characters';
 import { useCurrentCharacter } from '@/store/currentCharacter';
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
+import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
 
 //vueUse
 import { useWindowSize } from '@vueuse/core';
@@ -26,11 +27,12 @@ import { onMounted, watch, nextTick, ref, computed } from 'vue';
 
 const hideLayout = useHideMainCharactersLayout()
 const characterStore = useCurrentCharacter()
-
 const charactersStore = useCharacters()
 const characters = computed(() => {
     return charactersStore.getFilteredCharacter
 })
+const showCharactersSelectionList = useShowCharactersSelectionList()
+
 
 //creating vertiacal drag scroll
 const characters_scroll = ref<null | HTMLDivElement>(null)
@@ -71,9 +73,9 @@ onMounted(() => {
         })
     }
 })
-watch(() => hideLayout.hide, () => {
+watch(() => showCharactersSelectionList.show, () => {
     nextTick(() => {
-        if (hideLayout.hide && characters_scroll.value) {
+        if (showCharactersSelectionList.show && characters_scroll.value) {
             characters_scroll.value.scrollTop = heightWithGap * Math.floor((characterStore.currentCharacterIndex / columns))
         }
     })

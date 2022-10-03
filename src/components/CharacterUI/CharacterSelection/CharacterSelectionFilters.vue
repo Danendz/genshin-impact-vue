@@ -3,7 +3,7 @@
         <CharacterFilterOptions @toggle-filter-component="toggleFilterComponent" :filter-active="filterActive" />
         <button class="filter" @click="toggleFilterComponent">F</button>
 
-        <CharacterSortOptions :sort-active="sortActive" />
+        <CharacterSortOptions @toggle-sort="toggleSort" :sort-active="sortActive" />
         <button class="sort" @click="toggleSort">
 
             <span>{{ charactersFilters.sort ? charactersFilters.sort[0].toUpperCase() +

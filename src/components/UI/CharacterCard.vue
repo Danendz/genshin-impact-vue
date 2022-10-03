@@ -6,10 +6,12 @@
         <LazyImg :options="{
             src: CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_BIG),        
             loading: CharacterHelper.getPlaceholderIcon(CharacterImage.ICON_BIG),
+            delay: 250,
             alt: 'character'
         }" class="character-icon" />
         <LazyImg :options="{
             src: CharacterHelper.getElementImage(character.vision.toLowerCase()),
+            delay: 300,
             alt: 'vision'
         }" class="vision-icon" />
         <figcaption class="character-lvl">Lvl 90</figcaption>
@@ -38,6 +40,7 @@ interface Props {
     character: Character,
     characterIndex: number
 }
+
 
 const props = defineProps<Props>()
 const store = useCurrentCharacter()

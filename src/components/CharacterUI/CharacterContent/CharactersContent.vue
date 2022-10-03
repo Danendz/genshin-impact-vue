@@ -11,7 +11,7 @@
             </section>
         </Transition>
         <Transition name="fade-right" appear>
-            <ContentRight :options_list="options_list"  />
+            <ContentRight :options_list="options_list" />
         </Transition>
         <Transition name="fade-down" appear>
             <CharactersBottom v-show="!showCharactersSelectionList.show" />
