@@ -23,7 +23,7 @@ import { useCurrentCharacter } from '@/store/currentCharacter';
 import { useShowDemoBGVideo } from '@/store/showDemoBGVideo';
 
 //vue
-import { watch, onMounted, ref } from 'vue'
+import { watch, ref } from 'vue'
 
 const store = useCurrentCharacter();
 const showDemoBGVideo = useShowDemoBGVideo()
@@ -31,12 +31,11 @@ const showDemoBGVideo = useShowDemoBGVideo()
 const bgVideo = ref<HTMLVideoElement>()
 const videoLoading = ref(false)
 
-onMounted(() => {
+watch(bgVideo, () => {
     if (bgVideo.value) {
         bgVideo.value.volume = 0.2
     }
 })
-
 watch(() => store.currentCharacter, () => {
     if (bgVideo.value) {
         if (showDemoBGVideo.show) {

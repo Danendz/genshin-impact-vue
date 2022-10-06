@@ -1,9 +1,13 @@
 <template>
     <section :class="['characters-content', {'hided': changedStyle}]">
-        <Transition @after-leave="changedStyle = true" @before-enter="changedStyle = false"
-            @after-enter="setDefaultSort" name="fade-right" appear>
-            <ContentOptions v-show="!props.hide" :options-list="options_list"
-                 />
+        <Transition 
+            @after-leave="changedStyle = true" 
+            @before-enter="changedStyle = false"
+            @after-enter="setDefaultSort"
+            name="fade-right" appear>
+
+            <ContentOptions v-show="!props.hide" :options-list="options_list" />
+            
         </Transition>
         <Transition name="fade-right" appear>
             <section v-if="!props.hide" class="centerContent">
