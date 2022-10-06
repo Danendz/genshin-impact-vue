@@ -1,4 +1,4 @@
-const useRequireImage = (url: string): string => {
+const useRequireFile = (url: string): string => {
     try {
         return require(`@/assets/${url}`)
     } catch (e) {
@@ -6,4 +6,4 @@ const useRequireImage = (url: string): string => {
     }
 }
 
-export default useRequireImage
+export default useRequireFile

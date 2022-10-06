@@ -14,7 +14,7 @@
 <script setup lang="ts">
 //components
 import CharactersPanel from '@/components/CharacterUI/CharacterPanel/CharactersPanel.vue'
-import CharacterBG from '@/components/CharacterUI/CharacterBG.vue';
+import CharacterBG from '@/components/CharacterUI/CharacterBackground/CharacterBG.vue';
 import CharactersContent from '@/components/CharacterUI/CharacterContent/CharactersContent.vue';
 import CharacterSelection from './CharacterSelection/CharacterSelection.vue';
 
@@ -22,10 +22,10 @@ import CharacterSelection from './CharacterSelection/CharacterSelection.vue';
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 import { useCurrentCharacter } from '@/store/currentCharacter';
 import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
+import { useCharacters } from '@/store/Characters';
 
 //vue
 import { onMounted } from 'vue';
-import { useCharacters } from '@/store/Characters';
 
 const hideLayout = useHideMainCharactersLayout()
 const store = useCurrentCharacter()

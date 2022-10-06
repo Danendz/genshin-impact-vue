@@ -9,6 +9,7 @@ const useToggleCharacterSelelectionList = () => {
             hideLayout.hide = value
             showCharactersSelectionList.show = value
         } else {
+            //if already hided and not because of selection list set hide layout false
             if(hideLayout.hide && !showCharactersSelectionList.show){
                 hideLayout.hide = false
             }

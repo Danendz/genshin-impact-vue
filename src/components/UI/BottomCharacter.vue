@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import useRequireImage from '@/Composables/useRequireImage';
+import useRequireFile from '@/Composables/useRequireFile';
 
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const image = useRequireImage(props.imageUrl)
+const image = useRequireFile(props.imageUrl)
 
 </script>
 

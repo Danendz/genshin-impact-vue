@@ -9,11 +9,15 @@ enum VerticalScroll {
 type directions = 'horizontal' | 'vertical'
 const useCreateScroll = <T extends HTMLElement>(htmlElement: T, userDir: directions = 'horizontal'): void => {
 
+    //set horizontal direction by default
     let direction: typeof HorizontalScroll | typeof VerticalScroll = HorizontalScroll;
+
+    //set vertical direction
     if (userDir === 'vertical') {
         direction = VerticalScroll;
     }
 
+    //initialize some variables
     let mouseMoveCallback: (event: MouseEvent) => void;
     let velX: number;
     let momentumID: number;

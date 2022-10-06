@@ -6,6 +6,8 @@ const useSetDefaultLayout = () => {
     const hideLayout = useHideMainCharactersLayout()
     const showCharactersSelectionList = useShowCharactersSelectionList()
     const showDemoBGVideo = useShowDemoBGVideo()
+
+    //set layout to default values
     const setLayout = () => {
         hideLayout.hide = false
         showCharactersSelectionList.show = false

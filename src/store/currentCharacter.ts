@@ -7,7 +7,7 @@ export const useCurrentCharacter = defineStore('currentCharacter', () => {
     const currentCharacter = ref<Character>()
     const currentCharacterIndex = ref<number>(0)
 
-    //setting current character by character and index
+    //setting current character by character and character index in characters array
     const setCurrentCharacter = (character: Character) => {
         if (characters.value) {
             currentCharacter.value = character
