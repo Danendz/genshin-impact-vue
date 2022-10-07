@@ -1,17 +1,20 @@
 <template>
     <transition name="fade-background" appear>
         <figure v-if="store.currentCharacter"
-            :class="`character-background-container ${store.currentCharacter.vision.toLowerCase()} `"
+            :class="`character-background-container character-background-container_image character-background-container_${store.currentCharacter.vision.toLowerCase()}`"
             :key="store.currentCharacter.name_key">
 
             <transition name="fade" appear>
-                <div alt="background-character" v-if="bgImage" class="character-background"
+                <div alt="character background" v-if="bgImage"
+                    class="character-background-container__character-background"
                     :style="{backgroundImage: `url(${bgImage})`}"></div>
             </transition>
             <transition name="fade-right" appear>
-                <img alt="gacha-character"
-                    :class="['gacha-image', {'gacha-image-right': showCharactersSelectionList.show}]" v-if="gachaImage"
-                    :src="gachaImage" />
+
+                <img alt="gacha-character" :class="['character-background-container__gacha-image',
+                {'character-background-container__gacha-image_enter': showCharactersSelectionList.show}]"
+                    v-if="gachaImage" :src="gachaImage" />
+
             </transition>
         </figure>
     </transition>
@@ -60,36 +63,17 @@ watch(() => store.currentCharacter, () => {
 
 <style lang="scss">
 @import '@/assets/Styles/vision_colors';
+@import '@/assets/Styles/CharacterUI/CharacterBackground/CharacterBackground';
 
 .character-background-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-    z-index: -9;
-    position: absolute;
-    overflow: hidden;
-
-    p {
-        position: absolute;
+    &_image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: -9;
     }
 
-    .gacha-image {
-        user-select: none;
-        -webkit-user-drag: none;
-        width: auto;
-        height: 100vh;
-        margin-top: auto;
-        transition: .5s;
-        position: absolute;
-    }
-
-    .gacha-image-right {
-        transform: translateX(5%);
-    }
-
-    .character-background {
+    &__character-background {
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -106,35 +90,53 @@ watch(() => store.currentCharacter, () => {
             position: absolute;
         }
     }
-}
 
-@media only screen and (max-width: 1600px) {
-    .gacha-image-right {
-        transform: translateX(15%);
+    &__gacha-image {
+        user-select: none;
+        -webkit-user-drag: none;
+        width: auto;
+        height: 100vh;
+        margin-top: auto;
+        transition: .5s;
+        position: absolute;
+
+        &_enter {
+            transform: translateX(5%);
+        }
+    }
+
+    &_anemo {
+        background-color: $anemo;
+    }
+
+    &_geo {
+        background-color: $geo;
+    }
+
+    &_hydro {
+        background-color: $hydro;
+    }
+
+    &_electro {
+        background-color: $electro;
+    }
+
+    &_pyro {
+        background-color: $pyro;
+    }
+
+    &_cryo {
+        background-color: $cryo;
     }
 }
 
-.anemo {
-    background-color: $anemo;
-}
-
-.geo {
-    background-color: $geo;
-}
-
-.hydro {
-    background-color: $hydro;
-}
-
-.electro {
-    background-color: $electro;
-}
-
-.pyro {
-    background-color: $pyro;
-}
-
-.cryo {
-    background-color: $cryo;
+@media only screen and (max-width: 1600px) {
+    .character-background-container {
+        &__gacha-image {
+            &_enter {
+                transform: translateX(15%);
+            }
+        }
+    }
 }
 </style>

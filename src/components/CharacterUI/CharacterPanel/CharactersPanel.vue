@@ -1,25 +1,31 @@
 <template>
-    <header class="characters-panel">
-        <section class="panel-content">
-            <CharactersInfo />
-            <CharactersScroll  />
-            <section class="close">
-                <button @click="router.go(-1)">X</button>
+    <Transition name="fade-up" appear>
+        <header v-show="!hideLayout.hide" class="characters-panel">
+            <section class="characters-panel__content">
+                <CharactersInfo />
+                <CharactersScroll />
+                <section class="characters-panel__close">
+                    <button @click="router.go(-1)">X</button>
+                </section>
             </section>
-        </section>
-    </header>
+        </header>
+    </Transition>
 </template>
 
 <script setup lang="ts">
 //components
 import CharactersInfo from './CharactersInfo.vue';
-import CharactersScroll from './CharactersScroll.vue';
+import CharactersScroll from './CharactersScroll/CharactersScroll.vue';
+
+//stores
+import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
 //interfaces
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
 
+const hideLayout = useHideMainCharactersLayout()
 </script>
 
 <style lang="scss">
@@ -33,39 +39,38 @@ const router = useRouter()
     z-index: 2;
     background-color: $transparency;
 
-    .panel-content {
+    &__content {
         width: 70%;
         display: flex;
         align-items: center;
-    }
 
-    .close {
-        display: flex;
-        justify-content: flex-end;
-        margin-left: auto;
+        .characters-panel__close {
+            display: flex;
+            justify-content: flex-end;
+            margin-left: auto;
 
-        button {
-            cursor: pointer;
-            transition: .2s;
-            width: 45px;
-            height: 45px;
-            font-size: 20px;
-            border-radius: 50%;
-            border: 5px solid #b3b3b35d;
-            background-color: #e0dada;
-            margin-right: 5px;
+            button {
+                cursor: pointer;
+                transition: .2s;
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+                border-radius: 50%;
+                border: 5px solid #b3b3b35d;
+                background-color: #e0dada;
+                margin-right: 5px;
 
-            &:hover {
-                transform: scale(1.1)
+                &:hover {
+                    transform: scale(1.1)
+                }
             }
         }
     }
 }
 
-
 @media only screen and (max-width: 1366px) {
     .characters-panel {
-        .panel-content {
+        &__content {
             width: 100%;
         }
     }
@@ -75,11 +80,11 @@ const router = useRouter()
     .characters-panel {
         height: 40px;
 
-        .panel-content {
+        &__content {
             width: 100%;
             position: relative;
 
-            .close {
+            .characters-panel__close {
                 button {
                     width: 30px;
                     height: 30px;

@@ -1,13 +1,10 @@
 <template>
     <main class="characters-container">
         <CharacterBG />
-        <Transition name="fade-up" appear>
-            <CharactersPanel v-show="!hideLayout.hide" />
-        </Transition>
-        <CharactersContent :hide="hideLayout.hide" />
-        <Transition name="fade-left" appear>
-            <CharacterSelection v-show="showCharactersSelectionList.show" />
-        </Transition>
+        <CharactersPanel />
+        <CharactersContent />
+        <CharacterSelection />
+        <CharactersBottom />
     </main>
 
 </template>
@@ -17,26 +14,23 @@ import CharactersPanel from '@/components/CharacterUI/CharacterPanel/CharactersP
 import CharacterBG from '@/components/CharacterUI/CharacterBackground/CharacterBG.vue';
 import CharactersContent from '@/components/CharacterUI/CharacterContent/CharactersContent.vue';
 import CharacterSelection from './CharacterSelection/CharacterSelection.vue';
+import CharactersBottom from './CharactersBottom.vue';
 
 //stores
-import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 import { useCurrentCharacter } from '@/store/currentCharacter';
-import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
 import { useCharacters } from '@/store/Characters';
 
 //vue
 import { onMounted } from 'vue';
 
-const hideLayout = useHideMainCharactersLayout()
 const store = useCurrentCharacter()
 const characters = useCharacters()
-const showCharactersSelectionList = useShowCharactersSelectionList()
 
 onMounted(() => {
-    if(characters.getCharacters){
-        if(!store.currentCharacter){
+    if (characters.getCharacters) {
+        if (!store.currentCharacter) {
             store.setCurrentCharacter(characters.getCharacters[0])
-        }else{
+        } else {
             store.setCurrentCharacter(store.currentCharacter)
         }
     }

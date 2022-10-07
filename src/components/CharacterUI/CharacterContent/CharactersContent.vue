@@ -1,51 +1,36 @@
 <template>
-    <section :class="['characters-content', {'hided': changedStyle}]">
-        <Transition 
-            @after-leave="changedStyle = true" 
-            @before-enter="changedStyle = false"
-            @after-enter="setDefaultSort"
-            name="fade-right" appear>
-
-            <ContentOptions v-show="!props.hide" :options-list="options_list" />
-            
+    <section :class="['characters-content', {'characters-content_hided': changedStyle}]">
+        <Transition @after-leave="changedStyle = true" @before-enter="changedStyle = false"
+            @after-enter="setDefaultSort" name="fade-right" appear>
+            <ContentOptions v-show="!hideLayout.hide" :options-list="options_list" />
         </Transition>
         <Transition name="fade-right" appear>
-            <section v-if="!props.hide" class="centerContent">
+            <section v-if="!hideLayout.hide" class="centerContent">
 
             </section>
         </Transition>
         <Transition name="fade-right" appear>
             <ContentRight :options_list="options_list" />
         </Transition>
-        <Transition name="fade-down" appear>
-            <CharactersBottom v-show="!showCharactersSelectionList.show" />
-        </Transition>
+
     </section>
 </template>
 
 <script setup lang="ts">
 //components
 import ContentOptions from './ContentOptions.vue';
-import CharactersBottom from './CharactersBottom.vue'
 import ContentRight from './ContentRight/ContentRight.vue';
 
 //stores
 import { useCharacters } from '@/store/Characters';
-import {useActiveCategory} from '@/store/ActiveCategory'
-import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
+import { useActiveCategory } from '@/store/ActiveCategory'
+import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
 //enums
 import { OptionsKeys } from '@/Enums/OptionsKeys';
 
 //vue
 import { ref, watch } from 'vue'
-
-interface Props {
-    hide: boolean
-}
-
-const props = defineProps<Props>()
-const showCharactersSelectionList = useShowCharactersSelectionList()
 
 const options_list = {
     'Attributes': () => import('./ContentRight/AttributesContent/AttributesContent.vue'),
@@ -57,9 +42,9 @@ const options_list = {
 }
 const charactersStore = useCharacters()
 const activeCategory = useActiveCategory()
-
-watch(() => props.hide, () => {
-    if (props.hide) {
+const hideLayout = useHideMainCharactersLayout()
+watch(() => hideLayout.hide, () => {
+    if (hideLayout.hide) {
         activeCategory.setActiveCategory(OptionsKeys.ATTRIBUTES)
     }
 })
@@ -68,7 +53,7 @@ const setDefaultSort = () => {
     charactersStore.setDefaultFilter()
 }
 
-const changedStyle = ref(props.hide)
+const changedStyle = ref(hideLayout.hide)
 </script>
 
 
@@ -85,12 +70,14 @@ const changedStyle = ref(props.hide)
     width: 60%;
     height: fit-content;
     margin-top: 10px;
+
+    &_hided {
+        justify-content: flex-end;
+        margin-top: 85px;
+    }
+
 }
 
-.hided {
-    justify-content: flex-end;
-    margin-top: 85px;
-}
 
 @media only screen and (max-width: 1800px) {
     .characters-content {
@@ -115,11 +102,12 @@ const changedStyle = ref(props.hide)
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .characters-content {
         height: 100vh;
+
+        &_hided {
+            margin-top: 50px
+        }
     }
 
-    .hided {
-        margin-top: 50px
-    }
 }
 </style>
 

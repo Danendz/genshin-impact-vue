@@ -1,14 +1,17 @@
 <template>
-  <nav :class="[{show: showNav}]">
-    <ul>
+  <nav :class="['top-nav' ,{'top-nav_active': activeNav}]">
+    <ul class="top-nav__items">
+
       <li v-for="navLink in navLinks" :key="navLink.name">
         <router-link :to="{name: navLink.name}">
-          <img :alt="`${navLink.name} link`" :src="CharacterHelper.getGenshinSiteIcons(navLink.imgUrl)" />
+          <img class="top-nav__link" :alt="`${navLink.name} link`"
+            :src="CharacterHelper.getGenshinSiteIcons(navLink.imgUrl)" />
         </router-link>
+        
       </li>
 
     </ul>
-    <button :class="['arrow', {rotateArrow: showNav}]" @click="toggleNav">></button>
+    <button :class="['top-nav__arrow', {'top-nav__arrow_active': activeNav}]" @click="toggleNav">></button>
   </nav>
 </template>
 
@@ -43,14 +46,14 @@ const navLinks: INavLinks[] = [
   }
 ]
 
-const showNav = ref(false)
+const activeNav = ref(false)
 const toggleNav = () => {
-  showNav.value = !showNav.value;
+  activeNav.value = !activeNav.value;
 }
 
 </script>
 <style lang="scss">
-nav {
+.top-nav {
   position: fixed;
   transform: translateY(-100%);
   transition: 0.3s;
@@ -65,7 +68,11 @@ nav {
   background: #e5e2db96;
   padding: 3px 0;
 
-  .arrow {
+  &_active {
+    transform: translateY(0);
+  }
+
+  &__arrow {
     transition: 0.3s;
     cursor: pointer;
     width: 35px;
@@ -76,15 +83,20 @@ nav {
     font-weight: 600;
     position: absolute;
     bottom: -20px;
+
+    &_active {
+      transform: rotate(180deg);
+    }
+
   }
 
-  ul {
+  &__items {
     padding: 5px 0;
     display: flex;
     gap: 15px;
     list-style: none;
 
-    img {
+    .top-nav__link {
       width: 40px;
       height: 40px;
       transition: 0.3s;
@@ -96,24 +108,17 @@ nav {
   }
 }
 
-.show {
-  transform: translateY(0);
-}
-
-.rotateArrow {
-  transform: rotate(180deg);
-}
 
 @media only screen and (max-width: 960px) {
-  nav {
+  .top-nav {
     padding: 3px 0;
 
-    li {
+    &__items {
       padding: 5px 0;
       display: flex;
       gap: 15px;
 
-      img {
+      .top-nav__link {
         width: 30px;
         height: 30px;
       }

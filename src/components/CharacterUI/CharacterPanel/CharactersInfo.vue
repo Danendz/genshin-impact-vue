@@ -1,7 +1,7 @@
 <template>
-    <figure class="info" v-if="store.currentCharacter">
+    <figure class="characters-info" v-if="store.currentCharacter">
         <img alt="vision" :src="CharacterHelper.getElementImage(store.currentCharacter.vision.toLowerCase())" />
-        <figcaption class="visionAndName">
+        <figcaption class="characters-info__visionAndName">
             {{store.currentCharacter.vision}}/ {{store.currentCharacter.name}}
         </figcaption>
     </figure>
@@ -20,7 +20,7 @@ const store = useCurrentCharacter()
 <style lang="scss">
 @import '@/assets/Styles/characters_panel';
 
-.info {
+.characters-info {
     display: flex;
     align-items: center;
     width: 25%;
@@ -32,13 +32,13 @@ const store = useCurrentCharacter()
         height: $infoHeight;
     }
 
-    .visionAndName {
+    &__visionAndName {
         color: #e0dac0;
     }
 }
 
 @media only screen and (max-width: 915px) {
-    .info {
+    .characters-info {
         width: fit-content;
 
         img {

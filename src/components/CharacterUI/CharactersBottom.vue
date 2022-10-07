@@ -1,15 +1,17 @@
 <template>
-    <footer class="characters-footer">
-        <section class="footer-buttons">
-            <button @click="toggleSelectionList"><img title="Toggle Characters" alt='toggle characters'
-                    src='@/assets/Icons/menu.webp' /></button>
-            <button @click="toggleVideo"><img title="Toggle Character Demo" alt='toggle video'
-                    src='@/assets/Icons/play-button.webp' /></button>
+    <Transition name="fade-down" appear>
+        <footer v-show="!showCharactersSelectionList.show" class="characters-footer">
+            <section class="characters-footer__buttons">
+                <button @click="toggleSelectionList"><img title="Toggle Characters" alt='toggle characters'
+                        src='@/assets/Icons/menu.webp' /></button>
+                <button @click="toggleVideo"><img title="Toggle Character Demo" alt='toggle video'
+                        src='@/assets/Icons/play-button.webp' /></button>
 
-            <button @click="toggleLayout"><img title="Toggle Character Demo" alt='toggle video'
-                    src='@/assets/Icons/hide.webp' /></button>
-        </section>
-    </footer>
+                <button @click="toggleLayout"><img title="Toggle Character Demo" alt='toggle video'
+                        src='@/assets/Icons/hide.webp' /></button>
+            </section>
+        </footer>
+    </Transition>
 </template>
 
 <script setup lang="ts">
@@ -31,9 +33,9 @@ const toggleVideo = () => {
 }
 
 const toggleLayout = () => {
-    if(showCharactersSelectionList.show){
+    if (showCharactersSelectionList.show) {
         toggleSelectionList()
-    }else{
+    } else {
         hideLayout.setHide()
     }
 }
@@ -47,7 +49,7 @@ const toggleLayout = () => {
     bottom: 12px;
     position: absolute;
     display: flex;
-    justify-content: center;
+    left: 20%;
     margin-left: 5px;
     width: fit-content;
     border-radius: 5px;
@@ -55,10 +57,11 @@ const toggleLayout = () => {
     z-index: 0;
     background-color: rgba(0, 0, 0, 0.363);
 
-    .footer-buttons {
+    &__buttons {
         width: 100%;
         margin: 0 10px;
         display: flex;
+        
         gap: 10px;
 
         button {
@@ -88,11 +91,25 @@ const toggleLayout = () => {
 
     }
 }
-
+@media only screen and (max-width: 1800px){
+    .characters-footer{
+        left: 0;
+    }
+}
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .characters-footer {
-        .footer-buttons {
+        &__buttons {
             width: 95%;
+            button{
+                width: 25px;
+                height: 25px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                img{
+                    width: 80%;
+                }
+            }
         }
     }
 }

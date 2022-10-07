@@ -1,16 +1,18 @@
 <template>
     <transition name="fade">
-        <div v-if="store.currentCharacter" class="demoVideo" v-show="showDemoBGVideo.show">
+        <section v-if="store.currentCharacter"
+            class="character-background-container character-background-container_video" v-show="showDemoBGVideo.show">
             <transition name="fade" appear>
                 <LoaderSpinner v-if="videoLoading" />
             </transition>
             <transition name="fade">
-                <video @ended="showDemoBGVideo.show = false" :key="store.currentCharacter.name_key" ref="bgVideo">
+                <video class="character-background-container__video" @ended="showDemoBGVideo.show = false"
+                    :key="store.currentCharacter.name_key" ref="bgVideo">
                     <source
                         :src="store.currentCharacter.name_key.includes('traveler') ? videos['traveler'] : videos[store.currentCharacter.name_key]">
                 </video>
             </transition>
-        </div>
+        </section>
     </transition>
 </template>
 
@@ -143,14 +145,14 @@ watch(() => showDemoBGVideo.show, () => {
 </script>
 
 <style lang="scss">
-.demoVideo {
-    z-index: -8;
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
+@import '@/assets/Styles/CharacterUI/CharacterBackground/CharacterBackground';
 
-    video {
+.character-background-container {
+    &_video {
+        z-index: -8;
+    }
+
+    &__video {
         height: 100%;
         width: 177.77777778vh;
         min-width: 100%;

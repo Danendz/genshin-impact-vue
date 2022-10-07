@@ -1,21 +1,29 @@
 <template>
-    <section class="character-selection-main">
-        <aside class="CharacterSelection">
-            <header>
-                <!-- <img /> -->
-                <h2>Character Selection</h2>
-            </header>
-            <CharacterSelectionList />
-            <CharacterSelectionFilters />
-        </aside>
-        
-    </section>
+    <Transition name="fade-left" appear>
+        <section v-show="showCharactersSelectionList.show" class="character-selection-main">
+            <aside class="CharacterSelection">
+                <header>
+                    <!-- <img /> -->
+                    <h2>Character Selection</h2>
+                </header>
+                <CharacterSelectionList />
+                <CharacterSelectionFilters />
+            </aside>
+        </section>
+    </Transition>
 </template>
 
 <script setup lang="ts">
 //components
 import CharacterSelectionList from './CharacterSelectionList.vue';
 import CharacterSelectionFilters from './CharacterSelectionFilters.vue';
+
+//stores
+import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
+
+const showCharactersSelectionList = useShowCharactersSelectionList()
+
+
 </script>
 
 <style lang="scss">
@@ -43,7 +51,7 @@ import CharacterSelectionFilters from './CharacterSelectionFilters.vue';
         }
     }
 
-    
+
 }
 
 @media only screen and (orientation: portrait) {

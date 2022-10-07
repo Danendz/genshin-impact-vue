@@ -1,8 +1,8 @@
 <template>
-    <aside class="options">
+    <aside class="content-options">
         <ul>
             <li v-for="_, key, index in props.optionsList" :key="index"
-                :class="[{'active-option': activeCategory.active_category === key}]"
+                :class="['content-options__option', {'content-options__option_active': activeCategory.active_category === key}]"
                 @click="activeCategory.setActiveCategory(key)">
                 {{key}}
             </li>
@@ -25,13 +25,13 @@ const activeCategory = useActiveCategory()
 </script>
 
 <style lang="scss">
-.options {
+.content-options {
     ul {
         list-style: none;
         font-size: 30px;
         font-weight: bold;
 
-        li {
+        .content-options__option {
             display: flex;
             align-items: center;
             user-select: none;
@@ -56,22 +56,24 @@ const activeCategory = useActiveCategory()
             &:hover {
                 color: white;
             }
-        }
 
-        .active-option {
-            color: white;
+            &_active {
+                color: white;
 
-            &::before {
-                content: '';
-                border: 1px solid rgb(163, 163, 163);
-                background: linear-gradient(45deg, transparent 50%, white 50%);
+                &::before {
+                    content: '';
+                    border: 1px solid rgb(163, 163, 163);
+                    background: linear-gradient(45deg, transparent 50%, white 50%);
+                }
             }
         }
+
+
     }
 }
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
-    .options {
+    .content-options {
         ul {
             font-size: 20px;
         }
@@ -79,7 +81,7 @@ const activeCategory = useActiveCategory()
 }
 
 @media only screen and (max-width: 700px) and (orientation: portrait) {
-    .options {
+    .content-options {
         order: 2;
 
         ul {
@@ -89,7 +91,7 @@ const activeCategory = useActiveCategory()
             justify-content: center;
             gap: 10px;
 
-            li {
+            .content-options__option {
                 padding-bottom: 5px;
             }
         }

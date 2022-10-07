@@ -1,7 +1,8 @@
 <template>
-    <aside v-show="showCharactersSelectionList.show || !hideLayout.hide" class="rightContent">
+    <aside v-show="showCharactersSelectionList.show || !hideLayout.hide" class="content-right">
         <Transition name="fade">
-            <button v-show="showCharactersSelectionList.show" @click="toggleSelectionList" class="character-selection-back">X</button>
+            <button v-show="showCharactersSelectionList.show" @click="toggleSelectionList"
+                class="character-selection-back">X</button>
         </Transition>
         <Transition name="fade-content" mode="out-in">
             <article :style="{width: '100%'}" :key="activeCategory.active_category">
@@ -47,7 +48,7 @@ const content_component = computed(() => {
 
 <style lang="scss">
 .characters-content {
-    .rightContent {
+    .content-right {
         background-color: rgba(0, 0, 0, 0.418);
         width: 300px;
         padding: 10px;
@@ -71,7 +72,7 @@ const content_component = computed(() => {
 
 @media only screen and (orientation: portrait) {
     .characters-content {
-        .rightContent {
+        .content-right {
             display: flex;
             align-items: center;
 
@@ -82,7 +83,7 @@ const content_component = computed(() => {
 
 @media only screen and (max-width: 1800px) {
     .characters-content {
-        .rightContent {
+        .content-right {
             .character-selection-back {
                 right: 3%;
             }
@@ -92,15 +93,12 @@ const content_component = computed(() => {
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .characters-content {
-        .rightContent {
+        .content-right {
             background-color: transparent;
             width: 220px;
             padding: 0;
             gap: 5px;
-
-
         }
-
     }
 }
 </style>
