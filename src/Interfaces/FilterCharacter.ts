@@ -4,7 +4,7 @@ import { CharacterElement, CharacterRarity, CharacterRegion, CharacterWeapon } f
 import { Character } from "./CharacterInterface"
 
 export type FilterType = {
-    [Property in keyof Pick<Character, "vision" | 'weapon'>]: Record<string, boolean>
+    [Property in keyof Pick<Character, "vision" | 'weapon' | 'rarity' | 'nation'>]: Record<string, boolean>
 }
 
 export type SortType = '' | keyof Pick<Character, 'vision' | 'nation' | 'name' | 'weapon' | 'rarity'>

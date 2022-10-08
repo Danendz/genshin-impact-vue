@@ -1,7 +1,9 @@
 <template>
     <section @mousedown="(e: MouseEvent) => e.preventDefault()" ref="characters_scroll"
         class="character-selection-list">
-        <TransitionGroup name="character-list">
+        <p v-if="characters && !characters.length" class="character-selection-list__no-characters">No characters
+            found!</p>
+        <TransitionGroup v-else name="character-selection">
             <CharacterCard v-for="character, index in characters" :key="character.name_key" :character="character"
                 :character-index="index" />
         </TransitionGroup>
@@ -92,11 +94,23 @@ watch(() => showCharactersSelectionList.show, () => {
             height: 100%;
             overflow-y: scroll;
             overflow-x: hidden;
+            position: relative;
             display: grid;
             grid-template-columns: repeat(5, 110px);
             grid-auto-rows: 140px;
             gap: 12px;
             padding: 10px 5px;
+
+            &__no-characters {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 40px;
+                color: white;
+                position: absolute;
+            }
         }
     }
 }
@@ -119,6 +133,17 @@ watch(() => showCharactersSelectionList.show, () => {
                 grid-template-columns: repeat(4, 70px);
                 grid-auto-rows: 80px;
                 gap: 8px;
+
+                &__no-characters {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 20px;
+                    color: white;
+                    position: absolute;
+                }
             }
         }
     }

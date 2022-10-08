@@ -6,12 +6,14 @@ import { ErrorMessages } from "@/Enums/ErrorMessages";
 
 //interfaces
 import { Character } from "@/Interfaces/CharacterInterface";
-import { FilterType, SortType, vision, weapon } from "@/Interfaces/FilterCharacter";
+import { FilterType, SortType, vision, weapon, rarity, nation } from "@/Interfaces/FilterCharacter";
+
+//stores
+import { useActiveCategory } from '@/store/ActiveCategory'
 
 //pinia / vue
 import { defineStore } from "pinia";
 import { computed, ref } from 'vue'
-import { useActiveCategory } from '@/store/ActiveCategory'
 
 interface ISortAndFilter {
     sort: SortType,
@@ -19,15 +21,17 @@ interface ISortAndFilter {
     reverse: boolean
 }
 
+
 export const useCharacters = defineStore('characters', () => {
     const characters = ref<Character[] | null>(null)
     const error = ref<ErrorMessages | null>(null)
     const alreadyLoaded: string[] = ["Attributes"]
     const sortAndFilter = ref<ISortAndFilter>({
         sort: '',
-        filter: { vision: { ...vision }, weapon: { ...weapon } },
+        filter: { vision: { ...vision }, weapon: { ...weapon }, rarity: { ...rarity }, nation: { ...nation } },
         reverse: false
     })
+
     const active_category = useActiveCategory()
 
     //fetching characters
@@ -60,7 +64,7 @@ export const useCharacters = defineStore('characters', () => {
     //setting sort and filter to default state
     const setDefaultFilter = () => {
         sortAndFilter.value.sort = '';
-        sortAndFilter.value.filter = { vision: { ...vision }, weapon: { ...weapon } }
+        sortAndFilter.value.filter = { vision: { ...vision }, weapon: { ...weapon }, rarity: { ...rarity }, nation: { ...nation } }
     }
 
     //type guard for character
@@ -105,14 +109,17 @@ export const useCharacters = defineStore('characters', () => {
             error.value = data
         }
     }
+    //unlinking original array with characters
+    const forFilterCharacters = computed(() => {
+        if (characters.value) return characters.value.map((el) => el)
+        return []
+    })
 
     //sorting characters
     const sortCharacters = computed(() => {
         if (characters.value) {
-            //unlinking original array with characters
-            const withFilterCharacters = characters.value.map((el) => el)
-            if (withFilterCharacters) {
-                return withFilterCharacters.sort((charA, charB) => {
+            if (forFilterCharacters.value) {
+                return forFilterCharacters.value.sort((charA, charB) => {
                     if (sortAndFilter.value.reverse) {
                         return sortFunction(charB, charA)
                     }
@@ -142,17 +149,25 @@ export const useCharacters = defineStore('characters', () => {
 
     //filter function that filter only if one or more filter parameters are selected
     const filterCharacters = computed(() => {
+
         if (sortCharacters.value) {
             return Object.keys(sortAndFilter.value.filter).reduce((result, key) => {
-                const res: Character[] = result.filter((character: Character) => {
-                    const keyFilter = key as keyof typeof sortAndFilter.value.filter
-                    if (key === keyFilter) {
-                        const filterProperty = character[key]
-                        return sortAndFilter.value.filter[key][filterProperty]
-                    }
-                })
+                const keyFilter = key as keyof typeof sortAndFilter.value.filter
 
-                return res.length > 0 ? result = res : result
+                const onlyTrueFilters = Object.keys(sortAndFilter.value.filter[keyFilter])
+                    .filter((key) => sortAndFilter.value.filter[keyFilter][key])
+
+                let res: Character[] | null = null;
+
+                if (onlyTrueFilters.length) {
+                    res = result.filter((character: Character) => {
+                        const characterValueByKey = character[keyFilter]
+                        const filterValueByKey = sortAndFilter.value.filter[keyFilter]
+                        return filterValueByKey[characterValueByKey]
+                    })
+                }
+
+                return res ? result = res : result
             }, sortCharacters.value)
         }
         return sortCharacters.value

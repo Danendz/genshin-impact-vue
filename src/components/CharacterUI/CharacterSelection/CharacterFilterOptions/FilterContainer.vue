@@ -27,7 +27,9 @@ const characters = useCharacters()
 const charactersFilters = characters.sortAndFilter.filter
 const filterTitle: Record<keyof typeof charactersFilters, string> = {
     vision: 'Element',
-    weapon: "Weapons"
+    weapon: "Weapons",
+    rarity: "Rarity",
+    nation: "Nation"
 }
 
 </script>
