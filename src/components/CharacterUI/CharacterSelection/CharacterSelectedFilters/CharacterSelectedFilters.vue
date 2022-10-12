@@ -43,7 +43,7 @@ onMounted(() => {
 	align-items: center;
 	left: 10px;
 
-	z-index: 3;
+	z-index: 2;
 	width: calc(100% - 20px);
 	height: fit-content;
 	padding: 3px;
