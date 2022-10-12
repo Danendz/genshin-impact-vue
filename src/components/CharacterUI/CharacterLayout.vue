@@ -27,14 +27,15 @@ const store = useCurrentCharacter()
 const characters = useCharacters()
 
 onMounted(() => {
-    if (characters.getCharacters) {
+    if (characters.getCharacters.value) {
         if (!store.currentCharacter) {
-            store.setCurrentCharacter(characters.getCharacters[0])
+            store.setCurrentCharacter(characters.getCharacters.value[0])
         } else {
             store.setCurrentCharacter(store.currentCharacter)
         }
     }
 })
+
 </script>
 <style lang="scss">
 .characters-container {

@@ -24,17 +24,15 @@ import PreventClickEvent from '@/components/ComponentHelpers/PreventClickEvent.v
 import ScrollCharacter from './ScrollCharacter.vue'
 
 //vue
-import { computed, nextTick, onMounted, ref, watch } from 'vue';
+import { nextTick, onMounted, ref, watch } from 'vue';
 
 //createing stores
 const store = useCurrentCharacter()
 const charactersStore = useCharacters()
 const hideLayout = useHideMainCharactersLayout()
 
-//computed characters
-const characters = computed(() => {
-    return charactersStore.getCharacters
-})
+//characters
+const characters = charactersStore.getCharacters
 
 const changeCharacter = (index: number): void => {
     if (characters.value) {

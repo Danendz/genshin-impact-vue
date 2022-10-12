@@ -35,7 +35,7 @@ const emit = defineEmits<{
 const charactersFilters = useCharacters().sortAndFilter
 
 const chooseSort = (sortOption: SortType) => {
-    charactersFilters.sort = sortOption 
+    charactersFilters.sort = sortOption
     emit('toggleSort')
 }
 
@@ -48,7 +48,7 @@ const chooseSort = (sortOption: SortType) => {
     justify-content: center;
     gap: 2px;
     padding: 4px 4px;
-    z-index:3;
+    z-index: 3;
     bottom: 42px;
     width: 70%;
     border-radius: 15px;
@@ -94,6 +94,7 @@ const chooseSort = (sortOption: SortType) => {
     .sort-options-container {
         width: 100%;
         border-radius: 10px;
+        bottom: 30px;
 
         .sort-option {
             padding: 4px;

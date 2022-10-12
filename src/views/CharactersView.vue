@@ -1,5 +1,5 @@
 <template>
-    <PageTransition :error="charactersStore.error" :condition-item="charactersStore.getCharacters"
+    <PageTransition :error="charactersStore.error" :condition-item="charactersStore.getCharacters.value"
         :loader-title="'персонажей'">
         <CharacterLayout />
     </PageTransition>
@@ -22,7 +22,7 @@ import { useRoute } from 'vue-router';
 
 const name = useRoute().params.name
 const charactersStore = useCharacters()
-const {setLayout} = useSetDefaultLayout()
+const { setLayout } = useSetDefaultLayout()
 //fetch character
 onMounted(() => {
     setLayout()

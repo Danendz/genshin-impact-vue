@@ -1,0 +1,52 @@
+<template>
+	<PreventClickEvent class="selected-option">
+		<span>{{renames[props.option] || props.option}}</span>
+	</PreventClickEvent>
+</template>
+
+<script setup lang="ts">
+//components
+import PreventClickEvent from '@/components/ComponentHelpers/PreventClickEvent.vue';
+
+interface Props {
+	option: string;
+}
+
+const renames: Record<string, string> = {
+	'5': "5 Star",
+	'4': "4 Star"
+}
+
+const props = defineProps<Props>()
+
+</script>
+
+<style lang="scss">
+.selected-option {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: fit-content;
+	height: fit-content;
+	padding: 0px 5px;
+	background-color: rgba(255, 255, 255, 0.966);
+	border-radius: 12px;
+	user-select: none;
+	transition: .2s;
+
+	span {
+		font-weight: bold;
+		font-size: 20px;
+	}
+
+}
+
+@media only screen and (max-width: 915px) {
+	.selected-option {
+		span {
+			font-size: 13px;
+		}
+	}
+
+}
+</style>

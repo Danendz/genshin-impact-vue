@@ -1,5 +1,5 @@
 <template>
-    <div ref="preventClick" @mouseup="handleMouseup" @mousemove="handleMousemove">
+    <div ref="preventClick" @mouseup.left="handleMouseup" @mousemove.left="handleMousemove">
         <slot />
     </div>
 </template>
@@ -10,11 +10,11 @@ import { onLongPress } from '@vueuse/core';
 import { ref } from 'vue';
 
 interface Props {
-    index: number
+    index?: number
 }
 const props = defineProps<Props>()
 const emit = defineEmits<{
-    (event: 'click-function', index: number): void
+    (event?: 'click-function', index?: number): void
 }>()
 
 const mousemoved = ref(false);
@@ -37,5 +37,5 @@ const handleMouseup = (): void => {
     clicked.value = false
     mousemoved.value = false
 }
-onLongPress(preventClick, handleMousedown, {delay: 100})
+onLongPress(preventClick, handleMousedown, { delay: 100 })
 </script>

@@ -22,7 +22,6 @@ const useCreateScroll = <T extends HTMLElement>(htmlElement: T, userDir: directi
     let velX: number;
     let momentumID: number;
     let prevScrollLeft: number;
-
     htmlElement.addEventListener('wheel', () => {
         cancelMomentumTracking(); // Stop the drag momentum loop
     }, {

@@ -1,7 +1,7 @@
 <template>
     <section class="filter-container">
-        <label class="filterTitle">{{filterTitle[props.keyTitle]}}</label>
-        <div class="options-container">
+        <label class="filter-container__title">{{filterTitle[props.keyTitle]}}</label>
+        <div class="filter-container__options-container">
             <FilterOption v-for="optionState, option, index in props.options" :key="option" :index="index"
                 :option-state="optionState" :option="option" :option-key="props.keyTitle" />
         </div>
@@ -35,36 +35,34 @@ const filterTitle: Record<keyof typeof charactersFilters, string> = {
 </script>
 
 <style lang="scss">
-.filter-options {
-    .filter-container {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        font-size: 23px;
-        margin-top: 20px;
+.filter-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 23px;
+    margin-top: 20px;
+    gap: 10px;
+
+    &__options-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         gap: 10px;
-
-        .options-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-        .filterTitle{
-            color: #aeb1b6;
-        }
-
     }
+
+    &__filterTitle {
+        color: #aeb1b6;
+    }
+
 }
 
+
 @media only screen and (max-width: 915px) and (orientation: landscape) {
-    .filter-options {
-        .filter-container {
-            margin-top: 10px;
-            gap: 5px;
-            .filterTitle{
-                font-size: 15px;
-                
-            }
+    .filter-container {
+        margin-top: 10px;
+        gap: 5px;
+
+        &__filterTitle {
+            font-size: 15px;
         }
     }
 }

@@ -1,7 +1,10 @@
 <template>
-    <section class="option" @click="setFilter">
-        <span class="option-input"><span
-                :class="['option-input-dot', {'checked': optionState}, {'fix-dot': index % 2 !== 0}]" /></span>
+    <section class="filter-option" @click="setFilter">
+        <span class="filter-option__input"><span :class="[
+        'filter-option__input-dot', 
+        {'filter-option__input-dot_checked': optionState}, 
+        {'filter-option__input-dot_fix-dot': index % 2 !== 0}
+        ]" /></span>
         <p>{{option}}</p>
     </section>
 </template>
@@ -24,90 +27,90 @@ const charactersFilters = characters.sortAndFilter.filter
 
 const setFilter = () => {
     charactersFilters[props.optionKey][props.option] = !charactersFilters[props.optionKey][props.option]
+    characters.addOrRemoveFilterOption(props.option)
 }
 </script>
 
 <style lang="scss">
-.options-container {
-    .option {
+.filter-option {
+    display: flex;
+    padding: 0 10px;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #25313f;
+    border: 1px solid rgba(255, 255, 255, 0.247);
+    border-radius: 2px;
+    transition: .2s;
+
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.938);
+        color: black;
+        border: 1px solid transparent;
+    }
+
+    &:hover &__input {
+        border-color: black;
+    }
+
+    &:hover &__input &__input-dot_checked {
+        background-color: black;
+    }
+
+    &__input {
+        width: 20px;
+        height: 20px;
+        position: relative;
         display: flex;
-        padding: 0 10px;
+        justify-content: center;
         align-items: center;
-        cursor: pointer;
-        gap: 10px;
-        height: 50px;
-        font-size: 20px;
-        font-weight: bold;
-        background-color: #25313f;
         border: 1px solid rgba(255, 255, 255, 0.247);
-        border-radius: 2px;
+        border-radius: 50%;
         transition: .2s;
 
-
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.938);
-            color: black;
-            border: 1px solid transparent;
-        }
-
-        &:hover .option-input{
-            border-color: black;
-        }
-        &:hover .option-input .option-input-dot.checked {
-            background-color: black;
-        }
-        .option-input {
-            width: 20px;
-            height: 20px;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.247);
-            border-radius: 50%;
+        .filter-option__input-dot {
+            width: 70%;
+            height: 70%;
             transition: .2s;
+            background-color: transparent;
+            border-radius: 50%;
 
-            .option-input-dot {
-                width: 70%;
-                height: 70%;
-                transition: .2s;
-                background-color: transparent;
-                border-radius: 50%;
+            &_checked {
+                background-color: rgba(255, 255, 255, 0.247);
+            }
 
-                &.checked {
-                    background-color: rgba(255, 255, 255, 0.247);
-                }
-
-                &.fix-dot {
-                    margin-left: 1px;
-                }
+            &_fix-dot {
+                margin-left: 1px;
             }
         }
     }
 }
 
 
+
 @media only screen and (max-width: 915px) and (orientation: landscape) {
-    .options-container {
-        .option {
-            font-size: 12px;
-            height: 30px;
-            gap: 5px;
+    .filter-option {
+        font-size: 12px;
+        height: 30px;
+        gap: 5px;
 
-            .option-input {
-                width: 10px;
-                height: 10px;
+        &__input {
+            width: 10px;
+            height: 10px;
 
-                .option-input-dot {
-                    &.fix-dot {
-                        margin-left: 1%;
-                    }
+            .filter-option__input-dot {
+                &_fix-dot {
+                    margin-left: 1%;
                 }
             }
-
-
         }
 
+
     }
+
 }
 </style>

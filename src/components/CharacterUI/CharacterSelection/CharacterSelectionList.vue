@@ -1,9 +1,9 @@
 <template>
-    <section @mousedown="(e: MouseEvent) => e.preventDefault()" ref="characters_scroll"
-        class="character-selection-list">
+    <section @mousedown="(e: MouseEvent) => e.preventDefault()" ref="characters_scroll" :class="['character-selection-list',
+    {'character-selection-list_filter-active': filteredOptions.length}]">
         <p v-if="characters && !characters.length" class="character-selection-list__no-characters">No characters
             found!</p>
-        <TransitionGroup v-else name="character-selection">
+        <TransitionGroup v-else :css="false">
             <CharacterCard v-for="character, index in characters" :key="character.name_key" :character="character"
                 :character-index="index" />
         </TransitionGroup>
@@ -14,25 +14,24 @@
 //components
 import CharacterCard from '@/components/UI/CharacterCard.vue';
 import useCreateScroll from '@/Composables/useCreateScroll';
+import useSetDefaultLayout from '@/Composables/useSetDefaultLayout';
 
 //stores
 import { useCharacters } from '@/store/Characters';
 import { useCurrentCharacter } from '@/store/currentCharacter';
-import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
 
 //vueUse
 import { useWindowSize } from '@vueuse/core';
-
 //vue
-import { onMounted, watch, nextTick, ref, computed } from 'vue';
+import { onMounted, watch, nextTick, ref } from 'vue';
 
-const hideLayout = useHideMainCharactersLayout()
+const setDefaultLayout = useSetDefaultLayout()
 const characterStore = useCurrentCharacter()
 const charactersStore = useCharacters()
-const characters = computed(() => {
-    return charactersStore.getFilteredCharacter
-})
+
+const characters = charactersStore.getFilteredCharacter;
+const filteredOptions = charactersStore.getSelectedFilterOptions
 const showCharactersSelectionList = useShowCharactersSelectionList()
 
 
@@ -68,8 +67,8 @@ onMounted(() => {
     if (screen.orientation) {
         screen.orientation.addEventListener("change", () => {
             if (screen.orientation.type === 'portrait-primary') {
-                if (hideLayout.hide) {
-                    hideLayout.setHide()
+                if (showCharactersSelectionList.show) {
+                    setDefaultLayout.setLayout()
                 }
             }
         })
@@ -83,79 +82,69 @@ watch(() => showCharactersSelectionList.show, () => {
     })
 })
 
-
 </script>
 
 <style lang="scss">
-.character-selection-main {
-    .CharacterSelection {
-        .character-selection-list {
-            width: fit-content;
-            height: 100%;
-            overflow-y: scroll;
-            overflow-x: hidden;
-            position: relative;
-            display: grid;
-            grid-template-columns: repeat(5, 110px);
-            grid-auto-rows: 140px;
-            gap: 12px;
-            padding: 10px 5px;
+.character-selection-list {
+    width: fit-content;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, 110px);
+    grid-auto-rows: 140px;
+    gap: 12px;
+    padding: 10px 5px;
 
-            &__no-characters {
-                width: 100%;
-                height: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 40px;
-                color: white;
-                position: absolute;
-            }
-        }
+    &_filter-active {
+        padding-bottom: 45px;
+    }
+
+    &__no-characters {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 40px;
+        color: white;
+        position: absolute;
     }
 }
 
 @media only screen and (max-width: 1600px) {
-    .character-selection-main {
-        .CharacterSelection {
-            .character-selection-list {
-                grid-template-columns: repeat(4, 100px);
-            }
-        }
 
+    .character-selection-list {
+        grid-template-columns: repeat(4, 100px);
     }
 }
 
-@media only screen and (max-width: 915px) {
-    .character-selection-main {
-        .CharacterSelection {
-            .character-selection-list {
-                grid-template-columns: repeat(4, 70px);
-                grid-auto-rows: 80px;
-                gap: 8px;
 
-                &__no-characters {
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    font-size: 20px;
-                    color: white;
-                    position: absolute;
-                }
-            }
+@media only screen and (max-width: 915px) {
+
+    .character-selection-list {
+        grid-template-columns: repeat(4, 70px);
+        grid-auto-rows: 80px;
+        gap: 8px;
+
+        &__no-characters {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: white;
+            position: absolute;
         }
     }
 }
 
 @media only screen and (max-width: 740px) {
-    .character-selection-main {
-        .CharacterSelection {
-            .character-selection-list {
-                grid-template-columns: repeat(3, 60px);
-            }
-        }
+
+    .character-selection-list {
+        grid-template-columns: repeat(3, 60px);
     }
 }
 </style>

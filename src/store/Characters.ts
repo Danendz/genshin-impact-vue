@@ -32,6 +32,8 @@ export const useCharacters = defineStore('characters', () => {
         reverse: false
     })
 
+    const selectedFilterOptions = ref<string[]>([]);
+
     const active_category = useActiveCategory()
 
     //fetching characters
@@ -64,7 +66,12 @@ export const useCharacters = defineStore('characters', () => {
     //setting sort and filter to default state
     const setDefaultFilter = () => {
         sortAndFilter.value.sort = '';
+        defaultFilter();
+    }
+
+    const defaultFilter = () => {
         sortAndFilter.value.filter = { vision: { ...vision }, weapon: { ...weapon }, rarity: { ...rarity }, nation: { ...nation } }
+        selectedFilterOptions.value = []
     }
 
     //type guard for character
@@ -149,40 +156,60 @@ export const useCharacters = defineStore('characters', () => {
 
     //filter function that filter only if one or more filter parameters are selected
     const filterCharacters = computed(() => {
-
         if (sortCharacters.value) {
             return Object.keys(sortAndFilter.value.filter).reduce((result, key) => {
                 const keyFilter = key as keyof typeof sortAndFilter.value.filter
 
-                const onlyTrueFilters = Object.keys(sortAndFilter.value.filter[keyFilter])
-                    .filter((key) => sortAndFilter.value.filter[keyFilter][key])
-
                 let res: Character[] | null = null;
-
-                if (onlyTrueFilters.length) {
+                if (selectedFilterOptions.value.length) {
                     res = result.filter((character: Character) => {
                         const characterValueByKey = character[keyFilter]
                         const filterValueByKey = sortAndFilter.value.filter[keyFilter]
                         return filterValueByKey[characterValueByKey]
                     })
+                    return res.length === 0 ? result : result = res
                 }
-
-                return res ? result = res : result
+                return result
             }, sortCharacters.value)
         }
         return sortCharacters.value
     })
 
+    const addOrRemoveFilterOption = (option: string) => {
+        const optionInSelected = selectedFilterOptions.value.filter((selectedOption) => selectedOption === option)
+
+        if (optionInSelected.length) {
+            selectedFilterOptions.value = selectedFilterOptions.value.filter((selectedOption) => selectedOption !== option)
+        } else {
+            selectedFilterOptions.value.push(option)
+        }
+    }
+
+
     //getting original array of characters
     const getCharacters = computed(() => {
-        return characters.value
+        return characters
     })
 
     //getting sorted and filtered array of characters
     const getFilteredCharacter = computed(() => {
-        return filterCharacters.value
+        return filterCharacters
     })
 
-    return { getCharacters, getFilteredCharacter, error, sortAndFilter, fetchCharacters, setDefaultFilter }
+    const getSelectedFilterOptions = computed(() => {
+        return selectedFilterOptions
+    })
+
+    return {
+        getCharacters,
+        getFilteredCharacter,
+        error,
+        sortAndFilter,
+        getSelectedFilterOptions,
+        fetchCharacters,
+        setDefaultFilter,
+        addOrRemoveFilterOption,
+        defaultFilter
+    }
 })
 

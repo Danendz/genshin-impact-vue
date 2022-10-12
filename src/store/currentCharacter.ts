@@ -1,6 +1,6 @@
 import { Character } from "@/Interfaces/CharacterInterface";
 import { defineStore } from "pinia";
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useCharacters } from "./Characters";
 
 export const useCurrentCharacter = defineStore('currentCharacter', () => {
@@ -16,9 +16,7 @@ export const useCurrentCharacter = defineStore('currentCharacter', () => {
     }
 
     const charactersStore = useCharacters()
-    const characters = computed(() => {
-        return charactersStore.getCharacters
-    })
+    const characters = charactersStore.getCharacters
 
     return { currentCharacter, currentCharacterIndex, setCurrentCharacter }
 })
