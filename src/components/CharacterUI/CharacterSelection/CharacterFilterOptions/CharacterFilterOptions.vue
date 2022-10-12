@@ -50,6 +50,7 @@ const charactersFilters = computed(() => characters.sortAndFilter.filter)
     display: flex;
     position: absolute;
     flex-direction: column;
+    justify-content: space-between;
     top: 0;
     left: 0;
     background-color: rgba(38, 50, 64, 0.994);
@@ -61,7 +62,7 @@ const charactersFilters = computed(() => characters.sortAndFilter.filter)
     user-select: none;
 
     &__container {
-        height: 90%;
+        height: 95%;
         overflow-y: auto;
         overflow-x: hidden;
 
@@ -72,7 +73,6 @@ const charactersFilters = computed(() => characters.sortAndFilter.filter)
     }
 
     &__confirm {
-        margin-top: auto;
         height: 35px;
         border-radius: 15px;
         border: 0;
@@ -98,6 +98,7 @@ const charactersFilters = computed(() => characters.sortAndFilter.filter)
 
         &__container {
             padding-right: 10px;
+            padding-bottom: 20px;
 
             .filter-options__title {
                 margin-bottom: 10px;
@@ -106,8 +107,7 @@ const charactersFilters = computed(() => characters.sortAndFilter.filter)
         }
 
         &__confirm {
-            height: 30px;
-            margin-bottom: 0px;
+            height: 25px;
             font-size: 12px;
         }
     }
