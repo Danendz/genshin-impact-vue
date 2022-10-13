@@ -23,11 +23,6 @@ const props = defineProps<Props>()
 
 <style lang="scss">
 .selected-option {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: fit-content;
-	height: fit-content;
 	padding: 0px 5px;
 	background-color: rgba(255, 255, 255, 0.966);
 	border-radius: 12px;
@@ -35,6 +30,7 @@ const props = defineProps<Props>()
 	transition: .2s;
 
 	span {
+		white-space: nowrap;
 		font-weight: bold;
 		font-size: 20px;
 	}

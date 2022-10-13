@@ -55,8 +55,9 @@ onMounted(() => {
 		display: flex;
 		align-items: center;
 		gap: 10px;
-		width: 85%;
+		width: 100%;
 		overflow-x: auto;
+		cursor: grabbing;
 
 		&::-webkit-scrollbar {
 			width: 5px;
@@ -71,7 +72,7 @@ onMounted(() => {
 		font-size: 18px;
 		width: 80px;
 		height: fit-content;
-		margin-left: auto;
+		margin-left: 10px;
 		text-align: center;
 		user-select: none;
 		cursor: pointer;

@@ -46,7 +46,7 @@ const filterTitle: Record<keyof typeof filter, string> = {
         gap: 10px;
     }
 
-    &__filterTitle {
+    &__title {
         color: #aeb1b6;
     }
 
@@ -58,7 +58,7 @@ const filterTitle: Record<keyof typeof filter, string> = {
         margin-top: 10px;
         gap: 5px;
 
-        &__filterTitle {
+        &__title {
             font-size: 15px;
         }
     }

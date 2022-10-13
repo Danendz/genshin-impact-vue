@@ -12,6 +12,7 @@ export const useCharacters = defineStore('characters', () => {
     const { getFilteredCharacter,
         getSelectedFilterOptions,
         sort,
+        confirm,
         addOrRemoveFilterOption,
         setDefaultFilter,
         defaultFilter
@@ -22,6 +23,7 @@ export const useCharacters = defineStore('characters', () => {
         getFilteredCharacter,
         error,
         sort,
+        confirm,
         getSelectedFilterOptions,
         fetchCharacters,
         setDefaultFilter,

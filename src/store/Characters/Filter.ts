@@ -18,6 +18,7 @@ export const useCharactersFilter = (characters: Ref<Character[] | null>) => {
 
 	const selectedFilterOptions = ref<string[]>([]);
 	const filters = ref<Record<string, string[]>>({})
+	const confirm = ref<boolean>(false)
 
 	//setting sort and filter to default state
 	const setDefaultFilter = () => {
@@ -38,17 +39,15 @@ export const useCharactersFilter = (characters: Ref<Character[] | null>) => {
 
 	//sorting characters
 	const sortCharacters: ComputedRef<Character[] | null> = computed(() => {
+
 		if (characters.value) {
 			if (forFilterCharacters.value) {
 				return forFilterCharacters.value.sort((charA, charB) => {
-					if (sort.value.reverse) {
-						return sortFunction(charB, charA)
-					}
+					if (sort.value.reverse) return sortFunction(charB, charA)
 					return sortFunction(charA, charB)
 				})
 			}
 		}
-
 		return characters.value
 	})
 
@@ -72,29 +71,21 @@ export const useCharactersFilter = (characters: Ref<Character[] | null>) => {
 	//filter function that filter only if one or more filter parameters are selected
 	const filterCharacters: ComputedRef<Character[] | null> = computed(() => {
 		if (sortCharacters.value && selectedFilterOptions.value.length) {
-			const start = performance.now()
 			let res: Character[] = sortCharacters.value
 			for (const key in filters.value) {
-
 				const keyFilter = key as keyof FilterType
-
 				if (filters.value[keyFilter].length) {
-
 					res = res.filter((character: Character) => {
 						return selectedFilterOptions.value.includes(character[keyFilter].toString())
 					})
-
 				}
 			}
-			const end = performance.now()
-			console.log(`filter ${end - start}ms`)
 			return res
 		}
 		return sortCharacters.value
 	})
 
 	const addOrRemoveFilterOption = (option: string, optionKey: keyof FilterType) => {
-		const start = performance.now()
 		if (!filters.value[optionKey]) filters.value[optionKey] = []
 
 		if (filters.value[optionKey].includes(option)) {
@@ -105,9 +96,6 @@ export const useCharactersFilter = (characters: Ref<Character[] | null>) => {
 			filters.value[optionKey].push(option)
 			selectedFilterOptions.value.push(option)
 		}
-		const end = performance.now()
-
-		console.log(`add-remove ${end - start}ms`)
 	}
 
 	//getting sorted and filtered array of characters
@@ -120,5 +108,5 @@ export const useCharactersFilter = (characters: Ref<Character[] | null>) => {
 	})
 
 
-	return { getFilteredCharacter, getSelectedFilterOptions, sort, addOrRemoveFilterOption, setDefaultFilter, defaultFilter }
+	return { getFilteredCharacter, getSelectedFilterOptions, confirm, sort, addOrRemoveFilterOption, setDefaultFilter, defaultFilter }
 }
