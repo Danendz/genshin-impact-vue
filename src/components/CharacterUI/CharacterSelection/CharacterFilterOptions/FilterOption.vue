@@ -46,20 +46,6 @@ const setFilter = () => {
     transition: .2s;
 
 
-    &:hover {
-        background-color: rgba(255, 255, 255, 0.938);
-        color: black;
-        border: 1px solid transparent;
-    }
-
-    &:hover &__input {
-        border-color: black;
-    }
-
-    &:hover &__input &__input-dot_checked {
-        background-color: black;
-    }
-
     &__input {
         width: 20px;
         height: 20px;
@@ -89,13 +75,43 @@ const setFilter = () => {
     }
 }
 
+@media only screen and (min-width: 916px) {
+    .filter-option {
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.938);
+            color: black;
+            border: 1px solid transparent;
+        }
 
+        &:hover &__input {
+            border-color: black;
+        }
+
+        &:hover &__input &__input-dot_checked {
+            background-color: black;
+        }
+    }
+}
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .filter-option {
         font-size: 12px;
         height: 30px;
         gap: 5px;
+
+        &:active {
+            background-color: rgba(255, 255, 255, 0.938);
+            color: black;
+            border: 1px solid transparent;
+        }
+
+        &:active &__input {
+            border-color: black;
+        }
+
+        &:active &__input &__input-dot_checked {
+            background-color: black;
+        }
 
         &__input {
             width: 10px;

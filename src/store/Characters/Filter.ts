@@ -23,12 +23,14 @@ export const useCharactersFilter = (characters: Ref<Character[] | null>) => {
 	//setting sort and filter to default state
 	const setDefaultFilter = () => {
 		sort.value.sort = '';
+		sort.value.reverse = false;
 		defaultFilter();
 	}
 
 	const defaultFilter = () => {
 		filters.value = {}
 		selectedFilterOptions.value = []
+
 	}
 
 	//unlinking original array with characters
@@ -37,22 +39,44 @@ export const useCharactersFilter = (characters: Ref<Character[] | null>) => {
 		return []
 	})
 
+
+	//filter function that filter only if one or more filter parameters are selected
+	const filterCharacters: ComputedRef<Character[] | null> = computed(() => {
+		if (forFilterCharacters.value && selectedFilterOptions.value.length) {
+			if (confirm.value) {
+
+				let res: Character[] = forFilterCharacters.value
+				for (const key in filters.value) {
+					const keyFilter = key as keyof FilterType
+					if (filters.value[keyFilter].length) {
+						res = res.filter((character: Character) => {
+							return selectedFilterOptions.value.includes(character[keyFilter].toString())
+						})
+					}
+				}
+				confirm.value = false
+				return res
+
+			}
+			return filterCharacters.value
+		}
+		return forFilterCharacters.value
+	})
+
 	//sorting characters
 	const sortCharacters: ComputedRef<Character[] | null> = computed(() => {
-
-		if (characters.value) {
-			if (forFilterCharacters.value) {
-				return forFilterCharacters.value.sort((charA, charB) => {
-					if (sort.value.reverse) return sortFunction(charB, charA)
-					return sortFunction(charA, charB)
-				})
-			}
+		if (filterCharacters.value) {
+			return filterCharacters.value.sort((charA, charB) => {
+				if (sort.value.reverse) return sortFunction(charB, charA)
+				return sortFunction(charA, charB)
+			})
 		}
-		return characters.value
+		return filterCharacters.value
 	})
 
 	//sort function that can reverse sort results
 	const sortFunction = (charA: Character, charB: Character) => {
+
 		if (sort.value.sort !== '') {
 			const key = sort.value.sort
 			if (key === 'rarity') {
@@ -68,22 +92,6 @@ export const useCharactersFilter = (characters: Ref<Character[] | null>) => {
 	}
 
 
-	//filter function that filter only if one or more filter parameters are selected
-	const filterCharacters: ComputedRef<Character[] | null> = computed(() => {
-		if (sortCharacters.value && selectedFilterOptions.value.length) {
-			let res: Character[] = sortCharacters.value
-			for (const key in filters.value) {
-				const keyFilter = key as keyof FilterType
-				if (filters.value[keyFilter].length) {
-					res = res.filter((character: Character) => {
-						return selectedFilterOptions.value.includes(character[keyFilter].toString())
-					})
-				}
-			}
-			return res
-		}
-		return sortCharacters.value
-	})
 
 	const addOrRemoveFilterOption = (option: string, optionKey: keyof FilterType) => {
 		if (!filters.value[optionKey]) filters.value[optionKey] = []
@@ -100,7 +108,7 @@ export const useCharactersFilter = (characters: Ref<Character[] | null>) => {
 
 	//getting sorted and filtered array of characters
 	const getFilteredCharacter: ComputedRef<ComputedRef<Character[] | null>> = computed(() => {
-		return filterCharacters
+		return sortCharacters
 	})
 
 	const getSelectedFilterOptions: ComputedRef<Ref<string[]>> = computed(() => {

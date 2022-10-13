@@ -38,6 +38,7 @@ const hideLayout = useHideMainCharactersLayout()
 
 const toggleFilterComponent = (e?: MouseEvent, value?: boolean) => {
     filterActive.value = value ?? !filterActive.value
+    useCharacters().confirm = true;
 }
 
 const toggleSort = () => {

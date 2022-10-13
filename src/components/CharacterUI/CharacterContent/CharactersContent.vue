@@ -9,10 +9,7 @@
 
             </section>
         </Transition>
-        <Transition name="fade-right" appear>
-            <ContentRight :options_list="options_list" />
-        </Transition>
-
+        <ContentRight :options_list="options_list" />
     </section>
 </template>
 

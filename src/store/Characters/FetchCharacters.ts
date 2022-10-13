@@ -20,10 +20,9 @@ export const useFetchCharacters = () => {
 	const active_category = useActiveCategory()
 
 	const fetchCharacters = async (name?: string) => {
-		const isNotArray = !Array.isArray(getCharacters.value)
-		const isArrayButLengthLessThanOrEqualToOne = Array.isArray(getCharacters.value) && getCharacters.value.length <= 1
+		const isNotArray = !Array.isArray(characters.value)
+		const isArrayButLengthLessThanOrEqualToOne = Array.isArray(characters.value) && characters.value.length <= 1
 		const hasError = error.value
-
 		//fetching new data
 		if (isNotArray || isArrayButLengthLessThanOrEqualToOne || hasError || name) {
 			characters.value = null
@@ -34,6 +33,7 @@ export const useFetchCharacters = () => {
 			} else {
 				data = await useGetCharacters()
 			}
+
 			setData(data)
 
 		} else {
