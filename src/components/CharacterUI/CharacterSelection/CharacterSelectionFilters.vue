@@ -31,7 +31,7 @@ import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 //vue
 import { ref, watch } from 'vue';
 
-const charactersFilters = useCharacters().sortAndFilter
+const charactersFilters = useCharacters().sort
 const filterActive = ref(false)
 const sortActive = ref(false)
 const hideLayout = useHideMainCharactersLayout()

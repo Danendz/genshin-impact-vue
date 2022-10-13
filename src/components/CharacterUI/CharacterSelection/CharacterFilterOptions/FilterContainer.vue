@@ -2,8 +2,8 @@
     <section class="filter-container">
         <label class="filter-container__title">{{filterTitle[props.keyTitle]}}</label>
         <div class="filter-container__options-container">
-            <FilterOption v-for="optionState, option, index in props.options" :key="option" :index="index"
-                :option-state="optionState" :option="option" :option-key="props.keyTitle" />
+            <FilterOption v-for="option, index in props.options" :key="option" :index="index" :option="option"
+                :option-key="props.keyTitle" />
         </div>
     </section>
 </template>
@@ -13,19 +13,16 @@
 import FilterOption from './FilterOption.vue';
 
 //stores
-import { useCharacters } from '@/store/Characters';
+import { filter, FilterType } from '@/Interfaces/FilterCharacter'
 
 interface Props {
-    options: Record<string, boolean>,
-    keyTitle: keyof typeof charactersFilters
+    keyTitle: keyof FilterType
+    options: FilterType[keyof FilterType],
 }
 
 const props = defineProps<Props>()
 
-const characters = useCharacters()
-
-const charactersFilters = characters.sortAndFilter.filter
-const filterTitle: Record<keyof typeof charactersFilters, string> = {
+const filterTitle: Record<keyof typeof filter, string> = {
     vision: 'Element',
     weapon: "Weapons",
     rarity: "Rarity",

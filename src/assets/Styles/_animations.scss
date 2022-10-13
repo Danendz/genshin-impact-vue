@@ -84,12 +84,12 @@
   opacity: 0;
 }
 
-.character-list-enter-active,
-.character-list-leave-active {
-  transition: all 0.5s ease;
+.selection-list-enter-active,
+.selection-list-leave-active {
+  transition: all 0.3s ease;
 }
 
-.character-list-enter-from,
-.character-list-leave-to {
+.selection-list-enter-from,
+.selection-list-leave-to {
   opacity: 0;
 }

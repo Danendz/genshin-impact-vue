@@ -3,7 +3,7 @@
     {'character-selection-list_filter-active': filteredOptions.length}]">
         <p v-if="characters && !characters.length" class="character-selection-list__no-characters">No characters
             found!</p>
-        <TransitionGroup v-else :css="false">
+        <TransitionGroup v-else name="selection-list">
             <CharacterCard v-for="character, index in characters" :key="character.name_key" :character="character"
                 :character-index="index" />
         </TransitionGroup>

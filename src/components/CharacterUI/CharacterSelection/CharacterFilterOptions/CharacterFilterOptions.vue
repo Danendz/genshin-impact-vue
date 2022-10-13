@@ -3,7 +3,7 @@
         <section class="filter-options" v-if="props.filterActive">
             <div class="filter-options__container">
                 <h2 class="filter-options__title">Filter</h2>
-                <FilterContainer v-for="value, key in charactersFilters" :key="key" :options="value" :key-title="key" />
+                <FilterContainer v-for="value, key in filter" :key="key" :options="value" :key-title="key" />
             </div>
             <button class="filter-options__confirm" @click="emit('toggleFilterComponent')">Confirm Filter</button>
         </section>
@@ -15,18 +15,18 @@
 import FilterContainer from './FilterContainer.vue';
 
 //stores
-import { useCharacters } from '@/store/Characters';
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
-//vue
-import { watch, computed } from 'vue';
+//interfaces
+import { filter } from '@/Interfaces/FilterCharacter'
 
+//vue
+import { watch } from 'vue';
 
 interface Props {
     filterActive: boolean
 }
 
-const characters = useCharacters()
 const props = defineProps<Props>()
 const emit = defineEmits<{
     (event: 'toggleFilterComponent', e?: MouseEvent, value?: boolean): void
@@ -39,9 +39,6 @@ watch(() => hideLayout.hide, () => {
         emit('toggleFilterComponent', undefined, false)
     }
 })
-
-
-const charactersFilters = computed(() => characters.sortAndFilter.filter)
 
 </script>
 

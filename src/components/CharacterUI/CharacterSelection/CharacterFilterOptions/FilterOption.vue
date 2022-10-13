@@ -2,7 +2,7 @@
     <section class="filter-option" @click="setFilter">
         <span class="filter-option__input"><span :class="[
         'filter-option__input-dot', 
-        {'filter-option__input-dot_checked': optionState}, 
+        {'filter-option__input-dot_checked': selectedFilterOptions.includes(option)}, 
         {'filter-option__input-dot_fix-dot': index % 2 !== 0}
         ]" /></span>
         <p>{{option}}</p>
@@ -11,23 +11,22 @@
 
 <script setup lang="ts">
 //components
+import { FilterType } from '@/Interfaces/FilterCharacter';
 import { useCharacters } from '@/store/Characters';
 
 interface Props {
-    optionKey: keyof typeof charactersFilters
+    optionKey: keyof FilterType
     option: string,
-    optionState: boolean,
     index: number
 }
 
 const props = defineProps<Props>()
 const characters = useCharacters()
 
-const charactersFilters = characters.sortAndFilter.filter
+const selectedFilterOptions = characters.getSelectedFilterOptions
 
 const setFilter = () => {
-    charactersFilters[props.optionKey][props.option] = !charactersFilters[props.optionKey][props.option]
-    characters.addOrRemoveFilterOption(props.option)
+    characters.addOrRemoveFilterOption(props.option, props.optionKey)
 }
 </script>
 

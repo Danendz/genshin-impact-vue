@@ -6,12 +6,12 @@
         <LazyImg :options="{
             src: CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_BIG),        
             loading: CharacterHelper.getPlaceholderIcon(CharacterImage.ICON_BIG),
-            delay: 250,
+            delay: 500,
             alt: 'character'
         }" class="character-icon" />
         <LazyImg :options="{
             src: CharacterHelper.getElementImage(character.vision.toLowerCase()),
-            delay: 300,
+            delay: 500,
             alt: 'vision'
         }" class="vision-icon" />
         <figcaption class="character-lvl">Lvl 90</figcaption>

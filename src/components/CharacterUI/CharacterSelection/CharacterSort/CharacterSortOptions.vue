@@ -1,6 +1,6 @@
 <template>
     <Transition name="fade">
-        <section ref="target" v-show="props.sortActive" class="sort-options-container">
+        <section ref="target" v-if="props.sortActive" class="sort-options-container">
             <figure v-for="sortOption in sort" :key="sortOption" @click="() => chooseSort(sortOption)"
                 :class="['sort-option', {active: charactersFilters.sort === sortOption}]">
                 <p>{{ sortOption ? sortOption[0].toUpperCase() + sortOption.substring(1) : "All"}}</p>
@@ -32,7 +32,7 @@ const emit = defineEmits<{
     (event: 'toggleSort'): void
 }>()
 
-const charactersFilters = useCharacters().sortAndFilter
+const charactersFilters = useCharacters().sort
 
 const chooseSort = (sortOption: SortType) => {
     charactersFilters.sort = sortOption
