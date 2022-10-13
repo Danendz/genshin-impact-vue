@@ -1,5 +1,5 @@
 <template>
-    <aside v-show="showCharactersSelectionList.show || !hideLayout.hide" class="content-right">
+    <aside class="content-right">
         <Transition name="fade">
             <button v-show="showCharactersSelectionList.show" @click="toggleSelectionList"
                 class="character-selection-back">X</button>
@@ -22,7 +22,6 @@ import useToggleCharacterSelelectionList from '@/Composables/useToggleSelectionL
 
 //stores
 import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
-import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
 //vue
 import { defineAsyncComponent, computed } from 'vue'
@@ -37,7 +36,6 @@ interface Props {
 const props = defineProps<Props>();
 const activeCategory = useActiveCategory()
 const showCharactersSelectionList = useShowCharactersSelectionList()
-const hideLayout = useHideMainCharactersLayout()
 const { toggleSelectionList } = useToggleCharacterSelelectionList()
 
 const content_component = computed(() => {

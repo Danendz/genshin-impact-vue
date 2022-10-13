@@ -9,7 +9,9 @@
 
             </section>
         </Transition>
-        <ContentRight :options_list="options_list" />
+        <Transition name="fade" appear>
+            <ContentRight v-show="showCharactersSelectionList.show || !hideLayout.hide" :options_list="options_list" />
+        </Transition>
     </section>
 </template>
 
@@ -22,6 +24,7 @@ import ContentRight from './ContentRight/ContentRight.vue';
 import { useCharacters } from '@/store/Characters';
 import { useActiveCategory } from '@/store/ActiveCategory'
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
+import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
 
 //enums
 import { OptionsKeys } from '@/Enums/OptionsKeys';
@@ -40,6 +43,10 @@ const options_list = {
 const charactersStore = useCharacters()
 const activeCategory = useActiveCategory()
 const hideLayout = useHideMainCharactersLayout()
+
+const showCharactersSelectionList = useShowCharactersSelectionList()
+
+
 watch(() => hideLayout.hide, () => {
     if (hideLayout.hide) {
         activeCategory.setActiveCategory(OptionsKeys.ATTRIBUTES)
@@ -52,7 +59,6 @@ const setDefaultSort = () => {
 
 const changedStyle = ref(hideLayout.hide)
 </script>
-
 
 <style lang="scss">
 .characters-content {
@@ -72,9 +78,7 @@ const changedStyle = ref(hideLayout.hide)
         justify-content: flex-end;
         margin-top: 85px;
     }
-
 }
-
 
 @media only screen and (max-width: 1800px) {
     .characters-content {
@@ -104,7 +108,6 @@ const changedStyle = ref(hideLayout.hide)
             margin-top: 50px
         }
     }
-
 }
 </style>
 
