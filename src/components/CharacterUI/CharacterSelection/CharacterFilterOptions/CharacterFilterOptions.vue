@@ -29,14 +29,14 @@ interface Props {
 
 const props = defineProps<Props>()
 const emit = defineEmits<{
-    (event: 'toggleFilterComponent', e?: MouseEvent, value?: boolean): void
+    (event: 'toggleFilterComponent', value?: boolean): void
 }>()
 
 const hideLayout = useHideMainCharactersLayout()
 
 watch(() => hideLayout.hide, () => {
     if (!hideLayout.hide) {
-        emit('toggleFilterComponent', undefined, false)
+        emit('toggleFilterComponent', false)
     }
 })
 

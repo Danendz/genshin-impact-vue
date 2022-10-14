@@ -1,6 +1,6 @@
 <template>
     <transition name="fade">
-        <article v-show="active_state" @click.self="emit('close-modal')" class="modal">
+        <article v-show="active_state" @click.self="() => emit('close-modal', false)" class="modal">
             <section :class="['modal-content', props.modalStyle]">
                 <slot />
             </section>
@@ -16,7 +16,7 @@ interface Props {
 
 const props = defineProps<Props>()
 const emit = defineEmits<{
-    (event: 'close-modal'): void
+    (event: 'close-modal', value?: boolean): void
 }>()
 </script>
 
@@ -43,16 +43,18 @@ const emit = defineEmits<{
         justify-content: center;
     }
 }
-@media only screen and (orientation: portrait){
-    .modal{
-        .details{
+
+@media only screen and (orientation: portrait) {
+    .modal {
+        .details {
             width: 82%;
         }
     }
 }
-@media only screen and (orientation: landscape) and (max-height: 820px){
-    .modal{
-        .details{
+
+@media only screen and (orientation: landscape) and (max-height: 820px) {
+    .modal {
+        .details {
             width: 70%;
         }
     }

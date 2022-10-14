@@ -1,7 +1,7 @@
 <template>
     <section class="filters">
         <CharacterFilterOptions @toggle-filter-component="toggleFilterComponent" :filter-active="filterActive" />
-        <button class="filters__filter" @click="toggleFilterComponent">F</button>
+        <button class="filters__filter" @click="() => toggleFilterComponent()">F</button>
 
         <CharacterSortOptions @toggle-sort="toggleSort" :sort-active="sortActive" />
         <button class="filters__sort" @click="toggleSort">
@@ -36,7 +36,7 @@ const filterActive = ref(false)
 const sortActive = ref(false)
 const hideLayout = useHideMainCharactersLayout()
 
-const toggleFilterComponent = (e?: MouseEvent, value?: boolean) => {
+const toggleFilterComponent = (value?: boolean) => {
     filterActive.value = value ?? !filterActive.value
     if (!filterActive.value) useCharacters().confirm = true;
 }

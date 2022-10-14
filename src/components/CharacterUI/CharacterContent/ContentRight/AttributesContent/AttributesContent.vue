@@ -1,19 +1,19 @@
 <template>
-        <section class="attributes-content" v-if="store.currentCharacter">
-            <BaseInfo :current-character="store.currentCharacter" />
-            <StatsBar />
-            <button @click="setActiveDetails" class="details-btn">Details</button>
-            <FriendshipAndDescription :current-character="store.currentCharacter" />
-            <footer class="footer-buttons">
-                <button>
-                    <img alt="dressing_room" :src="CharacterHelper.getGenshinSiteIcons('stats-icons/dressing_room')" />
-                    <span>Dressing Room</span>
-                </button>
-            </footer>
-        </section>
-        <ModalWindow @close-modal="setActiveDetails" :active_state="active_details" :modalStyle="'details'">
-            <DetailsInfo />
-        </ModalWindow>
+    <section class="attributes-content" v-if="store.currentCharacter">
+        <BaseInfo :current-character="store.currentCharacter" />
+        <StatsBar />
+        <button @click="() => setActiveDetails()" class="details-btn">Details</button>
+        <FriendshipAndDescription :current-character="store.currentCharacter" />
+        <footer class="footer-buttons">
+            <button>
+                <img alt="dressing_room" :src="CharacterHelper.getGenshinSiteIcons('stats-icons/dressing_room')" />
+                <span>Dressing Room</span>
+            </button>
+        </footer>
+    </section>
+    <ModalWindow @close-modal="setActiveDetails" :active_state="active_details" :modalStyle="'details'">
+        <DetailsInfo />
+    </ModalWindow>
 </template>
 
 <script setup lang="ts">
@@ -37,8 +37,8 @@ const store = useCurrentCharacter()
 
 const active_details = ref<boolean>(false)
 
-const setActiveDetails = () => {
-    active_details.value = !active_details.value
+const setActiveDetails = (value?: boolean) => {
+    active_details.value = value ?? !active_details.value
 }
 
 </script>
