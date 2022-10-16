@@ -7,6 +7,7 @@ export class ScrollProps {
 	public dir = 0
 	public readonly SCROLL_WIDTH_OR_HEIGHT: 'scrollHeight' | 'scrollWidth';
 	public readonly DIRECTION: ScrollDirections;
+	public readonly PARENT_ELEMENT: HTMLElement
 
 	constructor(
 		public readonly HTML_ELEMENT: HTMLElement,
@@ -14,10 +15,11 @@ export class ScrollProps {
 	) {
 		this.DIRECTION = USER_DIR === 'horizontal' ? HorizontalScroll : VerticalScroll
 		this.SCROLL_WIDTH_OR_HEIGHT = this.DIRECTION.scrollDirection === 'scrollTop' ? 'scrollHeight' : 'scrollWidth'
+		this.PARENT_ELEMENT = HTML_ELEMENT.parentElement as HTMLElement
 	}
 
 	public isScrollEnd() {
 		const offsetDirection = this.DIRECTION.scrollDirection === 'scrollTop' ? 'offsetHeight' : 'offsetWidth'
-		return this.HTML_ELEMENT[offsetDirection] + this.HTML_ELEMENT[this.DIRECTION.scrollDirection] >= this.initialWidthOrHeight
+		return this.PARENT_ELEMENT[offsetDirection] + this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] >= this.initialWidthOrHeight
 	}
 }

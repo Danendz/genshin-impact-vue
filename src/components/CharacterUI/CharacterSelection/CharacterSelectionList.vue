@@ -1,12 +1,14 @@
 <template>
-    <section @mousedown="(e: MouseEvent) => e.preventDefault()" ref="characters_scroll" :class="['character-selection-list',
+    <section @mousedown="(e: MouseEvent) => e.preventDefault()" :class="['character-selection-list',
     {'character-selection-list_filter-active': filteredOptions.length}]">
-        <p v-if="characters && !characters.length" class="character-selection-list__no-characters">No characters
-            found!</p>
-        <TransitionGroup v-else :css="false">
-            <CharacterCard v-for="character, index in characters" :key="character.name_key" :character="character"
-                :character-index="index" />
-        </TransitionGroup>
+        <section class="character-selection-list__characters" ref="characters_scroll">
+            <p v-if="characters && !characters.length" class="character-selection-list__no-characters">No characters
+                found!</p>
+            <TransitionGroup v-else :css="false">
+                <CharacterCard v-for="character, index in characters" :key="character.name_key" :character="character"
+                    :character-index="index" />
+            </TransitionGroup>
+        </section>
     </section>
 </template>
 
@@ -88,14 +90,21 @@ watch(() => showCharactersSelectionList.show, () => {
 .character-selection-list {
     width: fit-content;
     height: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
     position: relative;
-    display: grid;
-    grid-template-columns: repeat(5, 110px);
-    grid-auto-rows: 140px;
-    gap: 12px;
-    padding: 10px 5px;
+
+    &__characters {
+        display: grid;
+        grid-template-columns: repeat(5, 110px);
+        grid-auto-rows: 140px;
+        height: fit-content;
+        gap: 12px;
+        padding: 10px 5px;
+    }
+
+    &__characters::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
 
     &_filter-active {
         padding-bottom: 45px;
@@ -116,7 +125,9 @@ watch(() => showCharactersSelectionList.show, () => {
 @media only screen and (max-width: 1600px) {
 
     .character-selection-list {
-        grid-template-columns: repeat(4, 100px);
+        &__characters {
+            grid-template-columns: repeat(4, 100px);
+        }
     }
 }
 
@@ -124,9 +135,11 @@ watch(() => showCharactersSelectionList.show, () => {
 @media only screen and (max-width: 915px) {
 
     .character-selection-list {
-        grid-template-columns: repeat(4, 70px);
-        grid-auto-rows: 80px;
-        gap: 8px;
+        &__characters {
+            grid-template-columns: repeat(4, 70px);
+            grid-auto-rows: 80px;
+            gap: 8px;
+        }
 
         &__no-characters {
             width: 100%;
@@ -144,7 +157,9 @@ watch(() => showCharactersSelectionList.show, () => {
 @media only screen and (max-width: 740px) {
 
     .character-selection-list {
-        grid-template-columns: repeat(3, 60px);
+        &__characters {
+            grid-template-columns: repeat(3, 60px);
+        }
     }
 }
 </style>

@@ -81,7 +81,7 @@ watch(() => hideLayout.hide, () => {
     &__characters {
         display: flex;
         gap: 15px;
-        width: 100%;
+        width: fit-content;
         overflow-x: scroll;
         overflow-y: hidden;
         transition: .5s;
