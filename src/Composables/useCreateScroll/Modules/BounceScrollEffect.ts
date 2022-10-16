@@ -3,7 +3,7 @@ import { ScrollDirections } from "../Types/DirectionsType";
 import { ScrollProps } from "./ScrollProps";
 
 export class BounceScrollEffect {
-	private readonly MAX_PADDING_OFFSET = 200
+	public readonly MAX_PADDING_OFFSET = 200
 	private readonly INITIAL_PADDING: string;
 	private readonly INITIAL_PADDING_POS: IPaddingPos;
 	private readonly HTML_ELEMENT: HTMLElement;
