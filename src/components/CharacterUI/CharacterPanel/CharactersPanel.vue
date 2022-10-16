@@ -38,6 +38,7 @@ const hideLayout = useHideMainCharactersLayout()
     justify-content: center;
     z-index: 2;
     background-color: $transparency;
+    user-select: none;
 
     &__content {
         width: 70%;

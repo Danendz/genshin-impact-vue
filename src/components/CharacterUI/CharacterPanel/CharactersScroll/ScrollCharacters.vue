@@ -35,7 +35,7 @@ const hideLayout = useHideMainCharactersLayout()
 const characters = charactersStore.getCharacters
 
 const changeCharacter = (index?: number): void => {
-    if (characters.value && index) {
+    if (characters.value && index !== undefined) {
         store.setCurrentCharacter(characters.value[index])
     }
 }
