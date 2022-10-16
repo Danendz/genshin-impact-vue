@@ -1,6 +1,8 @@
 <template>
     <section :class="['characters-scroll', {'characters-scroll_hide': !characters_state_display}]">
-        <ScrollCharacters />
+        <div class="characters-scroll__container">
+            <ScrollCharacters />
+        </div>
         <button @click="closeCharacters"
             :class="['characters-scroll__close', {'characters-scroll__close_hide': !characters_state_display}]"> >
         </button>
@@ -24,12 +26,17 @@ const closeCharacters = (): void => {
 
 <style lang="scss">
 @import '@/assets/Styles/placeholder_animation';
+@import '@/assets/Styles/characters_panel';
 
 .characters-scroll {
-    min-width: 25%;
-    max-width: 60%;
     position: relative;
     z-index: 99;
+    min-width: 25%;
+    max-width: 60%;
+
+    &__container {
+        position: relative;
+    }
 
     &__close {
         display: none;
@@ -56,17 +63,23 @@ const closeCharacters = (): void => {
 
 @media only screen and (max-width: 915px) {
     .characters-scroll {
-        position: absolute;
-        top: 40px;
-        min-width: 45px;
         transition: .3s;
         transform: translateX(0);
+        position: absolute;
+
+        top: 40px;
+        min-width: 45px;
+
+        &__container {
+            height: calc(100vh - $infoHeight);
+        }
 
         &__close {
             display: block;
             transform: rotate(180deg);
 
             &_hide {
+
                 transform: rotate(0deg);
             }
         }

@@ -59,11 +59,11 @@ export class CreateScroll {
 			}
 		}
 
-		this.HTML_ELEMENT.addEventListener('mousemove', this.mouseMoveHandler)
-		this.HTML_ELEMENT.addEventListener('touchmove', this.touchMoveHandler)
-		this.HTML_ELEMENT.addEventListener('mouseup', this.mouseUpHandler)
-		this.HTML_ELEMENT.addEventListener('touchend', this.mouseUpHandler)
-		this.HTML_ELEMENT.addEventListener('mouseleave', this.mouseUpHandler)
+		this.HTML_ELEMENT.addEventListener('mousemove', this.mouseMoveHandler, { passive: true })
+		this.HTML_ELEMENT.addEventListener('touchmove', this.touchMoveHandler, { passive: true })
+		this.HTML_ELEMENT.addEventListener('mouseup', this.mouseUpHandler, { passive: true })
+		this.HTML_ELEMENT.addEventListener('touchend', this.mouseUpHandler, { passive: true })
+		this.HTML_ELEMENT.addEventListener('mouseleave', this.mouseUpHandler, { passive: true })
 	}
 
 	private touchMoveHandler = (event: TouchEvent) => {
@@ -117,8 +117,13 @@ export class CreateScroll {
 		this.HTML_ELEMENT.removeEventListener('mouseup', this.mouseUpHandler)
 		this.HTML_ELEMENT.removeEventListener('touchend', this.mouseUpHandler)
 		this.HTML_ELEMENT.removeEventListener('touchcancel', this.mouseUpHandler)
-
 		this.HTML_ELEMENT.removeEventListener('mouseleave', this.removeEventListeners)
+	}
+
+	public resetListeners() {
+		this.removeEventListeners()
+		this.HTML_ELEMENT.removeEventListener('mousedown', this.mouseDownHandler)
+		this.HTML_ELEMENT.removeEventListener('touchstart', this.mouseDownHandler)
 	}
 
 	public scrollCreate() {

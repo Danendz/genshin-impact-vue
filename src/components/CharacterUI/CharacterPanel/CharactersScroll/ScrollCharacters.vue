@@ -25,6 +25,7 @@ import ScrollCharacter from './ScrollCharacter.vue'
 
 //vue
 import { nextTick, onMounted, ref, watch } from 'vue';
+import { useWindowSize } from '@vueuse/core';
 
 //createing stores
 const store = useCurrentCharacter()
@@ -42,19 +43,32 @@ const changeCharacter = (index?: number): void => {
 
 //creating horizontal drag scroll
 const characters_scroll = ref<null | HTMLDivElement>(null)
-const { isScrolling, createScrolling } = useCreateScroll()
+
+const { isScrolling, createScrolling, resetListeners } = useCreateScroll()
+const { width } = useWindowSize()
+
 
 let scrollTypes: 'scrollLeft' | 'scrollTop' = 'scrollLeft'
 let heightWithGap = 70;
 const createScroll = () => {
     if (characters_scroll.value) {
-        createScrolling(characters_scroll.value, 'horizontal')
-        if (screen.availWidth <= 915) {
+        resetListeners()
+        if (width.value <= 915) {
+            createScrolling(characters_scroll.value, 'vertical')
             heightWithGap = 65
             scrollTypes = 'scrollTop'
+        } else {
+            createScrolling(characters_scroll.value, 'horizontal')
         }
     }
 }
+
+
+watch(width, () => {
+    createScroll();
+})
+
+
 onMounted(() => {
     createScroll()
     scrollToCharacter()
@@ -94,14 +108,15 @@ watch(() => hideLayout.hide, () => {
 
 @media only screen and (max-width: 915px) {
     .characters-scroll {
+        background-color: $transparency;
+
         &__characters {
             flex-direction: column;
             overflow-x: hidden;
             overflow-y: scroll;
-            height: calc(100vh - $infoHeight);
+            height: fit-content;
             gap: 10px;
             padding: 0px 5px;
-            background-color: $transparency;
         }
     }
 }

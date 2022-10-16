@@ -7,22 +7,30 @@ import { ref } from "vue";
 
 const useCreateScroll = () => {
     const isScrolling = ref(false);
-
+    let htmlElemente: HTMLElement;
+    let createScroll: CreateScroll;
     const createScrolling = <T extends HTMLElement>(htmlElement: T, userDir: Directions = 'horizontal') => {
+        htmlElemente = htmlElement
         const scrollProps = new ScrollProps(htmlElement, userDir)
         const bounceScroll = new BounceScrollEffect(scrollProps)
         const momentumScroll = new UseMomentumScroll(scrollProps, bounceScroll)
-        const createScroll = new CreateScroll(scrollProps, bounceScroll, momentumScroll, isScrolling)
+        createScroll = new CreateScroll(scrollProps, bounceScroll, momentumScroll, isScrolling)
+
         htmlElement.addEventListener('wheel', () => {
             momentumScroll.cancelMomentumTracking(); // Stop the drag momentum loop
         }, {
             passive: true
         });
-
         createScroll.scrollCreate();
     }
 
-    return { isScrolling, createScrolling }
+    const resetListeners = () => {
+        if (htmlElemente && createScroll) {
+            createScroll.resetListeners();
+        }
+    }
+
+    return { isScrolling, createScrolling, resetListeners }
 }
 
 export default useCreateScroll
