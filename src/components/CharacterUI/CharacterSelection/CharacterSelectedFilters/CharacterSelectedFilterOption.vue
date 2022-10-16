@@ -1,12 +1,10 @@
 <template>
-	<PreventClickEvent class="selected-option">
+	<div class="selected-option">
 		<span>{{renames[props.option] || props.option}}</span>
-	</PreventClickEvent>
+	</div>
 </template>
 
 <script setup lang="ts">
-//components
-import PreventClickEvent from '@/components/ComponentHelpers/PreventClickEvent.vue';
 
 interface Props {
 	option: string;

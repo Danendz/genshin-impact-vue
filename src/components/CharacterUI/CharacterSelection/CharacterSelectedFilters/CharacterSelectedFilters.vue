@@ -1,10 +1,13 @@
 <template>
 	<Transition name="fade-down" appear>
-		<div v-show="filterOptions.length" class="selected-filters">
-			<div ref="filter_scroll" class="selected-filters__options">
-				<CharacterSelectedFilterOption v-for="option in filterOptions" :key="option" :option="option" />
+		<div v-show="filterOptions.length" class="selected-filters-container">
+			<div class="selected-filters">
+				<div ref="filter_scroll" class="selected-filters__options">
+					<CharacterSelectedFilterOption v-for="option in filterOptions" :key="option" :option="option" />
+				</div>
+
 			</div>
-			<div @click.left="charactersStore.defaultFilter()" class="selected-filters__clear">Clear</div>
+			<button @click.left="charactersStore.defaultFilter()" class="selected-filters__clear">Clear</button>
 		</div>
 	</Transition>
 </template>
@@ -26,43 +29,46 @@ const charactersStore = useCharacters()
 
 const filterOptions = charactersStore.getSelectedFilterOptions
 const filter_scroll = ref<HTMLDivElement | null>(null)
-
+const { createScrolling } = useCreateScroll()
 
 onMounted(() => {
 	if (filter_scroll.value) {
-		useCreateScroll(filter_scroll.value, 'horizontal')
+		createScrolling(filter_scroll.value, 'horizontal')
 	}
 })
 </script>
 
 
 <style lang="scss">
-.selected-filters {
-	position: absolute;
+.selected-filters-container {
 	display: flex;
-	align-items: center;
 	left: 10px;
-
-	z-index: 2;
 	width: calc(100% - 20px);
+	position: absolute;
 	height: fit-content;
+	align-items: center;
 	padding: 3px;
+	z-index: 2;
 	bottom: 50px;
-	background-color: rgba(202, 202, 202, 0.822);
 	border-radius: 20px;
+	background-color: rgba(202, 202, 202, 0.822);
+}
+
+.selected-filters {
+	width: 100%;
+
+	&::-webkit-scrollbar {
+		width: 5px;
+		height: 0px;
+	}
 
 	&__options {
 		display: flex;
 		align-items: center;
+		position: relative;
 		gap: 10px;
-		width: 100%;
-		overflow-x: auto;
+		width: fit-content;
 		cursor: grabbing;
-
-		&::-webkit-scrollbar {
-			width: 5px;
-			height: 0px;
-		}
 	}
 
 	&__clear {
@@ -78,6 +84,7 @@ onMounted(() => {
 		cursor: pointer;
 		border-radius: 12px;
 		padding: 0px 5px;
+		border: 0;
 	}
 }
 

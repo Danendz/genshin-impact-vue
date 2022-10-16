@@ -6,7 +6,7 @@
                 found!</p>
             <TransitionGroup v-else :css="false">
                 <CharacterCard v-for="character, index in characters" :key="character.name_key" :character="character"
-                    :character-index="index" />
+                    :character-index="index" :is-scrolling="isScrolling" />
             </TransitionGroup>
         </section>
     </section>
@@ -40,16 +40,20 @@ const showCharactersSelectionList = useShowCharactersSelectionList()
 //creating vertiacal drag scroll
 const characters_scroll = ref<null | HTMLDivElement>(null)
 
+const { isScrolling, createScrolling } = useCreateScroll()
+
 const { width } = useWindowSize()
 
 watch(width, () => {
     createScroll()
 })
+
 let heightWithGap = 152
 let columns = 5
+
 const createScroll = () => {
     if (characters_scroll.value) {
-        useCreateScroll(characters_scroll.value, 'vertical')
+        createScrolling(characters_scroll.value, 'vertical')
         if (width.value <= 740) {
             heightWithGap = 89
             columns = 3

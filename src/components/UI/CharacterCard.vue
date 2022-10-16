@@ -1,5 +1,5 @@
 <template>
-    <PreventClickEvent :index="characterIndex" @click-function="setCurrentCharacter" v-if="store.currentCharacter"
+    <PreventClickEvent :is-scrolling="isScrolling" @click-function="setCurrentCharacter" v-if="store.currentCharacter"
         :class="['character-card', {'active-character-card': character.name_key === store.currentCharacter.name_key}]">
 
         <div :class="['character-top-bg', `rarity-${character.rarity}`]"></div>
@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 //components
-import PreventClickEvent from '../ComponentHelpers/PreventClickEvent.vue';
+import PreventClickEvent from '@/components/ComponentHelpers/PreventClickEvent.vue'
 import LazyImg from './Lazy-Img.vue';
 
 //enums
@@ -38,7 +38,8 @@ import { useCurrentCharacter } from '@/store/currentCharacter'
 
 interface Props {
     character: Character,
-    characterIndex: number
+    characterIndex: number,
+    isScrolling: boolean
 }
 
 

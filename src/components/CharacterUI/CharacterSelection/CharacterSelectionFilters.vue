@@ -60,6 +60,7 @@ watch(() => hideLayout.hide, () => {
     align-items: center;
     justify-content: space-evenly;
     margin: 5px 0 10px 0;
+    user-select: none;
 
     &__filter,
     &__reverse,

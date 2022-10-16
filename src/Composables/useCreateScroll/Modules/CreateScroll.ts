@@ -2,6 +2,7 @@ import { ScrollDirections } from "../Types/DirectionsType";
 import { BounceScrollEffect } from "./BounceScrollEffect";
 import { UseMomentumScroll } from "./MomentumScroll";
 import { ScrollProps } from "./ScrollProps";
+import { Ref } from 'vue'
 
 interface IPos {
 	dir: number,
@@ -20,12 +21,12 @@ export class CreateScroll {
 	private readonly HTML_ELEMENT: HTMLElement;
 	private readonly PARENT_ELEMENT: HTMLElement;
 	private readonly DIRECTION: ScrollDirections
-	private speed = 0;
 
 	constructor(
 		private scrollProps: ScrollProps,
 		private bounceScroll: BounceScrollEffect,
-		private momentumScroll: UseMomentumScroll
+		private momentumScroll: UseMomentumScroll,
+		private isScrolling: Ref<boolean>
 	) {
 		this.HTML_ELEMENT = scrollProps.HTML_ELEMENT
 		this.PARENT_ELEMENT = scrollProps.PARENT_ELEMENT
@@ -66,6 +67,7 @@ export class CreateScroll {
 	}
 
 	private touchMoveHandler = (event: TouchEvent) => {
+
 		const eventMove = event.touches[0][this.DIRECTION.clientDirection]
 
 		if (this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] == 0 || this.scrollProps.isScrollEnd()) {
@@ -78,7 +80,7 @@ export class CreateScroll {
 
 	private mouseMoveHandler = (event: MouseEvent) => {
 		this.momentumScroll.cancelMomentumTracking();
-
+		this.isScrolling.value = true
 		const eventMove = event[this.DIRECTION.clientDirection]
 
 		this.scrollProps.dir = eventMove - this.pos.clientDir
@@ -99,6 +101,7 @@ export class CreateScroll {
 	}
 
 	private mouseUpHandler = () => {
+		this.isScrolling.value = false
 		this.bounceScroll.cancelBounce()
 		this.removeEventListeners()
 		this.prevEventScroll = 0

@@ -1,6 +1,6 @@
 <template>
     <section ref="characters_scroll" class="characters-scroll__characters">
-        <PreventClickEvent @click-function="changeCharacter"
+        <PreventClickEvent :is-scrolling="isScrolling" @click-function="changeCharacter"
             :class="['characters-scroll__character', {'characters-scroll__character_active': store.currentCharacterIndex === index}]"
             :index="index" v-for="(character, index) in characters" :key="index">
 
@@ -42,11 +42,13 @@ const changeCharacter = (index?: number): void => {
 
 //creating horizontal drag scroll
 const characters_scroll = ref<null | HTMLDivElement>(null)
+const { isScrolling, createScrolling } = useCreateScroll()
+
 let scrollTypes: 'scrollLeft' | 'scrollTop' = 'scrollLeft'
 let heightWithGap = 70;
 const createScroll = () => {
     if (characters_scroll.value) {
-        useCreateScroll(characters_scroll.value, 'horizontal')
+        createScrolling(characters_scroll.value, 'horizontal')
         if (screen.availWidth <= 915) {
             heightWithGap = 65
             scrollTypes = 'scrollTop'
