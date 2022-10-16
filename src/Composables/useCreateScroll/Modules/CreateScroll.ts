@@ -39,6 +39,7 @@ export class CreateScroll {
 		const direction = scrollProps.USER_DIR === 'vertical' ? 'Y' : 'X'
 		this.PARENT_ELEMENT.style.overflow = 'hidden'
 		this.PARENT_ELEMENT.style[`overflow${direction}`] = 'scroll'
+		this.PARENT_ELEMENT.style.overscrollBehavior = 'contain'
 
 	}
 
