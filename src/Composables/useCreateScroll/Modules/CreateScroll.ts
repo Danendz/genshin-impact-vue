@@ -1,7 +1,12 @@
-import { ScrollDirections } from "../Types/DirectionsType";
+//modules
 import { BounceScrollEffect } from "./BounceScrollEffect";
 import { UseMomentumScroll } from "./MomentumScroll";
 import { ScrollProps } from "./ScrollProps";
+
+//types
+import { ScrollDirections } from "../Types/DirectionsType";
+
+//vue
 import { Ref } from 'vue'
 
 interface IPos {
@@ -17,7 +22,6 @@ export class CreateScroll {
 
 	private prevScrollLeft = 0;
 	private prevEventScroll = 0;
-	private readonly SCROLL_WIDTH_OR_HEIGHT: 'scrollHeight' | 'scrollWidth';
 	private readonly HTML_ELEMENT: HTMLElement;
 	private readonly PARENT_ELEMENT: HTMLElement;
 	private readonly DIRECTION: ScrollDirections
@@ -31,7 +35,6 @@ export class CreateScroll {
 		this.HTML_ELEMENT = scrollProps.HTML_ELEMENT
 		this.PARENT_ELEMENT = scrollProps.PARENT_ELEMENT
 		this.DIRECTION = scrollProps.DIRECTION
-		this.SCROLL_WIDTH_OR_HEIGHT = scrollProps.SCROLL_WIDTH_OR_HEIGHT
 
 		this.HTML_ELEMENT.style.overflowX = 'hidden'
 		this.HTML_ELEMENT.style.overflowY = 'hidden'
@@ -48,7 +51,6 @@ export class CreateScroll {
 	}
 
 	private mouseDownHandler = (e: MouseEvent | TouchEvent) => {
-
 		if (!this.isTouch(e)) {
 			const clientDir = e[this.DIRECTION.clientDirection]
 			this.pos = {
@@ -65,7 +67,6 @@ export class CreateScroll {
 	}
 
 	private touchMoveHandler = (event: TouchEvent) => {
-
 		const eventMove = event.touches[0][this.DIRECTION.clientDirection]
 
 		if (this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] == 0 || this.scrollProps.isScrollEnd()) {
@@ -92,7 +93,6 @@ export class CreateScroll {
 	}
 
 	private manualBounce(eventMove: number) {
-
 		if (this.prevEventScroll === 0) this.prevEventScroll = eventMove
 		this.scrollProps.dir = eventMove - this.prevEventScroll
 		this.bounceScroll.bounce()
@@ -100,8 +100,11 @@ export class CreateScroll {
 
 	private mouseUpHandler = () => {
 		this.isScrolling.value = false
+
 		this.bounceScroll.cancelBounce()
+
 		this.removeEventListeners()
+
 		this.prevEventScroll = 0
 
 		if (this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] !== 0 && !this.scrollProps.isScrollEnd()) {
@@ -109,13 +112,13 @@ export class CreateScroll {
 		}
 	}
 
-	private removeEventListeners() {
+	public removeEventListeners() {
 		this.HTML_ELEMENT.removeEventListener('mousemove', this.mouseMoveHandler)
 		this.HTML_ELEMENT.removeEventListener('touchmove', this.touchMoveHandler)
 		this.HTML_ELEMENT.removeEventListener('mouseup', this.mouseUpHandler)
 		this.HTML_ELEMENT.removeEventListener('touchend', this.mouseUpHandler)
 		this.HTML_ELEMENT.removeEventListener('touchcancel', this.mouseUpHandler)
-		this.HTML_ELEMENT.removeEventListener('mouseleave', this.removeEventListeners)
+		this.HTML_ELEMENT.removeEventListener('mouseleave', this.mouseUpHandler)
 	}
 
 	public resetListeners() {

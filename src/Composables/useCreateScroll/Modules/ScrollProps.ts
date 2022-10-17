@@ -1,5 +1,7 @@
+//types
 import { Directions, ScrollDirections } from "../Types/DirectionsType"
 
+//enums
 import { HorizontalScroll, VerticalScroll } from "../Enums/ScrollEnums"
 
 export class ScrollProps {
@@ -21,7 +23,6 @@ export class ScrollProps {
 
 	public isScrollEnd() {
 		const offsetDirection = this.DIRECTION.scrollDirection === 'scrollTop' ? 'offsetHeight' : 'offsetWidth'
-
 		return this.PARENT_ELEMENT[offsetDirection] + this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] >= this.PARENT_ELEMENT[this.SCROLL_WIDTH_OR_HEIGHT]
 	}
 }

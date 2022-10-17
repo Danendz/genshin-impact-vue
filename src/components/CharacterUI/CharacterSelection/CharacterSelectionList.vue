@@ -82,8 +82,8 @@ onMounted(() => {
 })
 watch(() => showCharactersSelectionList.show, () => {
     nextTick(() => {
-        if (showCharactersSelectionList.show && characters_scroll.value) {
-            characters_scroll.value.scrollTop = heightWithGap * Math.floor((characterStore.currentCharacterIndex / columns))
+        if (showCharactersSelectionList.show && characters_scroll.value && characters_scroll.value.parentElement) {
+            characters_scroll.value.parentElement.scrollTop = heightWithGap * Math.floor((characterStore.currentCharacterIndex / columns))
         }
     })
 })

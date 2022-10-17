@@ -1,10 +1,12 @@
-
+//types
 import { ScrollDirections } from "../Types/DirectionsType";
+
+//modules
 import { BounceScrollEffect } from "./BounceScrollEffect";
 import { ScrollProps } from "./ScrollProps";
 
 export class UseMomentumScroll {
-	private momentumID = 0;
+	public momentumID = 0;
 	private readonly PARENT_ELEMENT: HTMLElement
 	private readonly DIRECTION: ScrollDirections
 	public velX = 0;
@@ -41,6 +43,7 @@ export class UseMomentumScroll {
 	}
 
 	public cancelMomentumTracking() {
+
 		cancelAnimationFrame(this.momentumID);
 	}
 }
