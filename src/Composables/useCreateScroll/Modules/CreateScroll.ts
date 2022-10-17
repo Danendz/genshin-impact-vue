@@ -48,9 +48,6 @@ export class CreateScroll {
 	}
 
 	private mouseDownHandler = (e: MouseEvent | TouchEvent) => {
-		if (this.scrollProps.initialWidthOrHeight === 0) {
-			this.scrollProps.initialWidthOrHeight = this.PARENT_ELEMENT[this.SCROLL_WIDTH_OR_HEIGHT]
-		}
 
 		if (!this.isTouch(e)) {
 			const clientDir = e[this.DIRECTION.clientDirection]

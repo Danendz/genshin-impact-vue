@@ -8,6 +8,7 @@ export class BounceScrollEffect {
 	private readonly HTML_ELEMENT: HTMLElement;
 	private readonly DIRECTION: ScrollDirections;
 	private readonly SCROLL_DIRECTION: 'X' | 'Y';
+	private readonly SCROLL_WIDTH_OR_HIGHT: 'offsetHeight' | 'offsetWidth';
 
 	constructor(
 		private scrollProps: ScrollProps
@@ -15,11 +16,14 @@ export class BounceScrollEffect {
 		this.HTML_ELEMENT = scrollProps.HTML_ELEMENT
 		this.DIRECTION = scrollProps.DIRECTION
 		this.SCROLL_DIRECTION = scrollProps.USER_DIR === 'vertical' ? 'Y' : 'X'
-
+		this.SCROLL_WIDTH_OR_HIGHT = scrollProps.USER_DIR === 'vertical' ? 'offsetHeight' : 'offsetWidth'
 		this.INITIAL_TRANSFORM = window.getComputedStyle(this.HTML_ELEMENT, null).getPropertyValue('transform')
 	}
 
 	public bounce(customSpeed?: number) {
+		if (this.HTML_ELEMENT[this.SCROLL_WIDTH_OR_HIGHT] <= this.scrollProps.PARENT_ELEMENT[this.SCROLL_WIDTH_OR_HIGHT]) return;
+
+
 		let paddingOff = 0;
 		if (this.scrollProps.dir / 7 > this.MAX_TRANSFORM_OFFSET) paddingOff = this.MAX_TRANSFORM_OFFSET
 		else paddingOff = customSpeed ?? (this.scrollProps.dir / 7)

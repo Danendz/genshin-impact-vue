@@ -33,7 +33,7 @@ export class UseMomentumScroll {
 
 		this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] += this.velX; // Apply the velocity to the scroll position
 
-		this.velX *= 0.89; // Slow the velocity slightly
+		this.velX *= 0.95; // Slow the velocity slightly
 
 		if (Math.abs(this.velX) > 0.5) { // Still moving?
 			this.momentumID = requestAnimationFrame(this.momentumLoop); // Keep looping 
