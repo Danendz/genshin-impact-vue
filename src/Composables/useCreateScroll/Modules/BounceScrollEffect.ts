@@ -65,9 +65,10 @@ export class BounceScrollEffect {
 
 		if (!this.scrollProps.isStartOrEnd()) return;
 
-		if (scrollDeltaValue < 0) {
+		if (this.scrollProps.isScrollStart() && scrollDeltaValue < 0) {
 			this.bounce(20, '0.1s')
-		} else {
+
+		} else if (this.scrollProps.isScrollEnd() && scrollDeltaValue > 0) {
 			this.bounce(-20, '0.1s')
 		}
 

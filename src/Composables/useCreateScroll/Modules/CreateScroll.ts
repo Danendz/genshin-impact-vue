@@ -25,7 +25,7 @@ export class CreateScroll {
 	private readonly HTML_ELEMENT: HTMLElement;
 	private readonly PARENT_ELEMENT: HTMLElement;
 	private readonly DIRECTION: ScrollDirections
-
+	private speedIncrease = 2;
 	constructor(
 		private scrollProps: ScrollProps,
 		private bounceScroll: BounceScrollEffect,
@@ -40,18 +40,30 @@ export class CreateScroll {
 		this.HTML_ELEMENT.style.overflowY = 'hidden'
 
 		const direction = scrollProps.USER_DIR === 'vertical' ? 'Y' : 'X'
+
 		this.PARENT_ELEMENT.style.overflow = 'hidden'
 		this.PARENT_ELEMENT.style[`overflow${direction}`] = 'scroll'
 		this.PARENT_ELEMENT.style.overscrollBehavior = 'contain'
 
 	}
 
+	private wheelHandler = (e: WheelEvent) => {
+		this.momentumScroll.cancelMomentumTracking();
+
+		if (this.isScrolling.value) {
+			this.setDefault()
+		}
+
+		this.bounceScroll.wheelScrollBounce(e.deltaY)
+	}
+
+
+
 	private isTouch = (e: MouseEvent | TouchEvent): e is TouchEvent => {
 		return (e as TouchEvent).touches !== undefined
 	}
 
 	private mouseDownHandler = (e: MouseEvent | TouchEvent) => {
-
 		this.isScrolling.value = true
 		if (!this.isTouch(e)) {
 			const clientDir = e[this.DIRECTION.clientDirection]
@@ -67,6 +79,7 @@ export class CreateScroll {
 		this.HTML_ELEMENT.addEventListener('touchend', this.mouseUpHandler, { passive: true })
 		this.HTML_ELEMENT.addEventListener('mouseleave', this.mouseUpHandler, { passive: true })
 	}
+
 
 	private touchMoveHandler = (event: TouchEvent) => {
 		const eventMove = event.touches[0][this.DIRECTION.clientDirection]
@@ -133,6 +146,7 @@ export class CreateScroll {
 	}
 
 	public scrollCreate() {
+		this.HTML_ELEMENT.addEventListener('wheel', this.wheelHandler, { passive: true })
 		this.HTML_ELEMENT.addEventListener('mousedown', this.mouseDownHandler)
 		this.HTML_ELEMENT.addEventListener('touchstart', this.mouseDownHandler)
 	}

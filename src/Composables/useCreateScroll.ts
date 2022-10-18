@@ -14,6 +14,7 @@ const useCreateScroll = () => {
     const isScrolling = ref(false);
     let globalHtmlElement: HTMLElement;
     let createScroll: CreateScroll;
+
     const createScrolling = <T extends HTMLElement>(htmlElement: T, userDir: Directions = 'horizontal') => {
         globalHtmlElement = htmlElement
         const scrollProps = new ScrollProps(htmlElement, userDir)
@@ -21,16 +22,6 @@ const useCreateScroll = () => {
         const momentumScroll = new UseMomentumScroll(scrollProps, bounceScroll)
         createScroll = new CreateScroll(scrollProps, bounceScroll, momentumScroll, isScrolling)
 
-        htmlElement.addEventListener('wheel', (e) => {
-            momentumScroll.cancelMomentumTracking();
-
-            if (isScrolling.value) {
-                createScroll.setDefault()
-            }
-
-            bounceScroll.wheelScrollBounce(e.deltaY)
-
-        }, { passive: true });
         createScroll.scrollCreate();
     }
 

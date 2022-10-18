@@ -26,7 +26,11 @@ export class ScrollProps {
 		return this.PARENT_ELEMENT[offsetDirection] + this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] >= this.PARENT_ELEMENT[this.SCROLL_WIDTH_OR_HEIGHT]
 	}
 
+	public isScrollStart(): boolean {
+		return this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] == 0
+	}
+
 	public isStartOrEnd(): boolean {
-		return this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] == 0 || this.isScrollEnd()
+		return this.isScrollStart() || this.isScrollEnd()
 	}
 }
