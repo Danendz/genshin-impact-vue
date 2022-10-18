@@ -21,12 +21,16 @@ const useCreateScroll = () => {
         const momentumScroll = new UseMomentumScroll(scrollProps, bounceScroll)
         createScroll = new CreateScroll(scrollProps, bounceScroll, momentumScroll, isScrolling)
 
-        htmlElement.addEventListener('wheel', () => {
+        htmlElement.addEventListener('wheel', (e) => {
             momentumScroll.cancelMomentumTracking();
-            createScroll.setDefault();
-        }, {
-            passive: true
-        });
+
+            if (isScrolling.value) {
+                createScroll.setDefault()
+            }
+
+            bounceScroll.wheelScrollBounce(e.deltaY)
+
+        }, { passive: true });
         createScroll.scrollCreate();
     }
 

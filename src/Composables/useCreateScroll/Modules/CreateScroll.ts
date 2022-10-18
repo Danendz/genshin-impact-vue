@@ -51,6 +51,8 @@ export class CreateScroll {
 	}
 
 	private mouseDownHandler = (e: MouseEvent | TouchEvent) => {
+
+		this.isScrolling.value = true
 		if (!this.isTouch(e)) {
 			const clientDir = e[this.DIRECTION.clientDirection]
 			this.pos = {
@@ -69,7 +71,7 @@ export class CreateScroll {
 	private touchMoveHandler = (event: TouchEvent) => {
 		const eventMove = event.touches[0][this.DIRECTION.clientDirection]
 
-		if (this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] == 0 || this.scrollProps.isScrollEnd()) {
+		if (this.scrollProps.isStartOrEnd()) {
 			this.manualBounce(eventMove)
 		} else {
 			this.mouseUpHandler()
@@ -79,7 +81,6 @@ export class CreateScroll {
 
 	private mouseMoveHandler = (event: MouseEvent) => {
 		this.momentumScroll.cancelMomentumTracking();
-		this.isScrolling.value = true
 		const eventMove = event[this.DIRECTION.clientDirection]
 
 		this.scrollProps.dir = eventMove - this.pos.clientDir
@@ -87,7 +88,7 @@ export class CreateScroll {
 		this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] = this.pos.dir - this.scrollProps.dir
 
 		this.momentumScroll.velX = this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] - this.prevScrollLeft
-		if (this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] == 0 || this.scrollProps.isScrollEnd()) {
+		if (this.scrollProps.isStartOrEnd()) {
 			this.manualBounce(eventMove)
 		}
 	}

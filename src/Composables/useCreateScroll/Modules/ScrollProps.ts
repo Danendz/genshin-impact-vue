@@ -21,8 +21,12 @@ export class ScrollProps {
 
 	}
 
-	public isScrollEnd() {
+	public isScrollEnd(): boolean {
 		const offsetDirection = this.DIRECTION.scrollDirection === 'scrollTop' ? 'offsetHeight' : 'offsetWidth'
 		return this.PARENT_ELEMENT[offsetDirection] + this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] >= this.PARENT_ELEMENT[this.SCROLL_WIDTH_OR_HEIGHT]
+	}
+
+	public isStartOrEnd(): boolean {
+		return this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] == 0 || this.isScrollEnd()
 	}
 }

@@ -27,8 +27,7 @@ export class UseMomentumScroll {
 	}
 
 	private momentumLoop = () => {
-		if (this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] === 0 ||
-			this.scrollProps.isScrollEnd()) {
+		if (this.scrollProps.isStartOrEnd()) {
 			this.bounce.afterScrollingBounce(this.velX)
 			return;
 		}
