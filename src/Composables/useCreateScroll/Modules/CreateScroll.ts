@@ -25,7 +25,7 @@ export class CreateScroll {
 	private readonly HTML_ELEMENT: HTMLElement;
 	private readonly PARENT_ELEMENT: HTMLElement;
 	private readonly DIRECTION: ScrollDirections
-	private speedIncrease = 2;
+
 	constructor(
 		private scrollProps: ScrollProps,
 		private bounceScroll: BounceScrollEffect,
@@ -40,7 +40,6 @@ export class CreateScroll {
 		this.HTML_ELEMENT.style.overflowY = 'hidden'
 
 		const direction = scrollProps.USER_DIR === 'vertical' ? 'Y' : 'X'
-
 		this.PARENT_ELEMENT.style.overflow = 'hidden'
 		this.PARENT_ELEMENT.style[`overflow${direction}`] = 'scroll'
 		this.PARENT_ELEMENT.style.overscrollBehavior = 'contain'
@@ -49,6 +48,7 @@ export class CreateScroll {
 
 	private wheelHandler = (e: WheelEvent) => {
 		this.momentumScroll.cancelMomentumTracking();
+		this.momentumScroll.velX = 0;
 
 		if (this.isScrolling.value) {
 			this.setDefault()
@@ -58,12 +58,12 @@ export class CreateScroll {
 	}
 
 
-
 	private isTouch = (e: MouseEvent | TouchEvent): e is TouchEvent => {
 		return (e as TouchEvent).touches !== undefined
 	}
 
 	private mouseDownHandler = (e: MouseEvent | TouchEvent) => {
+		this.PARENT_ELEMENT.style.scrollBehavior = 'auto'
 		this.isScrolling.value = true
 		if (!this.isTouch(e)) {
 			const clientDir = e[this.DIRECTION.clientDirection]
@@ -101,6 +101,7 @@ export class CreateScroll {
 		this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] = this.pos.dir - this.scrollProps.dir
 
 		this.momentumScroll.velX = this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] - this.prevScrollLeft
+
 		if (this.scrollProps.isStartOrEnd()) {
 			this.manualBounce(eventMove)
 		}
@@ -115,7 +116,7 @@ export class CreateScroll {
 	private mouseUpHandler = () => {
 		this.setDefault()
 
-		if (this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] !== 0 && !this.scrollProps.isScrollEnd()) {
+		if (this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] !== 0 && !this.scrollProps.isScrollEnd() && Math.abs(this.momentumScroll.velX) > 2) {
 			this.momentumScroll.beginMomentumTracking();
 		}
 	}

@@ -77,6 +77,7 @@ onMounted(() => {
 //scrolling to current character
 const scrollToCharacter = () => {
     if (characters_scroll.value && !hideLayout.hide && characters_scroll.value.parentElement) {
+        characters_scroll.value.parentElement.style.scrollBehavior = 'smooth'
         characters_scroll.value.parentElement[scrollTypes] = heightWithGap * store.currentCharacterIndex
     }
 }

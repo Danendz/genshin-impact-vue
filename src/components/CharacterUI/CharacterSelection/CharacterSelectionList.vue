@@ -83,6 +83,7 @@ onMounted(() => {
 watch(() => showCharactersSelectionList.show, () => {
     nextTick(() => {
         if (showCharactersSelectionList.show && characters_scroll.value && characters_scroll.value.parentElement) {
+            characters_scroll.value.parentElement.style.scrollBehavior = 'smooth'
             characters_scroll.value.parentElement.scrollTop = heightWithGap * Math.floor((characterStore.currentCharacterIndex / columns))
         }
     })
