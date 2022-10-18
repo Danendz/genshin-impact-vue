@@ -23,7 +23,7 @@ const useCreateScroll = () => {
 
         htmlElement.addEventListener('wheel', () => {
             momentumScroll.cancelMomentumTracking();
-            createScroll.removeEventListeners();
+            createScroll.setDefault();
         }, {
             passive: true
         });

@@ -99,6 +99,14 @@ export class CreateScroll {
 	}
 
 	private mouseUpHandler = () => {
+		this.setDefault()
+
+		if (this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] !== 0 && !this.scrollProps.isScrollEnd()) {
+			this.momentumScroll.beginMomentumTracking();
+		}
+	}
+
+	public setDefault() {
 		this.isScrolling.value = false
 
 		this.bounceScroll.cancelBounce()
@@ -106,10 +114,6 @@ export class CreateScroll {
 		this.removeEventListeners()
 
 		this.prevEventScroll = 0
-
-		if (this.PARENT_ELEMENT[this.DIRECTION.scrollDirection] !== 0 && !this.scrollProps.isScrollEnd()) {
-			this.momentumScroll.beginMomentumTracking();
-		}
 	}
 
 	public removeEventListeners() {

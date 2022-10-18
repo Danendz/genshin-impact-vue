@@ -6,6 +6,7 @@ import { ScrollProps } from "./ScrollProps";
 
 export class BounceScrollEffect {
 	public readonly MAX_TRANSFORM_OFFSET = 200
+	private readonly MAX_SPEED = 6;
 	private readonly INITIAL_TRANSFORM: string;
 	private readonly HTML_ELEMENT: HTMLElement;
 	private readonly DIRECTION: ScrollDirections;
@@ -26,8 +27,8 @@ export class BounceScrollEffect {
 		if (this.HTML_ELEMENT[this.OFFSET_WIDTH_OR_HIGHT] <= this.scrollProps.PARENT_ELEMENT[this.OFFSET_WIDTH_OR_HIGHT]) return;
 
 		let paddingOff = 0;
-		if (this.scrollProps.dir / 7 > this.MAX_TRANSFORM_OFFSET) paddingOff = this.MAX_TRANSFORM_OFFSET
-		else paddingOff = customSpeed ?? (this.scrollProps.dir / 7)
+		if (this.scrollProps.dir / this.MAX_SPEED > this.MAX_TRANSFORM_OFFSET) paddingOff = this.MAX_TRANSFORM_OFFSET
+		else paddingOff = customSpeed ?? (this.scrollProps.dir / this.MAX_SPEED)
 		this.HTML_ELEMENT.style.transition = '0.0s';
 		this.HTML_ELEMENT.style.transform = `translate${this.SCROLL_DIRECTION}(${paddingOff}px)`
 	}
