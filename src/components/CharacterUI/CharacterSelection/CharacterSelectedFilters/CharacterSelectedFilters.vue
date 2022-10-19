@@ -1,13 +1,14 @@
 <template>
 	<Transition name="fade-down" appear>
 		<div v-show="filterOptions.length" class="selected-filters-container">
-			<div class="selected-filters">
-				<div ref="filter_scroll" class="selected-filters__options">
+			<div class="selected-filters-container__selected-filters">
+				<div ref="filter_scroll" class="selected-filters-container__options">
 					<CharacterSelectedFilterOption v-for="option in filterOptions" :key="option" :option="option" />
 				</div>
 
 			</div>
-			<button @click.left="charactersStore.defaultFilter()" class="selected-filters__clear">Clear</button>
+			<button @click.left="charactersStore.defaultFilter()"
+				class="selected-filters-container__clear">Clear</button>
 		</div>
 	</Transition>
 </template>
@@ -52,23 +53,23 @@ onMounted(() => {
 	bottom: 50px;
 	border-radius: 20px;
 	background-color: rgba(202, 202, 202, 0.822);
-}
 
-.selected-filters {
-	width: 100%;
+	&__selected-filters {
+		width: 100%;
 
-	&::-webkit-scrollbar {
-		width: 5px;
-		height: 0px;
-	}
+		&::-webkit-scrollbar {
+			width: 5px;
+			height: 0px;
+		}
 
-	&__options {
-		display: flex;
-		align-items: center;
-		position: relative;
-		gap: 10px;
-		width: fit-content;
-		cursor: grabbing;
+		.selected-filters-container__options {
+			display: flex;
+			align-items: center;
+			position: relative;
+			gap: 10px;
+			width: fit-content;
+			cursor: grabbing;
+		}
 	}
 
 	&__clear {
@@ -83,28 +84,22 @@ onMounted(() => {
 		user-select: none;
 		cursor: pointer;
 		border-radius: 12px;
-		padding: 0px 5px;
+		padding: 1px 9px;
 		border: 0;
 	}
 }
 
 @media only screen and (max-width: 740px) {
-	.selected-filters {
+	.selected-filters-container {
 		bottom: 30px;
 	}
 }
 
 @media only screen and (max-width: 915px) {
-	.selected-filters {
-		padding: 2px 5px;
-
-		&__options {
-			width: 80%;
-		}
-
+	.selected-filters-container {
 		&__clear {
 			width: 50px;
-			font-size: 12px;
+			font-size: 13px;
 		}
 	}
 
