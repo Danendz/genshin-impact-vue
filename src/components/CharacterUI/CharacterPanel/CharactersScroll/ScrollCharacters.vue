@@ -55,11 +55,14 @@ const createScroll = () => {
         resetListeners()
         if (width.value <= 915) {
             createScrolling(characters_scroll.value, 'vertical')
-            heightWithGap = 65
+            heightWithGap = 50
             scrollTypes = 'scrollTop'
         } else {
+            heightWithGap = 70;
+            scrollTypes = 'scrollLeft'
             createScrolling(characters_scroll.value, 'horizontal')
         }
+        scrollToCharacter()
     }
 }
 
@@ -109,7 +112,7 @@ watch(() => hideLayout.hide, () => {
 
 @media only screen and (max-width: 915px) {
     .characters-scroll {
-        background-color: $transparency;
+
 
         &__characters {
             flex-direction: column;
@@ -117,7 +120,7 @@ watch(() => hideLayout.hide, () => {
             overflow-y: scroll;
             height: fit-content;
             gap: 10px;
-            padding: 0px 5px;
+            padding: 5px 5px;
         }
     }
 }

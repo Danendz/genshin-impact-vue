@@ -61,6 +61,7 @@ const createScroll = () => {
             heightWithGap = 89
             columns = 4
         } else if (width.value <= 1600) {
+            heightWithGap = 152
             columns = 4
         } else {
             heightWithGap = 152

@@ -67,4 +67,16 @@ const store = useCurrentCharacter()
         }
     }
 }
+
+@media only screen and (max-width: 915px) {
+    .characters-scroll__character {
+        min-width: 40px;
+        min-height: 40px;
+
+        .characters-scroll__icon-side {
+            width: auto;
+            height: 100%;
+        }
+    }
+}
 </style>

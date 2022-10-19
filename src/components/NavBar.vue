@@ -7,17 +7,21 @@
           <img class="top-nav__link" :alt="`${navLink.name} link`"
             :src="CharacterHelper.getGenshinSiteIcons(navLink.imgUrl)" />
         </router-link>
-        
+
       </li>
 
     </ul>
-    <button :class="['top-nav__arrow', {'top-nav__arrow_active': activeNav}]" @click="toggleNav">></button>
+    <ButtonWithIcon class="top-nav__arrow" @click="toggleNav" icon="mdi:chevron-down"
+      :icon-class="['top-nav__icon', {'top-nav__arrow_active': activeNav}]" />
   </nav>
 </template>
 
 <script setup lang="ts">
 //helpers
 import CharacterHelper from '@/helpers/CharacterHelper';
+
+//components
+import ButtonWithIcon from '@/components/UI/ButtonWithIcon.vue'
 
 //vue
 import { ref } from 'vue';
@@ -73,12 +77,16 @@ const toggleNav = () => {
   }
 
   &__arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transition: 0.3s;
     cursor: pointer;
     width: 35px;
-    text-align: center;
+    height: 20px;
+
     background: #e5e2dbb4;
-    font-size: 20px;
+    overflow: hidden;
     border: 1px solid black;
     font-weight: 600;
     position: absolute;
@@ -88,6 +96,11 @@ const toggleNav = () => {
       transform: rotate(180deg);
     }
 
+    .top-nav__icon {
+      width: 30px;
+      height: 30px;
+      transition: .3s;
+    }
   }
 
   &__items {

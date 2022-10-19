@@ -1,11 +1,8 @@
 <template>
-    <section :class="['characters-scroll', {'characters-scroll_hide': !characters_state_display}]">
+    <section class="characters-scroll">
         <div class="characters-scroll__container">
             <ScrollCharacters />
         </div>
-        <button @click="closeCharacters"
-            :class="['characters-scroll__close', {'characters-scroll__close_hide': !characters_state_display}]"> >
-        </button>
     </section>
 </template>
 
@@ -13,14 +10,6 @@
 //components
 import ScrollCharacters from './ScrollCharacters.vue';
 
-//vue
-import { ref } from 'vue';
-
-//mobile scroll close button
-const characters_state_display = ref(false)
-const closeCharacters = (): void => {
-    characters_state_display.value = !characters_state_display.value
-}
 
 </script>
 
@@ -34,30 +23,11 @@ const closeCharacters = (): void => {
     min-width: 25%;
     max-width: 60%;
 
+
     &__container {
         position: relative;
     }
 
-    &__close {
-        display: none;
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        border: 0;
-        top: calc(50% - 40px);
-        right: -30px;
-        font-weight: bold;
-        font-size: 20px;
-        color: white;
-        background-color: rgba(0, 0, 0, 0.219);
-        cursor: pointer;
-        transition: .3s;
-
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.308);
-        }
-    }
 }
 
 
@@ -66,26 +36,26 @@ const closeCharacters = (): void => {
         transition: .3s;
         transform: translateX(0);
         position: absolute;
+        left: 5px;
+        top: 45px;
+        background-color: $transparency;
+        border-radius: 12px;
 
-        top: 40px;
         min-width: 45px;
 
         &__container {
-            height: calc(100vh - $infoHeight);
+            height: calc(86vh - $infoHeight);
         }
+    }
+}
 
-        &__close {
-            display: block;
-            transform: rotate(180deg);
+@media only screen and (orientation: portrait) {
+    .characters-scroll {
+        top: 23vh;
+        left: 0;
 
-            &_hide {
-
-                transform: rotate(0deg);
-            }
-        }
-
-        &_hide {
-            transform: translateX(-100%);
+        &__container {
+            height: 53vh;
         }
     }
 }

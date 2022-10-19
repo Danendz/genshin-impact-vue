@@ -5,7 +5,7 @@
                 <CharactersInfo />
                 <CharactersScroll />
                 <section class="characters-panel__close">
-                    <button @click="router.go(-1)">X</button>
+                    <ButtonWithIcon @click="router.go(-1)" icon="mdi:close" icon-class="characters-panel__close-icon" />
                 </section>
             </section>
         </header>
@@ -16,6 +16,7 @@
 //components
 import CharactersInfo from './CharactersInfo.vue';
 import CharactersScroll from './CharactersScroll/CharactersScroll.vue';
+import ButtonWithIcon from '@/components/UI/ButtonWithIcon.vue'
 
 //stores
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
@@ -55,7 +56,6 @@ const hideLayout = useHideMainCharactersLayout()
                 transition: .2s;
                 width: 45px;
                 height: 45px;
-                font-size: 20px;
                 border-radius: 50%;
                 border: 5px solid #b3b3b35d;
                 background-color: #e0dada;
@@ -63,6 +63,11 @@ const hideLayout = useHideMainCharactersLayout()
 
                 &:hover {
                     transform: scale(1.1)
+                }
+
+                .characters-panel__close-icon {
+                    width: 30px;
+                    height: 30px;
                 }
             }
         }
@@ -89,7 +94,6 @@ const hideLayout = useHideMainCharactersLayout()
                 button {
                     width: 30px;
                     height: 30px;
-                    font-size: 15px;
                 }
             }
         }

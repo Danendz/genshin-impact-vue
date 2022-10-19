@@ -1,11 +1,13 @@
 <template>
     <aside class="content-right">
         <Transition name="fade">
-            <button v-show="showCharactersSelectionList.show" @click="toggleSelectionList"
-                class="character-selection-back">X</button>
+            <ButtonWithIcon icon="ant-design:close-outlined" icon-class="content-right__close-icon"
+                v-show="showCharactersSelectionList.show" @click="toggleSelectionList"
+                class="character-selection-back" />
+
         </Transition>
         <Transition name="fade-content" mode="out-in">
-            <article :style="{width: '100%'}" :key="activeCategory.active_category">
+            <article :style="{width: '100%', height: '100%'}" :key="activeCategory.active_category">
                 <component :is="content_component" />
             </article>
         </Transition>
@@ -13,6 +15,9 @@
 </template>
 
 <script setup lang="ts">
+//components
+import ButtonWithIcon from '@/components/UI/ButtonWithIcon.vue'
+
 //enums
 import { OptionsKeys } from '@/Enums/OptionsKeys';
 import { useActiveCategory } from '@/store/ActiveCategory';
@@ -50,16 +55,21 @@ const content_component = computed(() => {
         background-color: rgba(0, 0, 0, 0.418);
         width: 300px;
         padding: 10px;
-        min-height: 50%;
+        height: 480px;
         border-radius: 10px;
         transition: .5s;
+
+        &__close-icon {
+            width: 25px;
+            height: 25px;
+        }
 
         .character-selection-back {
             position: absolute;
             top: 2%;
             right: 20%;
-            width: 35px;
-            height: 35px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             border: 0;
             background-color: white;
@@ -72,8 +82,7 @@ const content_component = computed(() => {
     .characters-content {
         .content-right {
             display: flex;
-            align-items: center;
-
+            margin-left: auto;
         }
     }
 }
@@ -96,6 +105,11 @@ const content_component = computed(() => {
             width: 220px;
             padding: 0;
             gap: 5px;
+
+            .character-selection-back {
+                width: 35px;
+                height: 35px;
+            }
         }
     }
 }

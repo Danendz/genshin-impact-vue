@@ -74,9 +74,18 @@ const activeCategory = useActiveCategory()
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .content-options {
+        margin-left: 60px;
+
         ul {
-            font-size: 20px;
+            font-size: 15px;
+
         }
+    }
+}
+
+@media only screen and (min-width: 700px) and (orientation: portrait) {
+    .content-options {
+        margin-left: 60px;
     }
 }
 
@@ -85,7 +94,7 @@ const activeCategory = useActiveCategory()
         order: 2;
 
         ul {
-            font-size: 20px;
+            font-size: 16px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;

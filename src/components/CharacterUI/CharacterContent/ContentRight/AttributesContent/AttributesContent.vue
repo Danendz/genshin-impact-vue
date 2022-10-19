@@ -49,9 +49,11 @@ const setActiveDetails = (value?: boolean) => {
 .attributes-content {
     display: flex;
     flex-direction: column;
+    height: 100%;
     gap: 10px;
 
     .footer-buttons {
+        margin-top: auto;
 
         button {
             display: flex;
@@ -126,7 +128,6 @@ const setActiveDetails = (value?: boolean) => {
         }
     }
 }
-
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .attributes-content {

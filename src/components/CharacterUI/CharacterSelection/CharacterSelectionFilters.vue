@@ -1,7 +1,8 @@
 <template>
     <section class="filters">
         <CharacterFilterOptions @toggle-filter-component="toggleFilterComponent" :filter-active="filterActive" />
-        <button class="filters__filter" @click="() => toggleFilterComponent()">F</button>
+        <ButtonWithIcon @click="() => toggleFilterComponent()" class="filters__filter" icon="el:filter"
+            icon-class="filters__filter-icon" />
 
         <CharacterSortOptions @toggle-sort="toggleSort" :sort-active="sortActive" />
         <button class="filters__sort" @click="toggleSort">
@@ -13,7 +14,8 @@
                 src="@/assets/Icons/triangle-up.webp" />
 
         </button>
-        <button @click="reverse" class="filters__reverse">R</button>
+
+        <ButtonWithIcon icon="bx:sort" @click="reverse" class="filters__reverse" icon-class="filters__reverse-icon" />
         <CharacterSelectedFilters />
     </section>
 </template>
@@ -23,6 +25,7 @@
 import CharacterFilterOptions from './CharacterFilterOptions/CharacterFilterOptions.vue';
 import CharacterSortOptions from './CharacterSort/CharacterSortOptions.vue';
 import CharacterSelectedFilters from './CharacterSelectedFilters/CharacterSelectedFilters.vue'
+import ButtonWithIcon from '@/components/UI/ButtonWithIcon.vue';
 
 //store
 import { useCharacters } from '@/store/Characters';
@@ -61,6 +64,11 @@ watch(() => hideLayout.hide, () => {
     justify-content: space-evenly;
     margin: 5px 0 10px 0;
     user-select: none;
+
+    &__reverse-icon {
+        width: 20px;
+        height: 20px;
+    }
 
     &__filter,
     &__reverse,
@@ -107,10 +115,14 @@ watch(() => hideLayout.hide, () => {
 
 
 @media only screen and (max-width: 740px) and (orientation: landscape) {
-
     .filters {
         margin: 7px 0;
         justify-content: space-between;
+
+        &__reverse-icon {
+            width: 16px;
+            height: 16px;
+        }
 
         &__filter,
         &__reverse,
@@ -121,7 +133,6 @@ watch(() => hideLayout.hide, () => {
         &__filter,
         &__reverse {
             width: 15%;
-            font-size: 11px;
         }
 
         &__sort {
