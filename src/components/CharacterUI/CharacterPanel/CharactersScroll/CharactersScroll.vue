@@ -23,7 +23,6 @@ import ScrollCharacters from './ScrollCharacters.vue';
     min-width: 25%;
     max-width: 60%;
 
-
     &__container {
         position: relative;
     }
@@ -44,6 +43,7 @@ import ScrollCharacters from './ScrollCharacters.vue';
         min-width: 45px;
 
         &__container {
+
             height: calc(86vh - $infoHeight);
         }
     }
@@ -52,7 +52,10 @@ import ScrollCharacters from './ScrollCharacters.vue';
 @media only screen and (orientation: portrait) {
     .characters-scroll {
         top: 23vh;
-        left: 0;
+        left: 0px;
+        border-radius: 0;
+        border-bottom-right-radius: 12px;
+        border-top-right-radius: 12px;
 
         &__container {
             height: 53vh;

@@ -102,8 +102,6 @@ watch(() => hideLayout.hide, () => {
         display: flex;
         gap: 15px;
         width: fit-content;
-        overflow-x: scroll;
-        overflow-y: hidden;
         transition: .5s;
         user-select: none;
         padding: 5px 0;
@@ -112,12 +110,8 @@ watch(() => hideLayout.hide, () => {
 
 @media only screen and (max-width: 915px) {
     .characters-scroll {
-
-
         &__characters {
             flex-direction: column;
-            overflow-x: hidden;
-            overflow-y: scroll;
             height: fit-content;
             gap: 10px;
             padding: 5px 5px;
