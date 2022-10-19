@@ -70,14 +70,21 @@ const store = useCurrentCharacter()
 
 @media only screen and (max-width: 915px) {
     .characters-scroll__character {
-        min-width: 45px;
-        min-height: 45px;
+        min-width: 50px;
+        min-height: 50px;
 
 
         .characters-scroll__icon-side {
             width: auto;
             height: 100%;
         }
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .characters-scroll__character {
+        min-width: 45px;
+        min-height: 45px;
     }
 }
 
