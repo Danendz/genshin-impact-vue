@@ -9,8 +9,6 @@
 <script setup lang="ts">
 //components
 import ScrollCharacters from './ScrollCharacters.vue';
-
-
 </script>
 
 <style lang="scss">

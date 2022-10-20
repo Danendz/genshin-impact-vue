@@ -46,7 +46,6 @@ const hideLayout = useHideMainCharactersLayout()
 
 const showCharactersSelectionList = useShowCharactersSelectionList()
 
-
 watch(() => hideLayout.hide, () => {
     if (hideLayout.hide) {
         activeCategory.setActiveCategory(OptionsKeys.ATTRIBUTES)
