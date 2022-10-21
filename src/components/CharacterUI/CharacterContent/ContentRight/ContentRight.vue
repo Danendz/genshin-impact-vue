@@ -4,10 +4,10 @@
             <ButtonWithIcon icon="ant-design:close-outlined" icon-class="content-right__close-icon"
                 v-show="showCharactersSelectionList.show" @click="toggleSelectionList"
                 class="character-selection-back" />
-
         </Transition>
         <Transition name="fade-content" mode="out-in">
-            <article :style="{width: '100%', height: '100%'}" :key="activeCategory.active_category">
+            <article v-if="store.currentCharacter" :style="{width: '100%', height: '100%'}"
+                :key="activeCategory.active_category">
                 <component :is="content_component" />
             </article>
         </Transition>
@@ -27,6 +27,7 @@ import useToggleCharacterSelelectionList from '@/Composables/useToggleSelectionL
 
 //stores
 import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
+import { useCurrentCharacter } from '@/store/currentCharacter'
 
 //vue
 import { defineAsyncComponent, computed } from 'vue'
@@ -42,6 +43,8 @@ const props = defineProps<Props>();
 const activeCategory = useActiveCategory()
 const showCharactersSelectionList = useShowCharactersSelectionList()
 const { toggleSelectionList } = useToggleCharacterSelelectionList()
+const store = useCurrentCharacter()
+
 
 const content_component = computed(() => {
     return defineAsyncComponent(props.options_list[activeCategory.active_category])
