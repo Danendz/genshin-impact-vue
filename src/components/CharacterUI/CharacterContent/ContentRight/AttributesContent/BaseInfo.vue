@@ -1,13 +1,13 @@
 <template>
     <header class="base-info">
-        <GsapTransition :is-appear="true" :options="nameTransition">
+        <Transition name="name-up" appear>
             <h1 :key="props.currentCharacter.name" class="name">{{props.currentCharacter.name}}</h1>
-        </GsapTransition>
+        </Transition>
         <p>
-            <GsapTransition :is-appear="true" :is-group="true" :options="rarityTransition">
+            <TransitionGroup name="name-up" appear>
                 <Icon class="rarity" v-for="rarity, index in props.currentCharacter.rarity" :key="rarity"
                     icon="mdi:star-four-points" :data-index="index" />
-            </GsapTransition>
+            </TransitionGroup>
         </p>
         <p class="base-lvl">Level 90 / <span class="max-lvl">90</span></p>
         <progress class="lvl-progress" value="100" max="100" />
@@ -17,54 +17,15 @@
 <script setup lang="ts">
 //interface
 import { Character } from '@/Interfaces/CharacterInterface';
-import { IOptions } from '@/Interfaces/GsapTransitionOptions';
 
 //iconify
 import { Icon } from '@iconify/vue'
-
-//components
-import GsapTransition from '@/components/ComponentHelpers/GsapTransition.vue'
 
 interface Props {
     currentCharacter: Character
 }
 
 const props = defineProps<Props>();
-const nameTransition: IOptions = {
-    beforeEnter: {
-        opacity: 0,
-        transform: 'translateY(-50%)',
-        position: 'relative'
-    },
-    enter: {
-        opacity: 1,
-        duration: 0.5,
-        transform: 'translateY(0)'
-    },
-    leave: {
-        opacity: 0,
-        duration: 0.5,
-        position: 'absolute',
-        transform: 'translateY(50%)'
-    }
-}
-
-const rarityTransition: IOptions = {
-    beforeEnter: {
-        opacity: 0,
-        transform: 'translateY(50%)'
-    },
-    enter: {
-        opacity: 1,
-        duration: 0.3,
-        transform: 'translateY(0)'
-    },
-    leave: {
-        opacity: 0,
-        duration: 0.3,
-        transform: 'translateY(-30%)'
-    }
-}
 
 </script>
 

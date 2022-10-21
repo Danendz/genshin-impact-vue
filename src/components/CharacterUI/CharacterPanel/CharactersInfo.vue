@@ -1,19 +1,19 @@
 <template>
     <figure class="characters-info" v-if="store.currentCharacter">
-        <GsapTransition :is-appear="true" :options="infoTransition" mode="out-in" :custom-index="0">
+        <Transition name="fade-up-info" mode="out-in" appear>
             <img :key="store.currentCharacter.vision" alt="vision"
                 :src="CharacterHelper.getElementImage(store.currentCharacter.vision.toLowerCase())" />
-        </GsapTransition>
+        </Transition>
         <figcaption class="characters-info__visionAndName">
-            <GsapTransition :is-appear="true" :options="infoTransition" mode="out-in" :custom-index="1">
+            <Transition name="fade-up-info" mode="out-in" appear>
                 <span :key=" store.currentCharacter.vision">
                     {{store.currentCharacter.vision}}
                 </span>
-            </GsapTransition>
-            <GsapTransition :is-appear="true" :options="infoTransition" mode="out-in" :custom-index="2">
+            </Transition>
+            <Transition name="fade-up-info" mode="out-in" appear>
                 <span :style="{width: '100%', whiteSpace: 'nowrap'}"
                     :key="store.currentCharacter.name">/{{store.currentCharacter.name}}</span>
-            </GsapTransition>
+            </Transition>
         </figcaption>
     </figure>
 </template>
@@ -25,30 +25,8 @@ import CharacterHelper from '@/helpers/CharacterHelper';
 //stores
 import { useCurrentCharacter } from '@/store/currentCharacter';
 
-//interfaces
-import { IOptions } from '@/Interfaces/GsapTransitionOptions';
-
-//components
-import GsapTransition from '@/components/ComponentHelpers/GsapTransition.vue'
-
 const store = useCurrentCharacter()
 
-const infoTransition: IOptions = {
-    beforeEnter: {
-        opacity: 0,
-        transform: 'translateY(50%)'
-    },
-    enter: {
-        opacity: 1,
-        duration: 0.2,
-        transform: 'translateY(0)'
-    },
-    leave: {
-        opacity: 0,
-        duration: 0.4,
-        transform: 'translateY(-30%)'
-    }
-}
 </script>
 
 <style lang="scss">

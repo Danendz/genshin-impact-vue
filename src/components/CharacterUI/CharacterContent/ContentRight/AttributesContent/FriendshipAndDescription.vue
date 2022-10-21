@@ -5,11 +5,11 @@
         <figcaption class="friendship-lvl">8</figcaption>
     </figure>
     <progress class="friendship-progress" value="90" max="100" />
-    <GsapTransition :is-appear="true" mode="out-in" :options="descriptionTransition">
+    <Transition name="fade" mode="out-in" appear>
         <p v-if="store.currentCharacter" :key="store.currentCharacter.description" class="content-right-description">
             {{store.currentCharacter.description}}
         </p>
-    </GsapTransition>
+    </Transition>
 </template>
 
 <script setup lang="ts">
@@ -19,27 +19,7 @@ import { useCurrentCharacter } from '@/store/currentCharacter'
 //helpers
 import CharacterHelper from '@/helpers/CharacterHelper';
 
-//components
-import GsapTransition from '@/components/ComponentHelpers/GsapTransition.vue';
-
-
 const store = useCurrentCharacter()
-const descriptionTransition = {
-    beforeEnter: {
-        opacity: 0,
-    },
-    enter: {
-        opacity: 1,
-        duration: 0.3,
-    },
-    leave: {
-        opacity: 0,
-        duration: 0.3,
-    }
-}
-
-
-
 </script>
 
 <style lang="scss">

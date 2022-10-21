@@ -1,7 +1,7 @@
 .fade-move,
 .fade-enter-active,
 .fade-leave-active {
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
 }
 
 .fade-background-enter-active,
@@ -92,4 +92,42 @@
 .selection-list-enter-from,
 .selection-list-leave-to {
   opacity: 0;
+}
+
+.name-up-enter-from {
+  transform: translateY(-50%);
+  opacity: 0;
+}
+
+.name-up-leave-to {
+  transform: translateY(50%);
+  opacity: 0;
+}
+
+.name-up-enter-active,
+.name-up-leave-active {
+  transition: all 0.3s;
+}
+
+.name-up-enter-active {
+  position: relative;
+}
+
+.name-up-leave-active {
+  position: absolute;
+}
+
+.fade-up-info-enter-from {
+  transform: translateY(50%);
+  opacity: 0;
+}
+
+.fade-up-info-leave-to {
+  transform: translateY(-50%);
+  opacity: 0;
+}
+
+.fade-up-info-enter-active,
+.fade-up-info-leave-active {
+  transition: all 0.3s;
 }
