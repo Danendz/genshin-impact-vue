@@ -5,22 +5,41 @@
         <figcaption class="friendship-lvl">8</figcaption>
     </figure>
     <progress class="friendship-progress" value="90" max="100" />
-    <p class="content-right-description">
-        {{props.currentCharacter.description}}
-    </p>
+    <GsapTransition :is-appear="true" mode="out-in" :options="descriptionTransition">
+        <p v-if="store.currentCharacter" :key="store.currentCharacter.description" class="content-right-description">
+            {{store.currentCharacter.description}}
+        </p>
+    </GsapTransition>
 </template>
 
 <script setup lang="ts">
 //interfaces
-import { Character } from '@/Interfaces/CharacterInterface';
+import { useCurrentCharacter } from '@/store/currentCharacter'
 
 //helpers
 import CharacterHelper from '@/helpers/CharacterHelper';
 
-interface Props {
-    currentCharacter: Character
+//components
+import GsapTransition from '@/components/ComponentHelpers/GsapTransition.vue';
+
+
+const store = useCurrentCharacter()
+const descriptionTransition = {
+    beforeEnter: {
+        opacity: 0,
+    },
+    enter: {
+        opacity: 1,
+        duration: 0.3,
+    },
+    leave: {
+        opacity: 0,
+        duration: 0.3,
+    }
 }
-const props = defineProps<Props>();
+
+
+
 </script>
 
 <style lang="scss">
@@ -54,7 +73,7 @@ const props = defineProps<Props>();
 @media only screen and (max-width: 700px) and (orientation: portrait) {
     .attributes-content {
         .content-right-description {
-            font-size: 20px;
+            font-size: 13px;
             max-height: 100px;
         }
     }

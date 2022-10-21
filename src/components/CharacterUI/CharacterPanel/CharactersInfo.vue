@@ -1,19 +1,19 @@
 <template>
     <figure class="characters-info" v-if="store.currentCharacter">
-        <Transition :css="false" @before-enter="onBeforeEnter" @enter="onEnter" @leave="onLeave" mode="out-in">
-            <img :key="store.currentCharacter.vision" alt="vision" data-index="0"
+        <GsapTransition :is-appear="true" :options="infoTransition" mode="out-in" :custom-index="0">
+            <img :key="store.currentCharacter.vision" alt="vision"
                 :src="CharacterHelper.getElementImage(store.currentCharacter.vision.toLowerCase())" />
-        </Transition>
+        </GsapTransition>
         <figcaption class="characters-info__visionAndName">
-            <Transition :css="false" @before-enter="onBeforeEnter" @enter="onEnter" @leave="onLeave" mode="out-in">
-                <span data-index="1" :key=" store.currentCharacter.vision">
+            <GsapTransition :is-appear="true" :options="infoTransition" mode="out-in" :custom-index="1">
+                <span :key=" store.currentCharacter.vision">
                     {{store.currentCharacter.vision}}
                 </span>
-            </Transition>
-            <Transition :css="false" @before-enter="onBeforeEnter" @enter="onEnter" @leave="onLeave" mode="out-in">
-                <span data-index="2" :style="{width: '100%', whiteSpace: 'nowrap'}"
+            </GsapTransition>
+            <GsapTransition :is-appear="true" :options="infoTransition" mode="out-in" :custom-index="2">
+                <span :style="{width: '100%', whiteSpace: 'nowrap'}"
                     :key="store.currentCharacter.name">/{{store.currentCharacter.name}}</span>
-            </Transition>
+            </GsapTransition>
         </figcaption>
     </figure>
 </template>
@@ -25,49 +25,29 @@ import CharacterHelper from '@/helpers/CharacterHelper';
 //stores
 import { useCurrentCharacter } from '@/store/currentCharacter';
 
-import gsap from 'gsap'
+//interfaces
+import { IOptions } from '@/Interfaces/GsapTransitionOptions';
+
+//components
+import GsapTransition from '@/components/ComponentHelpers/GsapTransition.vue'
 
 const store = useCurrentCharacter()
 
-function onBeforeEnter(el: Element) {
-    const element = el as HTMLElement
-    element.style.opacity = '0'
-    element.style.transform = 'translateY(50%)'
-}
-
-let currentIndex = -1;
-
-function onEnter(el: Element, done: () => void) {
-    const element = el as HTMLElement
-    currentIndex += 1
-    let delay = 0.3;
-
-    if (element.dataset.index) {
-        const index = parseInt(element.dataset.index)
-        if (index === currentIndex) delay += index * 0.1
-    }
-
-    gsap.from(element, {
+const infoTransition: IOptions = {
+    beforeEnter: {
+        opacity: 0,
         transform: 'translateY(50%)'
-    })
-    gsap.to(element, {
+    },
+    enter: {
         opacity: 1,
         duration: 0.2,
-        delay: delay,
-        transform: 'translateY(0)',
-        onComplete: done
-    })
-}
-
-function onLeave(el: Element, done: () => void) {
-    const element = el as HTMLElement
-    currentIndex = -1
-    gsap.to(element, {
+        transform: 'translateY(0)'
+    },
+    leave: {
         opacity: 0,
         duration: 0.4,
-        transform: 'translateY(-30%)',
-        onComplete: done
-    })
+        transform: 'translateY(-30%)'
+    }
 }
 </script>
 

@@ -1,11 +1,13 @@
 <template>
     <header class="base-info">
-        <h1 class="name">{{props.currentCharacter.name}}</h1>
+        <GsapTransition :is-appear="true" :options="nameTransition">
+            <h1 :key="props.currentCharacter.name" class="name">{{props.currentCharacter.name}}</h1>
+        </GsapTransition>
         <p>
-            <TransitionGroup :css="false" @before-enter="onBeforeEnter" @enter="onEnter" @leave="onLeave" appear>
+            <GsapTransition :is-appear="true" :is-group="true" :options="rarityTransition">
                 <Icon class="rarity" v-for="rarity, index in props.currentCharacter.rarity" :key="rarity"
                     icon="mdi:star-four-points" :data-index="index" />
-            </TransitionGroup>
+            </GsapTransition>
         </p>
         <p class="base-lvl">Level 90 / <span class="max-lvl">90</span></p>
         <progress class="lvl-progress" value="100" max="100" />
@@ -13,43 +15,55 @@
 </template>
 
 <script setup lang="ts">
+//interface
 import { Character } from '@/Interfaces/CharacterInterface';
+import { IOptions } from '@/Interfaces/GsapTransitionOptions';
+
+//iconify
 import { Icon } from '@iconify/vue'
-import gsap from 'gsap'
+
+//components
+import GsapTransition from '@/components/ComponentHelpers/GsapTransition.vue'
 
 interface Props {
     currentCharacter: Character
 }
 
 const props = defineProps<Props>();
-
-function onBeforeEnter(el: Element) {
-    const element = el as HTMLElement
-    element.style.opacity = '0'
-    element.style.transform = 'translateY(50%)'
+const nameTransition: IOptions = {
+    beforeEnter: {
+        opacity: 0,
+        transform: 'translateY(-50%)',
+        position: 'relative'
+    },
+    enter: {
+        opacity: 1,
+        duration: 0.5,
+        transform: 'translateY(0)'
+    },
+    leave: {
+        opacity: 0,
+        duration: 0.5,
+        position: 'absolute',
+        transform: 'translateY(50%)'
+    }
 }
 
-function onEnter(el: Element, done: () => void) {
-    const element = el as HTMLElement
-    gsap.from(element, {
+const rarityTransition: IOptions = {
+    beforeEnter: {
+        opacity: 0,
         transform: 'translateY(50%)'
-    })
-    gsap.to(element, {
+    },
+    enter: {
         opacity: 1,
         duration: 0.3,
-        transform: 'translateY(0)',
-        onComplete: done
-    })
-}
-
-function onLeave(el: Element, done: () => void) {
-    const element = el as HTMLElement
-    gsap.to(element, {
+        transform: 'translateY(0)'
+    },
+    leave: {
         opacity: 0,
         duration: 0.3,
-        transform: 'translateY(-30%)',
-        onComplete: done
-    })
+        transform: 'translateY(-30%)'
+    }
 }
 
 </script>

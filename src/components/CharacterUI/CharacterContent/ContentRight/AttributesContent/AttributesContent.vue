@@ -3,7 +3,7 @@
         <BaseInfo :current-character="store.currentCharacter" />
         <StatsBar />
         <button @click="() => setActiveDetails()" class="details-btn">Details</button>
-        <FriendshipAndDescription :current-character="store.currentCharacter" />
+        <FriendshipAndDescription />
         <footer class="footer-buttons">
             <button>
                 <img alt="dressing_room" :src="CharacterHelper.getGenshinSiteIcons('stats-icons/dressing_room')" />
