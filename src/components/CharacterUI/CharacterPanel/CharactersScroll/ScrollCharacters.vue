@@ -55,7 +55,7 @@ const createScroll = () => {
         resetListeners()
         if (width.value <= 915) {
             createScrolling(characters_scroll.value, 'vertical')
-            heightWithGap = 50
+            heightWithGap = 60
             scrollTypes = 'scrollTop'
         } else {
             heightWithGap = 70;
@@ -69,6 +69,7 @@ const createScroll = () => {
 
 watch(width, () => {
     createScroll();
+    console.log(heightWithGap)
 })
 
 
