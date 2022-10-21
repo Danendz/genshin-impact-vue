@@ -150,6 +150,6 @@ export class CreateScroll {
 	public scrollCreate() {
 		this.HTML_ELEMENT.addEventListener('wheel', this.wheelHandler, { passive: true })
 		this.HTML_ELEMENT.addEventListener('mousedown', this.mouseDownHandler)
-		this.HTML_ELEMENT.addEventListener('touchstart', this.mouseDownHandler)
+		this.HTML_ELEMENT.addEventListener('touchstart', this.mouseDownHandler, { passive: true })
 	}
 }
