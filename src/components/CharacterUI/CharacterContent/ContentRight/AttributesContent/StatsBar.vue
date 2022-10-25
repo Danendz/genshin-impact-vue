@@ -1,9 +1,9 @@
 <template>
     <section class="stats-bar">
-        <figure class="stat" v-for="value,key in stats['Base Stats'].stat" :key="key">
+        <figure class="stat" v-for="value, key in stats['Base Stats'].stat" :key="key">
             <img :alt='`${key}`' :src="CharacterHelper.getGenshinSiteIcons(value.icon)" />
-            <figcaption>{{key}}</figcaption>
-            <figcaption class="stat-value">{{value.value}}</figcaption>
+            <figcaption>{{ key }}</figcaption>
+            <figcaption class="stat-value">{{ value.value }}</figcaption>
         </figure>
     </section>
 </template>
@@ -21,38 +21,43 @@ const stats: IStats = statsData;
 </script>
 
 <style lang="scss">
-.attributes-content {
-    .stats-bar {
-        width: 100%;
+.stats-bar {
+    width: 100%;
 
-        .stat {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            padding: 5px;
-            border-radius: 5px;
+    .stat {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        padding: 5px;
+        border-radius: 5px;
 
-            img {
-                width: 12px;
-                height: auto;
-                margin-right: 3px;
-            }
+        img {
+            width: 12px;
+            height: auto;
+            margin-right: 3px;
+        }
 
-            .stat-value {
-                margin-left: auto;
-            }
+        .stat-value {
+            margin-left: auto;
         }
     }
 }
 
+@media only screen and (orientation: portrait) {
+    .stats-bar {
+        .stat {
+            font-size: 14px;
+        }
+    }
+
+}
+
 @media only screen and (max-width: 915px) and (orientation: landscape) {
-    .attributes-content {
-        .stats-bar {
-            .stat {
-                padding: 2px 4px;
-                font-size: 11px;
-            }
+    .stats-bar {
+        .stat {
+            padding: 2px 4px;
+            font-size: 11px;
         }
     }
 }

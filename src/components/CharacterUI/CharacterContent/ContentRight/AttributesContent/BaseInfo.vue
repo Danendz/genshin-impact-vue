@@ -1,7 +1,7 @@
 <template>
     <header class="base-info">
         <Transition name="name-up" appear>
-            <h1 :key="props.currentCharacter.name" class="name">{{props.currentCharacter.name}}</h1>
+            <h1 :key="props.currentCharacter.name" class="name">{{ props.currentCharacter.name }}</h1>
         </Transition>
         <p>
             <TransitionGroup name="name-up" appear>
@@ -39,27 +39,48 @@ const props = defineProps<Props>();
     .base-lvl {
         font-size: 21px;
 
+        &,
+        .max-lvl {
+            text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.384);
+        }
+
         .max-lvl {
             color: rgb(185, 185, 185);
         }
     }
 }
 
+@media only screen and (orientation: portrait) {
+
+    .base-info {
+        .name {
+            font-size: 24px;
+        }
+
+        .rarity {
+            font-size: 16px;
+        }
+
+        .base-lvl {
+            font-size: 17px;
+        }
+    }
+}
+
 @media only screen and (max-width: 915px) and (orientation: landscape) {
-    .attributes-content {
-        .base-info {
-            .name {
-                font-size: 16px;
 
-            }
+    .base-info {
+        .name {
+            font-size: 16px;
 
-            .rarity {
-                font-size: 12px;
-            }
+        }
 
-            .base-lvl {
-                font-size: 13px;
-            }
+        .rarity {
+            font-size: 12px;
+        }
+
+        .base-lvl {
+            font-size: 13px;
         }
     }
 }

@@ -22,7 +22,7 @@ const emit = defineEmits<{
 
 <style lang="scss">
 .modal {
-    position: absolute;
+    position: fixed;
     display: flex;
     top: 0;
     left: 0;
@@ -33,6 +33,7 @@ const emit = defineEmits<{
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.767);
+    backdrop-filter: blur(8px);
 
     .modal-content {}
 

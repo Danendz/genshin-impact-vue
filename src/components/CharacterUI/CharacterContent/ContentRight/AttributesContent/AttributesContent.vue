@@ -27,11 +27,13 @@ import FriendshipAndDescription from './FriendshipAndDescription.vue';
 import ModalWindow from '@/components/UI/ModalWindow.vue';
 import DetailsInfo from './DetailsInfo.vue';
 
+
 //helpers
 import CharacterHelper from '@/helpers/CharacterHelper';
 
 //vue
 import { ref } from 'vue';
+
 
 const store = useCurrentCharacter()
 
@@ -51,6 +53,11 @@ const setActiveDetails = (value?: boolean) => {
     flex-direction: column;
     height: 100%;
     gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.06);
+
+    backdrop-filter: blur(3px);
 
     .footer-buttons {
         margin-top: auto;
@@ -129,9 +136,18 @@ const setActiveDetails = (value?: boolean) => {
     }
 }
 
+@media only screen and (orientation: portrait) {
+    .attributes-content {
+        background-color: rgba(0, 0, 0, 0.384);
+    }
+}
+
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .attributes-content {
         gap: 5px;
+        background-color: transparent;
+        backdrop-filter: blur(0px);
+        padding: 0;
 
         .details-btn {
             font-size: 14px;

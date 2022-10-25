@@ -45,7 +45,7 @@ const { isScrolling, createScrolling } = useCreateScroll()
 const { width } = useWindowSize()
 
 watch(width, () => {
-    createScroll()
+    setColumnsWithHeight()
 })
 
 let heightWithGap = 152
@@ -54,21 +54,26 @@ let columns = 5
 const createScroll = () => {
     if (characters_scroll.value) {
         createScrolling(characters_scroll.value, 'vertical')
-        if (width.value <= 740) {
-            heightWithGap = 89
-            columns = 3
-        } else if (width.value <= 915) {
-            heightWithGap = 89
-            columns = 4
-        } else if (width.value <= 1600) {
-            heightWithGap = 152
-            columns = 4
-        } else {
-            heightWithGap = 152
-            columns = 5
-        }
+        setColumnsWithHeight()
     }
 }
+
+const setColumnsWithHeight = () => {
+    if (width.value <= 740) {
+        heightWithGap = 89
+        columns = 3
+    } else if (width.value <= 915) {
+        heightWithGap = 89
+        columns = 4
+    } else if (width.value <= 1600) {
+        heightWithGap = 152
+        columns = 4
+    } else {
+        heightWithGap = 152
+        columns = 5
+    }
+}
+
 onMounted(() => {
     createScroll();
     if (screen.orientation) {

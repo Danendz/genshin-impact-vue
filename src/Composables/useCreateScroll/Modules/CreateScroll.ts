@@ -123,6 +123,7 @@ export class CreateScroll {
 	}
 
 	public setDefault() {
+
 		this.isScrolling.value = false
 
 		this.bounceScroll.cancelBounce()

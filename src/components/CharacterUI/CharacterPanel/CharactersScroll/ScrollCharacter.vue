@@ -1,11 +1,11 @@
 <template>
     <LazyImg :options="{
-    src: CharacterHelper.getCharacterImage(props.character.name_key, CharacterImage.ICON_SIDE),
-    loading: CharacterHelper.getPlaceholderIcon(CharacterImage.ICON_SIDE),
-    alt: props.character.name,
-    delay: 200
+        src: CharacterHelper.getCharacterImage(props.character.name_key, CharacterImage.ICON_SIDE),
+        loading: CharacterHelper.getPlaceholderIcon(CharacterImage.ICON_SIDE),
+        alt: props.character.name,
+        delay: 200
     }"
-        :class="['characters-scroll__icon-side',{'characters-scroll__icon-side_active': store.currentCharacterIndex === props.index}]" />
+        :class="['characters-scroll__icon-side', { 'characters-scroll__icon-side_active': store.currentCharacterIndex === props.index }]" />
 </template>
 
 <script setup lang="ts">

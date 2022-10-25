@@ -6,7 +6,7 @@
                 class="character-selection-back" />
         </Transition>
         <Transition name="fade-content" mode="out-in">
-            <article v-if="store.currentCharacter" :style="{width: '100%', height: '100%'}"
+            <article v-if="store.currentCharacter" :style="{ width: '100%', height: '100%' }"
                 :key="activeCategory.active_category">
                 <component :is="content_component" />
             </article>
@@ -55,12 +55,10 @@ const content_component = computed(() => {
 <style lang="scss">
 .characters-content {
     .content-right {
-        background-color: rgba(0, 0, 0, 0.418);
         width: 300px;
-        padding: 10px;
         height: 480px;
-        border-radius: 10px;
         transition: .5s;
+
 
         &__close-icon {
             width: 25px;
@@ -104,9 +102,8 @@ const content_component = computed(() => {
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .characters-content {
         .content-right {
-            background-color: transparent;
             width: 220px;
-            padding: 0;
+            height: fit-content;
             gap: 5px;
 
             .character-selection-back {

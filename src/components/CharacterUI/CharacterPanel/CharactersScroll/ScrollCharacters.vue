@@ -1,7 +1,7 @@
 <template>
     <section ref="characters_scroll" class="characters-scroll__characters">
         <PreventClickEvent :is-scrolling="isScrolling" @click-function="changeCharacter"
-            :class="['characters-scroll__character', {'characters-scroll__character_active': store.currentCharacterIndex === index}]"
+            :class="['characters-scroll__character', { 'characters-scroll__character_active': store.currentCharacterIndex === index }]"
             :index="index" v-for="(character, index) in characters" :key="index">
 
             <ScrollCharacter :character="character" :index="index" />
@@ -69,7 +69,6 @@ const createScroll = () => {
 
 watch(width, () => {
     createScroll();
-    console.log(heightWithGap)
 })
 
 

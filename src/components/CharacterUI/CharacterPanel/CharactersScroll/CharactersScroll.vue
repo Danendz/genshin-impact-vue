@@ -36,6 +36,7 @@ import ScrollCharacters from './ScrollCharacters.vue';
         left: 5px;
         top: 45px;
         background-color: $transparency;
+        backdrop-filter: blur(8px);
         border-radius: 12px;
 
         min-width: 45px;
@@ -47,7 +48,7 @@ import ScrollCharacters from './ScrollCharacters.vue';
     }
 }
 
-@media only screen and (orientation: portrait) {
+@media only screen and (max-width:915px) and (orientation: portrait) {
     .characters-scroll {
         top: 23vh;
         left: 0px;

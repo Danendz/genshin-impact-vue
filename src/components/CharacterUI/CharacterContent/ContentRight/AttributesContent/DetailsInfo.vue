@@ -1,19 +1,19 @@
 <template>
     <section class="details-container">
         <section class="details-stats" v-for="value, key in stats" :key="key">
-            <summary>{{key}}</summary>
+            <summary>{{ key }}</summary>
             <article class="details-stats-stat-container">
-                <figure :class="['details-stats-stat', {white: index % 2 === 0, black: index % 2 !== 0}]"
+                <figure :class="['details-stats-stat', { white: index % 2 === 0, black: index % 2 !== 0 }]"
                     v-for="stat, statKey, index in value.stat" :key="statKey">
 
                     <LazyImg :options="{
-                        src: stat.icon 
-                        ? CharacterHelper.getGenshinSiteIcons(stat.icon) 
-                        : CharacterHelper.getGenshinSiteIcons('stats-icons/empty') ,
+                        src: stat.icon
+                            ? CharacterHelper.getGenshinSiteIcons(stat.icon)
+                            : CharacterHelper.getGenshinSiteIcons('stats-icons/empty'),
                         alt: stat.value
                     }" />
-                    <h3>{{statKey}}</h3>
-                    <figcaption>{{stat.value}}</figcaption>
+                    <h3>{{ statKey }}</h3>
+                    <figcaption>{{ stat.value }}</figcaption>
 
                 </figure>
             </article>
@@ -101,13 +101,13 @@ const stats: IStats = statsData;
     .details-container {
         .details-stats {
             summary {
-                font-size: 17px;
+                font-size: 14px;
             }
 
             .details-stats-stat-container {
                 .details-stats-stat {
                     h3 {
-                        font-size: 15px;
+                        font-size: 12px;
                     }
                 }
             }
