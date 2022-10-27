@@ -7,12 +7,12 @@
             <transition name="fade" appear>
                 <div alt="character background" v-if="bgImage"
                     class="character-background-container__character-background"
-                    :style="{backgroundImage: `url(${bgImage})`}"></div>
+                    :style="{ backgroundImage: `url(${bgImage})` }"></div>
             </transition>
             <transition name="fade-right" appear>
 
                 <img alt="gacha-character" :class="['character-background-container__gacha-image',
-                {'character-background-container__gacha-image_enter': showCharactersSelectionList.show}]"
+                { 'character-background-container__gacha-image_enter': showCharactersSelectionList.show }]"
                     v-if="gachaImage" :src="gachaImage" />
 
             </transition>
@@ -43,7 +43,7 @@ const [bgImage, loadBgImage] = usePreloadImage()
 
 const loadAllImages = (): void => {
     if (store.currentCharacter) {
-        loadGachaImage(store.currentCharacter.name_key, CharacterImage.GACHA_SPLASH)
+        loadGachaImage(store.currentCharacter.name_key, CharacterImage.GACHA_SPLASH_LQ)
         loadBgImage(store.currentCharacter.name_key, CharacterImage.NAMECARD_HQ)
     }
 }

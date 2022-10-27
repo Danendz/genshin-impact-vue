@@ -10,10 +10,20 @@ export default class CharacterHelper {
             const completeUrl = this.characterUrl + name.toLowerCase() + '/'
             let iconSideArgs = ''
 
-            const typeExceptions = [CharacterImage.ICON_BIG, CharacterImage.ICON_SIDE]
+            const typeExceptions = [CharacterImage.ICON_BIG, CharacterImage.ICON_SIDE, CharacterImage.ICON_SIDE_LQ]
 
-            if (name.includes('traveler') && typeExceptions.includes(type)) {
-                iconSideArgs = '-lumine'
+            if (name.includes('traveler')) {
+                if (typeExceptions.includes(type)) {
+                    iconSideArgs = '-lumine'
+                }
+                switch (type) {
+                    case CharacterImage.ICON_SIDE_LQ:
+                        type = CharacterImage.ICON_SIDE
+                        break;
+                    case CharacterImage.GACHA_SPLASH_LQ:
+                        type = CharacterImage.GACHA_SPLASH
+                        break;
+                }
             }
             return completeUrl + type + iconSideArgs;
         }
@@ -27,7 +37,7 @@ export default class CharacterHelper {
         return this.genshinSiteUrl + iconUrl
     }
 
-    public static getPlaceholderIcon(iconType: CharacterImage): string{
+    public static getPlaceholderIcon(iconType: CharacterImage): string {
         return this.genshinSiteUrl + 'placeholder-icons/' + iconType + '-placeholder'
     }
 }

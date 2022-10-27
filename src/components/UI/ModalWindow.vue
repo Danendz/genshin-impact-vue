@@ -33,7 +33,6 @@ const emit = defineEmits<{
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.767);
-    backdrop-filter: blur(8px);
 
     .modal-content {}
 

@@ -3,7 +3,7 @@
         src: props.options.src,
         loading: props.options.loading,
         delay: props.options.delay
-    }" @mousedown="(e: MouseEvent) => e.preventDefault()" :alt="`${props.options.alt}`" />
+    }" draggable="false" @mousedown="(e: MouseEvent) => e.preventDefault()" :alt="`${props.options.alt}`" />
 </template>
 
 <script setup lang="ts">

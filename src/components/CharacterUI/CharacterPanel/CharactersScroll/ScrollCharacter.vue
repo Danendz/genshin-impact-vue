@@ -1,6 +1,6 @@
 <template>
     <LazyImg :options="{
-        src: CharacterHelper.getCharacterImage(props.character.name_key, CharacterImage.ICON_SIDE),
+        src: CharacterHelper.getCharacterImage(props.character.name_key, CharacterImage.ICON_SIDE_LQ),
         loading: CharacterHelper.getPlaceholderIcon(CharacterImage.ICON_SIDE),
         alt: props.character.name,
         delay: 200
