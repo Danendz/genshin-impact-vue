@@ -3,7 +3,7 @@
         <CharacterBG />
         <CharactersPanel />
         <CharactersContent />
-        <CharacterSelection />
+        <CharacterSelection v-if="isCharacterSelectionLoaded" />
         <CharactersBottom />
     </main>
 
@@ -13,15 +13,29 @@
 import CharactersPanel from '@/components/CharacterUI/CharacterPanel/CharactersPanel.vue'
 import CharacterBG from '@/components/CharacterUI/CharacterBackground/CharacterBG.vue';
 import CharactersContent from '@/components/CharacterUI/CharacterContent/CharactersContent.vue';
-import CharacterSelection from './CharacterSelection/CharacterSelection.vue';
 import CharactersBottom from './CharactersBottom.vue';
 
 //stores
 import { useCurrentCharacter } from '@/store/currentCharacter';
-import { useCharacters } from '@/store/Characters';
+import { useCharacters } from '@/store/Characters/Characters';
+
+//stores
+import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
+
 
 //vue
-import { onMounted } from 'vue';
+import { onMounted, defineAsyncComponent, ref, watch } from 'vue';
+
+const isCharacterSelectionLoaded = ref(false)
+const showCharactersSelectionList = useShowCharactersSelectionList()
+
+watch(() => showCharactersSelectionList.show, () => {
+    isCharacterSelectionLoaded.value = true
+})
+
+const CharacterSelection = defineAsyncComponent({
+    "loader": () => import('./CharacterSelection/CharacterSelection.vue')
+})
 
 const store = useCurrentCharacter()
 const characters = useCharacters()
