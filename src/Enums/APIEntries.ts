@@ -3,5 +3,6 @@ export const APIEntries: Record<string, string> = {
     WEAPONS: '/weapons/',
     CHARACTERS: '/characters/',
     ELEMENTS: '/elements/',
-    GENSHIN_SITE: '/genshin-site/'
+    GENSHIN_SITE: '/genshin-site/',
+    BANNERS: '/banners/',
 }

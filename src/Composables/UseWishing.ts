@@ -128,14 +128,21 @@ export class UseWishing {
 			return this.getRandomItem(this.wishItems.value.standardFourStars)
 		}
 
-		if (this.isFourStarGuaruntee && this.wishItems.value.eventFourStars) {
+		if (!this.wishItems.value.eventFourStars) throw new Error("Нет ивентовых персонажей или оружий в ивентовом банере!!")
+
+		if (this.isFourStarGuaruntee) {
 			this.isFourStarGuaruntee = false;
 			const random = this.getFlooredRandomNumber(this.wishItems.value.eventFourStars.length - 1)
 			return this.wishItems.value.eventFourStars[random]
 		}
 
-		this.isFourStarGuaruntee = true;
-		return this.getRandomItem(this.wishItems.value.standardFourStars, this.wishItems.value.eventFourStars)
+		const weapon = this.getRandomItem(this.wishItems.value.standardFourStars, this.wishItems.value.eventFourStars)
+
+		if (!this.wishItems.value.eventFourStars.find((w) => weapon.name_key === w.name_key)) {
+			this.isFourStarGuaruntee = true;
+		}
+
+		return weapon
 	}
 
 	private getThreeStar = (): CharacterOrWeapon => {
@@ -148,7 +155,7 @@ export class UseWishing {
 		if ((this.bannerType === BannerTypes.EVENT || this.bannerType === BannerTypes.EVENT_WEAPON) && eventItems) {
 			const randomNum = Math.random() * 10
 			const randomEventItem = indexedEventItem ?? this.getFlooredRandomNumber(eventItems.length - 1)
-			if (randomNum < 5) return eventItems[randomEventItem]
+			if (randomNum < 2.55) return eventItems[randomEventItem]
 		}
 
 		const randomStandardFiveStar = this.getFlooredRandomNumber(standardItems.length - 1)
