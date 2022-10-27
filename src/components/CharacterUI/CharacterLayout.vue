@@ -1,12 +1,20 @@
 <template>
-    <main class="characters-container">
-        <CharacterBG />
-        <CharactersPanel />
-        <CharactersContent />
-        <CharacterSelection v-if="isCharacterSelectionLoaded" />
-        <CharactersBottom />
-    </main>
-
+    <transition name="fade" appear>
+        <main class="characters-container">
+            <CharacterBG />
+            <CharactersPanel />
+            <CharactersContent />
+            <Suspense v-if="isCharacterSelectionLoaded">
+                <template #default>
+                    <CharacterSelection />
+                </template>
+                <template #fallback>
+                    <LoaderSpinner :style="{ width: '30%', left: 0, top: 0 }" />
+                </template>
+            </Suspense>
+            <CharactersBottom />
+        </main>
+    </transition>
 </template>
 <script setup lang="ts">
 //components
@@ -14,6 +22,7 @@ import CharactersPanel from '@/components/CharacterUI/CharacterPanel/CharactersP
 import CharacterBG from '@/components/CharacterUI/CharacterBackground/CharacterBG.vue';
 import CharactersContent from '@/components/CharacterUI/CharacterContent/CharactersContent.vue';
 import CharactersBottom from './CharactersBottom.vue';
+import LoaderSpinner from '../UI/LoaderSpinner.vue';
 
 //stores
 import { useCurrentCharacter } from '@/store/currentCharacter';

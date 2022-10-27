@@ -1,9 +1,9 @@
 <template>
-  <nav :class="['top-nav' ,{'top-nav_active': activeNav}]">
+  <nav :class="['top-nav', { 'top-nav_active': activeNav }]">
     <ul class="top-nav__items">
 
       <li v-for="navLink in navLinks" :key="navLink.name">
-        <router-link :to="{name: navLink.name}">
+        <router-link :to="{ name: navLink.name }">
           <img class="top-nav__link" :alt="`${navLink.name} link`"
             :src="CharacterHelper.getGenshinSiteIcons(navLink.imgUrl)" />
         </router-link>
@@ -11,8 +11,8 @@
       </li>
 
     </ul>
-    <ButtonWithIcon class="top-nav__arrow" @click="toggleNav" icon="mdi:chevron-down"
-      :icon-class="['top-nav__icon', {'top-nav__arrow_active': activeNav}]" />
+    <ButtonWithIcon :accessible-name="'toggle navigation'" class="top-nav__arrow" @click="toggleNav"
+      icon="mdi:chevron-down" :icon-class="['top-nav__icon', { 'top-nav__arrow_active': activeNav }]" />
   </nav>
 </template>
 

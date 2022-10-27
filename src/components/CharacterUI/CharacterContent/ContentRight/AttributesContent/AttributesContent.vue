@@ -2,17 +2,25 @@
     <section class="attributes-content" v-if="store.currentCharacter">
         <BaseInfo :current-character="store.currentCharacter" />
         <StatsBar />
-        <button @click="() => setActiveDetails()" class="details-btn">Details</button>
+        <button aria-label="character details toggle" @click="() => setActiveDetails()"
+            class="details-btn">Details</button>
         <FriendshipAndDescription />
         <footer class="footer-buttons">
-            <button>
+            <button aria-label="dressing room">
                 <img alt="dressing_room" :src="CharacterHelper.getGenshinSiteIcons('stats-icons/dressing_room')" />
                 <span>Dressing Room</span>
             </button>
         </footer>
     </section>
     <ModalWindow @close-modal="setActiveDetails" :active_state="active_details" :modalStyle="'details'">
-        <DetailsInfo />
+        <Suspense v-if="detailsLoaded">
+            <template #default>
+                <DetailsInfo />
+            </template>
+            <template #fallback>
+                <LoaderSpinner />
+            </template>
+        </Suspense>
     </ModalWindow>
 </template>
 
@@ -24,16 +32,17 @@ import { useCurrentCharacter } from '@/store/currentCharacter';
 import BaseInfo from './BaseInfo.vue';
 import StatsBar from './StatsBar.vue';
 import FriendshipAndDescription from './FriendshipAndDescription.vue';
-import ModalWindow from '@/components/UI/ModalWindow.vue';
-import DetailsInfo from './DetailsInfo.vue';
-
+import ModalWindow from '@/components/UI/ModalWindow.vue'
 
 //helpers
 import CharacterHelper from '@/helpers/CharacterHelper';
 
 //vue
-import { ref } from 'vue';
+import { ref, defineAsyncComponent } from 'vue';
+import LoaderSpinner from '@/components/UI/LoaderSpinner.vue';
 
+const detailsLoaded = ref(false)
+const DetailsInfo = defineAsyncComponent(() => import('./DetailsInfo.vue'))
 
 const store = useCurrentCharacter()
 
@@ -41,6 +50,9 @@ const active_details = ref<boolean>(false)
 
 const setActiveDetails = (value?: boolean) => {
     active_details.value = value ?? !active_details.value
+    if (!detailsLoaded.value) {
+        detailsLoaded.value = true
+    }
 }
 
 </script>

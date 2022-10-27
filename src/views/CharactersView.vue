@@ -3,6 +3,7 @@
         :loader-title="'персонажей'">
         <CharacterLayout />
     </PageTransition>
+
 </template>
 
 <script setup lang="ts">
@@ -10,15 +11,16 @@
 import useSetDefaultLayout from '@/Composables/useSetDefaultLayout'
 
 //components
-import CharacterLayout from '@/components/CharacterUI/CharacterLayout.vue';
 import PageTransition from '@/components/UI/PageTransition.vue'
 
 //stores
 import { useCharacters } from '@/store/Characters/Characters';
 
 //vue
-import { onMounted } from 'vue';
+import { onMounted, defineAsyncComponent } from 'vue';
 import { useRoute } from 'vue-router';
+
+const CharacterLayout = defineAsyncComponent(() => import('@/components/CharacterUI/CharacterLayout.vue'))
 
 const name = useRoute().params.name
 const charactersStore = useCharacters()

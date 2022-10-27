@@ -5,7 +5,8 @@
                 <CharactersInfo />
                 <CharactersScroll />
                 <section class="characters-panel__close">
-                    <ButtonWithIcon @click="router.go(-1)" icon="mdi:close" icon-class="characters-panel__close-icon" />
+                    <ButtonWithIcon :accessible-name="'go back'" @click="router.go(-1)" icon="mdi:close"
+                        icon-class="characters-panel__close-icon" />
                 </section>
             </section>
         </header>

@@ -11,7 +11,7 @@
 
 <style>
 .spinnerLoader {
-    width:100%;
+    width: 100%;
     height: 100vh;
     position: absolute;
     display: flex;
@@ -22,18 +22,18 @@
 .lds-ring {
     display: inline-block;
     position: relative;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
 }
 
 .lds-ring div {
     box-sizing: border-box;
     display: block;
     position: absolute;
-    width: 64px;
-    height: 64px;
+    width: 44px;
+    height: 44px;
     margin: 8px;
-    border: 8px solid #fff;
+    border: 4px solid #fff;
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: #fff transparent transparent transparent;

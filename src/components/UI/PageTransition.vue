@@ -1,23 +1,25 @@
 <template>
-    <transition name="fade" appear mode="out-in">
-        <ErrorPage v-if="error" :error-message="error" />
-        <slot v-else-if="conditionItem" />
-        <LoaderPage v-else :title="props.loaderTitle" />
-    </transition>
+    <Suspense v-if="conditionItem">
+        <template #default>
+            <slot />
+        </template>
+        <template #fallback>
+            <LoaderPage :title="'персонажей'" />
+        </template>
+    </Suspense>
+    <ErrorPage v-else-if="props.error" :error-message="props.error" />
 </template>
 
 <script setup lang="ts">
 //components
 import { defineAsyncComponent } from 'vue';
 import LoaderPage from './LoaderPage.vue';
+
 //interfaces
 import { Character } from '@/Interfaces/CharacterInterface';
 import { ErrorMessages } from '@/Enums/ErrorMessages';
 
-
-const ErrorPage = defineAsyncComponent(() =>
-    import('./ErrorPage.vue')
-)
+const ErrorPage = defineAsyncComponent(() => import('@/components/UI/ErrorPage.vue'))
 
 interface Props {
     conditionItem: Character[] | null,
