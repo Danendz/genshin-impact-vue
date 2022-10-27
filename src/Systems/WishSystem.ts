@@ -146,7 +146,7 @@ abstract class GachaController {
             this.wishItemsList.standart4;
 
         switch (this.bannerType) {
-            case BannerTypes.STANDART:
+            case BannerTypes.STANDARD:
                 return this.getRandomItem(wishItemCharacter.rarity, standartList)
             case BannerTypes.EVENT:
                 if (!wishItemCharacter.itemsListEvent) {

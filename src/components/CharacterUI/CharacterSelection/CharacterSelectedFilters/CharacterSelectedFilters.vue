@@ -18,7 +18,7 @@
 import CharacterSelectedFilterOption from './CharacterSelectedFilterOption.vue';
 
 //stores
-import { useCharacters } from '@/store/Characters';
+import { useCharacters } from '@/store/Characters/Characters';
 
 //composables
 import useCreateScroll from '@/Composables/useCreateScroll';

@@ -1,18 +1,18 @@
 <template>
     <section class="filter-option" @click="setFilter">
         <span class="filter-option__input"><span :class="[
-        'filter-option__input-dot', 
-        {'filter-option__input-dot_checked': selectedFilterOptions.includes(option)}, 
-        {'filter-option__input-dot_fix-dot': index % 2 !== 0}
+            'filter-option__input-dot',
+            { 'filter-option__input-dot_checked': selectedFilterOptions.includes(option) },
+            { 'filter-option__input-dot_fix-dot': index % 2 !== 0 }
         ]" /></span>
-        <p>{{option}}</p>
+        <p>{{ option }}</p>
     </section>
 </template>
 
 <script setup lang="ts">
 //components
 import { FilterType } from '@/Interfaces/FilterCharacter';
-import { useCharacters } from '@/store/Characters';
+import { useCharacters } from '@/store/Characters/Characters';
 
 interface Props {
     optionKey: keyof FilterType

@@ -6,9 +6,13 @@ import { ErrorMessages } from '@/Enums/ErrorMessages'
 
 //interface
 import { Character } from '@/Interfaces/CharacterInterface'
+import { useActiveCategory } from '@/store/ActiveCategory'
 
 //types
 import { DataResponseType } from '@/Types/DataResponseType'
+
+//json
+import FetchCharactersCategory from '@/assets/Data/Fetch_Characters_Category.json'
 
 const characterService = new CharacterService()
 
@@ -18,7 +22,9 @@ const useGetCharactersNames = async () => {
 }
 
 const useGetCharacters = async () => {
-    const data: DataResponseType<Character[], ErrorMessages.NOT_FOUND> = await characterService.get<Character>();
+    const { active_category } = useActiveCategory()
+
+    const data: DataResponseType<Character[], ErrorMessages.NOT_FOUND> = await characterService.get<Character>(FetchCharactersCategory[active_category]);
     return data
 }
 

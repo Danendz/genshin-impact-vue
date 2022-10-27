@@ -19,7 +19,7 @@ import useCreateScroll from '@/Composables/useCreateScroll';
 import useSetDefaultLayout from '@/Composables/useSetDefaultLayout';
 
 //stores
-import { useCharacters } from '@/store/Characters';
+import { useCharacters } from '@/store/Characters/Characters';
 import { useCurrentCharacter } from '@/store/currentCharacter';
 import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
 

@@ -2,9 +2,9 @@
     <Transition name="fade">
         <section ref="target" v-if="props.sortActive" class="sort-options-container">
             <figure v-for="sortOption in sort" :key="sortOption" @click="() => chooseSort(sortOption)"
-                :class="['sort-option', {active: charactersFilters.sort === sortOption}]">
-                <p>{{ sortOption ? sortOption[0].toUpperCase() + sortOption.substring(1) : "All"}}</p>
-                <img :class="[{activeImg: charactersFilters.sort === sortOption}]" alt="current"
+                :class="['sort-option', { active: charactersFilters.sort === sortOption }]">
+                <p>{{ sortOption ? sortOption[0].toUpperCase() + sortOption.substring(1) : "All" }}</p>
+                <img :class="[{ activeImg: charactersFilters.sort === sortOption }]" alt="current"
                     src="@/assets/Icons/complete.webp" />
             </figure>
         </section>
@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 //store
-import { useCharacters } from '@/store/Characters';
+import { useCharacters } from '@/store/Characters/Characters';
 
 //interfaces
 import { sort, SortType } from '@/Interfaces/FilterCharacter';

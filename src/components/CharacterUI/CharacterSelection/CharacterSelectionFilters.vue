@@ -8,9 +8,10 @@
         <button class="filters__sort" @click="toggleSort">
 
             <span>{{ charactersFilters.sort ? charactersFilters.sort[0].toUpperCase() +
-            charactersFilters.sort.substring(1) : "All"}}</span>
+                    charactersFilters.sort.substring(1) : "All"
+            }}</span>
 
-            <img alt="filters__arrow" :class="[{'filters__arrow_active': sortActive}]"
+            <img alt="filters__arrow" :class="[{ 'filters__arrow_active': sortActive }]"
                 src="@/assets/Icons/triangle-up.webp" />
 
         </button>
@@ -28,7 +29,7 @@ import CharacterSelectedFilters from './CharacterSelectedFilters/CharacterSelect
 import ButtonWithIcon from '@/components/UI/ButtonWithIcon.vue';
 
 //store
-import { useCharacters } from '@/store/Characters';
+import { useCharacters } from '@/store/Characters/Characters';
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
 //vue

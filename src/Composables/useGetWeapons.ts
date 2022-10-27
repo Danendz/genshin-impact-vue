@@ -10,33 +10,21 @@ import { Weapon } from '@/Interfaces/WeaponInterface'
 //types
 import { DataResponseType } from '@/Types/DataResponseType'
 
-//vue
-import { ref } from 'vue'
+const weaponService = new WeaponService()
 
-const characterService = new WeaponService()
-
-const useGetWeapons = () => {
-    const weapons = ref<DataResponseType<Weapon[], ErrorMessages.NOT_FOUND> | null>(null)
-
-    const getWeapons = async (): Promise<void> => {
-        const data: DataResponseType<Weapon[], ErrorMessages.NOT_FOUND>
-            = await characterService.get<Weapon>();
-        weapons.value = data
-    }
-    getWeapons();
-
-    return { weapons }
+const useGetWeaponsNames = async () => {
+    const data: string[] = await weaponService.getNames()
+    return data
 }
 
-const useGetWeaponByName = (name: string) => {
-    const weapon = ref<DataResponseType<Weapon, ErrorMessages.NOT_FOUND> | null>(null)
-    const getWeapon = async () => {
-        const data: DataResponseType<Weapon, ErrorMessages.NOT_FOUND>
-            = await characterService.getByName(name)
-        weapon.value = data
-    }
-    getWeapon();
-    return { weapon }
+const useGetWeapons = async (fields?: string[]) => {
+    const data: DataResponseType<Weapon[], ErrorMessages.NOT_FOUND> = await weaponService.get<Weapon>(fields);
+    return data
 }
 
-export { useGetWeapons, useGetWeaponByName }
+const useGetWeaponByName = async (name: string) => {
+    const data: DataResponseType<Weapon, ErrorMessages.NOT_FOUND> = await weaponService.getByName(name)
+    return data
+}
+
+export { useGetWeapons, useGetWeaponByName, useGetWeaponsNames }

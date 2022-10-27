@@ -14,7 +14,7 @@ import CharacterLayout from '@/components/CharacterUI/CharacterLayout.vue';
 import PageTransition from '@/components/UI/PageTransition.vue'
 
 //stores
-import { useCharacters } from '@/store/Characters';
+import { useCharacters } from '@/store/Characters/Characters';
 
 //vue
 import { onMounted } from 'vue';

@@ -8,12 +8,16 @@
 
 <script setup lang="ts">
 //components
+import { defineAsyncComponent } from 'vue';
 import LoaderPage from './LoaderPage.vue';
-import ErrorPage from './ErrorPage.vue';
-
 //interfaces
 import { Character } from '@/Interfaces/CharacterInterface';
 import { ErrorMessages } from '@/Enums/ErrorMessages';
+
+
+const ErrorPage = defineAsyncComponent(() =>
+    import('./ErrorPage.vue')
+)
 
 interface Props {
     conditionItem: Character[] | null,

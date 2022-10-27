@@ -15,7 +15,7 @@
 import useCreateScroll from '@/Composables/useCreateScroll';
 
 //stores
-import { useCharacters } from '@/store/Characters';
+import { useCharacters } from '@/store/Characters/Characters';
 import { useCurrentCharacter } from '@/store/currentCharacter';
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 

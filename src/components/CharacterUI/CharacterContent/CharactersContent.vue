@@ -1,5 +1,5 @@
 <template>
-    <section :class="['characters-content', {'characters-content_hided': changedStyle}]">
+    <section :class="['characters-content', { 'characters-content_hided': changedStyle }]">
         <Transition @after-leave="changedStyle = true" @before-enter="changedStyle = false"
             @after-enter="setDefaultSort" name="fade-right" appear>
             <ContentOptions v-show="!hideLayout.hide" :options-list="options_list" />
@@ -21,7 +21,7 @@ import ContentOptions from './ContentOptions.vue';
 import ContentRight from './ContentRight/ContentRight.vue';
 
 //stores
-import { useCharacters } from '@/store/Characters';
+import { useCharacters } from '@/store/Characters/Characters';
 import { useActiveCategory } from '@/store/ActiveCategory'
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';

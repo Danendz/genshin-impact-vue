@@ -22,7 +22,6 @@ import { useCharacters } from '@/store/Characters/Characters';
 //stores
 import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
 
-
 //vue
 import { onMounted, defineAsyncComponent, ref, watch } from 'vue';
 

@@ -1,7 +1,7 @@
 export enum BannerTypes {
-    STANDART,
-    EVENT,
-    EVENT_WEAPON
+    STANDARD = 'standard',
+    EVENT = 'event',
+    EVENT_WEAPON = 'event_weapon'
 }
 
 export enum WishItemRarity {

@@ -1,7 +1,7 @@
 import { Character } from "@/Interfaces/CharacterInterface";
 import { defineStore } from "pinia";
 import { ref } from 'vue'
-import { useCharacters } from "./Characters";
+import { useCharacters } from "./Characters/Characters";
 
 export const useCurrentCharacter = defineStore('currentCharacter', () => {
     const currentCharacter = ref<Character>()

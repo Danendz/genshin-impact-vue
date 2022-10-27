@@ -1,8 +1,6 @@
 import { ErrorMessages } from "@/Enums/ErrorMessages";
 import { Character } from "@/Interfaces/CharacterInterface";
 import { Weapon } from "@/Interfaces/WeaponInterface";
-import { useActiveCategory } from '@/store/ActiveCategory'
-import FetchCharactersCategory from '@/assets/Data/Fetch_Characters_Category.json'
 type fetchingItemsType = Character | Weapon
 
 export default abstract class ServiceController {
@@ -32,10 +30,10 @@ export default abstract class ServiceController {
     }
 
     //get all items with full information
-    public async get<T extends fetchingItemsType>(): Promise<T[] | ErrorMessages.NOT_FOUND> {
-        const ActiveCategory = useActiveCategory()
+    public async get<T extends fetchingItemsType>(fields?: string[]): Promise<T[] | ErrorMessages.NOT_FOUND> {
+        const paramsFields = fields ? `?fields=${fields}` : ''
         const data: T[] | ErrorMessages.NOT_FOUND =
-            await fetch(`${this.fetchUrl}all?fields=${FetchCharactersCategory[ActiveCategory.active_category]}`)
+            await fetch(`${this.fetchUrl}all${paramsFields}`)
                 .then((res) => {
                     if (res.ok) {
                         return res.json();

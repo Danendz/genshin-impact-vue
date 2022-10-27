@@ -2,8 +2,8 @@
 import { defineStore } from "pinia";
 
 //store composables
-import { useFetchCharacters } from "./Characters/FetchCharacters";
-import { useCharactersFilter } from "./Characters/Filter";
+import { useFetchCharacters } from "./FetchCharacters";
+import { useCharactersFilter } from "./Filter";
 
 
 export const useCharacters = defineStore('characters', () => {
