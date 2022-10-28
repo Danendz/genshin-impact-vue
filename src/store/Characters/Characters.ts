@@ -7,7 +7,7 @@ import { useCharactersFilter } from "./Filter";
 
 
 export const useCharacters = defineStore('characters', () => {
-    const { getCharacters, error, fetchCharacters } = useFetchCharacters()
+    const { getCharacters, getError, fetchCharacters } = useFetchCharacters()
 
     const { getFilteredCharacter,
         getSelectedFilterOptions,
@@ -21,7 +21,7 @@ export const useCharacters = defineStore('characters', () => {
     return {
         getCharacters,
         getFilteredCharacter,
-        error,
+        getError,
         sort,
         confirm,
         getSelectedFilterOptions,

@@ -33,5 +33,9 @@ export const useBannersData = defineStore('banners data', () => {
 		return current_banner
 	})
 
-	return { getStandardBanner, getCurrentBanner, fetchBannersData }
+	const getErroBanner = computed(() => {
+		return err
+	})
+
+	return { getStandardBanner, getCurrentBanner, getErroBanner, fetchBannersData }
 })

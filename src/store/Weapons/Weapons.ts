@@ -6,7 +6,7 @@ import { ErrorMessages } from "@/Enums/ErrorMessages";
 
 export const useWeapons = defineStore('weapons', () => {
 	const weapons = ref<Weapon[] | null>(null)
-	const err = ref<string | null>(null)
+	const err = ref<ErrorMessages | null>(null)
 
 	const fetchWeapons = async (fields?: string[]) => {
 		if (!Array.isArray(weapons) || err.value) {
@@ -30,5 +30,9 @@ export const useWeapons = defineStore('weapons', () => {
 		return weapons
 	})
 
-	return { getWeapons, fetchWeapons }
+	const getErrorWeapons = computed(() => {
+		return err
+	})
+
+	return { getWeapons, getErrorWeapons, fetchWeapons }
 })

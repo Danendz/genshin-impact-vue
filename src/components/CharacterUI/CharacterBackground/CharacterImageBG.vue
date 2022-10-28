@@ -1,7 +1,7 @@
 <template>
     <transition name="fade-background" appear>
         <figure v-if="store.currentCharacter"
-            :class="`character-background-container character-background-container_image character-background-container_${store.currentCharacter.vision.toLowerCase()}`"
+            :class="`character-background-container character-background-container_image`"
             :key="store.currentCharacter.name_key">
 
             <transition name="fade" appear>
@@ -62,7 +62,6 @@ watch(() => store.currentCharacter, () => {
 </script>
 
 <style lang="scss">
-@import '@/assets/Styles/vision_colors';
 @import '@/assets/Styles/CharacterUI/CharacterBackground/CharacterBackground';
 
 .character-background-container {
@@ -103,30 +102,6 @@ watch(() => store.currentCharacter, () => {
         &_enter {
             transform: translateX(5%);
         }
-    }
-
-    &_anemo {
-        background-color: $anemo;
-    }
-
-    &_geo {
-        background-color: $geo;
-    }
-
-    &_hydro {
-        background-color: $hydro;
-    }
-
-    &_electro {
-        background-color: $electro;
-    }
-
-    &_pyro {
-        background-color: $pyro;
-    }
-
-    &_cryo {
-        background-color: $cryo;
     }
 }
 

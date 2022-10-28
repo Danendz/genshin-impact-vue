@@ -6,16 +6,6 @@ import { useCharacters } from "../Characters/Characters";
 import { useWeapons } from "../Weapons/Weapons";
 import { useBannersData } from "./bannersData";
 
-/* const standardFiveStarCharacters = ["jean", 'qiqi', 'tighnari', 'keqing', 'mona', 'diluc']
-
-const standardFiveStarWeapons = ["Amo's Bow", "Skyward Harp", "Lost Prayer to the Sacred Winds",
-	"Skyward Atlas", "Skyward Pride", "Wolf's Gravestone", "Primordial Jade Winged-Spear", "Skyward Spine", "Aquila Favonia", "Skyward Blade"]
-
-const eventFiveStarCharacter = "raiden"
-const eventFourStarCharacters = ["gorou", "sara", "bennett", "barbara"]
-const eventFiveStarWeapon = ["Mistsplitter Reforged"]
-const eventFourStarWeapons = ["Akuoumaru", "Watatsumi Wavewalker"] */
-
 export const useComputedItems = () => {
 
 	const { getCharacters } = useCharacters()
@@ -28,16 +18,17 @@ export const useComputedItems = () => {
 
 			const standardFiveStarCharacter = getStandardBanner.value.standard_five_star_characters;
 			const standardFiveStarWeapons = getStandardBanner.value.standard_five_star_weapons
-			const eventFourStarCharacters = getCurrentBanner.value.event_four_star_characters
-			const eventFourStarWeapons = getCurrentBanner.value.event_four_star_weapons
+			const newEventFourStarCharacters = getCurrentBanner.value.new_event_four_star_characters
+			const newEventFourStarWeapons = getCurrentBanner.value.new_event_four_star_weapon
 
 			const standardFiveStars: CharacterOrWeapon[] = [
 				...getCharacters.value.filter((character) => standardFiveStarCharacter.includes(character.name_key)),
 				...getWeapons.value.filter((weapon) => standardFiveStarWeapons.includes(weapon.name_key))
 			];
+
 			const standardFourStars: CharacterOrWeapon[] = [
-				...getCharacters.value.filter((character) => character.rarity.toString() === CharacterRarity.FOUR && !eventFourStarCharacters.includes(character.name_key) && character.name !== 'Traveler'),
-				...getWeapons.value.filter((weapon) => weapon.rarity === WeaponRarity.FOUR && !eventFourStarWeapons.includes(weapon.name_key) && weapon.location === WeaponLocation.GACHA)
+				...getCharacters.value.filter((character) => character.rarity.toString() === CharacterRarity.FOUR && !newEventFourStarCharacters.includes(character.name_key) && character.name !== 'Traveler'),
+				...getWeapons.value.filter((weapon) => weapon.rarity === WeaponRarity.FOUR && !newEventFourStarWeapons.includes(weapon.name_key) && weapon.location === WeaponLocation.GACHA)
 			];
 			const standardThreeStars = getWeapons.value.filter((weapon) => weapon.rarity === WeaponRarity.THREE && weapon.location === WeaponLocation.GACHA)
 
@@ -74,7 +65,9 @@ export const useComputedItems = () => {
 			const eventFiveStarCharacter = getCurrentBanner.value.event_five_star_character
 			const eventFourStarCharacters = getCurrentBanner.value.event_four_star_characters
 
-			const eventFiveStars = getCharacters.value.filter((character) => character.name_key === eventFiveStarCharacter)
+			const eventFiveStars = getCharacters.value.filter((character) => eventFiveStarCharacter.includes(character.name_key))
+			eventFiveStars.sort((a, b) => eventFiveStarCharacter.indexOf(a.name_key) - eventFiveStarCharacter.indexOf(b.name_key))
+
 			const eventFourStars = getCharacters.value.filter((character) => eventFourStarCharacters.includes(character.name_key))
 
 			if (!eventFiveStars.length || eventFourStars.length !== eventFourStarCharacters.length) throw new Error('На сервере не достаточно ивентовых персонажей!')

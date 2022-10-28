@@ -62,23 +62,25 @@ export class UseWishing {
 		if (customFiveStarPity) this.pityFiveStar = customFiveStarPity
 	}
 
-	public makeWishes(pulls: number): CharacterOrWeapon[] {
-		if (this.isWishItemsNull()) return [];
+	public makeWishes(pulls: number, eventItemIndex?: number): CharacterOrWeapon[] {
+
+		if (this.isWishItemsNull()) throw new Error("Списка персонажей и оружий нет!");
+
 		const items: CharacterOrWeapon[] = new Array(pulls);
+
 		for (let i = 0; i < pulls; ++i) {
-			items[i] = this.makeOneWish();
+			items[i] = this.makeOneWish(eventItemIndex);
 		}
 
 		return items
 	}
 
-	private makeOneWish(): CharacterOrWeapon {
+	private makeOneWish(eventItemIndex?: number): CharacterOrWeapon {
 		this.randomNumber = Math.random() * 100;
 		this.addPity()
 
 		if (this.userFiveStarPity >= this.softPity) this.chanceFiveStarIncrease += 0.1
-
-		if (this.isFiveStar()) return this.getFiveStar()
+		if (this.isFiveStar()) return this.getFiveStar(eventItemIndex)
 
 		if (this.isFourStar()) return this.getFourStar();
 
@@ -91,10 +93,10 @@ export class UseWishing {
 	}
 
 	private isFiveStar(): boolean {
-		return this.userFiveStarPity === this.pityFiveStar || this.randomNumber <= this.chanceToWinFiveStar + this.chanceFiveStarIncrease
+		return this.userFiveStarPity >= this.pityFiveStar || this.randomNumber <= this.chanceToWinFiveStar + this.chanceFiveStarIncrease
 	}
 
-	private getFiveStar = (): CharacterOrWeapon => {
+	private getFiveStar = (eventItemIndex?: number): CharacterOrWeapon => {
 		this.chanceFiveStarIncrease = 0;
 		this.userFiveStarPity = 0;
 
@@ -104,14 +106,18 @@ export class UseWishing {
 
 		if (!this.wishItems.value.eventFiveStars) throw new Error("Нет ивентовых персонажей в ивентовом банере!!")
 
+		if (eventItemIndex === undefined) throw new Error("Вы не указали индекс ивентового персонажа!")
+
+		if (!this.wishItems.value.eventFiveStars[eventItemIndex]) throw new Error("Указанный индекс ивентового персонажа является не верным!")
+
 		if (this.isFiveStarGuaruntee) {
 			this.isFiveStarGuaruntee = false;
-			return this.wishItems.value.eventFiveStars[0]
+			return this.wishItems.value.eventFiveStars[eventItemIndex]
 		}
 
-		const character = this.getRandomItem(this.wishItems.value.standardFiveStars, this.wishItems.value.eventFiveStars, 0)
+		const character = this.getRandomItem(this.wishItems.value.standardFiveStars, this.wishItems.value.eventFiveStars, eventItemIndex)
 
-		if (character.name !== this.wishItems.value.eventFiveStars[0].name) {
+		if (character.name !== this.wishItems.value.eventFiveStars[eventItemIndex].name) {
 			this.isFiveStarGuaruntee = true;
 		}
 
@@ -119,7 +125,7 @@ export class UseWishing {
 	}
 
 	private isFourStar = (): boolean => {
-		return this.userFourStarPity === this.pityFourStar || this.randomNumber <= this.chanceToWinStandartFourStar
+		return this.userFourStarPity >= this.pityFourStar || this.randomNumber <= this.chanceToWinStandartFourStar
 	}
 
 	private getFourStar = (): CharacterOrWeapon => {
@@ -132,7 +138,8 @@ export class UseWishing {
 
 		if (this.isFourStarGuaruntee) {
 			this.isFourStarGuaruntee = false;
-			const random = this.getFlooredRandomNumber(this.wishItems.value.eventFourStars.length - 1)
+			const random = this.getRoundedRandomNumber(this.wishItems.value.eventFourStars.length - 1)
+			console.log(random)
 			return this.wishItems.value.eventFourStars[random]
 		}
 
@@ -146,27 +153,28 @@ export class UseWishing {
 	}
 
 	private getThreeStar = (): CharacterOrWeapon => {
-		const randomThreeStar = this.getFlooredRandomNumber(this.wishItems.value.standardThreeStars.length - 1)
+		const randomThreeStar = this.getRoundedRandomNumber(this.wishItems.value.standardThreeStars.length - 1)
 		return this.wishItems.value.standardThreeStars[randomThreeStar]
 	}
 
 	private getRandomItem = (standardItems: CharacterOrWeapon[], eventItems?: CharacterOrWeapon[], indexedEventItem?: number): CharacterOrWeapon => {
 
 		if ((this.bannerType === BannerTypes.EVENT || this.bannerType === BannerTypes.EVENT_WEAPON) && eventItems) {
-			const randomNum = Math.random() * 10
-			const randomEventItem = indexedEventItem ?? this.getFlooredRandomNumber(eventItems.length - 1)
-			if (randomNum < 2.55) return eventItems[randomEventItem]
+			const randomNum = Math.random() * this.chanceToWinStandartFourStar
+			const randomEventItem = indexedEventItem ?? this.getRoundedRandomNumber(eventItems.length - 1)
+
+			if (randomNum < this.chanceToWinEventFourStar) return eventItems[randomEventItem]
 		}
 
-		const randomStandardFiveStar = this.getFlooredRandomNumber(standardItems.length - 1)
-		return standardItems[randomStandardFiveStar]
+		const randomItem = this.getRoundedRandomNumber(standardItems.length - 1)
+		return standardItems[randomItem]
 	}
 
 	private isWishItemsNull() {
 		return this.wishItems.value === null
 	}
 
-	private getFlooredRandomNumber(size: number): number {
-		return Math.floor(Math.random() * size)
+	private getRoundedRandomNumber(size: number): number {
+		return Math.round(Math.random() * size)
 	}
 }

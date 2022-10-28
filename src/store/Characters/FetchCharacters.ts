@@ -93,9 +93,14 @@ export const useFetchCharacters = () => {
 	const getCharacters: ComputedRef<Ref<Character[] | null>> = computed(() => {
 		return characters
 	})
+
+	const getError: ComputedRef<Ref<ErrorMessages | null>> = computed(() => {
+		return error
+	})
+
 	return {
 		getCharacters,
-		error,
+		getError,
 		fetchCharacters,
 	}
 }

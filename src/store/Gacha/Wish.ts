@@ -11,13 +11,24 @@ export const useWish = defineStore('wish', () => {
 	const wishesStore = useWishes()
 	const banners = useBannerEntities()
 
-	const makeWishes = (pulls: number, banner: BannerTypes): CharacterOrWeapon[] | string => {
-		if (!banners.bannersEntities) return "Персонажи еще не загружены!";
+	function makeWishes(pulls: number, banner: BannerTypes.EVENT, eventItemIndex: number): CharacterOrWeapon[] | string;
+	function makeWishes(pulls: number, banner: BannerTypes, eventItemIndex?: number): CharacterOrWeapon[] | string {
+		if (!banners.bannersEntities) throw new Error("Персонажи еще не загружены!");
+
+		if (banner === BannerTypes.EVENT && eventItemIndex === undefined) throw new Error("Вы не указали индекс ивентового персонажа")
 
 		const err = takeWishes(pulls, banner)
+
 		if (err) return "Недостаточно молитв!";
 
-		const result = banners.bannersEntities[banner].makeWishes(pulls)
+		let result: CharacterOrWeapon[] | string;
+
+		if (BannerTypes.EVENT) {
+			result = banners.bannersEntities[banner].makeWishes(pulls, eventItemIndex)
+		} else {
+			result = banners.bannersEntities[banner].makeWishes(pulls)
+		}
+
 		useUpdateLocalStorageGacha(banner)
 		return result
 	}
@@ -42,7 +53,6 @@ export const useWish = defineStore('wish', () => {
 	const addPrimogems = (amount: number) => {
 		primogemsStore.setPrimogems(primogemsStore.primogems + amount)
 	}
-
 
 
 	return {
