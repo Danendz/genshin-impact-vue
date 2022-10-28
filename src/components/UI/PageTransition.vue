@@ -12,11 +12,12 @@
 
 <script setup lang="ts">
 //components
-import { defineAsyncComponent } from 'vue';
 import LoaderPage from './LoaderPage.vue';
 
 //interfaces
 import { ErrorMessages } from '@/Enums/ErrorMessages';
+
+import { defineAsyncComponent, ref, watch, toRefs, onUnmounted } from 'vue';
 
 const ErrorPage = defineAsyncComponent(() => import('@/components/UI/ErrorPage.vue'))
 
@@ -26,5 +27,17 @@ interface Props {
     loaderTitle: string
 }
 const props = defineProps<Props>()
+const { conditionItem } = toRefs(props)
+const progressMultiplier = 100 / conditionItem.value.length
+const progress = ref(progressMultiplier)
+
+const progressCounter = watch(conditionItem, () => {
+    progress.value += progressMultiplier
+})
+
+onUnmounted(() => {
+    progress.value = 0;
+    progressCounter()
+})
 
 </script>

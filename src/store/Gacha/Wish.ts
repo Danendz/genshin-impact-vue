@@ -5,11 +5,22 @@ import { usePrimogems } from "./primogems";
 import { useWishes } from "./wishes";
 import { useBannerEntities } from './bannerEntities'
 import { useUpdateLocalStorageGacha } from "./updateLocalStorageGacha";
+import { ref, computed } from "vue";
 
 export const useWish = defineStore('wish', () => {
 	const primogemsStore = usePrimogems()
 	const wishesStore = useWishes()
 	const banners = useBannerEntities()
+	type activeBannerType = [BannerTypes, number?]
+
+	const activeBannerWish = ref<activeBannerType>([BannerTypes.EVENT, 0])
+
+	const getActiveBannerWish = computed(() => {
+		return activeBannerWish
+	})
+	const setActiveBannerWish = (value: activeBannerType) => {
+		activeBannerWish.value = value
+	}
 
 	function makeWishes(pulls: number, banner: BannerTypes.EVENT, eventItemIndex: number): CharacterOrWeapon[] | string;
 	function makeWishes(pulls: number, banner: BannerTypes, eventItemIndex?: number): CharacterOrWeapon[] | string {
@@ -58,6 +69,8 @@ export const useWish = defineStore('wish', () => {
 	return {
 		addWishes,
 		makeWishes,
-		addPrimogems
+		addPrimogems,
+		getActiveBannerWish,
+		setActiveBannerWish
 	}
 })

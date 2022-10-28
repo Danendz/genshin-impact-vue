@@ -139,7 +139,7 @@ export class UseWishing {
 		if (this.isFourStarGuaruntee) {
 			this.isFourStarGuaruntee = false;
 			const random = this.getRoundedRandomNumber(this.wishItems.value.eventFourStars.length - 1)
-			console.log(random)
+
 			return this.wishItems.value.eventFourStars[random]
 		}
 

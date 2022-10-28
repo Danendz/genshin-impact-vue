@@ -129,5 +129,40 @@
 
 .fade-up-info-enter-active,
 .fade-up-info-leave-active {
-  transition: all 0.3s;
+  transition: all 0.35s;
+}
+
+.banner-right-leave-active {
+  transition: all 0.35s;
+}
+.banner-right-enter-active {
+  transition: all 0.35s;
+
+  transition-delay: 0.15s;
+}
+.banner-right-leave-active {
+  position: absolute;
+}
+
+.banner-right-enter-from {
+  transform: translateX(50px);
+  opacity: 0;
+}
+
+.banner-right-leave-to {
+  transform: translateX(-50px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.banner-down-enter-active,
+.banner-down-leave-active {
+  transition: all 0.5s;
+}
+
+.banner-down-enter-from,
+.banner-down-leave-to {
+  transform: translateY(-100px);
+  opacity: 0;
+  pointer-events: none;
 }
