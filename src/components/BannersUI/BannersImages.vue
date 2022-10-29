@@ -7,14 +7,15 @@
 				v-for="url, index in getCurrentBanner.event_five_star_character_images" :key="index" :src="url"
 				@click="emit('set-active', index, BannerTypes.EVENT, index)" />
 
-			<img draggable="false" :key="2"
-				:class="['banners-layout__banners-img-sm', { 'banners-layout__banners-img-sm_active': activeBannerImage === 2 }]"
+			<img v-if="getCurrentBanner.event_five_star_weapons_image" draggable="false" :key="totalEventLength - 1"
+				:class="['banners-layout__banners-img-sm', { 'banners-layout__banners-img-sm_active': activeBannerImage === totalEventLength - 1 }]"
 				:src="getCurrentBanner.event_five_star_weapons_image"
-				@click="emit('set-active', 2, BannerTypes.EVENT_WEAPON,)" />
+				@click="emit('set-active', totalEventLength - 1, BannerTypes.EVENT_WEAPON,)" />
 
-			<img draggable="false" :key="3"
-				:class="['banners-layout__banners-img-sm', { 'banners-layout__banners-img-sm_active': activeBannerImage === 3 }]"
-				:src="getStandardBanner.standard_image" @click="emit('set-active', 3, BannerTypes.STANDARD)" />
+			<img draggable="false" :key="totalEventLength"
+				:class="['banners-layout__banners-img-sm', { 'banners-layout__banners-img-sm_active': activeBannerImage === totalEventLength }]"
+				:src="getStandardBanner.standard_image"
+				@click="emit('set-active', totalEventLength, BannerTypes.STANDARD)" />
 
 		</TransitionGroup>
 	</section>
@@ -24,11 +25,12 @@
 				v-for="url, index in getCurrentBanner.event_five_star_character_images" :key="index" :src="url"
 				v-show="index === props.activeBannerImage" />
 
-			<img draggable="false" :key="2" class="banners-layout__banners-img-lg"
-				:src="getCurrentBanner.event_five_star_weapons_image" v-show="2 === activeBannerImage" />
+			<img v-if="getCurrentBanner.event_five_star_weapons_image" draggable="false" :key="totalEventLength - 1"
+				class="banners-layout__banners-img-lg" :src="getCurrentBanner.event_five_star_weapons_image"
+				v-show="totalEventLength - 1 === activeBannerImage" />
 
-			<img draggable="false" :key="3" class="banners-layout__banners-img-lg"
-				:src="getStandardBanner.standard_image" v-show="3 === activeBannerImage" />
+			<img draggable="false" :key="totalEventLength" class="banners-layout__banners-img-lg"
+				:src="getStandardBanner.standard_image" v-show="totalEventLength === activeBannerImage" />
 
 		</TransitionGroup>
 		<WishButtons />
@@ -52,6 +54,8 @@ const emit = defineEmits<{
 }>()
 
 const { getCurrentBanner, getStandardBanner } = useBannersData()
+
+const totalEventLength = (getCurrentBanner.value?.event_five_star_character_images.length ?? 0) + (getCurrentBanner.value?.event_five_star_weapons_image !== '' ? 1 : 0)
 
 </script>
 
@@ -136,7 +140,8 @@ const { getCurrentBanner, getStandardBanner } = useBannersData()
 
 		&__banners-sm {
 			flex-direction: column;
-			margin: 0 40px 0 20px;
+			margin: 0;
+
 
 			.banners-layout__banners-img-sm {
 				width: 80px;

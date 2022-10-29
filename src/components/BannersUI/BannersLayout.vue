@@ -1,8 +1,7 @@
 <template>
 	<Transition name="fade" appear>
 		<section class="banners-layout">
-			<BannersImages :activeBannerImage="activeBannerImage" @set-active="setActive" />
-
+			<BannersImages :activeBannerImage="getActiveBannerImage" @set-active="setActive" />
 			<section class="banners-layout__bg-video-container">
 				<video class="banners-layout__bg-video" muted autoplay>
 					<source src="https://vue-impact.herokuapp.com/gachaVideos/backgroundCropped.mp4">
@@ -17,17 +16,27 @@
 import { BannerTypes } from '@/Enums/WishEnums';
 import { useWish } from '@/store/Gacha/Wish';
 
-import { ref, watch } from 'vue'
 import BannersImages from './BannersImages.vue';
+import { onMounted } from 'vue'
+import { useBannersData } from '@/store/Gacha/bannersData';
 
-const { setActiveBannerWish } = useWish()
+const { getActiveBannerWish, setActiveBannerWish, setActiveBannerImage, getActiveBannerImage } = useWish()
+const { getCurrentBanner } = useBannersData()
 
-const activeBannerImage = ref(0)
+onMounted(() => {
+	if (!getActiveBannerWish.value) {
+		if (getCurrentBanner.value?.event_five_star_character_images.length) {
+			setActiveBannerWish([BannerTypes.EVENT, 0])
+		} else {
+			setActiveBannerWish([BannerTypes.STANDARD])
+		}
+	}
+})
 
 function setActive(index: number, banner: BannerTypes, eventIndex?: number): void {
 	if (banner === BannerTypes.EVENT && eventIndex === undefined) throw new Error("Вы не указали ивентовый индекс для персонажа!")
 	setActiveBannerWish([banner, eventIndex])
-	activeBannerImage.value = index
+	setActiveBannerImage(index)
 }
 
 </script>
@@ -74,7 +83,7 @@ function setActive(index: number, banner: BannerTypes, eventIndex?: number): voi
 @media only screen and (max-width: 915px) and (orientation: landscape) {
 	.banners-layout {
 		flex-direction: row;
-
+		justify-content: space-around;
 		gap: 0;
 	}
 }

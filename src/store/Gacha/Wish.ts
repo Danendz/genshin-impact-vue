@@ -13,7 +13,16 @@ export const useWish = defineStore('wish', () => {
 	const banners = useBannerEntities()
 	type activeBannerType = [BannerTypes, number?]
 
-	const activeBannerWish = ref<activeBannerType>([BannerTypes.EVENT, 0])
+	const activeBannerWish = ref<activeBannerType | null>(null)
+	const activeBannerImage = ref(0)
+
+	const getActiveBannerImage = computed(() => {
+		return activeBannerImage
+	})
+
+	const setActiveBannerImage = (value: number) => {
+		activeBannerImage.value = value
+	}
 
 	const getActiveBannerWish = computed(() => {
 		return activeBannerWish
@@ -71,6 +80,8 @@ export const useWish = defineStore('wish', () => {
 		makeWishes,
 		addPrimogems,
 		getActiveBannerWish,
-		setActiveBannerWish
+		setActiveBannerWish,
+		getActiveBannerImage,
+		setActiveBannerImage
 	}
 })
