@@ -1,10 +1,10 @@
 <template>
-    <transition name="fade-background" appear>
+    <transition name="fade-background">
         <figure v-if="store.currentCharacter"
             :class="`character-background-container character-background-container_image`"
             :key="store.currentCharacter.name_key">
 
-            <transition name="fade" appear>
+            <transition name="fade">
                 <div alt="character background" v-if="bgImage"
                     class="character-background-container__character-background"
                     :style="{ backgroundImage: `url(${bgImage})` }"></div>

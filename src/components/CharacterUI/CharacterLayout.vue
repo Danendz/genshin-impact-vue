@@ -1,20 +1,18 @@
 <template>
-    <transition name="fade" appear>
-        <main class="characters-container">
-            <CharacterBG />
-            <CharactersPanel />
-            <CharactersContent />
-            <Suspense v-if="isCharacterSelectionLoaded">
-                <template #default>
-                    <CharacterSelection />
-                </template>
-                <template #fallback>
-                    <LoaderSpinner :style="{ width: '30%', left: 0, top: 0 }" />
-                </template>
-            </Suspense>
-            <CharactersBottom />
-        </main>
-    </transition>
+    <main class="characters-container">
+        <CharacterBG />
+        <CharactersPanel />
+        <CharactersContent />
+        <Suspense v-if="isCharacterSelectionLoaded">
+            <template #default>
+                <CharacterSelection />
+            </template>
+            <template #fallback>
+                <LoaderSpinner :style="{ width: '30%', left: 0, top: 0 }" />
+            </template>
+        </Suspense>
+        <CharactersBottom />
+    </main>
 </template>
 <script setup lang="ts">
 //components

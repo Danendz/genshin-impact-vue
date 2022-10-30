@@ -1,37 +1,15 @@
 <template>
-	<section v-if="getCurrentBanner && getStandardBanner" class="banners-layout__banners-sm">
-
+	<section class="banners-layout__banners-sm">
 		<TransitionGroup name="banner-down" appear>
-			<img draggable="false"
+			<img draggable="false" v-for="url, index in totalWishes" :key="index"
 				:class="['banners-layout__banners-img-sm', { 'banners-layout__banners-img-sm_active': activeBannerImage === index }]"
-				v-for="url, index in getCurrentBanner.event_five_star_character_images" :key="index" :src="url"
-				@click="emit('set-active', index, BannerTypes.EVENT, index)" />
-
-			<img v-if="getCurrentBanner.event_five_star_weapons_image" draggable="false" :key="totalEventLength - 1"
-				:class="['banners-layout__banners-img-sm', { 'banners-layout__banners-img-sm_active': activeBannerImage === totalEventLength - 1 }]"
-				:src="getCurrentBanner.event_five_star_weapons_image"
-				@click="emit('set-active', totalEventLength - 1, BannerTypes.EVENT_WEAPON,)" />
-
-			<img draggable="false" :key="totalEventLength"
-				:class="['banners-layout__banners-img-sm', { 'banners-layout__banners-img-sm_active': activeBannerImage === totalEventLength }]"
-				:src="getStandardBanner.standard_image"
-				@click="emit('set-active', totalEventLength, BannerTypes.STANDARD)" />
-
+				:src="url" @click="emit('set-active', index, ...findTrue(index))" />
 		</TransitionGroup>
 	</section>
-	<section v-if="getCurrentBanner && getStandardBanner" class="banners-layout__banners-lg">
-		<TransitionGroup name="banner-right" appear>
-			<img draggable="false" class="banners-layout__banners-img-lg"
-				v-for="url, index in getCurrentBanner.event_five_star_character_images" :key="index" :src="url"
-				v-show="index === props.activeBannerImage" />
-
-			<img v-if="getCurrentBanner.event_five_star_weapons_image" draggable="false" :key="totalEventLength - 1"
-				class="banners-layout__banners-img-lg" :src="getCurrentBanner.event_five_star_weapons_image"
-				v-show="totalEventLength - 1 === activeBannerImage" />
-
-			<img draggable="false" :key="totalEventLength" class="banners-layout__banners-img-lg"
-				:src="getStandardBanner.standard_image" v-show="totalEventLength === activeBannerImage" />
-
+	<section class="banners-layout__banners-lg">
+		<TransitionGroup name="banner-right" appear mode="out-in">
+			<img draggable="false" class="banners-layout__banners-img-lg" v-for="url, index in totalWishes" :key="index"
+				:src="url" v-show="index === props.activeBannerImage" />
 		</TransitionGroup>
 		<WishButtons />
 	</section>
@@ -41,7 +19,8 @@
 <script setup lang="ts">
 import { BannerTypes } from '@/Enums/WishEnums';
 import { useBannersData } from '@/store/Gacha/bannersData';
-import WishButtons from './WishButtons.vue'
+import { onMounted, ref } from 'vue';
+import WishButtons from '../WishButtons.vue'
 
 interface Props {
 	activeBannerImage: number
@@ -54,8 +33,32 @@ const emit = defineEmits<{
 }>()
 
 const { getCurrentBanner, getStandardBanner } = useBannersData()
+const totalWishes = ref<string[]>([])
+onMounted(() => {
+	if (getCurrentBanner.value?.event_five_star_character_images) {
+		totalWishes.value.push(...getCurrentBanner.value.event_five_star_character_images)
+	}
+	if (getCurrentBanner.value?.event_five_star_weapons_image) {
+		totalWishes.value.push(getCurrentBanner.value.event_five_star_weapons_image)
+	}
+	if (getStandardBanner.value) {
+		totalWishes.value.push(getStandardBanner.value.standard_image)
+	}
 
-const totalEventLength = (getCurrentBanner.value?.event_five_star_character_images.length ?? 0) + (getCurrentBanner.value?.event_five_star_weapons_image !== '' ? 1 : 0)
+
+})
+const findTrue = (index: number): [BannerTypes, number?] => {
+
+	if (!getCurrentBanner.value) return [BannerTypes.STANDARD]
+
+	if (getCurrentBanner.value.event_five_star_character_images && index < getCurrentBanner.value.event_five_star_character_images.length) {
+		return [BannerTypes.EVENT, index]
+	} else if (getCurrentBanner.value.event_five_star_weapons_image && index === totalWishes.value.length - 1) {
+		return [BannerTypes.STANDARD]
+	} else {
+		return [BannerTypes.EVENT_WEAPON]
+	}
+}
 
 </script>
 

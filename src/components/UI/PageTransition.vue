@@ -1,13 +1,15 @@
 <template>
+
     <Suspense v-if="!conditionItem.includes(null)">
         <template #default>
             <slot />
         </template>
         <template #fallback>
-            <LoaderPage :title="loaderTitle" />
+            <LoaderPage />
         </template>
     </Suspense>
     <ErrorPage v-else-if="!props.error.includes(null)" :error-message="ErrorMessages.NOT_FOUND" />
+
 </template>
 
 <script setup lang="ts">
@@ -30,10 +32,18 @@ const props = defineProps<Props>()
 const { conditionItem } = toRefs(props)
 const progressMultiplier = 100 / conditionItem.value.length
 const progress = ref(progressMultiplier)
+const isResolving = ref(true)
 
 const progressCounter = watch(conditionItem, () => {
     progress.value += progressMultiplier
 })
+
+watch(progress, () => {
+    if (progress.value === 100) {
+        isResolving.value = false
+    }
+})
+
 
 onUnmounted(() => {
     progress.value = 0;

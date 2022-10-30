@@ -1,14 +1,12 @@
 <template>
-	<Transition name="fade" appear>
-		<section class="banners-layout">
-			<BannersImages :activeBannerImage="getActiveBannerImage" @set-active="setActive" />
-			<section class="banners-layout__bg-video-container">
-				<video class="banners-layout__bg-video" muted autoplay>
-					<source src="https://vue-impact.herokuapp.com/gachaVideos/backgroundCropped.mp4">
-				</video>
-			</section>
+	<section class="banners-layout">
+		<BannersImages :activeBannerImage="getActiveBannerImage" @set-active="setActive" />
+		<section class="banners-layout__bg-video-container">
+			<video class="banners-layout__bg-video" muted autoplay>
+				<source src="https://vue-impact.herokuapp.com/gachaVideos/backgroundCropped.mp4">
+			</video>
 		</section>
-	</Transition>
+	</section>
 </template>
 
 <script setup lang="ts">
@@ -16,7 +14,7 @@
 import { BannerTypes } from '@/Enums/WishEnums';
 import { useWish } from '@/store/Gacha/Wish';
 
-import BannersImages from './BannersImages.vue';
+import BannersImages from './BannersImages/BannersImages.vue';
 import { onMounted } from 'vue'
 import { useBannersData } from '@/store/Gacha/bannersData';
 
@@ -37,6 +35,7 @@ function setActive(index: number, banner: BannerTypes, eventIndex?: number): voi
 	if (banner === BannerTypes.EVENT && eventIndex === undefined) throw new Error("Вы не указали ивентовый индекс для персонажа!")
 	setActiveBannerWish([banner, eventIndex])
 	setActiveBannerImage(index)
+
 }
 
 </script>

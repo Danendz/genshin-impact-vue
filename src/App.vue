@@ -1,11 +1,17 @@
 <template>
   <NavBar />
-  <router-view :key="useRoute().fullPath" />
+  <router-view :key="useRoute().fullPath" v-slot="{ Component, route }">
+    <Transition name="page" appear>
+      <div :key="route.name as string">
+        <component :is="Component" />
+      </div>
+    </Transition>
+  </router-view>
 </template>
 
 <script setup lang="ts">
 import NavBar from '@/components/NavBar.vue'
-import { useRoute } from 'vue-router';
+import { RouterView, useRoute } from 'vue-router';
 </script>
 
 <style lang="scss">
