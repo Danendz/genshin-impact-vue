@@ -1,25 +1,37 @@
 <template>
 	<section class="banners-layout">
+		<Transition name="fade-up" appear>
+			<WishCurrency v-show="!getIsWishing" />
+		</Transition>
 		<BannersImages :activeBannerImage="getActiveBannerImage" @set-active="setActive" />
-		<section class="banners-layout__bg-video-container">
-			<video class="banners-layout__bg-video" muted autoplay>
-				<source src="https://vue-impact.herokuapp.com/gachaVideos/backgroundCropped.mp4">
-			</video>
-		</section>
+		<BannerVideo />
+		<NotEnoughFunds />
 	</section>
 </template>
 
 <script setup lang="ts">
-
-import { BannerTypes } from '@/Enums/WishEnums';
+//components
+import BannerVideo from './BannersVideos/BannerVideo.vue';
+import BannersImages from './BannersImages/BannersImages.vue';
+import NotEnoughFunds from './NotEnoughFunds/NotEnoughFunds.vue';
+import WishCurrency from './WishCurrency/WishCurrency.vue'
 import { useWish } from '@/store/Gacha/Wish';
 
-import BannersImages from './BannersImages/BannersImages.vue';
-import { onMounted } from 'vue'
+//stores
 import { useBannersData } from '@/store/Gacha/bannersData';
 
-const { getActiveBannerWish, setActiveBannerWish, setActiveBannerImage, getActiveBannerImage } = useWish()
+//enums
+import { BannerTypes } from '@/Enums/WishEnums';
+
+//vue
+import { onMounted } from 'vue'
+
+import { useActiveBanner } from '@/store/Gacha/activeBanner';
+
+const { getActiveBannerImage, getActiveBannerWish, setActiveBannerImage, setActiveBannerWish } = useActiveBanner()
 const { getCurrentBanner } = useBannersData()
+
+const { getIsWishing } = useWish()
 
 onMounted(() => {
 	if (!getActiveBannerWish.value) {
@@ -35,7 +47,6 @@ function setActive(index: number, banner: BannerTypes, eventIndex?: number): voi
 	if (banner === BannerTypes.EVENT && eventIndex === undefined) throw new Error("Вы не указали ивентовый индекс для персонажа!")
 	setActiveBannerWish([banner, eventIndex])
 	setActiveBannerImage(index)
-
 }
 
 </script>

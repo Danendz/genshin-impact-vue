@@ -1,24 +1,29 @@
 <template>
-	<section class="banners-layout__banners-sm">
-		<TransitionGroup name="banner-down" appear>
-			<img draggable="false" v-for="url, index in totalWishes" :key="index"
-				:class="['banners-layout__banners-img-sm', { 'banners-layout__banners-img-sm_active': activeBannerImage === index }]"
-				:src="url" @click="emit('set-active', index, ...findTrue(index))" />
-		</TransitionGroup>
-	</section>
-	<section class="banners-layout__banners-lg">
-		<TransitionGroup name="banner-right" appear mode="out-in">
-			<img draggable="false" class="banners-layout__banners-img-lg" v-for="url, index in totalWishes" :key="index"
-				:src="url" v-show="index === props.activeBannerImage" />
-		</TransitionGroup>
-		<WishButtons />
-	</section>
+	<Transition name="banner-down">
+		<section v-if="!getIsWishing" class="banners-layout__banners-sm">
+			<TransitionGroup name="banner-down" appear>
+				<img draggable="false" v-for="url, index in totalWishes" :key="index"
+					:class="['banners-layout__banners-img-sm', { 'banners-layout__banners-img-sm_active': activeBannerImage === index }]"
+					:src="url" @click="emit('set-active', index, ...findTrue(index))" />
+			</TransitionGroup>
+		</section>
+	</Transition>
+	<Transition name="fade-right">
+		<section v-if="!getIsWishing" class="banners-layout__banners-lg">
+			<TransitionGroup name="banner-right" appear mode="out-in">
+				<img draggable="false" class="banners-layout__banners-img-lg" v-for="url, index in totalWishes"
+					:key="index" :src="url" v-show="index === props.activeBannerImage" />
+			</TransitionGroup>
+			<WishButtons />
+		</section>
+	</Transition>
 </template>
 
 
 <script setup lang="ts">
 import { BannerTypes } from '@/Enums/WishEnums';
 import { useBannersData } from '@/store/Gacha/bannersData';
+import { useWish } from '@/store/Gacha/Wish';
 import { onMounted, ref } from 'vue';
 import WishButtons from '../WishButtons.vue'
 
@@ -27,13 +32,14 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+const { getCurrentBanner, getStandardBanner } = useBannersData()
+const { getIsWishing } = useWish()
 
 const emit = defineEmits<{
 	(event: 'set-active', index: number, banner: BannerTypes, eventIndex?: number): void
 }>()
-
-const { getCurrentBanner, getStandardBanner } = useBannersData()
 const totalWishes = ref<string[]>([])
+
 onMounted(() => {
 	if (getCurrentBanner.value?.event_five_star_character_images) {
 		totalWishes.value.push(...getCurrentBanner.value.event_five_star_character_images)

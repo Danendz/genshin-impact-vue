@@ -8,27 +8,17 @@ import { useUpdateLocalStorageGacha } from "./updateLocalStorageGacha";
 import { ref, computed } from "vue";
 
 export const useWish = defineStore('wish', () => {
-	const primogemsStore = usePrimogems()
+	const { getPrimogems, setPrimogems } = usePrimogems()
 	const wishesStore = useWishes()
 	const banners = useBannerEntities()
-	type activeBannerType = [BannerTypes, number?]
+	const isWishing = ref(false)
 
-	const activeBannerWish = ref<activeBannerType | null>(null)
-	const activeBannerImage = ref(0)
-
-	const getActiveBannerImage = computed(() => {
-		return activeBannerImage
+	const getIsWishing = computed(() => {
+		return isWishing
 	})
 
-	const setActiveBannerImage = (value: number) => {
-		activeBannerImage.value = value
-	}
-
-	const getActiveBannerWish = computed(() => {
-		return activeBannerWish
-	})
-	const setActiveBannerWish = (value: activeBannerType) => {
-		activeBannerWish.value = value
+	const setIsWishing = (value: boolean) => {
+		isWishing.value = value;
 	}
 
 	function makeWishes(pulls: number, banner: BannerTypes.EVENT, eventItemIndex: number): CharacterOrWeapon[] | string;
@@ -60,10 +50,10 @@ export const useWish = defineStore('wish', () => {
 
 		pulls = (pulls - totalWishes) * 160
 
-		if (pulls > primogemsStore.primogems) return true;
+		if (pulls > getPrimogems.value) return true;
 
 		wishesStore.setWishes(0, banner)
-		primogemsStore.setPrimogems(primogemsStore.primogems - pulls)
+		setPrimogems(getPrimogems.value - pulls)
 	}
 
 	const addWishes = (amount: number, banner: BannerTypes) => {
@@ -71,7 +61,7 @@ export const useWish = defineStore('wish', () => {
 	}
 
 	const addPrimogems = (amount: number) => {
-		primogemsStore.setPrimogems(primogemsStore.primogems + amount)
+		setPrimogems(getPrimogems.value + amount)
 	}
 
 
@@ -79,9 +69,7 @@ export const useWish = defineStore('wish', () => {
 		addWishes,
 		makeWishes,
 		addPrimogems,
-		getActiveBannerWish,
-		setActiveBannerWish,
-		getActiveBannerImage,
-		setActiveBannerImage
+		getIsWishing,
+		setIsWishing
 	}
 })

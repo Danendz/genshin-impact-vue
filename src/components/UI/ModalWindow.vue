@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
         <article v-show="active_state" @click.self="() => emit('close-modal', false)" class="modal">
-            <section :class="['modal-content', props.modalStyle]">
+            <section :class="[props.modalStyle]">
                 <slot />
             </section>
         </article>
@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 interface Props {
-    modalStyle: 'details',
+    modalStyle: 'details' | 'default',
     active_state: boolean
 }
 
@@ -35,6 +35,15 @@ const emit = defineEmits<{
     background-color: rgba(0, 0, 0, 0.767);
 
     .modal-content {}
+
+    .default {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        height: 100%;
+    }
 
     .details {
         display: flex;

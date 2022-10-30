@@ -11,12 +11,38 @@
 
 
 <script setup lang="ts">
+import { useActiveBanner } from '@/store/Gacha/activeBanner';
+import { useNotEnoughFunds } from '@/store/Gacha/notEnoughFunds';
 import { useWish } from '@/store/Gacha/Wish';
+import { useWishVideos } from '@/store/Gacha/wishVideos';
 
-const { makeWishes, getActiveBannerWish } = useWish()
+
+const { getActiveBannerWish } = useActiveBanner()
+const { makeWishes, setIsWishing, getIsWishing } = useWish()
+const { setIsNotEnough } = useNotEnoughFunds()
+const { setCurrentWishVideo } = useWishVideos()
 
 const makeWish = (amount: number) => {
-	console.log(makeWishes(amount, ...getActiveBannerWish.value))
+	if (!getIsWishing.value) {
+		const wishes = makeWishes(amount, ...getActiveBannerWish.value)
+
+		if (typeof wishes === 'string') {
+			setIsNotEnough(true);
+		} else {
+			setIsWishing(true)
+			let rarity: number;
+			if (wishes.length === 1) {
+				rarity = parseInt(wishes[0].rarity.toString())
+			} else {
+				rarity = wishes.reduce((acc, next) => {
+					return Math.max(acc, parseInt(next.rarity.toString()))
+				}, parseInt(wishes[0].rarity.toString()))
+			}
+
+			setCurrentWishVideo(rarity, amount)
+
+		}
+	}
 }
 
 </script> 

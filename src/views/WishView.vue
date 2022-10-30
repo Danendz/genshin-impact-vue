@@ -1,5 +1,5 @@
 <template>
-    <PageTransition :condition-item="[getWeapons, getCharacters, getCurrentBanner, getStandardBanner]"
+    <PageTransition :condition-item="[getWeapons, getCharacters, getCurrentBanner, getStandardBanner, getWishVideos]"
         :error="[getError, getErrorWeapons, getErroBanner]" loader-title="молитвы">
         <BannersLayout />
     </PageTransition>
@@ -11,6 +11,7 @@
 import { useCharacters } from '@/store/Characters/Characters';
 import { useWeapons } from '@/store/Weapons/Weapons'
 import { useBannersData } from '@/store/Gacha/bannersData';
+import { useWishVideos } from '@/store/Gacha/wishVideos'
 
 //components
 import PageTransition from '@/components/UI/PageTransition.vue';
@@ -22,11 +23,12 @@ const BannersLayout = defineAsyncComponent(() => import("@/components/BannersUI/
 const { getCharacters, getError, fetchCharacters } = useCharacters()
 const { getWeapons, getErrorWeapons, fetchWeapons } = useWeapons()
 const { getCurrentBanner, getStandardBanner, getErroBanner, fetchBannersData } = useBannersData()
-
+const { fetchWishVideos, getWishVideos } = useWishVideos()
 onMounted(() => {
     fetchCharacters()
     fetchWeapons(["name", "type", "rarity", 'location'])
     fetchBannersData()
+    fetchWishVideos()
 })
 
 
