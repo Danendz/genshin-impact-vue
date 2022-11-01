@@ -1,11 +1,11 @@
 import { APIEntries } from "@/Enums/APIEntries";
 import { CharacterImage } from '@/Enums/CharacterEnums'
 export default class CharacterHelper {
-    static characterUrl: string = APIEntries.BASE_URL + APIEntries.CHARACTERS
-    static weaponsUrl: string = APIEntries.BASE_URL + APIEntries.WEAPONS
-    static elementsUrl: string = APIEntries.BASE_URL + APIEntries.ELEMENTS
-    static genshinSiteUrl: string = APIEntries.BASE_URL + APIEntries.GENSHIN_SITE
-    static bannersUrl: string = APIEntries.BASE_URL + APIEntries.BANNERS
+    private static characterUrl: string = APIEntries.BASE_URL + APIEntries.CHARACTERS
+    private static weaponsUrl: string = APIEntries.BASE_URL + APIEntries.WEAPONS
+    private static elementsUrl: string = APIEntries.BASE_URL + APIEntries.ELEMENTS
+    private static genshinSiteUrl: string = APIEntries.BASE_URL + APIEntries.GENSHIN_SITE
+    private static bannersUrl: string = APIEntries.BASE_URL
 
     public static getCharacterImage(name: string | undefined, type: CharacterImage): string {
         if (name) {
@@ -37,7 +37,7 @@ export default class CharacterHelper {
     }
 
     public static getElementImage(element: string): string {
-        return this.elementsUrl + element + '/icon'
+        return this.elementsUrl + element.toLowerCase() + '/icon'
     }
 
     public static getGenshinSiteIcons(iconUrl: string): string {
@@ -50,5 +50,9 @@ export default class CharacterHelper {
 
     public static getBannersImages(iconUrl: string): string {
         return this.bannersUrl + iconUrl
+    }
+
+    public static getBannerImageByName(banner: string, name: string): string {
+        return `${this.bannersUrl}/${banner}${name}banner`
     }
 }

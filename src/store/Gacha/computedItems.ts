@@ -11,15 +11,15 @@ export const useComputedItems = () => {
 	const { getCharacters } = useCharacters()
 	const { getWeapons } = useWeapons()
 
-	const { getStandardBanner, getCurrentBanner } = useBannersData()
+	const { getStandardBanner, getEventBanner, getEventWeaponBanner } = useBannersData()
 
 	const standardItems = computed<Pick<WishItems, "standardFiveStars" | "standardFourStars" | "standardThreeStars"> | null>(() => {
-		if (getCharacters.value && getWeapons.value && getStandardBanner.value && getCurrentBanner.value) {
+		if (getCharacters.value && getWeapons.value && getStandardBanner.value && getEventBanner.value && getEventWeaponBanner.value) {
 
 			const standardFiveStarCharacter = getStandardBanner.value.standard_five_star_characters;
 			const standardFiveStarWeapons = getStandardBanner.value.standard_five_star_weapons
-			const newEventFourStarCharacters = getCurrentBanner.value.new_event_four_star_characters
-			const newEventFourStarWeapons = getCurrentBanner.value.new_event_four_star_weapon
+			const newEventFourStarCharacters = getEventBanner.value.new_event_four_star_characters
+			const newEventFourStarWeapons = getEventWeaponBanner.value.new_event_four_star_weapon
 
 			const standardFiveStars: CharacterOrWeapon[] = [
 				...getCharacters.value.filter((character) => standardFiveStarCharacter.includes(character.name_key)),
@@ -42,9 +42,9 @@ export const useComputedItems = () => {
 	})
 
 	const eventWeaponItems = computed<WishItems | null>(() => {
-		if (getWeapons.value && standardItems.value && getCurrentBanner.value) {
-			const eventFiveStarWeapons = getCurrentBanner.value.event_five_star_weapons
-			const eventFourStarWeapons = getCurrentBanner.value.event_four_star_weapons
+		if (getWeapons.value && standardItems.value && getEventWeaponBanner.value) {
+			const eventFiveStarWeapons = getEventWeaponBanner.value.event_five_star_weapons
+			const eventFourStarWeapons = getEventWeaponBanner.value.event_four_star_weapons
 
 			const eventFiveStars = getWeapons.value.filter((weapon) => eventFiveStarWeapons.includes(weapon.name_key))
 			const eventFourStars = getWeapons.value.filter((weapon) => eventFourStarWeapons.includes(weapon.name_key))
@@ -61,9 +61,9 @@ export const useComputedItems = () => {
 	})
 
 	const eventCharacterItems = computed<WishItems | null>(() => {
-		if (getCharacters.value && standardItems.value && getCurrentBanner.value) {
-			const eventFiveStarCharacter = getCurrentBanner.value.event_five_star_character
-			const eventFourStarCharacters = getCurrentBanner.value.event_four_star_characters
+		if (getCharacters.value && standardItems.value && getEventBanner.value) {
+			const eventFiveStarCharacter = getEventBanner.value.event_five_star_character
+			const eventFourStarCharacters = getEventBanner.value.event_four_star_characters
 
 			const eventFiveStars = getCharacters.value.filter((character) => eventFiveStarCharacter.includes(character.name_key))
 			eventFiveStars.sort((a, b) => eventFiveStarCharacter.indexOf(a.name_key) - eventFiveStarCharacter.indexOf(b.name_key))

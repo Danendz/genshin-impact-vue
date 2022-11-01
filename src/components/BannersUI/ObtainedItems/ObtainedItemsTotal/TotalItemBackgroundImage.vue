@@ -1,5 +1,6 @@
 <template>
-	<img draggable="false" class="total-item__item-bg" :src="CharacterHelper.getBannersImages('wish/background.svg')" />
+	<img draggable="false" class="total-item__item-bg"
+		:src="CharacterHelper.getBannersImages('/wish/background.svg')" />
 </template>
 
 

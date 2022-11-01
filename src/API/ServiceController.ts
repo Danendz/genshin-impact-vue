@@ -1,10 +1,15 @@
+
 import { ErrorMessages } from "@/Enums/ErrorMessages";
 import { Character } from "@/Interfaces/CharacterInterface";
-import { CurrentBanner } from "@/Interfaces/CurrentBanner";
+import { CurrentEventBanner, CurrentEventWeaponBanner } from "@/Interfaces/CurrentBanners";
+import { EventBanners } from "@/Interfaces/EventBanners";
+import { EventWeaponBanners } from "@/Interfaces/EventWeaponsBanners";
 import { StandardBanner } from "@/Interfaces/StandardBanner";
 import { Weapon } from "@/Interfaces/WeaponInterface";
-type fetchingItemsType = Character | Weapon | StandardBanner | CurrentBanner
+type currentBannersInfo = CurrentEventBanner | CurrentEventWeaponBanner
+type currentBannersData = EventBanners | EventWeaponBanners
 
+type fetchingItemsType = Character | Weapon | StandardBanner | currentBannersInfo | currentBannersData
 export default abstract class ServiceController {
 
     //url for fetching
@@ -49,6 +54,7 @@ export default abstract class ServiceController {
 
     //get all items with full information
     public async getWithAdditionalUrl<T extends fetchingItemsType>(url?: string): Promise<T | ErrorMessages.NOT_FOUND> {
+
         const data: T | ErrorMessages.NOT_FOUND =
             await fetch(`${this.fetchUrl}${url ?? ''}`)
                 .then((res) => {

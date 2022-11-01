@@ -21,7 +21,9 @@
 
 
 <script setup lang="ts">
+import { BannersEntities } from '@/Enums/BannersEnums';
 import { BannerTypes } from '@/Enums/WishEnums';
+import CharacterHelper from '@/helpers/CharacterHelper';
 import { useBannersData } from '@/store/Gacha/bannersData';
 import { useWish } from '@/store/Gacha/Wish';
 import { onMounted, ref } from 'vue';
@@ -32,7 +34,7 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const { getCurrentBanner, getStandardBanner } = useBannersData()
+const { getEventBanner, getEventWeaponBanner, getStandardBanner } = useBannersData()
 const { getIsWishing } = useWish()
 
 const emit = defineEmits<{
@@ -41,25 +43,30 @@ const emit = defineEmits<{
 const totalWishes = ref<string[]>([])
 
 onMounted(() => {
-	if (getCurrentBanner.value?.event_five_star_character_images) {
-		totalWishes.value.push(...getCurrentBanner.value.event_five_star_character_images)
+
+	if (getEventBanner.value?.event_five_star_banners_names) {
+		totalWishes.value.push(...getEventBanner.value.event_five_star_banners_names.map((value) => getBannerImages(BannersEntities.EVENT_BANNERS, value)))
 	}
-	if (getCurrentBanner.value?.event_five_star_weapons_image) {
-		totalWishes.value.push(getCurrentBanner.value.event_five_star_weapons_image)
+	if (getEventWeaponBanner.value?.event_five_star_weapons_banner_name) {
+		totalWishes.value.push(getBannerImages(BannersEntities.EVENT_WEAPON_BANNER, getEventWeaponBanner.value.event_five_star_weapons_banner_name))
 	}
 	if (getStandardBanner.value) {
-		totalWishes.value.push(getStandardBanner.value.standard_image)
+		totalWishes.value.push(getBannerImages(BannersEntities.STANDARD_BANNER))
 	}
-
-
 })
+
+const getBannerImages = (banner: BannersEntities, name?: string) => {
+	name = name ? name + '/' : ''
+	return CharacterHelper.getBannerImageByName(banner, name)
+}
+
 const findTrue = (index: number): [BannerTypes, number?] => {
 
-	if (!getCurrentBanner.value) return [BannerTypes.STANDARD]
+	if (!getEventBanner.value || !getEventWeaponBanner.value) return [BannerTypes.STANDARD]
 
-	if (getCurrentBanner.value.event_five_star_character_images && index < getCurrentBanner.value.event_five_star_character_images.length) {
+	if (getEventBanner.value.event_five_star_banners_names && index < getEventBanner.value.event_five_star_banners_names.length) {
 		return [BannerTypes.EVENT, index]
-	} else if (getCurrentBanner.value.event_five_star_weapons_image && index === totalWishes.value.length - 1) {
+	} else if (getEventWeaponBanner.value.event_five_star_weapons_banner_name && index === totalWishes.value.length - 1) {
 		return [BannerTypes.STANDARD]
 	} else {
 		return [BannerTypes.EVENT_WEAPON]

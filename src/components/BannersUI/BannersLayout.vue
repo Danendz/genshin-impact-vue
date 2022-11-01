@@ -37,14 +37,14 @@ import { onMounted } from 'vue'
 
 
 const { getActiveBannerImage, getActiveBannerWish, setActiveBannerImage, setActiveBannerWish } = useActiveBanner()
-const { getCurrentBanner } = useBannersData()
+const { getEventBanner } = useBannersData()
 const { getShowObtainedItems, setShowObtainedItems, clearObtainedItems, setActiveWish } = useObtainedItems()
 const { setCurrentWishVideo } = useWishVideos()
 const { getIsWishing, setIsWishing } = useWish()
 
 onMounted(() => {
 	if (!getActiveBannerWish.value) {
-		if (getCurrentBanner.value?.event_five_star_character_images.length) {
+		if (getEventBanner.value?.event_five_star_banners_names.length) {
 			setActiveBannerWish([BannerTypes.EVENT, 0])
 		} else {
 			setActiveBannerWish([BannerTypes.STANDARD])

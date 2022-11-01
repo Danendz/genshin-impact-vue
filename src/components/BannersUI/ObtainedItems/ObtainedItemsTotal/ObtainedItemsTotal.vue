@@ -57,6 +57,7 @@ const hideObtainItems = () => {
 		height: 45px;
 		border-radius: 50%;
 		cursor: pointer;
+		border: 0;
 	}
 }
 

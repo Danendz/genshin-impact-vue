@@ -21,8 +21,8 @@ const getItemImgStyles = (item: CharacterOrWeapon) => {
 		backgroundImage: `url(${isCharacter(item)
 			? CharacterHelper.getCharacterImage(item.name_key, CharacterImage.GACHA_CARD_LQ)
 			: CharacterHelper.getWeaponsImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)})`,
-		'-webkit-mask-image': `url(${CharacterHelper.getBannersImages('wish/background-mask.svg')})`,
-		'mask-image': `url(${CharacterHelper.getBannersImages('wish/background-mask.svg')})`
+		'-webkit-mask-image': `url(${CharacterHelper.getBannersImages('/wish/background-mask.svg')})`,
+		'mask-image': `url(${CharacterHelper.getBannersImages('/wish/background-mask.svg')})`
 	}
 }
 

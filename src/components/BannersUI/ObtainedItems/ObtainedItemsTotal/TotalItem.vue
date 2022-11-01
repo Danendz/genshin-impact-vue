@@ -11,9 +11,6 @@
 		<section class="total-item__item-rarity">
 			<Icon icon="bxs:star" v-for="num in item.rarity" :key="num" />
 		</section>
-
-
-
 		<TotalItemShadows :item="props.item" />
 	</div>
 </template>
