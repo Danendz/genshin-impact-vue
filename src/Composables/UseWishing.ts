@@ -106,7 +106,9 @@ export class UseWishing {
 
 		if (!this.wishItems.value.eventFiveStars) throw new Error("Нет ивентовых персонажей в ивентовом банере!!")
 
-		if (eventItemIndex === undefined) throw new Error("Вы не указали индекс ивентового персонажа!")
+		if (this.bannerType === BannerTypes.EVENT && eventItemIndex === undefined) throw new Error("Вы не указали индекс ивентового персонажа!")
+
+		eventItemIndex = eventItemIndex ?? this.getRoundedRandomNumber(this.wishItems.value.eventFiveStars.length)
 
 		if (!this.wishItems.value.eventFiveStars[eventItemIndex]) throw new Error("Указанный индекс ивентового персонажа является не верным!")
 
@@ -139,7 +141,6 @@ export class UseWishing {
 		if (this.isFourStarGuaruntee) {
 			this.isFourStarGuaruntee = false;
 			const random = this.getRoundedRandomNumber(this.wishItems.value.eventFourStars.length - 1)
-
 			return this.wishItems.value.eventFourStars[random]
 		}
 

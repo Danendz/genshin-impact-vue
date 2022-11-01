@@ -132,25 +132,20 @@
   transition: all 0.35s;
 }
 
-.banner-right-leave-active {
-  transition: all 0.35s;
-}
 .banner-right-enter-active {
-  transition: all 0.35s;
-
-  transition-delay: 0.15s;
+  transition: all 0.4s;
 }
+
 .banner-right-leave-active {
-  position: absolute;
+  transition: opacity 0.2s;
 }
 
 .banner-right-enter-from {
-  transform: translateX(50px);
+  transform: translateX(100px);
   opacity: 0;
 }
 
 .banner-right-leave-to {
-  transform: translateX(-50px);
   opacity: 0;
   pointer-events: none;
 }
@@ -173,5 +168,37 @@
 
 .page-enter-from,
 .page-leave-to {
+  opacity: 0;
+}
+
+.fade-wish-info-enter-active {
+  transition: all 0.45s ease;
+}
+
+.fade-wish-info-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-wish-info-enter-from {
+  opacity: 0;
+  transform: translateX(100px);
+}
+.fade-wish-info-leave-to {
+  opacity: 0;
+}
+
+.fade-wish-img-enter-active {
+  transition: all 0.45s ease;
+}
+
+.fade-wish-img-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-wish-img-enter-from {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+.fade-wish-img-leave-to {
   opacity: 0;
 }

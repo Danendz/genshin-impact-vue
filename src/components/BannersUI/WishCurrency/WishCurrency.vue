@@ -28,6 +28,7 @@ const { getActiveBannerWish } = useActiveBanner()
 
 <style lang="scss">
 .banners-currency {
+	z-index: 2;
 	position: absolute;
 	top: 10px;
 	right: 10px;

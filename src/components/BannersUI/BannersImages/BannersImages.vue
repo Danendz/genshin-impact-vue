@@ -1,19 +1,19 @@
 <template>
 	<Transition name="banner-down">
-		<section v-if="!getIsWishing" class="banners-layout__banners-sm">
+		<section v-if="!getIsWishing" class="banners-sm">
 			<TransitionGroup name="banner-down" appear>
 				<img draggable="false" v-for="url, index in totalWishes" :key="index"
-					:class="['banners-layout__banners-img-sm', { 'banners-layout__banners-img-sm_active': activeBannerImage === index }]"
-					:src="url" @click="emit('set-active', index, ...findTrue(index))" />
+					:class="['banners-sm__img', { 'banners-sm__img_active': activeBannerImage === index }]" :src="url"
+					@click="emit('set-active', index, ...findTrue(index))" />
 			</TransitionGroup>
 		</section>
 	</Transition>
-	<Transition name="fade-right">
-		<section v-if="!getIsWishing" class="banners-layout__banners-lg">
-			<TransitionGroup name="banner-right" appear mode="out-in">
-				<img draggable="false" class="banners-layout__banners-img-lg" v-for="url, index in totalWishes"
-					:key="index" :src="url" v-show="index === props.activeBannerImage" />
-			</TransitionGroup>
+	<Transition name="fade-right" appear>
+		<section v-if="!getIsWishing" class="banners-lg">
+			<Transition name="banner-right" mode="out-in" appear>
+				<img :key="props.activeBannerImage" draggable="false" class="banners-lg__img"
+					:src="totalWishes[activeBannerImage]" />
+			</Transition>
 			<WishButtons />
 		</section>
 	</Transition>
@@ -70,98 +70,88 @@ const findTrue = (index: number): [BannerTypes, number?] => {
 
 
 <style lang="scss">
-.banners-layout {
+.banners-sm,
+.banners-lg {
+	user-select: none;
+	-webkit-user-drag: none;
+}
 
-	&__banners-sm,
-	&__banners-lg {
-		user-select: none;
-		-webkit-user-drag: none;
-	}
+.banners-sm {
+	display: flex;
+	gap: 10px;
+	margin-top: 20px;
+	z-index: 2;
 
-	&__banners-sm {
-		display: flex;
-		gap: 10px;
-		margin-top: 20px;
+	&__img {
+		width: 100px;
+		border-radius: 10px;
+		cursor: pointer;
+		border: 2px solid transparent;
+		transition: all .3s;
 
-		.banners-layout__banners-img-sm {
-			width: 100px;
-			border-radius: 10px;
-			cursor: pointer;
-			border: 2px solid transparent;
-			transition: all .3s;
-
-			&:hover {
-				transform: scale(1.05);
-				border-color: #f1c40f;
-			}
-
-			&_active {
-				transform: scale(1.05);
-				border-color: #f1c40f;
-			}
-		}
-	}
-
-	&__banners-lg {
-		min-width: 300px;
-		max-width: 1200px;
-		width: 80%;
-		position: relative;
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-		gap: 10px;
-
-		.banners-layout__banners-img-lg {
-			width: 100%;
-			height: 70vh;
-			object-fit: contain;
+		&:hover {
+			transform: scale(1.05);
+			border-color: #f1c40f;
 		}
 
+		&_active {
+			transform: scale(1.05);
+			border-color: #f1c40f;
+		}
 	}
 }
 
+.banners-lg {
+	min-width: 300px;
+	max-width: 1200px;
+	width: 80%;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 10px;
+
+	&__img {
+		width: 100%;
+		height: 70vh;
+		object-fit: contain;
+	}
+
+}
+
 @media only screen and (orientation: portrait) {
-	.banners-layout {
-		justify-content: center;
-		margin-top: 0px;
+	.banners-sm {
+		gap: 2px;
 
-		&__banners-sm {
-			.banners-layout__banners-img-sm {
-				width: 90px;
-			}
+		&__img {
+			width: 90px;
 		}
+	}
 
-		&__banners-lg {
-			width: 90%;
-			align-items: center;
+	.banners-lg {
+		width: 90%;
+		align-items: center;
 
-			.banners-layout__banners-img-lg {
-				height: 55vw;
-			}
+		&__img {
+			height: 55vw;
 		}
 	}
 }
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
-	.banners-layout {
-		margin-top: 0;
+	.banners-sm {
+		flex-direction: column;
+		margin: 0;
 
-		&__banners-sm {
-			flex-direction: column;
-			margin: 0;
-
-
-			.banners-layout__banners-img-sm {
-				width: 80px;
-			}
+		&__img {
+			width: 80px;
 		}
+	}
 
-		&__banners-lg {
-			margin-top: 20px;
-			max-width: 600px;
-			width: 65%
-		}
+	.banners-lg {
+		margin-top: 20px;
+		max-width: 600px;
+		width: 65%
 	}
 }
 </style>

@@ -2,8 +2,10 @@ import { APIEntries } from "@/Enums/APIEntries";
 import { CharacterImage } from '@/Enums/CharacterEnums'
 export default class CharacterHelper {
     static characterUrl: string = APIEntries.BASE_URL + APIEntries.CHARACTERS
+    static weaponsUrl: string = APIEntries.BASE_URL + APIEntries.WEAPONS
     static elementsUrl: string = APIEntries.BASE_URL + APIEntries.ELEMENTS
     static genshinSiteUrl: string = APIEntries.BASE_URL + APIEntries.GENSHIN_SITE
+    static bannersUrl: string = APIEntries.BASE_URL + APIEntries.BANNERS
 
     public static getCharacterImage(name: string | undefined, type: CharacterImage): string {
         if (name) {
@@ -29,6 +31,11 @@ export default class CharacterHelper {
         }
         return ''
     }
+
+    public static getWeaponsImage(name: string, type: CharacterImage): string {
+        return this.weaponsUrl + name.toLowerCase() + '/' + type
+    }
+
     public static getElementImage(element: string): string {
         return this.elementsUrl + element + '/icon'
     }
@@ -39,5 +46,9 @@ export default class CharacterHelper {
 
     public static getPlaceholderIcon(iconType: CharacterImage): string {
         return this.genshinSiteUrl + 'placeholder-icons/' + iconType + '-placeholder'
+    }
+
+    public static getBannersImages(iconUrl: string): string {
+        return this.bannersUrl + iconUrl
     }
 }

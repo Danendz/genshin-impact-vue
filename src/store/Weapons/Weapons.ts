@@ -21,7 +21,7 @@ export const useWeapons = defineStore('weapons', () => {
 		} else {
 			weapons.value = data
 			for (let i = 0; i < weapons.value.length; i++) {
-				weapons.value[i].name_key = weapons.value[i].name.toLowerCase().replaceAll(' ', '-')
+				weapons.value[i].name_key = weapons.value[i].name.toLowerCase().replaceAll(' ', '-').replaceAll('\'', '')
 			}
 		}
 	}

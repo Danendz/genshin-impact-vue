@@ -15,21 +15,23 @@ import { useActiveBanner } from '@/store/Gacha/activeBanner';
 import { useNotEnoughFunds } from '@/store/Gacha/notEnoughFunds';
 import { useWish } from '@/store/Gacha/Wish';
 import { useWishVideos } from '@/store/Gacha/wishVideos';
-
+import { useObtainedItems } from '@/store/Gacha/obtainedItems';
 
 const { getActiveBannerWish } = useActiveBanner()
 const { makeWishes, setIsWishing, getIsWishing } = useWish()
 const { setIsNotEnough } = useNotEnoughFunds()
 const { setCurrentWishVideo } = useWishVideos()
+const { setObtainedItems } = useObtainedItems()
 
 const makeWish = (amount: number) => {
 	if (!getIsWishing.value) {
 		const wishes = makeWishes(amount, ...getActiveBannerWish.value)
-
+		console.log(wishes)
 		if (typeof wishes === 'string') {
 			setIsNotEnough(true);
 		} else {
 			setIsWishing(true)
+			setObtainedItems(wishes)
 			let rarity: number;
 			if (wishes.length === 1) {
 				rarity = parseInt(wishes[0].rarity.toString())

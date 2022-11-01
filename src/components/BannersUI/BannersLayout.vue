@@ -1,11 +1,16 @@
 <template>
-	<section class="banners-layout">
-		<Transition name="fade-up" appear>
-			<WishCurrency v-show="!getIsWishing" />
-		</Transition>
-		<BannersImages :activeBannerImage="getActiveBannerImage" @set-active="setActive" />
+	<section class="banners-container">
 		<BannerVideo />
-		<NotEnoughFunds />
+		<section class="banners-container__layout">
+			<Transition name="fade-up" appear>
+				<WishCurrency v-show="!getIsWishing" />
+			</Transition>
+			<BannersImages :activeBannerImage="getActiveBannerImage" @set-active="setActive" />
+			<NotEnoughFunds />
+			<Transition name="fade" appear>
+				<ObtainedItems v-if="getShowObtainedItems" />
+			</Transition>
+		</section>
 	</section>
 </template>
 
@@ -15,10 +20,14 @@ import BannerVideo from './BannersVideos/BannerVideo.vue';
 import BannersImages from './BannersImages/BannersImages.vue';
 import NotEnoughFunds from './NotEnoughFunds/NotEnoughFunds.vue';
 import WishCurrency from './WishCurrency/WishCurrency.vue'
-import { useWish } from '@/store/Gacha/Wish';
+import ObtainedItems from './ObtainedItems/ObtainedItems.vue'
 
 //stores
 import { useBannersData } from '@/store/Gacha/bannersData';
+import { useWish } from '@/store/Gacha/Wish';
+import { useActiveBanner } from '@/store/Gacha/activeBanner';
+import { useObtainedItems } from '@/store/Gacha/obtainedItems';
+import { useWishVideos } from '@/store/Gacha/wishVideos';
 
 //enums
 import { BannerTypes } from '@/Enums/WishEnums';
@@ -26,12 +35,12 @@ import { BannerTypes } from '@/Enums/WishEnums';
 //vue
 import { onMounted } from 'vue'
 
-import { useActiveBanner } from '@/store/Gacha/activeBanner';
 
 const { getActiveBannerImage, getActiveBannerWish, setActiveBannerImage, setActiveBannerWish } = useActiveBanner()
 const { getCurrentBanner } = useBannersData()
-
-const { getIsWishing } = useWish()
+const { getShowObtainedItems, setShowObtainedItems, clearObtainedItems, setActiveWish } = useObtainedItems()
+const { setCurrentWishVideo } = useWishVideos()
+const { getIsWishing, setIsWishing } = useWish()
 
 onMounted(() => {
 	if (!getActiveBannerWish.value) {
@@ -41,6 +50,11 @@ onMounted(() => {
 			setActiveBannerWish([BannerTypes.STANDARD])
 		}
 	}
+	setShowObtainedItems(false)
+	clearObtainedItems()
+	setIsWishing(false)
+	setCurrentWishVideo(3, 1, true)
+	setActiveWish(0)
 })
 
 function setActive(index: number, banner: BannerTypes, eventIndex?: number): void {
@@ -52,49 +66,47 @@ function setActive(index: number, banner: BannerTypes, eventIndex?: number): voi
 </script>
 
 <style lang="scss">
-.banners-layout {
-	display: flex;
+.banners-container {
 	overflow: hidden;
-	flex-direction: column;
 	position: relative;
-	align-items: center;
-	justify-content: space-between;
-	margin: 0 auto;
-	height: 100vh;
-	gap: 10px;
+
+	&__layout {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		margin: 0 auto;
+		height: 100vh;
+		gap: 30px;
+		z-index: 2;
+	}
 
 	&_disabled {
 		pointer-events: none;
-	}
-
-	&__bg-video-container {
-		z-index: -1;
-
-		.banners-layout__bg-video {
-			height: 100%;
-			width: 177.77777778vh;
-			min-width: 100%;
-			min-height: 56.25vw;
-			left: 50%;
-			top: 50%;
-			transform: translate(-50%, -50%);
-			position: absolute;
-		}
 	}
 }
 
 
 @media only screen and (orientation: portrait) {
-	.banners-layout {
-		justify-content: center;
+	.banners-container {
+		&__layout {
+			justify-content: center;
+			margin-top: 0px;
+			gap: 10px;
+		}
+
 	}
 }
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
-	.banners-layout {
-		flex-direction: row;
-		justify-content: space-around;
-		gap: 0;
+	.banners-container {
+
+		&__layout {
+			flex-direction: row;
+			justify-content: space-around;
+			gap: 0;
+			margin-top: 0;
+		}
 	}
 }
 </style>
