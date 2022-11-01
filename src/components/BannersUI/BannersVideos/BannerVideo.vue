@@ -45,10 +45,13 @@ const skipWish = () => {
 }
 
 const onEnded = () => {
-	if (getIsWishing.value) {
+	if (getIsWishing.value && wishVideo.value) {
 		skipHided.value = true
 		setShowObtainedItems(true)
-		setCurrentWishVideo(3, 1, true)
+		wishVideo.value.pause()
+		setTimeout(() => {
+			setCurrentWishVideo(3, 1, true)
+		}, 400);
 	}
 }
 

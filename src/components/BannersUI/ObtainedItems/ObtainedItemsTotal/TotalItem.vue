@@ -1,5 +1,5 @@
 <template>
-	<div :key="index" class="total-item" :style="{
+	<div @transitionend="emit('lastEnd', index)" :key="index" class="total-item" :style="{
 		transitionDelay: `${0.15 * index}s`
 	}">
 		<TotalItemBackgroundImage />
@@ -11,7 +11,12 @@
 		<section class="total-item__item-rarity">
 			<Icon icon="bxs:star" v-for="num in item.rarity" :key="num" />
 		</section>
-		<TotalItemShadows :item="props.item" />
+
+		<!-- for mobile -->
+		<TotalItemShadows v-if="width <= 915" v-show="showShadows" :item="props.item" />
+
+		<!-- for pc -->
+		<TotalItemShadows v-else :item="props.item" />
 	</div>
 </template>
 
@@ -24,14 +29,20 @@ import TotalItemImage from './TotalItemImage.vue';
 import { isCharacter } from '@/Composables/isCharacter'
 import TotalItemShadows from './TotalItemShadows.vue';
 import { Icon } from '@iconify/vue';
+import { useWindowSize } from '@vueuse/core';
 
+const { width } = useWindowSize()
 
 interface Props {
 	index: number,
-	item: CharacterOrWeapon
+	item: CharacterOrWeapon,
+	showShadows: boolean
 }
 
 const props = defineProps<Props>()
+const emit = defineEmits<{
+	(e: 'lastEnd', index: number): void
+}>()
 
 </script>
 
@@ -41,7 +52,6 @@ const props = defineProps<Props>()
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
 	position: relative;
 	user-select: none;
 

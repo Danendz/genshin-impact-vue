@@ -15,7 +15,6 @@ interface Props {
 
 const props = defineProps<Props>()
 
-
 const getItemImgStyles = (item: CharacterOrWeapon) => {
 	return {
 		backgroundImage: `url(${isCharacter(item)
@@ -29,11 +28,13 @@ const getItemImgStyles = (item: CharacterOrWeapon) => {
 const getItemImgClasses = (item: CharacterOrWeapon) => {
 	const mainClass = 'total-item__item-img'
 	const threeStarClass = 'total-item__item-img_three-star'
-	if (item.rarity === 3) {
-		return mainClass + ' ' + threeStarClass
-	}
+	const fourStarClass = 'total-item__item-img_four-star'
 
-	return mainClass
+	if (!isCharacter(item)) return mainClass + ' ' + threeStarClass
+
+	const itemRarity = parseInt(item.rarity)
+	if (itemRarity === 5) return mainClass
+	return mainClass + ' ' + fourStarClass
 }
 
 </script>
@@ -61,24 +62,26 @@ const getItemImgClasses = (item: CharacterOrWeapon) => {
 			position: absolute;
 			width: 100%;
 			height: 100%;
-			filter: blur(4px);
-			box-shadow: inset 0px 0px 15px 5px rgba(255, 255, 255, 0.521);
+			box-shadow: inset 0px 0px 10px 5px rgba(255, 231, 17, 0.493);
 		}
 
 		&::before {
-			filter: blur(10px);
-			box-shadow: inset 0px -10rem 0px -2px rgba(0, 0, 0, 0.274),
+			box-shadow: inset 0px -10rem 30px -2px rgba(0, 0, 0, 0.281),
+		}
+
+		&_four-star {
+			&::after {
+				box-shadow: inset 0px 0px 10px 5px rgba(197, 77, 218, 0.479);
+			}
 		}
 
 		&_three-star {
 			&::before {
-
-				box-shadow: inset 0px -5rem 0px -2px rgba(0, 0, 0, 0.11),
+				box-shadow: inset 0px -5rem 15px -2px rgba(0, 0, 0, 0.12),
 			}
 
 			&::after {
-				filter: blur(7px);
-				box-shadow: inset 0px 0px 10px 10px rgba(255, 255, 255, 0.445);
+				box-shadow: inset 0px 0px 20px 5px rgba(255, 255, 255, 0.445);
 			}
 		}
 	}

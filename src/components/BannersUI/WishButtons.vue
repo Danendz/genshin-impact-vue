@@ -26,7 +26,6 @@ const { setObtainedItems } = useObtainedItems()
 const makeWish = (amount: number) => {
 	if (!getIsWishing.value) {
 		const wishes = makeWishes(amount, ...getActiveBannerWish.value)
-		console.log(wishes)
 		if (typeof wishes === 'string') {
 			setIsNotEnough(true);
 		} else {
