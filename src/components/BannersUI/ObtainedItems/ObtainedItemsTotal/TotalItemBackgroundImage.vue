@@ -14,6 +14,7 @@ import CharacterHelper from '@/helpers/CharacterHelper';
 	&__item-bg {
 		width: 100%;
 		height: 100%;
+		max-height: 80vh;
 		z-index: 5;
 	}
 }

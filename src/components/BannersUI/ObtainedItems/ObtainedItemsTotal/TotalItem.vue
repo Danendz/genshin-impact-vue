@@ -69,6 +69,7 @@ const props = defineProps<Props>()
 
 @media only screen and (max-width: 915px) {
 	.total-item {
+		width: 100%;
 
 		&__item-rarity {
 			font-size: 9px;
