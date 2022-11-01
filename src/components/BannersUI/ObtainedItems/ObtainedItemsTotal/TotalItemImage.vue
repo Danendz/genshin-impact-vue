@@ -52,10 +52,34 @@ const getItemImgClasses = (item: CharacterOrWeapon) => {
 		height: 100%;
 		-webkit-mask-repeat: no-repeat;
 		mask-repeat: no-repeat;
-		box-shadow: inset 0px 0px 20px 10px rgba(255, 255, 255, 0.89);
+
+		&::before,
+		&::after {
+			content: '';
+			top: 0;
+			left: 0;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			filter: blur(4px);
+			box-shadow: inset 0px 0px 15px 5px rgba(255, 255, 255, 0.521);
+		}
+
+		&::before {
+			filter: blur(10px);
+			box-shadow: inset 0px -10rem 0px -2px rgba(0, 0, 0, 0.274),
+		}
 
 		&_three-star {
-			box-shadow: inset 0px 0px 10px 5px rgba(255, 255, 255, 0.712);
+			&::before {
+
+				box-shadow: inset 0px -5rem 0px -2px rgba(0, 0, 0, 0.11),
+			}
+
+			&::after {
+				filter: blur(7px);
+				box-shadow: inset 0px 0px 10px 10px rgba(255, 255, 255, 0.445);
+			}
 		}
 	}
 }

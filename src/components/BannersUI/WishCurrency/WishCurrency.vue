@@ -1,6 +1,6 @@
 <template>
 	<section v-if="getActiveBannerWish" class="banners-currency">
-		<figure class="banners-currency__primogems">
+		<figure @click="setPrimogems(getPrimogems + 1600)" class="banners-currency__primogems">
 			<img src="@/assets/Icons/wishIcons/wish_Primogem.png" />
 			<figcaption>{{ getPrimogems }}</figcaption>
 		</figure>
@@ -20,9 +20,10 @@ import { usePrimogems } from '@/store/Gacha/primogems';
 import { useWishes } from '@/store/Gacha/wishes';
 
 
-const { getPrimogems } = usePrimogems()
+const { getPrimogems, setPrimogems } = usePrimogems()
 const { getWishes } = useWishes()
 const { getActiveBannerWish } = useActiveBanner()
+
 
 </script>
 

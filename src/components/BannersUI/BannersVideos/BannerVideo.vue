@@ -92,6 +92,7 @@ watch(wishVideo, () => {
 		border: 0;
 		cursor: pointer;
 		font-size: 18px;
+		user-select: none;
 	}
 }
 </style>

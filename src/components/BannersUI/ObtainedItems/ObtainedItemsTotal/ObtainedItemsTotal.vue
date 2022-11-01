@@ -33,15 +33,17 @@ const hideObtainItems = () => {
 .banners-obtained-items-total {
 	display: flex;
 	width: 100%;
-	height: 50%;
+	max-width: 1200px;
+	height: auto;
 	padding: 0px 20px;
 	justify-content: center;
 	align-items: center;
 	gap: 5px;
 
 	&__item-box {
-		width: auto;
-		height: 98%;
+		width: 100%;
+		height: fit-content;
+
 		transition: .25s;
 		will-change: transform;
 
@@ -68,11 +70,21 @@ const hideObtainItems = () => {
 		padding: 20px 20px;
 
 		overflow-y: auto;
-		height: 100%;
+		gap: 15px;
+		justify-content: center;
+
 
 		&__item-box {
-			height: 45%;
+			width: 15%;
+
 		}
+	}
+}
+
+@media only screen and (max-width: 915px) and (orientation: landscape) {
+	.banners-obtained-items-total {
+		gap: 3px;
+		width: 90%;
 	}
 }
 </style>

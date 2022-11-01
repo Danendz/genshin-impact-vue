@@ -5,8 +5,14 @@
 		<TotalItemBackgroundImage />
 		<TotalItemImage :item="item" @is-character="isCharacter" />
 
-		<img v-if="isCharacter(item)" class="total-item__item-vision"
+		<img draggable="false" v-if="isCharacter(item)" class="total-item__item-vision"
 			:src="CharacterHelper.getElementImage(item.vision)" />
+
+		<section class="total-item__item-rarity">
+			<Icon icon="bxs:star" v-for="num in item.rarity" :key="num" />
+		</section>
+
+
 
 		<TotalItemShadows :item="props.item" />
 	</div>
@@ -20,6 +26,7 @@ import TotalItemBackgroundImage from './TotalItemBackgroundImage.vue';
 import TotalItemImage from './TotalItemImage.vue';
 import { isCharacter } from '@/Composables/isCharacter'
 import TotalItemShadows from './TotalItemShadows.vue';
+import { Icon } from '@iconify/vue';
 
 
 interface Props {
@@ -37,11 +44,51 @@ const props = defineProps<Props>()
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: auto;
-	height: 100%;
+
 	position: relative;
 	user-select: none;
+
+	&__item-vision {
+		z-index: 6;
+		width: 60%;
+		height: auto;
+		position: absolute;
+		bottom: 15%;
+	}
+
+	&__item-rarity {
+		position: absolute;
+		z-index: 6;
+		bottom: 8%;
+		color: #f1c40f;
+		font-size: 16px;
+	}
 }
 
-@media only screen and (orientation: portrait) {}
+
+
+@media only screen and (max-width: 915px) {
+	.total-item {
+
+		&__item-rarity {
+			font-size: 9px;
+		}
+	}
+}
+
+@media only screen and (max-width: 280px) {
+	.total-item {
+		&__item-rarity {
+			font-size: 7px;
+		}
+	}
+}
+
+@media only screen and (min-height: 1024px) and (orientation: portrait) {
+	.total-item {
+		&__item-rarity {
+			font-size: 16px;
+		}
+	}
+}
 </style>

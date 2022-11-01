@@ -108,7 +108,7 @@ export class UseWishing {
 
 		if (this.bannerType === BannerTypes.EVENT && eventItemIndex === undefined) throw new Error("Вы не указали индекс ивентового персонажа!")
 
-		eventItemIndex = eventItemIndex ?? this.getRoundedRandomNumber(this.wishItems.value.eventFiveStars.length)
+		eventItemIndex = eventItemIndex ?? this.getRoundedRandomNumber(this.wishItems.value.eventFiveStars.length - 1)
 
 		if (!this.wishItems.value.eventFiveStars[eventItemIndex]) throw new Error("Указанный индекс ивентового персонажа является не верным!")
 
