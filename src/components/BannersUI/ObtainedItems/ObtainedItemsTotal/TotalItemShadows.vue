@@ -40,9 +40,9 @@ const props = defineProps<Props>()
 			top: 10px;
 			left: 0;
 			pointer-events: none;
-			-webkit-mask-image: url('http://localhost:5000/banners/wish/background-mask.svg');
+			-webkit-mask-image: url('https://genshin-api-vue.herokuapp.com/wish/background-mask.svg');
 			-webkit-mask-repeat: no-repeat;
-			mask-image: url('http://localhost:5000/banners/wish/background-mask.svg');
+			mask-image: url('https://genshin-api-vue.herokuapp.com/wish/background-mask.svg');
 			mask-repeat: no-repeat;
 		}
 
@@ -55,7 +55,6 @@ const props = defineProps<Props>()
 
 			&::after,
 			&::before {
-
 				background-color: rgba(197, 77, 218, 0.658);
 			}
 		}
