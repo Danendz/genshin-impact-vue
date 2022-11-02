@@ -70,7 +70,7 @@ const { getActiveBannerWish } = useActiveBanner()
 			position: absolute;
 			font-weight: 900;
 			display: flex;
-			font-size: 25px;
+			font-size: 20px;
 			justify-content: center;
 			align-items: center;
 			right: 2px;
@@ -81,6 +81,28 @@ const { getActiveBannerWish } = useActiveBanner()
 			border-radius: 50%;
 			color: black;
 			background-color: white;
+		}
+	}
+}
+
+@media only screen and (max-width: 915px) and (orientation: landscape) {
+	.banners-currency {
+
+		&__primogems,
+		&__wishes {
+			font-size: 14px;
+
+			img {
+				width: 23px;
+				height: 23px;
+			}
+		}
+
+		&__primogems {
+			&::after {
+				top: 2px;
+				font-size: 20px;
+			}
 		}
 	}
 }

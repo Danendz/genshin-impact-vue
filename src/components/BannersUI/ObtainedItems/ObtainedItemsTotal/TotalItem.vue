@@ -1,5 +1,5 @@
 <template>
-	<div @transitionend="emit('lastEnd', index)" :key="index" class="total-item" :style="{
+	<div :key="index" class="total-item" :style="{
 		transitionDelay: `${0.15 * index}s`
 	}">
 		<TotalItemBackgroundImage />
@@ -12,38 +12,33 @@
 			<Icon icon="bxs:star" v-for="num in item.rarity" :key="num" />
 		</section>
 
-		<!-- for mobile -->
-		<TotalItemShadows v-if="width <= 915" v-show="showShadows" :item="props.item" />
-
-		<!-- for pc -->
-		<TotalItemShadows v-else :item="props.item" />
+		<!-- <TotalItemShadows :item="props.item" /> -->
 	</div>
 </template>
 
 
 <script setup lang="ts">
+//composables
+import { isCharacter } from '@/Composables/isCharacter'
 import { CharacterOrWeapon } from '@/Composables/UseWishing';
+
+//helpers
 import CharacterHelper from '@/helpers/CharacterHelper';
+
+//components
 import TotalItemBackgroundImage from './TotalItemBackgroundImage.vue';
 import TotalItemImage from './TotalItemImage.vue';
-import { isCharacter } from '@/Composables/isCharacter'
 import TotalItemShadows from './TotalItemShadows.vue';
-import { Icon } from '@iconify/vue';
-import { useWindowSize } from '@vueuse/core';
 
-const { width } = useWindowSize()
+//iconify
+import { Icon } from '@iconify/vue';
 
 interface Props {
 	index: number,
-	item: CharacterOrWeapon,
-	showShadows: boolean
+	item: CharacterOrWeapon
 }
 
 const props = defineProps<Props>()
-const emit = defineEmits<{
-	(e: 'lastEnd', index: number): void
-}>()
-
 </script>
 
 
@@ -66,7 +61,7 @@ const emit = defineEmits<{
 	&__item-rarity {
 		position: absolute;
 		z-index: 6;
-		bottom: 8%;
+		bottom: 9%;
 		color: #f1c40f;
 		font-size: 16px;
 	}
@@ -76,8 +71,6 @@ const emit = defineEmits<{
 
 @media only screen and (max-width: 915px) {
 	.total-item {
-		width: 100%;
-
 		&__item-rarity {
 			font-size: 9px;
 		}

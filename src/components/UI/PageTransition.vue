@@ -5,7 +5,7 @@
         </template>
     </Suspense>
     <ErrorPage v-else-if="!props.error.includes(null)" :error-message="ErrorMessages.NOT_FOUND" />
-    <LoaderPage :title="loaderTitle" :progress="progress" v-else />
+    <LoaderPage v-else :title="loaderTitle" :progress="progress" />
 
 </template>
 
@@ -29,7 +29,6 @@ const props = defineProps<Props>()
 const { conditionItem } = toRefs(props)
 const progressMultiplier = 100 / conditionItem.value.length
 const progress = ref(progressMultiplier)
-const loaderTitle = 'баннеры'
 
 const progressCounter = watch(conditionItem, () => {
     progress.value += progressMultiplier;

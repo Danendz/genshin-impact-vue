@@ -5,15 +5,18 @@
 				<img v-if="isCharacter(item)" draggable="false" :src="CharacterHelper.getElementImage(item.vision)" />
 				<section class="banners-obtained-item__name-rarity">
 					<p>{{ item.name }}</p>
-					<Icon class="banners-obtained-item__rarity-star" icon="bxs:star" v-for="num in item.rarity"
-						:key="num" />
+					<TransitionGroup name="fade-star-wish" appear>
+						<Icon :style="{ transitionDelay: `${0.3 * index}s` }" class="banners-obtained-item__rarity-star"
+							icon="bxs:star" v-for="num, index in item.rarity" :key="num" />
+					</TransitionGroup>
 				</section>
 			</section>
 		</Transition>
-		<Transition name="fade-wish-img" mode="out-in" appear>
-			<img :key="activeWish" class="banners-obtained-item__gacha-img" draggable="false" :src="isCharacter(item)
-			? CharacterHelper.getCharacterImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)
-			: CharacterHelper.getWeaponsImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)" />
+		<Transition :name="item.rarity !== 5 ? 'fade-wish-img' : 'fade-wish-img-five-star'" mode="out-in" appear>
+			<img @animationstart="onAnimationStart" @animationend="onAnimationEnd" :key="activeWish"
+				class="banners-obtained-item__gacha-img" draggable="false" :src="isCharacter(item)
+				? CharacterHelper.getCharacterImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)
+				: CharacterHelper.getWeaponsImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)" />
 		</Transition>
 	</section>
 </template>
@@ -32,9 +35,7 @@ import { CharacterImage } from '@/Enums/CharacterEnums';
 
 //composables
 import { CharacterOrWeapon } from '@/Composables/UseWishing';
-
-//interfaces
-import { Character } from '@/Interfaces/CharacterInterface';
+import { isCharacter } from '@/Composables/isCharacter';
 
 //store
 import { useObtainedItems } from '@/store/Gacha/obtainedItems';
@@ -60,29 +61,44 @@ watch(() => props.activeWish, () => {
 	item.value = getObtainedItems.value[props.activeWish]
 })
 
-const isCharacter = (item: CharacterOrWeapon): item is Character => {
-	return (item as Character).nation !== undefined
+let canGoNext = false;
+
+const onAnimationStart = () => {
+	canGoNext = false;
+	setTimeout(() => {
+		canGoNext = true;
+	}, 5000);
+}
+
+const onAnimationEnd = () => {
+	canGoNext = true
 }
 
 const changeWish = () => {
-	emit('next-wish')
+	if (canGoNext) {
+		emit('next-wish')
+	}
 }
 </script>
 
 
 <style lang="scss">
+@import '@/assets/Styles/animations/wish';
+
 .banners-obtained-item {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: 5px;
 	width: 100%;
 	height: 100%;
+	max-width: 1400px;
 
 	&__info {
 		position: relative;
 		display: flex;
+		margin-right: auto;
 		max-width: 300px;
+		align-items: center;
 
 		img {
 			width: auto;
@@ -100,7 +116,6 @@ const changeWish = () => {
 			}
 
 			.banners-obtained-item__rarity-star {
-
 				color: yellow;
 				font-size: 20px;
 			}
@@ -110,9 +125,10 @@ const changeWish = () => {
 	&__gacha-img {
 		width: auto;
 		min-width: 300px;
-		max-width: 1000px;
-		max-height: 90%;
-		height: auto;
+		transform: translateX(100px);
+		position: absolute;
+		height: 100vh;
+
 	}
 }
 
@@ -121,20 +137,32 @@ const changeWish = () => {
 		flex-direction: column;
 
 		&__info {
-			justify-content: center;
+			margin-top: auto;
+			background-color: rgba(0, 0, 0, 0.74);
+
+			z-index: 9;
+			width: 100vw;
+			max-width: none;
+			text-align: center;
 
 			img {
 				position: relative;
 				left: 0;
-				height: 90%;
+				height: 80%;
+			}
+
+			.banners-obtained-item__name-rarity {
+				margin-right: auto;
+				margin-left: auto;
 			}
 
 		}
 
 		&__gacha-img {
 			min-width: 0;
-			max-width: 100%;
-			max-height: 50%;
+
+			transform: translateX(0px);
+
 		}
 	}
 }
@@ -156,6 +184,12 @@ const changeWish = () => {
 		&__gacha-img {
 			min-width: 100px;
 		}
+	}
+}
+
+@media only screen and (max-width:915px) and (orientation: landscape) {
+	.banners-obtained-item {
+		width: 70%;
 	}
 }
 </style>

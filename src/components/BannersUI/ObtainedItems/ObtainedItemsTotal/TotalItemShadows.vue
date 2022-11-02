@@ -28,62 +28,24 @@ const props = defineProps<Props>()
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		top: 0px;
+		top: 1.5%;
 		left: 0;
 		z-index: -1;
-
-		&::after,
-		&::before {
-			content: '';
-			position: absolute;
-			width: 110%;
-			height: 100%;
-			top: 10px;
-			left: 0;
-			pointer-events: none;
-			-webkit-mask-image: url('https://genshin-api-vue.herokuapp.com/wish/background-mask.svg');
-			-webkit-mask-repeat: no-repeat;
-			mask-image: url('https://genshin-api-vue.herokuapp.com/wish/background-mask.svg');
-			mask-repeat: no-repeat;
-		}
-
-		&::before {
-			top: -8px;
-		}
+		-webkit-mask-image: url('https://genshin-api-vue.herokuapp.com/wish/background-mask.svg');
+		-webkit-mask-repeat: no-repeat;
+		mask-image: url('https://genshin-api-vue.herokuapp.com/wish/background-mask.svg');
+		mask-repeat: no-repeat;
 
 		&_four-star {
-			filter: drop-shadow(0px 0px 30px rgb(196, 77, 218));
-
-			&::after,
-			&::before {
-				background-color: rgba(197, 77, 218, 0.658);
-			}
+			background-color: rgb(197, 77, 218);
 		}
 
 		&_five-star {
-			filter: drop-shadow(0px 0px 30px #ffe711);
-
-			&::after,
-			&::before {
-				background-color: rgba(255, 231, 17, 0.555);
-			}
+			background-color: rgb(255, 231, 17);
 		}
 
 		&_three-star {
-			filter: drop-shadow(0px 0px 30px #3498dba9);
-
-			&::after,
-			&::before {
-				background-color: #3498db96;
-			}
-
-			&::after {
-				top: 5px;
-			}
-
-			&::before {
-				top: -3px;
-			}
+			background-color: #3498db;
 		}
 	}
 }

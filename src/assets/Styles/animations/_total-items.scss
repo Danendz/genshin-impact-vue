@@ -1,0 +1,15 @@
+.total-items-enter-active {
+  transition: all 0.35s ease;
+}
+
+.total-items-leave-active {
+  transition: 0s;
+}
+
+.total-items-enter-from {
+  opacity: 0;
+  transform: translateX(70px);
+}
+.total-items-leave-to {
+  opacity: 0;
+}

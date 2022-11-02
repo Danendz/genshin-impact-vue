@@ -32,6 +32,7 @@ export class UseWishing {
 	private readonly chanceToWinStandartFourStar: number = 5.1;
 	private readonly chanceToWinEventFourStar: number = 2.55;
 	private readonly softPity: number = 70;
+	private readonly softPityIncreaseBy: number = 4.97
 
 	private chanceFiveStarIncrease: number;
 	private wishItems: ComputedRef<WishItems>;
@@ -57,7 +58,7 @@ export class UseWishing {
 		this.isFiveStarGuaruntee = isFiveStarGuaruntee
 		this.isFourStarGuaruntee = isFourStarGuaruntee
 
-		this.chanceFiveStarIncrease = userFiveStarPity > 70 ? 0.1 * (userFiveStarPity - 70) : 0
+		this.chanceFiveStarIncrease = userFiveStarPity > 70 ? this.softPityIncreaseBy * (userFiveStarPity - 70) : 0
 
 		if (customFiveStarPity) this.pityFiveStar = customFiveStarPity
 	}
@@ -79,7 +80,7 @@ export class UseWishing {
 		this.randomNumber = Math.random() * 100;
 		this.addPity()
 
-		if (this.userFiveStarPity >= this.softPity) this.chanceFiveStarIncrease += 0.1
+		if (this.userFiveStarPity >= this.softPity) this.chanceFiveStarIncrease += this.softPityIncreaseBy
 		if (this.isFiveStar()) return this.getFiveStar(eventItemIndex)
 
 		if (this.isFourStar()) return this.getFourStar();

@@ -1,7 +1,8 @@
 <template>
 	<section class="banners-obtained-items">
 		<Transition name="fade" mode="out-in">
-			<section v-if="getActiveWish !== getObtainedItems.length" class="banners-obtained-items__items">
+			<section @transitionend="entered = true" :style="{ transitionDelay: entered ? '0s': '1s' }"
+				v-if="getActiveWish !== getObtainedItems.length" class="banners-obtained-items__items">
 				<ObtainedItem @next-wish="nextWish" :active-wish="getActiveWish" />
 			</section>
 			<ObtainedItemsTotal v-else />
@@ -15,7 +16,7 @@ import { useObtainedItems } from '@/store/Gacha/obtainedItems';
 import ObtainedItemsTotal from './ObtainedItemsTotal/ObtainedItemsTotal.vue'
 
 const { getObtainedItems, getActiveWish, setActiveWish } = useObtainedItems()
-
+const entered = false
 const nextWish = () => {
 	if (getObtainedItems.value.length !== getActiveWish.value) {
 		setActiveWish(getActiveWish.value + 1)

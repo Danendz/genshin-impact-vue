@@ -1,0 +1,29 @@
+.banner-down-enter-active,
+.banner-down-leave-active {
+  transition: all 0.5s;
+}
+
+.banner-down-enter-from,
+.banner-down-leave-to {
+  transform: translateY(-100px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.banner-right-enter-active {
+  transition: all 0.4s;
+}
+
+.banner-right-leave-active {
+  transition: 0s;
+}
+
+.banner-right-enter-from {
+  transform: translateX(100px);
+  opacity: 0;
+}
+
+.banner-right-leave-to {
+  opacity: 0;
+  pointer-events: none;
+}

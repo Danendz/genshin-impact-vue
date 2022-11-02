@@ -15,7 +15,7 @@ import { RouterView, useRoute } from 'vue-router';
 </script>
 
 <style lang="scss">
-@import '@/assets/Styles/animations';
+@import '@/assets/Styles/animations/page';
 
 * {
   margin: 0;

@@ -77,6 +77,9 @@ const findTrue = (index: number): [BannerTypes, number?] => {
 
 
 <style lang="scss">
+@import '@/assets/Styles/animations/banners';
+@import '@/assets/Styles/animations';
+
 .banners-sm,
 .banners-lg {
 	user-select: none;
@@ -95,6 +98,7 @@ const findTrue = (index: number): [BannerTypes, number?] => {
 		cursor: pointer;
 		border: 2px solid transparent;
 		transition: all .3s;
+		transform: scale(1);
 
 		&:hover {
 			transform: scale(1.05);
@@ -121,7 +125,7 @@ const findTrue = (index: number): [BannerTypes, number?] => {
 	&__img {
 		width: 100%;
 		height: 70vh;
-		object-fit: contain;
+		object-fit: scale-down;
 	}
 
 }
@@ -158,7 +162,7 @@ const findTrue = (index: number): [BannerTypes, number?] => {
 	.banners-lg {
 		margin-top: 20px;
 		max-width: 600px;
-		width: 65%
+		width: 80%
 	}
 }
 </style>

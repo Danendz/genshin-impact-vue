@@ -1,5 +1,5 @@
 <template>
-	<div :class="getItemImgClasses(props.item)" :style="getItemImgStyles(props.item)"></div>
+	<div :class="['total-item__item-img',]" :style="getItemImgStyles(props.item)"></div>
 </template>
 
 
@@ -25,17 +25,6 @@ const getItemImgStyles = (item: CharacterOrWeapon) => {
 	}
 }
 
-const getItemImgClasses = (item: CharacterOrWeapon) => {
-	const mainClass = 'total-item__item-img'
-	const threeStarClass = 'total-item__item-img_three-star'
-	const fourStarClass = 'total-item__item-img_four-star'
-
-	if (!isCharacter(item)) return mainClass + ' ' + threeStarClass
-
-	const itemRarity = parseInt(item.rarity)
-	if (itemRarity === 5) return mainClass
-	return mainClass + ' ' + fourStarClass
-}
 
 </script>
 
@@ -54,35 +43,15 @@ const getItemImgClasses = (item: CharacterOrWeapon) => {
 		-webkit-mask-repeat: no-repeat;
 		mask-repeat: no-repeat;
 
-		&::before,
+
 		&::after {
 			content: '';
-			top: 0;
+			bottom: 0;
 			left: 0;
 			position: absolute;
 			width: 100%;
-			height: 100%;
-			box-shadow: inset 0px 0px 10px 5px rgba(255, 231, 17, 0.493);
-		}
-
-		&::before {
-			box-shadow: inset 0px -10rem 30px -2px rgba(0, 0, 0, 0.281),
-		}
-
-		&_four-star {
-			&::after {
-				box-shadow: inset 0px 0px 10px 5px rgba(197, 77, 218, 0.479);
-			}
-		}
-
-		&_three-star {
-			&::before {
-				box-shadow: inset 0px -5rem 15px -2px rgba(0, 0, 0, 0.12),
-			}
-
-			&::after {
-				box-shadow: inset 0px 0px 20px 5px rgba(255, 255, 255, 0.445);
-			}
+			height: 50%;
+			background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.342) 100%);
 		}
 	}
 }
