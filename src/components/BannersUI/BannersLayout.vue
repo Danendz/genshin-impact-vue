@@ -50,11 +50,13 @@ onMounted(() => {
 			setActiveBannerWish([BannerTypes.STANDARD])
 		}
 	}
-	setShowObtainedItems(false)
-	clearObtainedItems()
-	setIsWishing(false)
-	setCurrentWishVideo(3, 1, true)
-	setActiveWish(0)
+	if (!getShowObtainedItems.value) {
+		setShowObtainedItems(false)
+		clearObtainedItems()
+		setIsWishing(false)
+		setCurrentWishVideo(3, 1, true)
+		setActiveWish(0)
+	}
 })
 
 function setActive(index: number, banner: BannerTypes, eventIndex?: number): void {

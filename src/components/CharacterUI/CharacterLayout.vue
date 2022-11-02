@@ -50,8 +50,6 @@ onMounted(() => {
     if (characters.getCharacters.value) {
         if (!store.currentCharacter) {
             store.setCurrentCharacter(characters.getCharacters.value[0])
-        } else {
-            store.setCurrentCharacter(store.currentCharacter)
         }
     }
 })

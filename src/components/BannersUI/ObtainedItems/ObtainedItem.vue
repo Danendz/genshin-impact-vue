@@ -1,5 +1,5 @@
 <template>
-	<section @click="emit('next-wish')" class="banners-obtained-item">
+	<section @click="changeWish" class="banners-obtained-item">
 		<Transition name="fade-wish-info" appear mode="out-in">
 			<section :key="activeWish" class="banners-obtained-item__info">
 				<img v-if="isCharacter(item)" draggable="false" :src="CharacterHelper.getElementImage(item.vision)" />
@@ -64,6 +64,9 @@ const isCharacter = (item: CharacterOrWeapon): item is Character => {
 	return (item as Character).nation !== undefined
 }
 
+const changeWish = () => {
+	emit('next-wish')
+}
 </script>
 
 

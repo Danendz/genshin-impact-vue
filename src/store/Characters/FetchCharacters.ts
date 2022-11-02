@@ -24,7 +24,7 @@ export const useFetchCharacters = () => {
 		const isArrayButLengthLessThanOrEqualToOne = Array.isArray(characters.value) && characters.value.length <= 1
 		const hasError = error.value
 		//fetching new data
-		if (isNotArray || isArrayButLengthLessThanOrEqualToOne || hasError || name) {
+		if (isNotArray || isArrayButLengthLessThanOrEqualToOne || hasError) {
 			characters.value = null
 			error.value = null
 			let data;

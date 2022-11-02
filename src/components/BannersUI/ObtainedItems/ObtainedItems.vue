@@ -15,6 +15,7 @@ import { useObtainedItems } from '@/store/Gacha/obtainedItems';
 import ObtainedItemsTotal from './ObtainedItemsTotal/ObtainedItemsTotal.vue'
 
 const { getObtainedItems, getActiveWish, setActiveWish } = useObtainedItems()
+
 const nextWish = () => {
 	if (getObtainedItems.value.length !== getActiveWish.value) {
 		setActiveWish(getActiveWish.value + 1)

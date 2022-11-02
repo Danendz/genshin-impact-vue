@@ -1,6 +1,7 @@
 <template>
 	<div class="banners-obtained-items-total">
-		<div class="banners-obtained-items-total__item-box" v-for="item, index in getObtainedItems" :key="index">
+		<div @click="goToItem(item)" class="banners-obtained-items-total__item-box"
+			v-for="item, index in getObtainedItems" :key="index">
 			<Transition name="fade-right" appear>
 				<TotalItem @last-end="lastEnd" :show-shadows="showShadows" :index="index" :item="item" />
 			</Transition>
@@ -17,10 +18,14 @@ import { useWish } from '@/store/Gacha/Wish';
 import TotalItem from './TotalItem.vue';
 import { ref } from 'vue'
 import { useWindowSize } from '@vueuse/core';
+import { useRouter } from 'vue-router';
+import { isCharacter } from '@/Composables/isCharacter';
+import { CharacterOrWeapon } from '@/Composables/UseWishing';
 
 const { getObtainedItems, setShowObtainedItems, clearObtainedItems, setActiveWish } = useObtainedItems()
 const { setIsWishing } = useWish()
 const { width } = useWindowSize()
+const router = useRouter()
 
 const hideObtainItems = () => {
 	/* for mobile optimization bacause of lags */
@@ -52,6 +57,10 @@ const closeWishes = () => {
 	setActiveWish(0)
 }
 
+const goToItem = (item: CharacterOrWeapon) => {
+	if (isCharacter(item)) router.push({ name: 'CharacterPage', params: { name: item.name_key } })
+}
+
 const showShadows = ref(false)
 
 /* after last element enable shadows on mobile */
@@ -76,6 +85,7 @@ const lastEnd = (index: number) => {
 	&__item-box {
 		max-width: 111.5px;
 		transition: .25s;
+		cursor: pointer;
 		will-change: transform;
 
 		&:hover {
