@@ -1,9 +1,21 @@
+.fade-wish-info-portrait-enter-active,
 .fade-wish-info-enter-active {
-  animation: 1s WishInfoEnter;
+  transition: all 0.5s;
 }
 
+.fade-wish-info-enter-from {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.fade-wish-info-portrait-enter-from {
+  opacity: 0;
+}
+
+.fade-wish-info-portrait-leave-active,
 .fade-wish-info-leave-active {
   transition: 0s;
+  transition-delay: 0s !important;
 }
 
 .fade-wish-img-enter-active {
@@ -14,6 +26,11 @@
   animation: 1s WishImageEnterFiveStar;
 }
 
+.fade-wish-img-portrait-enter-active {
+  animation: 1s WishImageEnterPortrait;
+}
+
+.fade-wish-img-portrait-leave-active,
 .fade-wish-img-five-star-leave-active,
 .fade-wish-img-leave-active {
   transition: 0s;
@@ -35,6 +52,7 @@
 .fade-stars-enter-active {
   transition: 0.3s;
 }
+
 .fade-stars-leave-active {
   transition: 0s;
 }
@@ -45,17 +63,14 @@
 
 @keyframes WishInfoEnter {
   0% {
-    filter: brightness(0);
-    transform: scale(2) translateX(50px);
+    transform: scale(2) translateX(30px);
   }
 
   50% {
-    filter: brightness(0);
-    transform: scale(1) translateX(50px);
+    transform: scale(1) translateX(30px);
   }
 
   100% {
-    filter: brightness(1);
     transform: translateX(0);
   }
 }
@@ -63,12 +78,12 @@
 @keyframes WishImageEnter {
   0% {
     filter: brightness(0);
-    transform: scale(2);
+    transform: scale(2) translateX(80px);
   }
 
   50% {
     filter: brightness(0);
-    transform: scale(1);
+    transform: scale(1) translateX(80px);
   }
 
   100% {
@@ -91,5 +106,19 @@
   100% {
     filter: brightness(1);
     transform: translateX(100px) scale(1);
+  }
+}
+
+@keyframes WishImageEnterPortrait {
+  0% {
+    filter: brightness(0);
+    transform: translateX(0px) scale(2);
+  }
+  50% {
+    filter: brightness(0);
+    transform: translateX(0px) scale(1);
+  }
+  100% {
+    filter: brightness(1);
   }
 }

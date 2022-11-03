@@ -1,7 +1,7 @@
 <template>
 	<section @click="changeWish" class="banners-obtained-item">
-		<Transition name="fade-wish-info" appear mode="out-in">
-			<section :key="activeWish" class="banners-obtained-item__info">
+		<Transition :name="getWishInfoAnimation()" appear mode="out-in">
+			<section :style="{ transitionDelay: '0.5s' }" :key="activeWish" class="banners-obtained-item__info">
 				<img v-if="isCharacter(item)" draggable="false" :src="CharacterHelper.getElementImage(item.vision)" />
 				<section class="banners-obtained-item__name-rarity">
 					<p>{{ item.name }}</p>
@@ -12,7 +12,7 @@
 				</section>
 			</section>
 		</Transition>
-		<Transition :name="item.rarity !== 5 ? 'fade-wish-img' : 'fade-wish-img-five-star'" mode="out-in" appear>
+		<Transition :name="getWishImgAnimation()" mode="out-in" appear>
 			<img @animationstart="onAnimationStart" @animationend="onAnimationEnd" :key="activeWish"
 				class="banners-obtained-item__gacha-img" draggable="false" :src="isCharacter(item)
 				? CharacterHelper.getCharacterImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)
@@ -20,8 +20,6 @@
 		</Transition>
 	</section>
 </template>
-
-
 
 <script setup lang="ts">
 //iconify
@@ -40,6 +38,9 @@ import { isCharacter } from '@/Composables/isCharacter';
 //store
 import { useObtainedItems } from '@/store/Gacha/obtainedItems';
 
+//vueUse
+import { useScreenOrientation } from '@vueuse/core';
+
 //vue
 import { watch, ref } from 'vue';
 
@@ -57,20 +58,24 @@ const { getObtainedItems } = useObtainedItems()
 
 const item = ref<CharacterOrWeapon>(getObtainedItems.value[props.activeWish])
 
+let canGoNext = false;
+let autoAllowGoNext: number;
+
 watch(() => props.activeWish, () => {
 	item.value = getObtainedItems.value[props.activeWish]
-})
-
-let canGoNext = false;
-
-const onAnimationStart = () => {
-	canGoNext = false;
-	setTimeout(() => {
+	clearTimeout(autoAllowGoNext)
+	autoAllowGoNext = setTimeout(() => {
 		canGoNext = true;
 	}, 5000);
+})
+
+const onAnimationStart = () => {
+	console.log('started')
+	canGoNext = false;
 }
 
 const onAnimationEnd = () => {
+	console.log('ended')
 	canGoNext = true
 }
 
@@ -79,6 +84,26 @@ const changeWish = () => {
 		emit('next-wish')
 	}
 }
+
+const screenOrientation = useScreenOrientation()
+
+const getWishInfoAnimation = () => {
+	if (screenOrientation.orientation) {
+		return screenOrientation.orientation.value === 'landscape-primary' ? 'fade-wish-info' : 'fade-wish-info-portrait'
+	}
+	return 'fade-wish-info'
+}
+
+const getWishImgAnimation = () => {
+	if (screenOrientation.orientation) {
+		return screenOrientation.orientation.value === 'landscape-primary'
+			? 'fade-wish-img'
+			: 'fade-wish-img-portrait'
+	}
+
+	return 'fade-wish-img'
+}
+
 </script>
 
 
@@ -160,9 +185,7 @@ const changeWish = () => {
 
 		&__gacha-img {
 			min-width: 0;
-
 			transform: translateX(0px);
-
 		}
 	}
 }
