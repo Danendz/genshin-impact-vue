@@ -19,10 +19,9 @@
 				class="banners-obtained-item__weapon-bg" />
 		</Transition>
 		<Transition :name="getWishImgAnimation()" mode="out-in" appear>
-			<img alt="gacha splash" @animationstart="onAnimationStart" @animationend="onAnimationEnd" :key="activeWish"
-				class="banners-obtained-item__gacha-img" draggable="false" :src="isCharacter(item)
-				? CharacterHelper.getCharacterImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)
-				: CharacterHelper.getWeaponsImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)" />
+			<img alt="gacha splash" :key="activeWish" class="banners-obtained-item__gacha-img" draggable="false" :src="isCharacter(item)
+			? CharacterHelper.getCharacterImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)
+			: CharacterHelper.getWeaponsImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)" />
 		</Transition>
 	</section>
 </template>
@@ -48,7 +47,7 @@ import { useObtainedItems } from '@/store/Gacha/obtainedItems';
 import { useScreenOrientation } from '@vueuse/core';
 
 //vue
-import { watch, ref } from 'vue';
+import { watch, ref, onMounted } from 'vue';
 
 interface Props {
 	activeWish: number,
@@ -69,20 +68,19 @@ let autoAllowGoNext: number;
 
 watch(() => props.activeWish, () => {
 	item.value = getObtainedItems.value[props.activeWish]
+	canGoNext = false
+	setDelay()
+})
+
+onMounted(() => {
+	setDelay()
+})
+
+const setDelay = () => {
 	clearTimeout(autoAllowGoNext)
 	autoAllowGoNext = setTimeout(() => {
 		canGoNext = true;
-	}, 5000);
-})
-
-const onAnimationStart = () => {
-	console.log('started')
-	canGoNext = false;
-}
-
-const onAnimationEnd = () => {
-	console.log('ended')
-	canGoNext = true
+	}, 750);
 }
 
 const changeWish = () => {
@@ -172,8 +170,6 @@ const getWishImgAnimation = () => {
 	.banners-obtained-item {
 		&__info {
 
-			img {}
-
 			.banners-obtained-item__name-rarity {
 				p {
 					font-size: 30px;
@@ -230,9 +226,7 @@ const getWishImgAnimation = () => {
 	.banners-obtained-item {
 		width: 90%;
 
-		&__info {
-			.banners-obtained-item__name-rarity {}
-		}
+
 	}
 }
 </style>

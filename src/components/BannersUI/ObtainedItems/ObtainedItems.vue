@@ -2,8 +2,7 @@
 	<Transition name="fade" appear>
 		<section v-if="getShowObtainedItems" class="banners-obtained-items">
 			<Transition name="fade" mode="out-in">
-				<section @transitionend="entered = true" :style="{ transitionDelay: entered ? '0s' : '1s' }"
-					v-if="getActiveWish !== getObtainedItems.length" class="banners-obtained-items__items">
+				<section v-if="getActiveWish !== getObtainedItems.length" class="banners-obtained-items__items">
 					<ObtainedItem @next-wish="nextWish" :active-wish="getActiveWish" />
 				</section>
 				<ObtainedItemsTotal v-else />
@@ -19,7 +18,6 @@ import ObtainedItemsTotal from './ObtainedItemsTotal/ObtainedItemsTotal.vue'
 
 const { getShowObtainedItems, getObtainedItems, getActiveWish, setActiveWish } = useObtainedItems()
 
-const entered = false
 const nextWish = () => {
 	if (getObtainedItems.value.length !== getActiveWish.value) {
 		setActiveWish(getActiveWish.value + 1)
