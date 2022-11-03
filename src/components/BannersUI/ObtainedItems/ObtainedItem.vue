@@ -128,22 +128,25 @@ const getWishImgAnimation = () => {
 		position: relative;
 		display: flex;
 		margin-right: auto;
-		max-width: 300px;
+		max-width: 500px;
 		align-items: center;
 
 		img {
-			width: auto;
-			height: 100%;
+
+			width: 30%;
+			height: auto;
 			z-index: 0;
 		}
 
 		.banners-obtained-item__name-rarity {
 			z-index: 1;
+			transform: translateX(-10px);
 
 			p {
 				color: white;
 				font-size: 35px;
 				font-weight: bold;
+				max-width: 300px;
 			}
 
 			.banners-obtained-item__rarity-star {
@@ -160,6 +163,31 @@ const getWishImgAnimation = () => {
 		transform: translateX(0px);
 		position: absolute;
 		height: 100vh;
+		z-index: 0;
+	}
+}
+
+
+@media only screen and (max-width: 915px) {
+	.banners-obtained-item {
+		&__info {
+
+			img {}
+
+			.banners-obtained-item__name-rarity {
+				p {
+					font-size: 30px;
+				}
+
+				.banners-obtained-item__rarity-star {
+					font-size: 15px;
+				}
+			}
+		}
+
+		&__gacha-img {
+			min-width: 100px;
+		}
 	}
 }
 
@@ -179,10 +207,12 @@ const getWishImgAnimation = () => {
 			img {
 				position: relative;
 				left: 0;
+				width: auto;
 				height: 80%;
 			}
 
 			.banners-obtained-item__name-rarity {
+				transform: translate(0);
 				margin-right: auto;
 				margin-left: auto;
 			}
@@ -196,29 +226,13 @@ const getWishImgAnimation = () => {
 	}
 }
 
-@media only screen and (max-width: 915px) {
-	.banners-obtained-item {
-		&__info {
-			.banners-obtained-item__name-rarity {
-				p {
-					font-size: 30px;
-				}
-
-				.banners-obtained-item__rarity-star {
-					font-size: 15px;
-				}
-			}
-		}
-
-		&__gacha-img {
-			min-width: 100px;
-		}
-	}
-}
-
 @media only screen and (max-width:915px) and (orientation: landscape) {
 	.banners-obtained-item {
-		width: 70%;
+		width: 90%;
+
+		&__info {
+			.banners-obtained-item__name-rarity {}
+		}
 	}
 }
 </style>
