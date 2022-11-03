@@ -1,3 +1,4 @@
+.fade-wish-weapon-bg-enter-active,
 .fade-wish-info-portrait-enter-active,
 .fade-wish-info-enter-active {
   transition: all 0.5s;
@@ -8,10 +9,12 @@
   transform: translateX(20px);
 }
 
+.fade-wish-weapon-bg-enter-from,
 .fade-wish-info-portrait-enter-from {
   opacity: 0;
 }
 
+.fade-wish-weapon-bg-leave-active,
 .fade-wish-info-portrait-leave-active,
 .fade-wish-info-leave-active {
   transition: 0s;
@@ -78,34 +81,34 @@
 @keyframes WishImageEnter {
   0% {
     filter: brightness(0);
-    transform: scale(2) translateX(80px);
+    transform: scale(2) translateX(-12px);
   }
 
   50% {
     filter: brightness(0);
-    transform: scale(1) translateX(80px);
+    transform: scale(1) translateX(-20px);
   }
 
   100% {
     filter: brightness(1);
-    transform: translateX(100px);
+    transform: translateX(0px);
   }
 }
 
 @keyframes WishImageEnterFiveStar {
   0% {
     filter: brightness(0);
-    transform: translateX(100px) scale(2);
+    transform: translateX(0px) scale(2);
   }
 
   50% {
     filter: brightness(0);
-    transform: translateX(100px) scale(1);
+    transform: translateX(0px) scale(1);
   }
 
   100% {
     filter: brightness(1);
-    transform: translateX(100px) scale(1);
+    transform: translateX(0px) scale(1);
   }
 }
 

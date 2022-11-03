@@ -1,6 +1,6 @@
 <template>
-	<Transition name="banner-down">
-		<section v-if="!getIsWishing" class="banners-sm">
+	<Transition name="banner-down" appear>
+		<section v-show="!getIsWishing" class="banners-sm">
 			<TransitionGroup name="banner-down" appear>
 				<img draggable="false" v-for="url, index in totalWishes" :key="index"
 					:class="['banners-sm__img', { 'banners-sm__img_active': activeBannerImage === index }]" :src="url"
@@ -9,25 +9,30 @@
 		</section>
 	</Transition>
 	<Transition name="fade-right" appear>
-		<section v-if="!getIsWishing" class="banners-lg">
+		<section v-show="!getIsWishing" class="banners-lg">
 			<Transition name="banner-right" mode="out-in" appear>
 				<img :key="props.activeBannerImage" draggable="false" class="banners-lg__img"
 					:src="totalWishes[activeBannerImage]" />
 			</Transition>
-			<WishButtons />
 		</section>
 	</Transition>
 </template>
 
 
 <script setup lang="ts">
+//enums
 import { BannersEntities } from '@/Enums/BannersEnums';
 import { BannerTypes } from '@/Enums/WishEnums';
+
+//helpers
 import CharacterHelper from '@/helpers/CharacterHelper';
+
+//stores
 import { useBannersData } from '@/store/Gacha/bannersData';
 import { useWish } from '@/store/Gacha/Wish';
+
+//vue
 import { onMounted, ref } from 'vue';
-import WishButtons from '../WishButtons.vue'
 
 interface Props {
 	activeBannerImage: number
@@ -89,8 +94,9 @@ const findTrue = (index: number): [BannerTypes, number?] => {
 .banners-sm {
 	display: flex;
 	gap: 10px;
-	margin-top: 20px;
 	z-index: 2;
+	position: absolute;
+	top: 20px;
 
 	&__img {
 		width: 100px;
@@ -124,8 +130,8 @@ const findTrue = (index: number): [BannerTypes, number?] => {
 
 	&__img {
 		width: 100%;
-		height: 70vh;
-		object-fit: scale-down;
+		height: auto;
+
 	}
 
 }
@@ -133,6 +139,8 @@ const findTrue = (index: number): [BannerTypes, number?] => {
 @media only screen and (orientation: portrait) {
 	.banners-sm {
 		gap: 2px;
+		position: relative;
+		top: 0;
 
 		&__img {
 			width: 90px;
@@ -143,9 +151,6 @@ const findTrue = (index: number): [BannerTypes, number?] => {
 		width: 90%;
 		align-items: center;
 
-		&__img {
-			height: 55vw;
-		}
 	}
 }
 
@@ -153,6 +158,8 @@ const findTrue = (index: number): [BannerTypes, number?] => {
 	.banners-sm {
 		flex-direction: column;
 		margin: 0;
+		position: relative;
+		top: 0;
 
 		&__img {
 			width: 80px;
@@ -160,9 +167,8 @@ const findTrue = (index: number): [BannerTypes, number?] => {
 	}
 
 	.banners-lg {
-		margin-top: 20px;
 		max-width: 600px;
-		width: 80%
+		width: 60%
 	}
 }
 </style>

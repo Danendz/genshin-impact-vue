@@ -1,3 +1,5 @@
+.banner-up-leave-active,
+.banner-up-enter-active,
 .banner-down-enter-active,
 .banner-down-leave-active {
   transition: all 0.5s;
@@ -24,6 +26,23 @@
 }
 
 .banner-right-leave-to {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.banner-up-enter-from,
+.banner-up-leave-to {
+  transform: translateY(100px);
+  opacity: 0;
+  pointer-events: none;
+}
+.banner-fade-leave-active,
+.banner-fade-enter-active {
+  transition: opacity 0.6s;
+}
+
+.banner-fade-enter-from,
+.banner-fade-leave-to {
   opacity: 0;
   pointer-events: none;
 }

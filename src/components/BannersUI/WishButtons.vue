@@ -1,12 +1,14 @@
 <template>
-	<section class="banners-layout__wish-buttons">
-		<button @click="makeWish(1)">
-			Использовать 1
-		</button>
-		<button @click="makeWish(10)">
-			Использовать 10
-		</button>
-	</section>
+	<Transition name="banner-up" appear>
+		<section v-show="!getIsWishing" class="banners-layout__wish-buttons">
+			<button @click="makeWish(1)">
+				Использовать 1
+			</button>
+			<button @click="makeWish(10)">
+				Использовать 10
+			</button>
+		</section>
+	</Transition>
 </template>
 
 
@@ -53,6 +55,9 @@ const makeWish = (amount: number) => {
 .banners-layout__wish-buttons {
 	display: flex;
 	gap: 10px;
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
 
 	button {
 		width: 200px;
@@ -61,11 +66,19 @@ const makeWish = (amount: number) => {
 		border: 1px solid transparent;
 		background-color: white;
 		cursor: pointer;
+		user-select: none;
 		transition: .3s;
 
 		&:hover {
 			border-color: rgba(0, 0, 0, 0.596);
 		}
+	}
+}
+
+
+@media only screen and (orientation: portrait) {
+	.banners-layout__wish-buttons {
+		right: unset;
 	}
 }
 

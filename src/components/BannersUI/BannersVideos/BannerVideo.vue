@@ -33,6 +33,7 @@ const isMuted = ref(true)
 const skipHided = ref(true)
 
 const toggleSkip = () => {
+	console.log('toggled')
 	if (getIsWishing.value && !getShowObtainedItems.value) {
 		skipHided.value = !skipHided.value
 	}
@@ -71,10 +72,8 @@ watch(wishVideo, () => {
 
 <style lang="scss">
 .banners-video-container {
-	z-index: 1;
 
 	&__bg-video {
-
 		height: 100%;
 		width: 177.77777778vh;
 		min-width: 100%;
@@ -83,13 +82,14 @@ watch(wishVideo, () => {
 		top: 50%;
 		transform: translate(-50%, -50%);
 		position: absolute;
+
 	}
 
 	&__skip {
 		position: absolute;
 		right: 10px;
 		top: 10px;
-		z-index: 1;
+		z-index: 3;
 		background-color: transparent;
 		color: rgb(241, 241, 241);
 		border: 0;

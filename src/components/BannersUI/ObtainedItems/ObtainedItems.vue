@@ -1,13 +1,15 @@
 <template>
-	<section class="banners-obtained-items">
-		<Transition name="fade" mode="out-in">
-			<section @transitionend="entered = true" :style="{ transitionDelay: entered ? '0s': '1s' }"
-				v-if="getActiveWish !== getObtainedItems.length" class="banners-obtained-items__items">
-				<ObtainedItem @next-wish="nextWish" :active-wish="getActiveWish" />
-			</section>
-			<ObtainedItemsTotal v-else />
-		</Transition>
-	</section>
+	<Transition name="fade" appear>
+		<section v-if="getShowObtainedItems" class="banners-obtained-items">
+			<Transition name="fade" mode="out-in">
+				<section @transitionend="entered = true" :style="{ transitionDelay: entered ? '0s' : '1s' }"
+					v-if="getActiveWish !== getObtainedItems.length" class="banners-obtained-items__items">
+					<ObtainedItem @next-wish="nextWish" :active-wish="getActiveWish" />
+				</section>
+				<ObtainedItemsTotal v-else />
+			</Transition>
+		</section>
+	</Transition>
 </template>
 
 <script setup lang="ts">
@@ -15,7 +17,8 @@ import ObtainedItem from './ObtainedItem.vue';
 import { useObtainedItems } from '@/store/Gacha/obtainedItems';
 import ObtainedItemsTotal from './ObtainedItemsTotal/ObtainedItemsTotal.vue'
 
-const { getObtainedItems, getActiveWish, setActiveWish } = useObtainedItems()
+const { getShowObtainedItems, getObtainedItems, getActiveWish, setActiveWish } = useObtainedItems()
+
 const entered = false
 const nextWish = () => {
 	if (getObtainedItems.value.length !== getActiveWish.value) {
@@ -27,7 +30,7 @@ const nextWish = () => {
 
 <style lang="scss">
 .banners-obtained-items {
-	width: 100%;
+	width: 100vw;
 	height: 100vh;
 	position: absolute;
 	background-image: url('@/assets/Images/wish-background.webp');

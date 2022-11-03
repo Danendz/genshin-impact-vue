@@ -1,16 +1,15 @@
 <template>
 	<section class="banners-container">
 		<BannerVideo />
-		<section class="banners-container__layout">
-			<Transition name="fade-up" appear>
-				<WishCurrency v-show="!getIsWishing" />
-			</Transition>
-			<BannersImages :activeBannerImage="getActiveBannerImage" @set-active="setActive" />
-			<NotEnoughFunds />
-			<Transition name="fade" appear>
-				<ObtainedItems v-if="getShowObtainedItems" />
-			</Transition>
-		</section>
+		<ObtainedItems />
+		<Transition name="fade" appear>
+			<section v-show="!getIsWishing" class="banners-container__layout">
+				<WishCurrency />
+				<BannersImages :activeBannerImage="getActiveBannerImage" @set-active="setActive" />
+				<NotEnoughFunds />
+				<WishButtons />
+			</section>
+		</Transition>
 	</section>
 </template>
 
@@ -21,6 +20,7 @@ import BannersImages from './BannersImages/BannersImages.vue';
 import NotEnoughFunds from './NotEnoughFunds/NotEnoughFunds.vue';
 import WishCurrency from './WishCurrency/WishCurrency.vue'
 import ObtainedItems from './ObtainedItems/ObtainedItems.vue'
+import WishButtons from './WishButtons.vue';
 
 //stores
 import { useBannersData } from '@/store/Gacha/bannersData';
@@ -34,7 +34,6 @@ import { BannerTypes } from '@/Enums/WishEnums';
 
 //vue
 import { onMounted } from 'vue'
-
 
 const { getActiveBannerImage, getActiveBannerWish, setActiveBannerImage, setActiveBannerWish } = useActiveBanner()
 const { getEventBanner } = useBannersData()
@@ -71,14 +70,17 @@ function setActive(index: number, banner: BannerTypes, eventIndex?: number): voi
 .banners-container {
 	overflow: hidden;
 	position: relative;
+	height: 100vh;
 
 	&__layout {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-
+		justify-content: center;
+		position: relative;
+		max-width: 1600px;
 		margin: 0 auto;
-		height: 100vh;
+		height: 95vh;
 		gap: 30px;
 		z-index: 2;
 	}
@@ -92,6 +94,7 @@ function setActive(index: number, banner: BannerTypes, eventIndex?: number): voi
 @media only screen and (orientation: portrait) {
 	.banners-container {
 		&__layout {
+			height: 100vh;
 			justify-content: center;
 			margin-top: 0px;
 			gap: 10px;
@@ -108,6 +111,7 @@ function setActive(index: number, banner: BannerTypes, eventIndex?: number): voi
 			justify-content: space-around;
 			gap: 0;
 			margin-top: 0;
+			height: 100vh;
 		}
 	}
 }

@@ -2,7 +2,8 @@
 	<section @click="changeWish" class="banners-obtained-item">
 		<Transition :name="getWishInfoAnimation()" appear mode="out-in">
 			<section :style="{ transitionDelay: '0.5s' }" :key="activeWish" class="banners-obtained-item__info">
-				<img v-if="isCharacter(item)" draggable="false" :src="CharacterHelper.getElementImage(item.vision)" />
+				<img alt="vision" v-if="isCharacter(item)" draggable="false"
+					:src="CharacterHelper.getElementImage(item.vision)" />
 				<section class="banners-obtained-item__name-rarity">
 					<p>{{ item.name }}</p>
 					<TransitionGroup name="fade-star-wish" appear>
@@ -12,8 +13,13 @@
 				</section>
 			</section>
 		</Transition>
+		<Transition name="fade-wish-weapon-bg" appear>
+			<img :style="{ transitionDelay: '0.55s' }" :key="activeWish" v-if="!isCharacter(item) && item.type"
+				:src="CharacterHelper.getBannersImages(`/wish/${item.type.toLowerCase()}/background`)" alt="weapon-bg"
+				class="banners-obtained-item__weapon-bg" />
+		</Transition>
 		<Transition :name="getWishImgAnimation()" mode="out-in" appear>
-			<img @animationstart="onAnimationStart" @animationend="onAnimationEnd" :key="activeWish"
+			<img alt="gacha splash" @animationstart="onAnimationStart" @animationend="onAnimationEnd" :key="activeWish"
 				class="banners-obtained-item__gacha-img" draggable="false" :src="isCharacter(item)
 				? CharacterHelper.getCharacterImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)
 				: CharacterHelper.getWeaponsImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)" />
@@ -147,13 +153,13 @@ const getWishImgAnimation = () => {
 		}
 	}
 
+	&__weapon-bg,
 	&__gacha-img {
 		width: auto;
 		min-width: 300px;
-		transform: translateX(100px);
+		transform: translateX(0px);
 		position: absolute;
 		height: 100vh;
-
 	}
 }
 
