@@ -36,6 +36,7 @@ export enum CharacterImage {
     GACHA_SPLASH_LQ = 'gacha-splash-lq',
     NAMECARD_HQ = 'namecard-bg-hq',
     ICON_BIG = 'icon-big',
+    ICON_BIG_LQ = 'icon-big-lq',
     GACHA_CARD = 'gacha-card',
     GACHA_CARD_LQ = 'gacha-card-lq'
 }

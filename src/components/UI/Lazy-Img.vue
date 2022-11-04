@@ -7,6 +7,7 @@
 </template>
 
 <script setup lang="ts">
+
 interface Props {
     options: {
         src: string,
@@ -16,4 +17,5 @@ interface Props {
     }
 }
 const props = defineProps<Props>()
+
 </script>

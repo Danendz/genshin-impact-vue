@@ -1,17 +1,17 @@
 <template>
     <PreventClickEvent :is-scrolling="isScrolling" @click-function="setCurrentCharacter" v-if="store.currentCharacter"
-        :class="['character-card', {'active-character-card': character.name_key === store.currentCharacter.name_key}]">
+        :class="['character-card', { 'active-character-card': character.name_key === store.currentCharacter.name_key }]">
 
         <div :class="['character-top-bg', `rarity-${character.rarity}`]"></div>
         <LazyImg :options="{
-            src: CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_BIG),        
+            src: CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_BIG_LQ),
             loading: CharacterHelper.getPlaceholderIcon(CharacterImage.ICON_BIG),
-            delay: 500,
+            delay: 300,
             alt: 'character'
         }" class="character-icon" />
         <LazyImg :options="{
             src: CharacterHelper.getElementImage(character.vision.toLowerCase()),
-            delay: 500,
+            delay: 300,
             alt: 'vision'
         }" class="vision-icon" />
         <figcaption class="character-lvl">Lvl 90</figcaption>

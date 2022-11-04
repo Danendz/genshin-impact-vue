@@ -6,7 +6,7 @@
 			<section v-show="!getIsWishing" class="banners-container__layout">
 				<WishCurrency />
 				<BannersImages :activeBannerImage="getActiveBannerImage" @set-active="setActive" />
-				<BannerInformation />
+				<!-- <BannerInformation /> -->
 				<NotEnoughFunds />
 				<WishButtons />
 			</section>
