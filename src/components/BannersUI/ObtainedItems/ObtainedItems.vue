@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import ObtainedItem from './ObtainedItem.vue';
+import ObtainedItem from './ObtainedItem/ObtainedItem.vue';
 import { useObtainedItems } from '@/store/Gacha/obtainedItems';
 import ObtainedItemsTotal from './ObtainedItemsTotal/ObtainedItemsTotal.vue'
 
