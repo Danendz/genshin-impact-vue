@@ -4,7 +4,7 @@ interface BaseInformation {
     name: string,
     name_key: string,
     rarity: WeaponRarity,
-    type?: WeaponType
+    type: WeaponType
     location: string | WeaponLocation
 }
 

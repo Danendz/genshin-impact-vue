@@ -2,8 +2,10 @@
 	<section @click="changeWish" class="banners-obtained-item">
 		<Transition :name="getWishInfoAnimation()" appear mode="out-in">
 			<section :style="{ transitionDelay: '0.5s' }" :key="activeWish" class="banners-obtained-item__info">
-				<img alt="vision" v-if="isCharacter(item)" draggable="false"
+				<img class="banners-obtained-item__vision" alt="vision" v-if="isCharacter(item)" draggable="false"
 					:src="CharacterHelper.getElementImage(item.vision)" />
+				<img class="banners-obtained-item__weapon-icon" :alt="item.type" draggable="false"
+					:src="CharacterHelper.getWishWeaponsIcons(item.type)" v-else />
 				<section class="banners-obtained-item__name-rarity">
 					<p>{{ item.name }}</p>
 					<TransitionGroup name="fade-star-wish" appear>
@@ -129,10 +131,14 @@ const getWishImgAnimation = () => {
 		max-width: 500px;
 		align-items: center;
 
-		img {
+		.banners-obtained-item__vision {
+			width: auto;
+			height: 100%;
+		}
 
-			width: 30%;
-			height: auto;
+		.banners-obtained-item__weapon-icon {
+			width: 20%;
+			height: 100%;
 			z-index: 0;
 		}
 
@@ -200,11 +206,12 @@ const getWishImgAnimation = () => {
 			max-width: none;
 			text-align: center;
 
-			img {
-				position: relative;
-				left: 0;
-				width: auto;
+			.banners-obtained-item__vision {
 				height: 80%;
+			}
+
+			.banners-obtained-item__weapon-icon {
+				width: 15%;
 			}
 
 			.banners-obtained-item__name-rarity {
@@ -212,7 +219,6 @@ const getWishImgAnimation = () => {
 				margin-right: auto;
 				margin-left: auto;
 			}
-
 		}
 
 		&__gacha-img {
@@ -224,9 +230,13 @@ const getWishImgAnimation = () => {
 
 @media only screen and (max-width:915px) and (orientation: landscape) {
 	.banners-obtained-item {
-		width: 90%;
+		width: 100%;
 
-
+		&__info {
+			.banners-obtained-item__weapon-icon {
+				width: 15%;
+			}
+		}
 	}
 }
 </style>

@@ -106,6 +106,7 @@ const goToItem = (item: CharacterOrWeapon) => {
 @media only screen and (max-width: 915px) and (orientation: landscape) {
 	.banners-obtained-items-total {
 		gap: 3px;
+		max-width: 85vw;
 	}
 }
 </style>
