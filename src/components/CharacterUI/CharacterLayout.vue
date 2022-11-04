@@ -56,6 +56,8 @@ onMounted(() => {
 
 </script>
 <style lang="scss">
+@import '@/assets/Styles/animations';
+
 .characters-container {
     display: flex;
     overflow: hidden;

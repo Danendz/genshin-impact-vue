@@ -145,13 +145,13 @@ export class UseWishing {
 			return this.wishItems.value.eventFourStars[random]
 		}
 
-		const weapon = this.getRandomItem(this.wishItems.value.standardFourStars, this.wishItems.value.eventFourStars)
+		const item = this.getRandomItem(this.wishItems.value.standardFourStars, this.wishItems.value.eventFourStars)
 
-		if (!this.wishItems.value.eventFourStars.find((w) => weapon.name_key === w.name_key)) {
+		if (!this.wishItems.value.eventFourStars.find((i) => item.name_key === i.name_key)) {
 			this.isFourStarGuaruntee = true;
 		}
 
-		return weapon
+		return item
 	}
 
 	private getThreeStar = (): CharacterOrWeapon => {
@@ -164,7 +164,6 @@ export class UseWishing {
 		if ((this.bannerType === BannerTypes.EVENT || this.bannerType === BannerTypes.EVENT_WEAPON) && eventItems) {
 			const randomNum = Math.random() * this.chanceToWinStandartFourStar
 			const randomEventItem = indexedEventItem ?? this.getRoundedRandomNumber(eventItems.length - 1)
-
 			if (randomNum < this.chanceToWinEventFourStar) return eventItems[randomEventItem]
 		}
 

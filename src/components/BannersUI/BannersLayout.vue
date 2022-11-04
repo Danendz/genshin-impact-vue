@@ -6,6 +6,7 @@
 			<section v-show="!getIsWishing" class="banners-container__layout">
 				<WishCurrency />
 				<BannersImages :activeBannerImage="getActiveBannerImage" @set-active="setActive" />
+				<BannerInformation />
 				<NotEnoughFunds />
 				<WishButtons />
 			</section>
@@ -34,6 +35,7 @@ import { BannerTypes } from '@/Enums/WishEnums';
 
 //vue
 import { onMounted } from 'vue'
+import BannerInformation from './BannersInformation/BannerInformation.vue';
 
 const { getActiveBannerImage, getActiveBannerWish, setActiveBannerImage, setActiveBannerWish } = useActiveBanner()
 const { getEventBanner } = useBannersData()
@@ -81,7 +83,6 @@ function setActive(index: number, banner: BannerTypes, eventIndex?: number): voi
 		max-width: 1600px;
 		margin: 0 auto;
 		height: 95vh;
-		gap: 30px;
 		z-index: 2;
 	}
 
