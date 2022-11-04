@@ -93,7 +93,8 @@ const getWishInfoAnimation = () => {
 	.banners-obtained-item-info {
 		&__name-rarity {
 			p {
-				font-size: 30px;
+				font-size: 28px;
+				max-width: 250px;
 			}
 		}
 
