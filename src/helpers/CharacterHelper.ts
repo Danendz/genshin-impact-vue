@@ -58,6 +58,6 @@ export default class CharacterHelper {
         return `${this.bannersUrl}/${banner}${name}banner`
     }
     public static getWishWeaponsIcons(type: WeaponType): string {
-        return `${this.wishWeaponsIconsUrl}${type}/icon.svg`
+        return `${this.wishWeaponsIconsUrl}${type.toLowerCase()}/icon.svg`
     }
 }

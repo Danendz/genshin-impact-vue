@@ -2,10 +2,13 @@
 	<section @click="changeWish" class="banners-obtained-item">
 		<Transition :name="getWishInfoAnimation()" appear mode="out-in">
 			<section :style="{ transitionDelay: '0.5s' }" :key="activeWish" class="banners-obtained-item__info">
+
 				<img class="banners-obtained-item__vision" alt="vision" v-if="isCharacter(item)" draggable="false"
 					:src="CharacterHelper.getElementImage(item.vision)" />
+
 				<img class="banners-obtained-item__weapon-icon" :alt="item.type" draggable="false"
 					:src="CharacterHelper.getWishWeaponsIcons(item.type)" v-else />
+
 				<section class="banners-obtained-item__name-rarity">
 					<p>{{ item.name }}</p>
 					<TransitionGroup name="fade-star-wish" appear>
