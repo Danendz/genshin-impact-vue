@@ -5,9 +5,14 @@
 			class="banners-obtained-item__weapon-bg" />
 	</Transition>
 	<Transition :name="getWishImgAnimation()" mode="out-in" appear>
-		<img alt="gacha splash" :key="props.activeWish" class="banners-obtained-item__gacha-img" draggable="false" :src="isCharacter(item)
-		? CharacterHelper.getCharacterImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)
-		: CharacterHelper.getWeaponsImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)" />
+		<img v-if="isCharacter(item)" alt="gacha splash" :key="props.activeWish"
+			class="banners-obtained-item__gacha-img" draggable="false"
+			:src="CharacterHelper.getCharacterImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)" />
+	</Transition>
+	<Transition :name="getWishImgAnimation()" mode="out-in" appear>
+		<img v-if="!isCharacter(item)" alt="gacha splash" :key="props.activeWish"
+			class="banners-obtained-item__weapon-img" draggable="false"
+			:src="CharacterHelper.getWeaponsImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)" />
 	</Transition>
 </template>
 
@@ -35,7 +40,7 @@ const screenOrientation = useScreenOrientation()
 const getWishImgAnimation = () => {
 	if (screenOrientation.orientation) {
 		return screenOrientation.orientation.value === 'landscape-primary'
-			? 'fade-wish-img'
+			? isCharacter(props.item) ? 'fade-wish-img' : 'fade-wish-weapon-img'
 			: 'fade-wish-img-portrait'
 	}
 
@@ -49,6 +54,7 @@ const getWishImgAnimation = () => {
 .banners-obtained-item {
 
 	&__weapon-bg,
+	&__weapon-img,
 	&__gacha-img {
 		width: auto;
 		min-width: 300px;
@@ -57,10 +63,17 @@ const getWishImgAnimation = () => {
 		height: 100vh;
 		z-index: 0;
 	}
+
+	&__weapon-img {
+		transform: translateX(20px);
+	}
+
 }
 
 @media only screen and (max-width: 915px) {
 	.banners-obtained-item {
+
+		&__weapon-img,
 		&__gacha-img {
 			min-width: 100px;
 		}
@@ -69,9 +82,17 @@ const getWishImgAnimation = () => {
 
 @media only screen and (orientation: portrait) {
 	.banners-obtained-item {
+
+		&__weapon-bg,
+		&__weapon-img,
 		&__gacha-img {
 			min-width: 0;
-			transform: translateX(0px);
+		}
+
+		&__weapon-img,
+		&__weapon-bg {
+			min-width: 0;
+			height: 60vh;
 		}
 	}
 }

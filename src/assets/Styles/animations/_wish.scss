@@ -33,6 +33,7 @@
   animation: 1s WishImageEnterPortrait;
 }
 
+.fade-wish-weapon-img-leave-active,
 .fade-wish-img-portrait-leave-active,
 .fade-wish-img-five-star-leave-active,
 .fade-wish-img-leave-active {
@@ -62,6 +63,27 @@
 
 .fade-stars-enter-from {
   opacity: 0;
+}
+
+.fade-wish-weapon-img-enter-active {
+  animation: 1s WishImgEnterWeapon;
+}
+
+@keyframes WishImgEnterWeapon {
+  0% {
+    filter: brightness(0);
+    transform: scale(2) translateX(0px);
+  }
+
+  50% {
+    filter: brightness(0);
+    transform: scale(1) translateX(0px);
+  }
+
+  100% {
+    filter: brightness(1);
+    transform: translateX(20px);
+  }
 }
 
 @keyframes WishInfoEnter {
