@@ -1,5 +1,3 @@
-//enums
-import { ErrorMessages } from "@/Enums/ErrorMessages"
 
 //composables
 import { useGetCharacterByName, useGetCharacters } from "@/Composables/useGetCharacters"
@@ -15,7 +13,7 @@ import { computed, ComputedRef, Ref, ref } from "vue"
 
 export const useFetchCharacters = () => {
 	const characters = ref<Character[] | null>(null)
-	const error = ref<ErrorMessages | null>(null)
+	const error = ref<string | null>(null)
 	const alreadyLoaded: string[] = ["Attributes"]
 	const active_category = useActiveCategory()
 
@@ -55,10 +53,10 @@ export const useFetchCharacters = () => {
 	}
 
 	//setting data conditionally
-	const setData = (data: ErrorMessages.NOT_FOUND | null | Character | Character[]) => {
+	const setData = (data: string | null | Character | Character[]) => {
 		if (data) {
-			if (data === ErrorMessages.NOT_FOUND) {
-				error.value = ErrorMessages.NOT_FOUND
+			if (typeof data === 'string') {
+				error.value = data
 			} else if (isCharacter(data)) {
 				//if data is only one character
 				//set characters as array with only one character
@@ -71,7 +69,7 @@ export const useFetchCharacters = () => {
 	}
 
 	//adding additional data to existing data
-	const addData = (data: ErrorMessages.NOT_FOUND | Character[]) => {
+	const addData = (data: string | Character[]) => {
 		if (Array.isArray(data)) {
 			data.forEach((values, id) => {
 				Object.keys(values).forEach((key) => {
@@ -94,7 +92,7 @@ export const useFetchCharacters = () => {
 		return characters
 	})
 
-	const getError: ComputedRef<Ref<ErrorMessages | null>> = computed(() => {
+	const getError: ComputedRef<Ref<string | null>> = computed(() => {
 		return error
 	})
 

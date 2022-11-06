@@ -1,7 +1,10 @@
 <template>
     <figure class="bottom-character-container">
         <img alt="character" class="bottom-character" :src="image" />
-        <figcaption class="bottom-text">{{text}}</figcaption>
+
+        <figcaption class="bottom-text">Упс... Что-то пошло не так!
+            <p>{{ text }}</p>
+        </figcaption>
     </figure>
 </template>
 
@@ -34,12 +37,14 @@ const image = useRequireFile(props.imageUrl)
         height: 300px;
         -webkit-user-drag: none;
         user-select: none;
+        overflow: hidden;
         transition: .5s;
     }
 
     .bottom-text {
         position: absolute;
         bottom: 200px;
+        overflow: hidden;
         background-color: white;
         padding: 80px 20px;
         max-width: 500px;
@@ -49,6 +54,7 @@ const image = useRequireFile(props.imageUrl)
         left: 200px;
         font-weight: bold;
         font-size: 30px;
+
         &:after {
             content: '';
             position: absolute;

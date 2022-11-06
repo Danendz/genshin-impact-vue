@@ -1,4 +1,5 @@
 
+import { useFetch } from "@/Composables/useFetch";
 import { ErrorMessages } from "@/Enums/ErrorMessages";
 import { Character } from "@/Interfaces/CharacterInterface";
 import { CurrentEventBanner, CurrentEventWeaponBanner } from "@/Interfaces/CurrentBanners";
@@ -15,56 +16,42 @@ export default abstract class ServiceController {
     //url for fetching
     abstract fetchUrl: string;
 
+    private getFetchError(): string {
+        return ErrorMessages.CANT_FETCH_DATA.replace('{url}', this.fetchUrl)
+    }
+
     //get only names
-    public async getNames(): Promise<string[]> {
-        const data = await fetch(this.fetchUrl)
-            .then((res) => res.json())
-            .catch((e) => console.log(e))
-        return data
+    public async getNames(): Promise<string[] | string> {
+        const data: Response | string = await useFetch(this.fetchUrl, this.getFetchError())
+        if (typeof data === 'string') return data;
+        return await data.json()
     }
 
     //get item by name
-    public async getByName<T extends fetchingItemsType>(name: string): Promise<T | ErrorMessages.NOT_FOUND> {
-        const data: T | ErrorMessages.NOT_FOUND = await fetch(`${this.fetchUrl}${name}`)
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return ErrorMessages.NOT_FOUND
-            })
-            .catch((e) => console.log(e))
-        return data;
+    public async getByName<T extends fetchingItemsType>(name: string): Promise<T | string> {
+        const data: Response | string = await useFetch(`${this.fetchUrl}${name}`, this.getFetchError() + name)
+        if (typeof data === 'string') return data;
+        return await data.json();
     }
 
     //get all items with full information
-    public async get<T extends fetchingItemsType>(fields?: string[]): Promise<T[] | ErrorMessages.NOT_FOUND> {
+    public async get<T extends fetchingItemsType>(fields?: string[]): Promise<T[] | string> {
         const paramsFields = fields ? `?fields=${fields}` : ''
-        const data: T[] | ErrorMessages.NOT_FOUND =
-            await fetch(`${this.fetchUrl}all${paramsFields}`)
-                .then((res) => {
-                    if (res.ok) {
-                        return res.json();
-                    }
-                    return ErrorMessages.NOT_FOUND
-                })
-                .catch((e) => console.log(e))
 
-        return data
+        const data: Response | string = await useFetch(`${this.fetchUrl}all${paramsFields}`, `${this.getFetchError()}all${paramsFields}`)
+
+        if (typeof data === 'string') return data;
+
+        return await data.json()
     }
 
     //get all items with full information
-    public async getWithAdditionalUrl<T extends fetchingItemsType>(url?: string): Promise<T | ErrorMessages.NOT_FOUND> {
+    public async getWithAdditionalUrl<T extends fetchingItemsType>(url?: string): Promise<T | string> {
 
-        const data: T | ErrorMessages.NOT_FOUND =
-            await fetch(`${this.fetchUrl}${url ?? ''}`)
-                .then((res) => {
-                    if (res.ok) {
-                        return res.json();
-                    }
-                    return ErrorMessages.NOT_FOUND
-                })
-                .catch((e) => console.log(e))
+        const data: Response | string = await useFetch(`${this.fetchUrl}${url ?? ''}`, `${this.getFetchError()}${url ?? ''}`)
 
-        return data
+        if (typeof data === 'string') return data;
+
+        return await data.json()
     }
 }

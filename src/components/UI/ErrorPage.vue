@@ -1,14 +1,14 @@
 <template>
-    <article class="errorPage" v-if="props.errorMessage === ErrorMessages.NOT_FOUND || !props.errorMessage">
-        <BottomCharacter image-url="paimonImages/surprisedPaimon.webp" text="Упс... Мы не нашли такую страничку!" />
+    <article class="errorPage">
+        <BottomCharacter image-url="paimonImages/surprisedPaimon.webp"
+            :text="`Ошибка: ${props.errorMessage ?? ErrorMessages.NOT_FOUND}`" />
     </article>
 </template>
 
 <script setup lang="ts">
-//enums
-import { ErrorMessages } from '@/Enums/ErrorMessages';
 
 //components
+import { ErrorMessages } from '@/Enums/ErrorMessages';
 import BottomCharacter from './BottomCharacter.vue';
 
 interface Props {

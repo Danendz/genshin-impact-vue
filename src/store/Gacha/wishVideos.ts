@@ -28,7 +28,7 @@ export const useWishVideos = defineStore('Wish Videos', () => {
 		if (!wishVideos.value) {
 			const { fetchedContent, fetchContent } = downloadMediaContent(videos)
 			await fetchContent()
-			if (fetchedContent.value === null) throw new Error('ошибка загрузки видео')
+			if (fetchedContent.value === null) throw new Error(`ошибка загрузки видео`)
 			wishVideos.value = fetchedContent.value
 			currentVideo.value = fetchedContent.value[0]
 		}

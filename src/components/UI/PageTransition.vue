@@ -4,7 +4,7 @@
             <slot />
         </template>
     </Suspense>
-    <ErrorPage v-else-if="!props.error.includes(null)" :error-message="ErrorMessages.NOT_FOUND" />
+    <ErrorPage v-else-if="errorTitle" :error-message="errorTitle" />
     <LoaderPage v-else :title="loaderTitle" :progress="progress" />
 
 </template>
@@ -13,32 +13,39 @@
 //components
 import LoaderPage from './LoaderPage.vue';
 
-//interfaces
-import { ErrorMessages } from '@/Enums/ErrorMessages';
-
 import { defineAsyncComponent, ref, watch, toRefs, onUnmounted } from 'vue';
 
 const ErrorPage = defineAsyncComponent(() => import('@/components/UI/ErrorPage.vue'))
 
 interface Props {
     conditionItem: (unknown | null)[],
-    error: (ErrorMessages | null)[],
+    error: (string | null)[],
     loaderTitle: string
 }
 const props = defineProps<Props>()
-const { conditionItem } = toRefs(props)
+const { conditionItem, error } = toRefs(props)
+
 const progressMultiplier = 100 / conditionItem.value.length
 const progress = ref(progressMultiplier)
+const errorTitle = ref<string | null>(null)
 
 const progressCounter = watch(conditionItem, () => {
     progress.value += progressMultiplier;
 })
 
-
+const errorWatcher = watch(error, () => {
+    for (const errs of error.value) {
+        if (typeof errs === 'string') {
+            errorTitle.value = errs;
+            break;
+        }
+    }
+})
 
 onUnmounted(() => {
     progress.value = 0;
     progressCounter()
+    errorWatcher()
 })
 
 </script>

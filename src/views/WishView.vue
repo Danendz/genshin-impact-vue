@@ -1,7 +1,7 @@
 <template>
     <PageTransition
         :condition-item="[getWeapons, getCharacters, getEventBanner, getEventWeaponBanner, getStandardBanner, getWishVideos]"
-        :error="[getError, getErrorWeapons, getErroBanner]" loader-title="молитвы">
+        :error="[getError, getErrorWeapons, getErrorBanner]" loader-title="молитвы">
         <BannersLayout />
     </PageTransition>
 </template>
@@ -23,7 +23,7 @@ import { onMounted, defineAsyncComponent } from 'vue';
 const BannersLayout = defineAsyncComponent(() => import("@/components/BannersUI/BannersLayout.vue"))
 const { getCharacters, getError, fetchCharacters } = useCharacters()
 const { getWeapons, getErrorWeapons, fetchWeapons } = useWeapons()
-const { getEventBanner, getEventWeaponBanner, getStandardBanner, getErroBanner, fetchBannersData } = useBannersData()
+const { getEventBanner, getEventWeaponBanner, getStandardBanner, getErrorBanner, fetchBannersData } = useBannersData()
 const { fetchWishVideos, getWishVideos } = useWishVideos()
 onMounted(() => {
     fetchCharacters()
