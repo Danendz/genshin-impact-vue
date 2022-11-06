@@ -16,20 +16,17 @@ export default abstract class ServiceController {
     //url for fetching
     abstract fetchUrl: string;
 
-    private getFetchError(): string {
-        return ErrorMessages.CANT_FETCH_DATA.replace('{url}', this.fetchUrl)
-    }
-
     //get only names
     public async getNames(): Promise<string[] | string> {
-        const data: Response | string = await useFetch(this.fetchUrl, this.getFetchError())
+        const data: Response | string = await useFetch(this.fetchUrl, ErrorMessages.CANT_FETCH_DATA + 'Все имена')
         if (typeof data === 'string') return data;
         return await data.json()
     }
 
     //get item by name
     public async getByName<T extends fetchingItemsType>(name: string): Promise<T | string> {
-        const data: Response | string = await useFetch(`${this.fetchUrl}${name}`, this.getFetchError() + name)
+
+        const data: Response | string = await useFetch(`${this.fetchUrl}${name}`, ErrorMessages.CANT_FETCH_DATA + name)
         if (typeof data === 'string') return data;
         return await data.json();
     }
@@ -38,7 +35,7 @@ export default abstract class ServiceController {
     public async get<T extends fetchingItemsType>(fields?: string[]): Promise<T[] | string> {
         const paramsFields = fields ? `?fields=${fields}` : ''
 
-        const data: Response | string = await useFetch(`${this.fetchUrl}all${paramsFields}`, `${this.getFetchError()}all${paramsFields}`)
+        const data: Response | string = await useFetch(`${this.fetchUrl}all${paramsFields}`, ErrorMessages.CANT_FETCH_DATA + 'all' + paramsFields)
 
         if (typeof data === 'string') return data;
 
@@ -48,7 +45,7 @@ export default abstract class ServiceController {
     //get all items with full information
     public async getWithAdditionalUrl<T extends fetchingItemsType>(url?: string): Promise<T | string> {
 
-        const data: Response | string = await useFetch(`${this.fetchUrl}${url ?? ''}`, `${this.getFetchError()}${url ?? ''}`)
+        const data: Response | string = await useFetch(`${this.fetchUrl}${url ?? ''}`, `${ErrorMessages.CANT_FETCH_DATA}${url ?? ''}`)
 
         if (typeof data === 'string') return data;
 
