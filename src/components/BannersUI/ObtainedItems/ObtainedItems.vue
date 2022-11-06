@@ -1,6 +1,7 @@
 <template>
 	<Transition name="fade" appear>
-		<section v-if="getShowObtainedItems" class="banners-obtained-items">
+		<section :style="{ backgroundImage: `url(${CharacterHelper.getWishBackground()})` }" v-if="getShowObtainedItems"
+			class="banners-obtained-items">
 			<Transition name="fade" mode="out-in">
 				<section v-if="getActiveWish !== getObtainedItems.length" class="banners-obtained-items__items">
 					<ObtainedItem @next-wish="nextWish" :active-wish="getActiveWish" />
@@ -15,6 +16,7 @@
 import ObtainedItem from './ObtainedItem/ObtainedItem.vue';
 import { useObtainedItems } from '@/store/Gacha/obtainedItems';
 import ObtainedItemsTotal from './ObtainedItemsTotal/ObtainedItemsTotal.vue'
+import CharacterHelper from '@/helpers/CharacterHelper';
 
 const { getShowObtainedItems, getObtainedItems, getActiveWish, setActiveWish } = useObtainedItems()
 
@@ -31,7 +33,6 @@ const nextWish = () => {
 	width: 100vw;
 	height: 100vh;
 	position: absolute;
-	background-image: url('@/assets/Images/wish-background.webp');
 	background-repeat: no-repeat;
 	background-size: cover;
 	display: flex;

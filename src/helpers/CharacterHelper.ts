@@ -54,6 +54,10 @@ export default class CharacterHelper {
         return this.bannersUrl + iconUrl
     }
 
+    public static getWishBackground(): string {
+        return this.bannersUrl + '/wish/wishBackground/background'
+    }
+
     public static getBannerImageByName(banner: string, name: string): string {
         return `${this.bannersUrl}/${banner}${name}banner`
     }

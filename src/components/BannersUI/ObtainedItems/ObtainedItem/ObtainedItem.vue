@@ -2,6 +2,7 @@
 	<section @click="changeWish" class="banners-obtained-item">
 		<ObtainedItemInfo :item="item" :active-wish="activeWish" />
 		<ObtainedItemImages :item="item" :active-wish="activeWish" />
+		<ObtainedItemEffect :item="item" :active-wish="activeWish" />
 	</section>
 </template>
 
@@ -18,6 +19,7 @@ import { useObtainedItems } from '@/store/Gacha/obtainedItems';
 
 //vue
 import { watch, ref, onMounted } from 'vue';
+import ObtainedItemEffect from './ObtainedItemEffect.vue';
 
 interface Props {
 	activeWish: number,

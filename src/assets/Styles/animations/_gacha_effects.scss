@@ -1,0 +1,72 @@
+.gacha-effect-background-enter-active {
+  animation: 0.75s gachaBackgroundEnter;
+}
+
+.gacha-effect-particles-foreground-leave-active,
+.gacha-effect-foreground-leave-active,
+.gacha-effect-particles-leave-active,
+.gacha-effect-background-leave-active {
+  transition: 0s;
+  animation-delay: 0 !important;
+}
+
+.gacha-effect-particles-enter-active {
+  animation: 0.75s gachaParticlesEnter;
+}
+
+.gacha-effect-foreground-enter-active {
+  animation: 1s gachaForegroundEnter;
+}
+.gacha-effect-particles-foreground-enter-active {
+  animation: 1.1s gachaForegroundParticlesEnter;
+}
+@keyframes gachaBackgroundEnter {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes gachaParticlesEnter {
+  0% {
+    scale: 1;
+    opacity: 1;
+  }
+  100% {
+    scale: 1.8;
+    opacity: 0;
+  }
+}
+
+@keyframes gachaForegroundEnter {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.192);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes gachaForegroundParticlesEnter {
+  0% {
+    scale: 1;
+    opacity: 1;
+  }
+
+  100% {
+    scale: 3;
+    opacity: 0;
+  }
+}

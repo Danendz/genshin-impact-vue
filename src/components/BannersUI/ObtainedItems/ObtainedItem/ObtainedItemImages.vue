@@ -65,7 +65,7 @@ const getWishImgAnimation = () => {
 	}
 
 	&__weapon-img {
-		transform: translateX(20px);
+		transform: translateX(40px);
 	}
 
 }
@@ -76,6 +76,10 @@ const getWishImgAnimation = () => {
 		&__weapon-img,
 		&__gacha-img {
 			min-width: 100px;
+		}
+
+		&__weapon-img {
+			transform: translateX(20px);
 		}
 	}
 }
