@@ -36,7 +36,7 @@ import ScrollCharacters from './ScrollCharacters.vue';
         left: 5px;
         top: 45px;
         background-color: $transparency;
-        backdrop-filter: blur(3px);
+        backdrop-filter: blur(2px);
         border-radius: 12px;
 
         min-width: 45px;

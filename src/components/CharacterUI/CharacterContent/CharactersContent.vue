@@ -4,12 +4,12 @@
             @after-enter="setDefaultSort" name="fade-right" appear>
             <ContentOptions v-show="!hideLayout.hide" :options-list="options_list" />
         </Transition>
-        <Transition name="fade-right" appear>
+        <Transition name="fade-right">
             <section v-if="!hideLayout.hide" class="centerContent">
 
             </section>
         </Transition>
-        <Transition name="fade" appear>
+        <Transition name="fade">
             <ContentRight v-show="showCharactersSelectionList.show || !hideLayout.hide" :options_list="options_list" />
         </Transition>
     </section>

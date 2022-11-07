@@ -28,7 +28,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const foregroundDelay = 0.65;
+const foregroundDelay = 0.60;
 
 const RARITY_COLORS_BACKGROUND: ColorsType = {
 	"3": 'rgba(46, 91, 227, 0.46)',
