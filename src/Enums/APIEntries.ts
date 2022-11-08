@@ -5,7 +5,9 @@ interface IAPIEntries {
     ELEMENTS: '/elements/',
     GENSHIN_SITE: '/genshin-site/',
     BANNERS: '/banners/',
-    WEAPONS_WISH_ICONS: '/wish-weapons-icons/'
+    WEAPONS_WISH_ICONS: '/wish-weapons-icons/',
+    HOME_ICONS: '/home-icons/',
+    HOME_BACKGROUNDS: '/home-backgrounds/'
 }
 
 export const APIEntries: IAPIEntries = {
@@ -15,5 +17,7 @@ export const APIEntries: IAPIEntries = {
     ELEMENTS: '/elements/',
     GENSHIN_SITE: '/genshin-site/',
     BANNERS: '/banners/',
-    WEAPONS_WISH_ICONS: '/wish-weapons-icons/'
+    WEAPONS_WISH_ICONS: '/wish-weapons-icons/',
+    HOME_ICONS: '/home-icons/',
+    HOME_BACKGROUNDS: '/home-backgrounds/'
 }

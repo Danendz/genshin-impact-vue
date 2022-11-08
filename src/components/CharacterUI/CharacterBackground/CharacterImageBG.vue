@@ -4,8 +4,8 @@
             :class="`character-background-container character-background-container_image`"
             :key="store.currentCharacter.name_key">
 
-            <transition name="fade">
-                <div alt="character background" v-if="bgImage"
+            <transition name="fade" mode="in-out">
+                <div alt="character background" :key="bgImage"
                     class="character-background-container__character-background"
                     :style="{ backgroundImage: `url(${bgImage})` }"></div>
             </transition>
@@ -26,6 +26,7 @@ import usePreloadImage from '@/Composables/usePreloadImage';
 
 //enums
 import { CharacterImage } from '@/Enums/CharacterEnums';
+import CharacterHelper from '@/helpers/CharacterHelper';
 
 //stores
 import { useCurrentCharacter } from '@/store/currentCharacter';
@@ -43,8 +44,9 @@ const [bgImage, loadBgImage] = usePreloadImage()
 
 const loadAllImages = (): void => {
     if (store.currentCharacter) {
-        loadGachaImage(store.currentCharacter.name_key, CharacterImage.GACHA_SPLASH_LQ)
-        loadBgImage(store.currentCharacter.name_key, CharacterImage.NAMECARD_HQ)
+
+        loadGachaImage(CharacterHelper.getCharacterImage(store.currentCharacter.name_key, CharacterImage.GACHA_SPLASH_LQ))
+        loadBgImage(CharacterHelper.getCharacterImage(store.currentCharacter.name_key, CharacterImage.NAMECARD_HQ))
     }
 }
 

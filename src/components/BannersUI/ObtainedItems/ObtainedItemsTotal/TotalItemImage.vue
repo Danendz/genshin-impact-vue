@@ -8,6 +8,8 @@ import { isCharacter } from '@/Composables/isCharacter';
 import { CharacterOrWeapon } from '@/Composables/UseWishing';
 import { CharacterImage } from '@/Enums/CharacterEnums';
 import CharacterHelper from '@/helpers/CharacterHelper';
+import WeaponHelper from '@/helpers/WeaponHelper';
+import WishHelper from '@/helpers/WishHelper';
 
 interface Props {
 	item: CharacterOrWeapon
@@ -19,9 +21,9 @@ const getItemImgStyles = (item: CharacterOrWeapon) => {
 	return {
 		backgroundImage: `url(${isCharacter(item)
 			? CharacterHelper.getCharacterImage(item.name_key, CharacterImage.GACHA_CARD_LQ)
-			: CharacterHelper.getWeaponsImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)})`,
-		'-webkit-mask-image': `url(${CharacterHelper.getBannersImages('/wish/background-mask.svg')})`,
-		'mask-image': `url(${CharacterHelper.getBannersImages('/wish/background-mask.svg')})`
+			: WeaponHelper.getWeaponsImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)})`,
+		'-webkit-mask-image': `url(${WishHelper.getBannersImages('/wish/background-mask.svg')})`,
+		'mask-image': `url(${WishHelper.getBannersImages('/wish/background-mask.svg')})`
 	}
 }
 

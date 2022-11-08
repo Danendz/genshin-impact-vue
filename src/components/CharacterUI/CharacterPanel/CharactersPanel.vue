@@ -5,8 +5,7 @@
                 <CharactersInfo />
                 <CharactersScroll />
                 <section class="characters-panel__close">
-                    <ButtonWithIcon :accessible-name="'go back'" @click="router.go(-1)" icon="mdi:close"
-                        icon-class="characters-panel__close-icon" />
+                    <CloseButton />
                 </section>
             </section>
         </header>
@@ -17,15 +16,10 @@
 //components
 import CharactersInfo from './CharactersInfo.vue';
 import CharactersScroll from './CharactersScroll/CharactersScroll.vue';
-import ButtonWithIcon from '@/components/UI/ButtonWithIcon.vue'
+import CloseButton from '@/components/UI/CloseButton.vue';
 
 //stores
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
-
-//interfaces
-import { useRouter } from 'vue-router';
-
-const router = useRouter()
 
 const hideLayout = useHideMainCharactersLayout()
 </script>
@@ -52,25 +46,7 @@ const hideLayout = useHideMainCharactersLayout()
             justify-content: flex-end;
             margin-left: auto;
 
-            button {
-                cursor: pointer;
-                transition: .2s;
-                width: 45px;
-                height: 45px;
-                border-radius: 50%;
-                border: 5px solid #b3b3b35d;
-                background-color: #e0dada;
-                margin-right: 5px;
 
-                &:hover {
-                    transform: scale(1.1)
-                }
-
-                .characters-panel__close-icon {
-                    width: 30px;
-                    height: 30px;
-                }
-            }
         }
     }
 }
@@ -90,13 +66,6 @@ const hideLayout = useHideMainCharactersLayout()
         &__content {
             width: 100%;
             position: relative;
-
-            .characters-panel__close {
-                button {
-                    width: 30px;
-                    height: 30px;
-                }
-            }
         }
     }
 }

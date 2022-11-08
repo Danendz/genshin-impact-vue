@@ -1,0 +1,61 @@
+{
+	"Shop": {
+		"iconName": "shop"
+	},
+	"Party Setup": {
+		"iconName": "party"
+	},
+	"Friends": {
+		"iconName": "friends"
+	},
+	"Achievements": {
+		"iconName": "achievements"
+	},
+	"Archive": {
+		"iconName": "archive"
+	},
+	"Character Archive": {
+		"iconName": "character-archive",
+		"routeName": "characters"
+	},
+	"Character": {
+		"iconName": "character-lumine",
+		"routeName": "characters"
+	},
+	"Inventory": {
+		"iconName": "inventory"
+	},
+	"Quests": {
+		"iconName": "quests"
+	},
+	"Map": {
+		"iconName": "map"
+	},
+	"Events": {
+		"iconName": "events"
+	},
+	"Adventurer Handbook": {
+		"iconName": "handbook"
+	},
+	"Wish": {
+		"iconName": "wish"
+	},
+	"Battle Pass": {
+		"iconName": "bp"
+	},
+	"Co-Op Mode": {
+		"iconName": "coop"
+	},
+	"Special Event": {
+		"iconName": "special-event"
+	},
+	"Community": {
+		"iconName": "community"
+	},
+	"Feedback": {
+		"iconName": "feedback"
+	},
+	"Survey": {
+		"iconName": "survey"
+	}
+}

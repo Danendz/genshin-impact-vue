@@ -1,28 +1,23 @@
-//helpers
-import CharacterHelper from '@/helpers/CharacterHelper'
-
-//enums
-import { CharacterImage } from '@/Enums/CharacterEnums'
 
 //vue
 import { Ref, ref } from 'vue'
 
-const usePreloadImage = (): [Ref<string>, (name_key: string, type: CharacterImage) => void] => {
+const usePreloadImage = (): [Ref<string>, (url: string) => void] => {
     const preloadImage = ref('')
     let lastImageName = ''
-    const loadImage = (name_key: string, type: CharacterImage) => {
+    const loadImage = (url: string) => {
         preloadImage.value = ''
         const img = new Image();
 
-        //add name_key to lastImage
-        lastImageName = name_key
+        //add url to lastImage
+        lastImageName = url
 
-        const url = CharacterHelper.getCharacterImage(name_key, type);
+        /* const url = ; */
 
         img.onload = () => {
             //check if loaded image is the last required 
             //if true - set url and clear lastImag
-            if (lastImageName === name_key) {
+            if (lastImageName === url) {
                 preloadImage.value = url;
                 lastImageName = ''
             }

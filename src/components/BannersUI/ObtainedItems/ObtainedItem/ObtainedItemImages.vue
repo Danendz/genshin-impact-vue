@@ -1,7 +1,7 @@
 <template>
 	<Transition name="fade-wish-weapon-bg" appear>
 		<img :style="{ transitionDelay: '0.55s' }" :key="activeWish" v-if="!isCharacter(item) && item.type"
-			:src="CharacterHelper.getBannersImages(`/wish/${item.type.toLowerCase()}/background`)" alt="weapon-bg"
+			:src="WishHelper.getBannersImages(`/wish/${item.type.toLowerCase()}/background`)" alt="weapon-bg"
 			class="banners-obtained-item__weapon-bg" />
 	</Transition>
 	<Transition :name="getWishImgAnimation()" mode="out-in" appear>
@@ -12,7 +12,7 @@
 	<Transition :name="getWishImgAnimation()" mode="out-in" appear>
 		<img v-if="!isCharacter(item)" alt="gacha splash" :key="props.activeWish"
 			class="banners-obtained-item__weapon-img" draggable="false"
-			:src="CharacterHelper.getWeaponsImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)" />
+			:src="WeaponHelper.getWeaponsImage(item.name_key, CharacterImage.GACHA_SPLASH_LQ)" />
 	</Transition>
 </template>
 
@@ -27,6 +27,8 @@ import { CharacterImage } from '@/Enums/CharacterEnums';
 import { isCharacter } from '@/Composables/isCharacter';
 import { useScreenOrientation } from '@vueuse/core';
 import { CharacterOrWeapon } from '@/Composables/UseWishing';
+import WishHelper from '@/helpers/WishHelper';
+import WeaponHelper from '@/helpers/WeaponHelper';
 
 interface Props {
 	item: CharacterOrWeapon,

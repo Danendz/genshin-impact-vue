@@ -6,7 +6,7 @@
 				:src="CharacterHelper.getElementImage(item.vision)" />
 
 			<img class="banners-obtained-item-info__weapon-icon" :alt="item.type" draggable="false"
-				:src="CharacterHelper.getWishWeaponsIcons(item.type)" v-else />
+				:src="WishHelper.getWishWeaponsIcons(item.type)" v-else />
 
 			<section class="banners-obtained-item-info__name-rarity">
 				<p>{{ item.name }}</p>
@@ -32,6 +32,7 @@ import CharacterHelper from '@/helpers/CharacterHelper';
 
 //components
 import { Icon } from '@iconify/vue';
+import WishHelper from '@/helpers/WishHelper';
 
 
 interface Props {

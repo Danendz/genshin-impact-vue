@@ -1,6 +1,6 @@
 <template>
 	<Transition name="fade" appear>
-		<section :style="{ backgroundImage: `url(${CharacterHelper.getWishBackground()})` }" v-if="getShowObtainedItems"
+		<section :style="{ backgroundImage: `url(${WishHelper.getWishBackground()})` }" v-if="getShowObtainedItems"
 			class="banners-obtained-items">
 			<Transition name="fade" mode="out-in">
 				<section v-if="getActiveWish !== getObtainedItems.length" class="banners-obtained-items__items">
@@ -16,7 +16,7 @@
 import ObtainedItem from './ObtainedItem/ObtainedItem.vue';
 import { useObtainedItems } from '@/store/Gacha/obtainedItems';
 import ObtainedItemsTotal from './ObtainedItemsTotal/ObtainedItemsTotal.vue'
-import CharacterHelper from '@/helpers/CharacterHelper';
+import WishHelper from '@/helpers/WishHelper';
 
 const { getShowObtainedItems, getObtainedItems, getActiveWish, setActiveWish } = useObtainedItems()
 

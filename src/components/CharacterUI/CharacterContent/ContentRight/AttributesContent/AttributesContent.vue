@@ -86,7 +86,7 @@ const setActiveDetails = (value?: boolean) => {
             transition: .3s;
 
             &:hover {
-                transform: translateY(-2px);
+                transform: translateX(-2px);
             }
 
             &:active {

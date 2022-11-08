@@ -1,5 +1,5 @@
 <template>
-	<button :aria-label="accessibleName ?? icon" class="button-with-icon">
+	<button :aria-label="accessibleName ?? icon" :class="['button-with-icon', buttonClass]">
 		<Icon :class="iconClass" :icon="props.icon" />
 	</button>
 </template>
@@ -11,6 +11,7 @@ import { Icon } from '@iconify/vue';
 interface Props {
 	accessibleName?: string,
 	icon: string;
+	buttonClass?: string;
 	iconClass: string | (string | Record<string, boolean>)[];
 }
 

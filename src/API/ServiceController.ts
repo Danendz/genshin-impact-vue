@@ -10,7 +10,7 @@ import { Weapon } from "@/Interfaces/WeaponInterface";
 type currentBannersInfo = CurrentEventBanner | CurrentEventWeaponBanner
 type currentBannersData = EventBanners | EventWeaponBanners
 
-type fetchingItemsType = Character | Weapon | StandardBanner | currentBannersInfo | currentBannersData
+type fetchingItemsType = Character | Weapon | StandardBanner | currentBannersInfo | currentBannersData | string[]
 export default abstract class ServiceController {
 
     //url for fetching

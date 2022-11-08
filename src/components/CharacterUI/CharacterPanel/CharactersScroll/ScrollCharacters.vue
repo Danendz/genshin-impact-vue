@@ -62,20 +62,26 @@ const createScroll = () => {
             scrollTypes = 'scrollLeft'
             createScrolling(characters_scroll.value, 'horizontal')
         }
-        scrollToCharacter()
+
     }
 }
 
 
 watch(width, () => {
-    createScroll();
+    createNewScrollAndScrollToCharacter()
 })
-
 
 onMounted(() => {
-    createScroll()
-    scrollToCharacter()
+    createNewScrollAndScrollToCharacter()
 })
+
+const createNewScrollAndScrollToCharacter = () => {
+    createScroll()
+
+    nextTick(() => {
+        scrollToCharacter()
+    })
+}
 
 //scrolling to current character
 const scrollToCharacter = () => {

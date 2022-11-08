@@ -11,11 +11,13 @@
 				<img v-else src="@/assets/Icons/wishIcons/eventWish.webp" />
 				<figcaption>{{ getWishes(getActiveBannerWish[0]) }}</figcaption>
 			</figure>
+			<CloseButton />
 		</section>
 	</Transition>
 </template>
 
 <script setup lang="ts">
+import CloseButton from '@/components/UI/CloseButton.vue';
 import { BannerTypes } from '@/Enums/WishEnums';
 import { useActiveBanner } from '@/store/Gacha/activeBanner';
 import { usePrimogems } from '@/store/Gacha/primogems';
@@ -36,6 +38,8 @@ const { getIsWishing } = useWish()
 	top: 10px;
 	right: 10px;
 	display: flex;
+
+	align-items: center;
 	gap: 20px;
 
 	&__primogems,
@@ -45,7 +49,7 @@ const { getIsWishing } = useWish()
 		justify-content: space-between;
 		min-width: 60px;
 		width: fit-content;
-
+		height: fit-content;
 		padding: 0px 7px;
 		text-align: end;
 		border-radius: 15px;

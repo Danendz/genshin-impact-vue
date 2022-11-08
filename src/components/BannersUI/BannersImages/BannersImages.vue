@@ -25,7 +25,7 @@ import { BannersEntities } from '@/Enums/BannersEnums';
 import { BannerTypes } from '@/Enums/WishEnums';
 
 //helpers
-import CharacterHelper from '@/helpers/CharacterHelper';
+import WishHelper from '@/helpers/WishHelper';
 
 //stores
 import { useBannersData } from '@/store/Gacha/bannersData';
@@ -62,7 +62,7 @@ onMounted(() => {
 
 const getBannerImages = (banner: BannersEntities, name?: string) => {
 	name = name ? name + '/' : ''
-	return CharacterHelper.getBannerImageByName(banner, name)
+	return WishHelper.getBannerImageByName(banner, name)
 }
 
 const findTrue = (index: number): [BannerTypes, number?] => {

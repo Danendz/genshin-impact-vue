@@ -3,7 +3,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
-    redirect: '/characters'
+    component: () => import('../views/HomeView.vue')
   },
   {
     path: '/event',
@@ -29,7 +29,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/characters/:name',
     name: 'CharacterPage',
     component: () => import('../views/CharactersView.vue')
-  },{
+  }, {
     path: '/:pathMatch(.*)*',
     name: 'notFound',
     component: () => import('@/components/UI/ErrorPage.vue')
