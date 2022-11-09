@@ -39,10 +39,10 @@ import { Icon } from '@iconify/vue';
 }
 
 
-@media only screen and (max-width: 915px) and (orientation: landscape) {
+@media only screen and (max-width: 915px) {
 	.home-menu__user-name {
 		figcaption {
-			font-size: 20px;
+			font-size: 16px !important;
 		}
 
 		button {

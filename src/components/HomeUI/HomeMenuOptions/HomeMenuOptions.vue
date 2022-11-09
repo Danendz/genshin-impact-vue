@@ -47,8 +47,8 @@ import { Icon } from '@iconify/vue';
 		&__options {
 			flex-direction: row;
 			background: unset;
-			background-color: #4b5269;
-			padding: 2px 0px;
+			background-color: #4b52699f;
+			padding: 5px 0px;
 			gap: 13px;
 			font-size: 30px;
 		}

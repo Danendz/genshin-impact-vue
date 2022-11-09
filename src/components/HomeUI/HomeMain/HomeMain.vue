@@ -29,6 +29,7 @@ import HomeMainNavigationItems from './HomeMainNavigationItems/HomeMainNavigatio
 			max-width: 100%;
 			height: 100%;
 			background: unset;
+			align-items: center;
 		}
 	}
 }
@@ -36,7 +37,7 @@ import HomeMainNavigationItems from './HomeMainNavigationItems/HomeMainNavigatio
 @media only screen and (max-width: 915px) and (orientation: landscape) {
 	.home-menu {
 		&__main {
-			max-width: 300px;
+			max-width: 45%;
 		}
 	}
 }

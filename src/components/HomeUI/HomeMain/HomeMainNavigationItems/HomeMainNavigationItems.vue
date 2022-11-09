@@ -46,7 +46,7 @@ const goTo = (routeObj: { name: string }) => {
 		.home-menu__navigation-items {
 			display: grid;
 			grid-template-columns: repeat(4, 1fr);
-			margin: 20px;
+			padding: 15px;
 			gap: 10px;
 			user-select: none;
 
@@ -113,12 +113,13 @@ const goTo = (routeObj: { name: string }) => {
 	.home-menu {
 		&__navigation-container {
 			.home-menu__navigation-items {
-				margin: 2px 5px;
+				padding: 7px 5px 10px 5px;
+
 				gap: 5px;
 
 				.home-menu__navigation-item {
 					height: 70px;
-					background-size: 55%;
+					background-size: 40px;
 
 					figcaption {
 						font-size: 10px;
@@ -134,17 +135,22 @@ const goTo = (routeObj: { name: string }) => {
 		&__navigation-container {
 			display: flex;
 			justify-content: center;
-			margin-top: 5px;
+
 			align-items: center;
 			width: 100%;
 
 			.home-menu__navigation-items {
 				max-width: 500px;
-
+				padding: 10px;
 
 				.home-menu__navigation-item {
-
 					background-size: 40px;
+					border-radius: 10px;
+					background-color: #51586bc7;
+
+					&::before {
+						border-radius: 10px;
+					}
 				}
 			}
 		}

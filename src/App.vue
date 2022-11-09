@@ -1,5 +1,5 @@
 <template>
-  <NavBar />
+  <!-- <NavBar /> -->
   <router-view :key="useRoute().fullPath" v-slot="{ Component, route }">
     <Transition name="page" appear>
       <div :key="route.name as string">
@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import NavBar from '@/components/NavBar.vue'
+/* import NavBar from '@/components/NavBar.vue' */
 import { RouterView, useRoute } from 'vue-router';
 </script>
 
