@@ -56,6 +56,7 @@ const goToItem = (item: CharacterOrWeapon) => {
 	gap: 5px;
 
 	&__item-box {
+		width: 100%;
 		max-width: 111.5px;
 		transition: .25s;
 		cursor: pointer;

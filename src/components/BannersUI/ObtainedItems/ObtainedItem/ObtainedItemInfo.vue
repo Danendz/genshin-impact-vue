@@ -58,6 +58,7 @@ const getWishInfoAnimation = () => {
 	position: relative;
 	display: flex;
 	margin-right: auto;
+	width: 100%;
 	max-width: 500px;
 	align-items: center;
 
