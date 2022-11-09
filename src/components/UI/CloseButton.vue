@@ -1,6 +1,6 @@
 <template>
-	<ButtonWithIcon button-class="page-close-button" :accessible-name="'go back'" @click="router.push({ name: 'home' })"
-		icon="mdi:close" icon-class="characters-panel__close-icon" />
+	<ButtonWithIcon button-class="page-close-button" :accessible-name="'go back'" @click="goBack" icon="mdi:close"
+		icon-class="characters-panel__close-icon" />
 </template>
 
 
@@ -11,12 +11,20 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter()
 
+const routesToBack = ['/wish']
+
+const goBack = () => {
+	if (routesToBack.includes(window.history.state.back)) {
+		router.go(-1)
+	} else {
+		router.push({ name: 'home' })
+	}
+}
 </script>
 
 
 <style lang="scss">
 .page-close-button {
-
 	cursor: pointer;
 	transition: .2s;
 	width: 45px;
