@@ -33,7 +33,7 @@ const isMuted = ref(true)
 const skipHided = ref(true)
 
 const toggleSkip = () => {
-	console.log('toggled')
+
 	if (getIsWishing.value && !getShowObtainedItems.value) {
 		skipHided.value = !skipHided.value
 	}

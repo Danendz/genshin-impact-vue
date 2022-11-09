@@ -1,34 +1,21 @@
 <template>
-  <PageTransition :condition-item="[images]" :error="[error]" :loader-title="'Меню'">
-    <HomeLayout :images="images" />
+  <PageTransition :condition-item="[getImages]" :error="[getImagesError]" :loader-title="'Меню'">
+    <HomeLayout :images="getImages" />
   </PageTransition>
 </template>
 
 <script setup lang="ts">
 import PageTransition from '@/components/UI/PageTransition.vue';
-import HomeService from '@/API/HomeService';
-import { onMounted, ref, defineAsyncComponent } from 'vue';
-import HomeHelper from '@/helpers/HomeHelper';
-
-const error = ref<string | null>(null)
-const images = ref<string[] | null>(null)
-const homeService = new HomeService()
+import { useHomeBackgroundImages } from '@/store/Home/HomeBackgroundImages';
+import { onMounted, defineAsyncComponent } from 'vue';
 
 const HomeLayout = defineAsyncComponent(() => import('@/components/HomeUI/HomeLayout.vue'))
+const { getImages, getImagesError, fetchBackgroundImages } = useHomeBackgroundImages()
 
 onMounted(() => {
-  fetchBackgroundImages()
-})
-
-const fetchBackgroundImages = async () => {
-  const data = await homeService.getWithAdditionalUrl<string[]>('home-backgrounds/list')
-
-  if (typeof data === 'string') {
-    error.value = data
-  } else {
-    images.value = data.map((name) => HomeHelper.getHomeBackground(name));
+  if (!getImages.value) {
+    fetchBackgroundImages()
   }
-  console.log(data)
-}
+})
 
 </script>
