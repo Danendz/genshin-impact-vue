@@ -94,7 +94,7 @@ const setFilter = () => {
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .filter-option {
-        font-size: 9px;
+        font-size: 11px;
         height: 30px;
         gap: 5px;
 

@@ -47,7 +47,7 @@ const props = defineProps<{
 @media only screen and (max-width: 915px) {
 	.home-menu__user-name {
 		figcaption {
-			font-size: 12.5px !important;
+			font-size: 14px !important;
 		}
 
 		button {

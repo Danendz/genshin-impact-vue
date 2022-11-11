@@ -53,7 +53,7 @@ const store = useCurrentCharacter()
 @media only screen and (max-width: 700px) and (orientation: portrait) {
     .attributes-content {
         .content-right-description {
-            font-size: 10px;
+            font-size: 12px;
             max-height: 100px;
         }
     }

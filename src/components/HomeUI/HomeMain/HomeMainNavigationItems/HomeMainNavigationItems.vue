@@ -126,7 +126,7 @@ const goTo = (routeObj: { name: string }) => {
 					background-size: 40px;
 
 					figcaption {
-						font-size: 8px;
+						font-size: 10px;
 					}
 				}
 			}
