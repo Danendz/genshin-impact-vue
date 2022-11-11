@@ -1,6 +1,6 @@
 <template>
 	<section class="home-menu__user-info-container">
-		<div :style="{ backgroundImage: `url(${CharacterHelper.getCharacterImage('sucrose', CharacterImage.NAMECARD_HQ)})` }"
+		<div :style="{ backgroundImage: `url(${CharacterHelper.getCharacterImage(getUser.userCard, CharacterImage.NAMECARD_HQ)})` }"
 			class="home-menu__user-info-image"></div>
 		<section class="home-menu__user-info">
 			<LeftSideInfo />
@@ -10,10 +10,18 @@
 </template>
 
 <script setup lang="ts">
-import { CharacterImage } from '@/Enums/CharacterEnums';
-import CharacterHelper from '@/helpers/CharacterHelper';
+//components
 import LeftSideInfo from './LeftSideInfo/LeftSideInfo.vue';
 import RightSideInfo from './RightSideInfo/RightSideInfo.vue';
+
+//enums
+import { CharacterImage } from '@/Enums/CharacterEnums';
+
+//helper
+import CharacterHelper from '@/helpers/CharacterHelper';
+import { useUserData } from '@/store/Home/UserData';
+
+const { getUser } = useUserData()
 
 
 </script>
@@ -30,12 +38,20 @@ import RightSideInfo from './RightSideInfo/RightSideInfo.vue';
 		.home-menu__user-info-image {
 			width: 100%;
 			height: 100%;
-
 			position: absolute;
 			background-repeat: no-repeat;
 			background-position: center;
 			background-size: cover;
 			z-index: 0;
+
+			&::before {
+				content: '';
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background-color: black;
+				opacity: 0.05;
+			}
 		}
 
 		.home-menu__user-info {
@@ -49,8 +65,7 @@ import RightSideInfo from './RightSideInfo/RightSideInfo.vue';
 			figcaption,
 			p,
 			span {
-				color: #ffffffaf;
-				font-weight: bold;
+				font-weight: 100;
 			}
 
 			button {
@@ -83,12 +98,6 @@ import RightSideInfo from './RightSideInfo/RightSideInfo.vue';
 				padding-right: 10px;
 				gap: 5px;
 				max-width: 500px;
-
-				figcaption,
-				p,
-				span {
-					font-size: 13px;
-				}
 
 				.home-menu__info-button {
 					width: 13px;

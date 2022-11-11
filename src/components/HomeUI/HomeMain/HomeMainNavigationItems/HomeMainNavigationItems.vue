@@ -12,8 +12,13 @@
 </template>
 
 <script setup lang="ts">
+//helper
 import HomeHelper from '@/helpers/HomeHelper';
+
+//json
 import home_menu from '@/assets/Data/home_menu.json'
+
+//vue
 import { useRouter } from 'vue-router';
 
 interface IMenuItems {
@@ -99,7 +104,6 @@ const goTo = (routeObj: { name: string }) => {
 
 				figcaption {
 					z-index: 2;
-					font-weight: bold;
 					color: #bdc1ca;
 				}
 			}
@@ -122,7 +126,7 @@ const goTo = (routeObj: { name: string }) => {
 					background-size: 40px;
 
 					figcaption {
-						font-size: 10px;
+						font-size: 8px;
 					}
 				}
 			}

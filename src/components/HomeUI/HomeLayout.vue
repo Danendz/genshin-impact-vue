@@ -8,6 +8,7 @@
 
 
 <script setup lang="ts">
+//components
 import HomeMenuOptions from './HomeMenuOptions/HomeMenuOptions.vue';
 import HomeMain from './HomeMain/HomeMain.vue'
 import HomeBackground from './HomeBackground/HomeBackground.vue'

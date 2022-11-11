@@ -1,6 +1,6 @@
 <template>
 	<div class="selected-option">
-		<span>{{renames[props.option] || props.option}}</span>
+		<span>{{ renames[props.option] || props.option }}</span>
 	</div>
 </template>
 
@@ -29,8 +29,7 @@ const props = defineProps<Props>()
 
 	span {
 		white-space: nowrap;
-		font-weight: bold;
-		font-size: 20px;
+		font-size: 17px;
 	}
 
 }

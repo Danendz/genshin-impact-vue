@@ -1,5 +1,6 @@
 export enum LocalStorageData {
 	OBTAINED_ITEMS = 'obtained items',
 	WISHES = 'wishes',
-	PRIMOGEMS = 'primogems'
+	PRIMOGEMS = 'primogems',
+	USER = 'user'
 }

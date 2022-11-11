@@ -4,10 +4,10 @@
 		<section class="home-menu__experience">
 			<section class="home-menu__experience-amount">
 				<p>Adventure EXP</p>
-				<span>5206 / 285750</span>
+				<span>{{ getUser.adventureExp }} / {{ getNextRankExp }}</span>
 			</section>
 
-			<progress value="10" max="100" />
+			<progress :value="getUser.adventureExp" :max="getNextRankExp" />
 		</section>
 	</figure>
 </template>
@@ -15,24 +15,32 @@
 
 <script setup lang="ts">
 import HomeHelper from '@/helpers/HomeHelper';
+import { useUserData } from '@/store/Home/UserData';
+
+
+const { getUser, getNextRankExp } = useUserData()
 
 </script>
 
 
 <style lang="scss">
+@import '@/assets/Styles/HomeUI/text';
+
 .home-menu__user-exp {
 	display: flex;
 
 	.home-menu__experience {
 		display: flex;
 		flex-direction: column;
+		justify-content: center;
 		width: 100%;
 
 		.home-menu__experience-amount {
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			font-size: 14px;
+			font-size: 12px;
+			color: $transparentWhite;
 		}
 
 		progress {
@@ -47,7 +55,7 @@ import HomeHelper from '@/helpers/HomeHelper';
 	}
 }
 
-@media only screen and (max-width: 915px) and (orientation: landscape) {
+@media only screen and (max-width: 915px) {
 
 	.home-menu__user-exp {
 		.home-menu__experience {
@@ -55,8 +63,9 @@ import HomeHelper from '@/helpers/HomeHelper';
 
 				p,
 				span {
-					font-size: 10px;
+					font-size: 8px;
 				}
+
 			}
 
 			progress {

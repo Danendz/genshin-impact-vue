@@ -33,7 +33,6 @@ const props = defineProps<Props>();
 .base-info {
     .name {
         font-size: 28px;
-        font-weight: bold;
     }
 
     .base-lvl {

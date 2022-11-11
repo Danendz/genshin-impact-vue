@@ -67,7 +67,6 @@ const chooseSort = (sortOption: SortType) => {
 
         p {
             font-size: 15px;
-            font-weight: bold;
         }
 
         img {

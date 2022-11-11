@@ -28,7 +28,6 @@ const stats: IStats = statsData;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-weight: bold;
         padding: 5px;
         border-radius: 5px;
 

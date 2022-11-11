@@ -7,7 +7,7 @@
     <progress class="friendship-progress" value="90" max="100" />
     <Transition name="fade" mode="out-in" appear>
         <p v-if="store.currentCharacter" :key="store.currentCharacter.description" class="content-right-description">
-            {{store.currentCharacter.description}}
+            {{ store.currentCharacter.description }}
         </p>
     </Transition>
 </template>
@@ -26,7 +26,7 @@ const store = useCurrentCharacter()
 .attributes-content {
     .friendship {
         display: flex;
-        font-size: 17px;
+        font-size: 15px;
         align-items: center;
 
         img {
@@ -45,7 +45,7 @@ const store = useCurrentCharacter()
         overflow-y: auto;
         overflow-x: hidden;
         max-height: 100px;
-        font-size: 17px;
+        font-size: 14px;
         word-break: break-word;
     }
 }
@@ -53,7 +53,7 @@ const store = useCurrentCharacter()
 @media only screen and (max-width: 700px) and (orientation: portrait) {
     .attributes-content {
         .content-right-description {
-            font-size: 13px;
+            font-size: 10px;
             max-height: 100px;
         }
     }
@@ -62,11 +62,11 @@ const store = useCurrentCharacter()
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .attributes-content {
         .friendship {
-            font-size: 13px;
+            font-size: 10px;
         }
 
         .content-right-description {
-            font-size: 13px;
+            font-size: 10px;
             max-height: 60px;
         }
     }

@@ -1,0 +1,11 @@
+$transparentWhite: #ffffffc7;
+
+.home-info-default-text {
+  color: $transparentWhite;
+}
+
+@media only screen and (max-width: 915px) {
+  .home-info-default-text {
+    font-size: 10px !important;
+  }
+}

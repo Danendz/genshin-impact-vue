@@ -1,6 +1,6 @@
 <template>
 	<figure class="home-menu__user-name">
-		<figcaption>Даня</figcaption>
+		<figcaption>{{ props.user.username }}</figcaption>
 		<button>
 			<Icon icon="bxs:edit-alt" />
 		</button>
@@ -9,7 +9,12 @@
 
 
 <script setup lang="ts">
+import { IUser } from '@/store/Home/UserData';
 import { Icon } from '@iconify/vue';
+
+const props = defineProps<{
+	user: IUser
+}>()
 
 </script>
 
@@ -24,9 +29,9 @@ import { Icon } from '@iconify/vue';
 	background: $backgroundGradient;
 
 	figcaption {
-		color: #e9e6e6;
+		color: #e9e6e6 !important;
 		font-weight: bold;
-		font-size: 28px;
+		font-size: 24px;
 	}
 
 	button {
@@ -42,7 +47,7 @@ import { Icon } from '@iconify/vue';
 @media only screen and (max-width: 915px) {
 	.home-menu__user-name {
 		figcaption {
-			font-size: 16px !important;
+			font-size: 12.5px !important;
 		}
 
 		button {

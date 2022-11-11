@@ -46,4 +46,15 @@ body {
 *::-webkit-scrollbar-thumb:hover {
   cursor: pointer;
 }
+
+p,
+span,
+figcaption,
+h1,
+h2,
+h3,
+h4 {
+  font-family: Genshin, Arial, Helvetica, sans-serif;
+  font-weight: 100;
+}
 </style>

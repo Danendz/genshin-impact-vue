@@ -80,8 +80,7 @@ const getWishInfoAnimation = () => {
 		p {
 			color: white;
 			font-size: 35px;
-			font-weight: bold;
-			max-width: 300px;
+			max-width: 350px;
 		}
 	}
 
@@ -95,7 +94,7 @@ const getWishInfoAnimation = () => {
 	.banners-obtained-item-info {
 		&__name-rarity {
 			p {
-				font-size: 28px;
+				font-size: 25px;
 				max-width: 250px;
 			}
 		}
@@ -144,7 +143,7 @@ const getWishInfoAnimation = () => {
 	.banners-obtained-item-info {
 		&__name-rarity {
 			p {
-				font-size: 24px;
+				font-size: 22px;
 				max-width: 200px;
 			}
 		}

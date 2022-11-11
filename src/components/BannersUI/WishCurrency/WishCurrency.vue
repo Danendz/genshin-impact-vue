@@ -4,7 +4,9 @@
 			<figure @click="setPrimogems(getPrimogems + 1600)" class="banners-currency__primogems">
 				<img src="@/assets/Icons/wishIcons/wish_Primogem.png" />
 				<figcaption>{{ getPrimogems }}</figcaption>
+				<i class="gi-plus banners-currency__plus" />
 			</figure>
+
 			<figure class="banners-currency__wishes">
 				<img v-if="getActiveBannerWish[0] === BannerTypes.STANDARD"
 					src="@/assets/Icons/wishIcons/standardWish.webp" />
@@ -51,6 +53,7 @@ const { getIsWishing } = useWish()
 		width: fit-content;
 		height: fit-content;
 		padding: 0px 7px;
+		font-size: 17px;
 		text-align: end;
 		border-radius: 15px;
 		background-color: rgba(0, 0, 0, 0.411);
@@ -66,27 +69,22 @@ const { getIsWishing } = useWish()
 	&__primogems {
 		position: relative;
 		cursor: pointer;
+		display: flex;
+		text-align: center;
+		align-items: center;
+		padding-right: 2px;
 
 		figcaption {
-			margin-right: 20px;
+			margin-right: 5px;
 		}
 
-		&::after {
-			content: '+';
-			position: absolute;
-			font-weight: 900;
-			display: flex;
-			font-size: 20px;
-			justify-content: center;
-			align-items: center;
-			right: 2px;
-			text-align: center;
-			width: 20px;
-			top: 3px;
-			height: 19px;
+		.banners-currency__plus {
+			background-color: white;
 			border-radius: 50%;
 			color: black;
-			background-color: white;
+			width: 20px;
+			font-size: 20px;
+			height: 20px;
 		}
 	}
 }

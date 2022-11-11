@@ -86,7 +86,7 @@ const setActiveDetails = (value?: boolean) => {
             transition: .3s;
 
             &:hover {
-                transform: translateX(-2px);
+                transform: translateY(-2px);
             }
 
             &:active {
@@ -100,7 +100,6 @@ const setActiveDetails = (value?: boolean) => {
         }
 
         span {
-            font-weight: bold;
             width: 100%;
         }
     }

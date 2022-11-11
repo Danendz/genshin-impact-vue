@@ -6,6 +6,7 @@
 </template>
 
 <script setup lang="ts">
+//components
 import HomeMainUserInfo from './HomeMainUserInfo/HomeMainUserInfo.vue';
 import HomeMainNavigationItems from './HomeMainNavigationItems/HomeMainNavigationItems.vue'
 

@@ -1,6 +1,6 @@
 <template>
     <section class="filter-container">
-        <label class="filter-container__title">{{filterTitle[props.keyTitle]}}</label>
+        <label class="filter-container__title">{{ filterTitle[props.keyTitle] }}</label>
         <div class="filter-container__options-container">
             <FilterOption v-for="option, index in props.options" :key="option" :index="index" :option="option"
                 :option-key="props.keyTitle" />
@@ -47,6 +47,8 @@ const filterTitle: Record<keyof typeof filter, string> = {
     }
 
     &__title {
+        font-family: Genshin, Arial, Helvetica, sans-serif;
+        font-size: 20px;
         color: #aeb1b6;
     }
 
@@ -59,7 +61,7 @@ const filterTitle: Record<keyof typeof filter, string> = {
         gap: 5px;
 
         &__title {
-            font-size: 15px;
+            font-size: 13px;
         }
     }
 }

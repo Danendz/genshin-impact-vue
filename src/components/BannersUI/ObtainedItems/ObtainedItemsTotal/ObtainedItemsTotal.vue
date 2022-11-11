@@ -6,10 +6,12 @@
 				<TotalItem :index="index" :item="item" />
 			</Transition>
 		</div>
-		<button class="banners-obtained-items-total__close" @click="hideObtainItems">
-			X
-		</button>
+		<div :style="{ position: 'absolute', width: '100%', height: '100%', maxWidth: '1250px' }">
+			<BackButton :button-type="'close'" :is-with-background="true" class="banners-obtained-items-total__close"
+				@click="hideObtainItems" />
+		</div>
 	</div>
+
 </template>
 
 <script setup lang="ts">
@@ -19,6 +21,7 @@ import TotalItem from './TotalItem.vue';
 import { useRouter } from 'vue-router';
 import { isCharacter } from '@/Composables/isCharacter';
 import { CharacterOrWeapon } from '@/Composables/UseWishing';
+import BackButton from '@/components/UI/BackButton.vue';
 
 const { getObtainedItems, setShowObtainedItems, clearObtainedItems, setActiveWish } = useObtainedItems()
 const { setIsWishing } = useWish()
@@ -69,13 +72,8 @@ const goToItem = (item: CharacterOrWeapon) => {
 
 	&__close {
 		position: absolute;
-		top: 5px;
-		right: 5px;
-		width: 45px;
-		height: 45px;
-		border-radius: 50%;
-		cursor: pointer;
-		border: 0;
+		top: 15px;
+		right: 0;
 	}
 }
 
@@ -93,6 +91,11 @@ const goToItem = (item: CharacterOrWeapon) => {
 		&__item-box {
 			width: 15%;
 		}
+
+		&__close {
+			right: 10px;
+			top: 10px;
+		}
 	}
 }
 
@@ -108,6 +111,11 @@ const goToItem = (item: CharacterOrWeapon) => {
 	.banners-obtained-items-total {
 		gap: 3px;
 		max-width: 85vw;
+
+		&__close {
+			right: 10px;
+			top: 10px;
+		}
 	}
 }
 </style>

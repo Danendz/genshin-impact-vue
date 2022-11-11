@@ -51,7 +51,8 @@ const stats: IStats = statsData;
         margin-bottom: 10px;
 
         summary {
-            font-size: 19px;
+            font-size: 17px;
+            font-family: Genshin, Arial, Helvetica, sans-serif;
             color: rgb(185, 185, 185);
         }
 
@@ -79,8 +80,13 @@ const stats: IStats = statsData;
                     border-bottom-right-radius: 5px;
                 }
 
+                h3 {
+                    font-size: 16px;
+                }
+
                 figcaption {
                     margin-left: auto;
+                    font-size: 16px;
                     margin-right: 70px;
                 }
             }
@@ -101,13 +107,21 @@ const stats: IStats = statsData;
     .details-container {
         .details-stats {
             summary {
-                font-size: 14px;
+                font-size: 12px;
             }
 
             .details-stats-stat-container {
                 .details-stats-stat {
+                    img {
+                        width: 16px;
+                    }
+
                     h3 {
-                        font-size: 12px;
+                        font-size: 11px;
+                    }
+
+                    figcaption {
+                        font-size: 11px;
                     }
                 }
             }
@@ -119,13 +133,17 @@ const stats: IStats = statsData;
     .details-container {
         .details-stats {
             summary {
-                font-size: 17px;
+                font-size: 15px;
             }
 
             .details-stats-stat-container {
                 .details-stats-stat {
                     h3 {
-                        font-size: 15px;
+                        font-size: 13px;
+                    }
+
+                    figcaption {
+                        font-size: 13px;
                     }
                 }
             }

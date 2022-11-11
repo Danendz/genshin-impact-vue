@@ -1,6 +1,7 @@
 <template>
     <transition name="fade">
-        <article v-show="active_state" @click.self="() => emit('close-modal', false)" class="modal">
+        <article :style="isBgTransparent ? { backgroundColor: 'transparent' } : {}" v-show="active_state"
+            @click.self="() => emit('close-modal', false)" class="modal">
             <section :class="[props.modalStyle]">
                 <slot />
             </section>
@@ -11,7 +12,8 @@
 <script setup lang="ts">
 interface Props {
     modalStyle: 'details' | 'default',
-    active_state: boolean
+    active_state: boolean,
+    isBgTransparent?: boolean
 }
 
 const props = defineProps<Props>()

@@ -2,9 +2,9 @@
     <aside class="content-options">
         <ul>
             <li v-for="_, key, index in props.optionsList" :key="index"
-                :class="['content-options__option', {'content-options__option_active': activeCategory.active_category === key}]"
+                :class="['content-options__option', { 'content-options__option_active': activeCategory.active_category === key }]"
                 @click="activeCategory.setActiveCategory(key)">
-                {{key}}
+                <p>{{ key }}</p>
             </li>
         </ul>
     </aside>
@@ -28,8 +28,7 @@ const activeCategory = useActiveCategory()
 .content-options {
     ul {
         list-style: none;
-        font-size: 30px;
-        font-weight: bold;
+        font-size: 27px;
 
         .content-options__option {
             display: flex;

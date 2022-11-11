@@ -1,7 +1,7 @@
 <template>
-	<figure class="home-menu__user-rank">
+	<figure class="home-menu__user-rank home-info-default-text">
 		<figcaption>Adventure Rank </figcaption>
-		<span>57</span>
+		<span>{{ props.user.adventureRank }}</span>
 		<button class="home-menu__info-button">
 			<Icon icon="fa6-solid:info" />
 		</button>
@@ -10,18 +10,23 @@
 
 
 <script setup lang="ts">
+import { IUser } from '@/store/Home/UserData';
 import { Icon } from '@iconify/vue';
 
+const props = defineProps<{
+	user: IUser
+}>()
 
 </script>
 
 
 <style lang="scss">
 @import '@/assets/Styles/HomeUI/RightSideInfo';
+@import '@/assets/Styles/HomeUI/text';
 
 .home-menu__user-rank {
 	display: flex;
-	font-size: 20px;
+	font-size: 17px;
 	background: $backgroundGradient;
 	align-items: center;
 	justify-content: center;

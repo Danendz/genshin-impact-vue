@@ -69,7 +69,8 @@ const changedStyle = ref(hideLayout.hide)
         0.07em 0 rgba(0, 0, 0, 0.315),
         0 0.07em rgba(0, 0, 0, 0.219),
         -0.07em 0 rgba(0, 0, 0, 0.164);
-    width: 60%;
+    width: 100%;
+    max-width: 1550px;
     height: fit-content;
     margin-top: 10px;
 

@@ -1,0 +1,13 @@
+@font-face {
+  font-family: "Genshin";
+  src: url("../fonts/genshin-text/HYWenHei-HEW.eot");
+  src: url("../fonts/genshin-text/HYWenHei-HEW.eot?#iefix")
+      format("embedded-opentype"),
+    url("../fonts/genshin-text/HYWenHei-HEW.woff2") format("woff2"),
+    url("../fonts/genshin-text/HYWenHei-HEW.woff") format("woff"),
+    url("../fonts/genshin-text/HYWenHei-HEW.ttf") format("truetype"),
+    url("../fonts/genshin-text/HYWenHei-HEW.svg#HYWenHei-HEW") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

@@ -37,7 +37,8 @@ const hideLayout = useHideMainCharactersLayout()
     user-select: none;
 
     &__content {
-        width: 70%;
+        width: 100%;
+        max-width: 1600px;
         display: flex;
         align-items: center;
 
@@ -45,16 +46,16 @@ const hideLayout = useHideMainCharactersLayout()
             display: flex;
             justify-content: flex-end;
             margin-left: auto;
-
+            margin-right: 5px;
 
         }
     }
 }
 
-@media only screen and (max-width: 1366px) {
+@media only screen and (max-width: 1800px) {
     .characters-panel {
         &__content {
-            width: 100%;
+            width: 95%;
         }
     }
 }

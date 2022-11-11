@@ -38,8 +38,7 @@ const setFilter = () => {
     cursor: pointer;
     gap: 10px;
     height: 50px;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 17px;
     background-color: #25313f;
     border: 1px solid rgba(255, 255, 255, 0.247);
     border-radius: 2px;
@@ -95,7 +94,7 @@ const setFilter = () => {
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .filter-option {
-        font-size: 12px;
+        font-size: 9px;
         height: 30px;
         gap: 5px;
 
