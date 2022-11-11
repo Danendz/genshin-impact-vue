@@ -2,7 +2,7 @@
 @font-face {
   font-family: genshin-icon;
 
-  src: url("../fonts/genshin-icon/genshinicon.eot");
+  src: local("Arial"), url("../fonts/genshin-icon/genshinicon.eot");
   src: url("../fonts/genshin-icon/genshinicon.eot") format("embedded-opentype"),
     url("../fonts/genshin-icon/genshinicon.woff2") format("woff2"),
     url("../fonts/genshin-icon/genshinicon.woff") format("woff"),
@@ -25,7 +25,7 @@
 }
 [class^="gi-"]:before,
 [class*=" gi-"]:before {
-  font-family: genshin-icon, Arial !important;
+  font-family: genshin-icon !important;
   font-style: normal !important;
   font-weight: 400 !important;
   font-variant: normal !important;

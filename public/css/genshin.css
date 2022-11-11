@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Genshin";
-  src: url("../fonts/genshin-text/HYWenHei-HEW.eot");
+  src: local("Arial"), url("../fonts/genshin-text/HYWenHei-HEW.eot");
   src: url("../fonts/genshin-text/HYWenHei-HEW.eot?#iefix")
       format("embedded-opentype"),
     url("../fonts/genshin-text/HYWenHei-HEW.woff2") format("woff2"),
