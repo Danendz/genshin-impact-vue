@@ -25,7 +25,7 @@
 }
 [class^="gi-"]:before,
 [class*=" gi-"]:before {
-  font-family: genshin-icon !important;
+  font-family: genshin-icon, Arial !important;
   font-style: normal !important;
   font-weight: 400 !important;
   font-variant: normal !important;
