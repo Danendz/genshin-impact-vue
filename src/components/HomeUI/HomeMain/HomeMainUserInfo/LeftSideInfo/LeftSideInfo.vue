@@ -14,8 +14,8 @@
 
 	</figure>
 
-	<ModalWindow @close-modal="setModal" :is-bg-transparent="true" :active_state="modalState"
-		:modal-style="'popupModal'">
+	<ModalWindow :animation-name="'home-popup'" @close-modal="setModal" :is-bg-transparent="true"
+		:active_state="modalState" :modal-style="'popupModal'">
 		<Suspense v-if="modalLoaded">
 			<template #default>
 				<ChangeAvatar :activeState="modalState" :set-modal="setModal" />

@@ -69,9 +69,8 @@ const goTo = (routeObj: { name: string }) => {
 				background-position: center 10px;
 				background-size: 60px;
 				cursor: pointer;
-				backface-visibility: hidden;
 				transition: all .3s;
-				transform: scale(1) translateZ(0);
+				transform: scale(1);
 
 				&::before {
 					content: '';
@@ -98,9 +97,8 @@ const goTo = (routeObj: { name: string }) => {
 				}
 
 				&:active figcaption {
-					color: black;
+					color: #51586b;
 				}
-
 
 				figcaption {
 					z-index: 2;

@@ -8,7 +8,7 @@
 					{ 'change-avatar-container__avatar_current': isCurrentAvatar(character.name_key) }
 				]">
 
-				<CircleCharacter :name_key="character.name_key" />
+				<CircleCharacter class="change-avatar-container__avatar-img" :name_key="character.name_key" />
 
 				<figcaption v-if="isCurrentAvatar(character.name_key)">Current</figcaption>
 			</PreventClickEvent>
@@ -104,11 +104,19 @@ onMounted(() => {
 			z-index: -1;
 			border-radius: 50%;
 			background-color: rgb(255, 255, 255);
-			opacity: 0.3;
+			opacity: 0.2;
 		}
 
 		&:hover {
-			background-color: #ede5da;
+			border-color: #ede5da;
+		}
+
+		&-img {
+			transform: scale(1);
+		}
+
+		&:hover .change-avatar-container__avatar-img {
+			transform: scale(1.06);
 		}
 
 		figcaption {

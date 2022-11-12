@@ -35,3 +35,14 @@
   opacity: 0;
   transform: translateX(-80px);
 }
+
+.home-popup-enter-active,
+.home-popup-leave-active {
+  transition: all 0.2s;
+}
+
+.home-popup-enter-from,
+.home-popup-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
+}

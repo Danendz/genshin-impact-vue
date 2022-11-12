@@ -1,5 +1,5 @@
 <template>
-    <transition name="fade">
+    <transition :name="animationName ?? 'fade'">
         <article :style="isBgTransparent ? { backgroundColor: 'transparent' } : {}" v-show="active_state"
             @mousedown.self="closeModal" class="modal">
             <section :class="[props.modalStyle]">
@@ -13,7 +13,8 @@
 interface Props {
     modalStyle: 'details' | 'popupModal',
     active_state: boolean,
-    isBgTransparent?: boolean
+    isBgTransparent?: boolean,
+    animationName?: string
 }
 
 const props = defineProps<Props>()
@@ -27,6 +28,9 @@ const closeModal = () => {
 </script>
 
 <style lang="scss">
+@import '@/assets/Styles/animations';
+@import '@/assets/Styles/HomeUI/animations';
+
 .modal {
     position: fixed;
     display: flex;
