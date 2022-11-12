@@ -2,7 +2,7 @@
     <section class="attributes-content" v-if="store.currentCharacter">
         <BaseInfo :current-character="store.currentCharacter" />
         <StatsBar />
-        <button aria-label="character details toggle" @click="() => setActiveDetails()"
+        <button aria-label="character details toggle" @click="() => setActiveDetails(true)"
             class="details-btn">Details</button>
         <FriendshipAndDescription />
         <footer class="footer-buttons">
@@ -48,8 +48,8 @@ const store = useCurrentCharacter()
 
 const active_details = ref<boolean>(false)
 
-const setActiveDetails = (value?: boolean) => {
-    active_details.value = value ?? !active_details.value
+const setActiveDetails = (value: boolean) => {
+    active_details.value = value
     if (!detailsLoaded.value) {
         detailsLoaded.value = true
     }

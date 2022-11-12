@@ -80,6 +80,15 @@ export const useUserData = defineStore('user data', () => {
 			user.value[key] = value
 		}
 
+		setLocalStorage(value, key)
+	}
+
+	const setAvatar = (name_key: string) => {
+		user.value.userAvatar = name_key;
+		setLocalStorage(name_key, 'userAvatar')
+	}
+
+	const setLocalStorage = (value: string | number | IUserBirthday, key: keyof IUser) => {
 		if (!userDataLocalStorage) useSetLocalStorageData<IUser>(LocalStorageData.USER, user.value)
 		else useSetLocalStorageData(LocalStorageData.USER, value, key)
 	}
@@ -94,5 +103,5 @@ export const useUserData = defineStore('user data', () => {
 		return Math.floor((user.value.adventureRank - 20) / 5 + 1)
 	})
 
-	return { getUser, getNextRankExp, getUserWorldLvl, setUser }
+	return { getUser, getNextRankExp, getUserWorldLvl, setUser, setAvatar }
 })

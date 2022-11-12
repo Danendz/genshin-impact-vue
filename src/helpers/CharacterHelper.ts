@@ -31,8 +31,6 @@ export default class CharacterHelper {
         return ''
     }
 
-
-
     public static getElementImage(element: string): string {
         return this.elementsUrl + element.toLowerCase() + '/icon'
     }
@@ -44,6 +42,5 @@ export default class CharacterHelper {
     public static getPlaceholderIcon(iconType: CharacterImage): string {
         return this.genshinSiteUrl + 'placeholder-icons/' + iconType + '-placeholder'
     }
-
 
 }

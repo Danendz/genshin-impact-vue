@@ -1,6 +1,6 @@
 <template>
     <Transition name="fade" appear>
-        <BackButton :button-type="'back'" :is-with-background="true" @click="toggleSelectionList"
+        <BackButton :button-type="'back'" :font-size="'22px'" :is-with-background="true" @click="toggleSelectionList"
             class="character-selection-back" v-show="showCharactersSelectionList.show" />
     </Transition>
     <Transition name="fade-left" appear>

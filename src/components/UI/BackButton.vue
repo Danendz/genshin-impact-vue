@@ -65,13 +65,5 @@ const customStyles = {
 	.gi-reply {
 		line-height: 0;
 	}
-
-	.gi-close {
-		font-size: 12px;
-	}
-
-	.gi-reply {
-		font-size: 22px;
-	}
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
         <article :style="isBgTransparent ? { backgroundColor: 'transparent' } : {}" v-show="active_state"
-            @click.self="() => emit('close-modal', false)" class="modal">
+            @click.self="closeModal" class="modal">
             <section :class="[props.modalStyle]">
                 <slot />
             </section>
@@ -11,15 +11,20 @@
 
 <script setup lang="ts">
 interface Props {
-    modalStyle: 'details' | 'default',
+    modalStyle: 'details' | 'popupModal',
     active_state: boolean,
     isBgTransparent?: boolean
 }
 
 const props = defineProps<Props>()
 const emit = defineEmits<{
-    (event: 'close-modal', value?: boolean): void
+    (event: 'close-modal', value: boolean): void
 }>()
+
+const closeModal = () => {
+    console.log('clicked')
+    emit('close-modal', false)
+}
 </script>
 
 <style lang="scss">
@@ -38,11 +43,12 @@ const emit = defineEmits<{
 
     .modal-content {}
 
-    .default {
+    .popupModal {
         display: flex;
         justify-content: center;
         align-items: center;
-
+        max-width: 950px;
+        max-height: 600px;
         width: 100%;
         height: 100%;
     }
@@ -59,6 +65,10 @@ const emit = defineEmits<{
     .modal {
         .details {
             width: 82%;
+        }
+
+        .default {
+            max-width: 600px;
         }
     }
 }

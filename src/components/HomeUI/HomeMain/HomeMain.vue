@@ -42,4 +42,12 @@ import HomeMainNavigationItems from './HomeMainNavigationItems/HomeMainNavigatio
 		}
 	}
 }
+
+@media only screen and (max-width: 667px) and (orientation: landscape) {
+	.home-menu {
+		&__main {
+			max-width: 50%;
+		}
+	}
+}
 </style>

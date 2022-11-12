@@ -1,7 +1,8 @@
 <template>
 	<figure class="home-menu__left-side-info">
-		<img draggable="false"
-			:src="CharacterHelper.getCharacterImage(getUser.userAvatar, CharacterImage.ICON_BIG_LQ)" />
+		<CircleCharacter :delay="0" @click="setModal(true)" class="home-menu__left-side-icon"
+			:name_key="getUser.userAvatar" />
+
 		<figcaption :style="{ userSelect: 'none' }" @click="() => setPopupShow(true)">UID {{ getUser.UID }}
 			<PopUp :arrow-class="'home-menu__popup-copy-arrow'" @hide-popup="setPopupShow" :is-visible="popupShow"
 				:popup-text="'Успешно скопировано!'" :popup-class="'home-menu__success-copy'" />
@@ -10,35 +11,50 @@
 			<Icon icon="material-symbols:file-copy-sharp" />Copy
 		</button>
 	</figure>
-	<!-- <ModalWindow :is-bg-transparent="true" :active_state="true" :modal-style="'default'">
-		<ChangeAvatar />
-	</ModalWindow> -->
+	<ModalWindow @close-modal="setModal" :is-bg-transparent="true" :active_state="modalState"
+		:modal-style="'popupModal'">
+		<Suspense v-if="modalLoaded">
+			<template #default>
+				<ChangeAvatar :activeState="modalState" :set-modal="setModal" />
+			</template>
+			<template #fallback>
+				<LoaderSpinner />
+			</template>
+		</Suspense>
+	</ModalWindow>
 </template>
 
 
 <script setup lang="ts">
-//enums
-import { CharacterImage } from '@/Enums/CharacterEnums';
-
-//helpers
-import CharacterHelper from '@/helpers/CharacterHelper';
-
 //iconify
 import { Icon } from '@iconify/vue';
 
 //components
 import PopUp from '@/components/UI/PopUp.vue';
+import CircleCharacter from '@/components/UI/CircleCharacter.vue';
+import ModalWindow from '@/components/UI/ModalWindow.vue';
+import LoaderSpinner from '@/components/UI/LoaderSpinner.vue';
+
+//stores
+import { useUserData } from '@/store/Home/UserData';
 
 //vue
-import { ref } from 'vue';
-import { useUserData } from '@/store/Home/UserData';
-import ChangeAvatar from '../../HomeModals/ChangeAvatar.vue';
-import ModalWindow from '@/components/UI/ModalWindow.vue';
+import { ref, defineAsyncComponent } from 'vue';
+
+const ChangeAvatar = defineAsyncComponent(() => import('../../HomeModals/ChangeAvatar/ChangeAvatar.vue'))
 
 const popupShow = ref(false)
 const { getUser } = useUserData()
 
+const modalState = ref(false)
+const modalLoaded = ref(false)
 
+const setModal = (value: boolean) => {
+	modalState.value = value
+	if (!modalLoaded.value) {
+		modalLoaded.value = true
+	}
+}
 
 const setPopupShow = (value: boolean) => {
 	if (value) navigator.clipboard.writeText(getUser.value.UID.toString())
@@ -56,11 +72,11 @@ const setPopupShow = (value: boolean) => {
 	justify-content: flex-start;
 	height: 100%;
 
-	img {
+	.home-menu__left-side-icon {
 		background-color: #dd8e5d;
+		max-width: 120px;
+		max-height: 120px;
 		border-radius: 50%;
-		width: 55%;
-		height: auto;
 		border: 4px solid white;
 	}
 
@@ -107,9 +123,9 @@ const setPopupShow = (value: boolean) => {
 	.home-menu__left-side-info {
 		width: 30%;
 
-		img {
-			width: 80%;
+		.home-menu__left-side-icon {
 			max-width: 80px;
+			max-height: 80px;
 		}
 
 		figcaption {
