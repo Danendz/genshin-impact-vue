@@ -1,5 +1,5 @@
 <template>
-    <div @mouseup.left="handleMouseup" @mousemove.left="handleMousedown">
+    <div @contextmenu="disableContextMenu" @mouseup.left="handleMouseup" @mousemove.left="handleMousedown">
         <slot />
     </div>
 </template>
@@ -19,6 +19,12 @@ const emit = defineEmits<{
 
 const mousemoved = ref(false)
 
+const disableContextMenu = (event: MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    return false;
+}
 
 const handleMousedown = () => {
     if (props.isScrolling) {
