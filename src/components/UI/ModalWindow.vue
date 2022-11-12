@@ -22,7 +22,6 @@ const emit = defineEmits<{
 }>()
 
 const closeModal = () => {
-    console.log('clicked')
     emit('close-modal', false)
 }
 </script>
@@ -47,9 +46,9 @@ const closeModal = () => {
         display: flex;
         justify-content: center;
         align-items: center;
-        max-width: 950px;
+        max-width: 1200px;
         max-height: 600px;
-        width: 100%;
+        width: 90%;
         height: 100%;
     }
 
@@ -67,7 +66,8 @@ const closeModal = () => {
             width: 82%;
         }
 
-        .default {
+        .popupModal {
+            width: 100%;
             max-width: 600px;
         }
     }
