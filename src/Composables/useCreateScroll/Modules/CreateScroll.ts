@@ -58,28 +58,24 @@ export class CreateScroll {
 	}
 
 
-	private isTouch = (e: MouseEvent | TouchEvent): e is TouchEvent => {
-		return (e as TouchEvent).touches !== undefined
-	}
-
-	private mouseDownHandler = (e: MouseEvent | TouchEvent) => {
+	private mouseDownHandler = (e: MouseEvent) => {
 		this.PARENT_ELEMENT.style.scrollBehavior = 'auto'
-
-		if (!this.isTouch(e)) {
-			const clientDir = e[this.DIRECTION.clientDirection]
-			this.pos = {
-				dir: this.PARENT_ELEMENT[this.DIRECTION.scrollDirection],
-				clientDir
-			}
+		const clientDir = e[this.DIRECTION.clientDirection]
+		this.pos = {
+			dir: this.PARENT_ELEMENT[this.DIRECTION.scrollDirection],
+			clientDir
 		}
 
 		this.HTML_ELEMENT.addEventListener('mousemove', this.mouseMoveHandler, { passive: true })
-		this.HTML_ELEMENT.addEventListener('touchmove', this.touchMoveHandler, { passive: true })
 		this.HTML_ELEMENT.addEventListener('mouseup', this.mouseUpHandler, { passive: true })
-		this.HTML_ELEMENT.addEventListener('touchend', this.mouseUpHandler, { passive: true })
 		this.HTML_ELEMENT.addEventListener('mouseleave', this.mouseUpHandler, { passive: true })
 	}
 
+	private touchDownHandler = () => {
+		this.PARENT_ELEMENT.style.scrollBehavior = 'auto';
+		this.HTML_ELEMENT.addEventListener('touchmove', this.touchMoveHandler, { passive: true })
+		this.HTML_ELEMENT.addEventListener('touchend', this.mouseUpHandler, { passive: true })
+	}
 
 	private touchMoveHandler = (event: TouchEvent) => {
 		const eventMove = event.touches[0][this.DIRECTION.clientDirection]
@@ -147,12 +143,12 @@ export class CreateScroll {
 	public resetListeners() {
 		this.removeEventListeners()
 		this.HTML_ELEMENT.removeEventListener('mousedown', this.mouseDownHandler)
-		this.HTML_ELEMENT.removeEventListener('touchstart', this.mouseDownHandler)
+		this.HTML_ELEMENT.removeEventListener('touchstart', this.touchDownHandler)
 	}
 
 	public scrollCreate() {
 		this.HTML_ELEMENT.addEventListener('wheel', this.wheelHandler, { passive: true })
 		this.HTML_ELEMENT.addEventListener('mousedown', this.mouseDownHandler)
-		this.HTML_ELEMENT.addEventListener('touchstart', this.mouseDownHandler, { passive: true })
+		this.HTML_ELEMENT.addEventListener('touchstart', this.touchDownHandler, { passive: true })
 	}
 }

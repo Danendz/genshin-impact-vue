@@ -19,6 +19,7 @@ const emit = defineEmits<{
 
 const mousemoved = ref(false)
 
+
 const handleMousedown = () => {
     if (props.isScrolling) {
         mousemoved.value = true
