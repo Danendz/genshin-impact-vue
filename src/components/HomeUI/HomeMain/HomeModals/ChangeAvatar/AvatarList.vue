@@ -66,7 +66,7 @@ onMounted(() => {
 	gap: 5px;
 	grid-template-columns: repeat(auto-fill, 110px);
 	grid-auto-rows: 110px;
-	justify-content: center;
+	justify-content: space-between;
 	overflow-x: hidden;
 	overflow-y: auto;
 	background-color: rgba(0, 0, 0, 0.158);
@@ -134,6 +134,7 @@ onMounted(() => {
 	.change-avatar-container__avatar-list {
 		grid-template-columns: repeat(auto-fill, 90px);
 		grid-auto-rows: 90px;
+		gap: 5px;
 
 		.change-avatar-container__avatar {
 			padding: 5px;
@@ -148,10 +149,15 @@ onMounted(() => {
 @media only screen and (orientation: landscape) and (max-width: 915px) {
 	.change-avatar-container__avatar-list {
 		grid-template-columns: repeat(auto-fill, min(14vw, 80px));
+		gap: 5px;
 		grid-auto-rows: min(14vw, 80px);
 
 		.change-avatar-container__avatar {
 			padding: 7px;
+
+			figcaption {
+				font-size: 13px;
+			}
 		}
 	}
 }
