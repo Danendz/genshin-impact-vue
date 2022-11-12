@@ -66,7 +66,7 @@ onMounted(() => {
 	gap: 5px;
 	grid-template-columns: repeat(auto-fill, 110px);
 	grid-auto-rows: 110px;
-	justify-content: space-between;
+	justify-content: space-evenly;
 	overflow-x: hidden;
 	overflow-y: auto;
 	background-color: rgba(0, 0, 0, 0.158);
