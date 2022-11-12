@@ -7,10 +7,13 @@
 			<PopUp :arrow-class="'home-menu__popup-copy-arrow'" @hide-popup="setPopupShow" :is-visible="popupShow"
 				:popup-text="'Успешно скопировано!'" :popup-class="'home-menu__success-copy'" />
 		</figcaption>
+
 		<button @click="() => setPopupShow(true)">
 			<Icon icon="material-symbols:file-copy-sharp" />Copy
 		</button>
+
 	</figure>
+
 	<ModalWindow @close-modal="setModal" :is-bg-transparent="true" :active_state="modalState"
 		:modal-style="'popupModal'">
 		<Suspense v-if="modalLoaded">
@@ -22,6 +25,7 @@
 			</template>
 		</Suspense>
 	</ModalWindow>
+
 </template>
 
 
@@ -79,6 +83,10 @@ const setPopupShow = (value: boolean) => {
 		border-radius: 50%;
 		border: 4px solid white;
 		cursor: pointer;
+
+		&:active {
+			opacity: 0.7;
+		}
 	}
 
 	figcaption {

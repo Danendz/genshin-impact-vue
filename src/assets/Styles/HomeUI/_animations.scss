@@ -1,0 +1,37 @@
+.home-options-portrait-enter-active,
+.home-options-portrait-leave-active,
+.home-options-landscape-enter-active,
+.home-options-landscape-leave-active {
+  transition: all 0.45s ease;
+}
+
+.home-options-portrait-enter-from,
+.home-options-portrait-leave-to {
+  opacity: 0;
+  transform: translateY(100px);
+}
+
+.home-options-landscape-enter-from,
+.home-options-landscape-leave-to {
+  opacity: 0;
+  transform: translateX(-120px);
+}
+
+.home-main-portrait-enter-active,
+.home-main-portrait-leave-active,
+.home-main-landscape-enter-active,
+.home-main-landscape-leave-active {
+  transition: all 0.4s ease;
+}
+
+.home-main-portrait-enter-from,
+.home-main-portrait-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.home-main-landscape-enter-from,
+.home-main-landscape-leave-to {
+  opacity: 0;
+  transform: translateX(-80px);
+}

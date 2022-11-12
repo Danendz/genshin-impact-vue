@@ -83,6 +83,10 @@ const { getUser } = useUserData()
 				height: 18px;
 				font-size: 65%;
 				border-radius: 50%;
+
+				&:active {
+					opacity: 0.5;
+				}
 			}
 		}
 	}

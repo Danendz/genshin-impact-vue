@@ -40,6 +40,10 @@ const props = defineProps<{
 		height: 25px;
 		font-size: 20px;
 		border-radius: 3px;
+
+		&:active {
+			opacity: 0.5;
+		}
 	}
 }
 

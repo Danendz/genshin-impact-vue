@@ -137,7 +137,7 @@ watch(() => showCharactersSelectionList.show, () => {
 
     .character-selection-list {
         &__characters {
-            grid-template-columns: repeat(4, 100px);
+            grid-template-columns: repeat(4, 110px);
         }
     }
 }

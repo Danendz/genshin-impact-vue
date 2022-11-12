@@ -9,6 +9,7 @@ export class UseMomentumScroll {
 	public momentumID = 0;
 	private readonly PARENT_ELEMENT: HTMLElement
 	private readonly DIRECTION: ScrollDirections
+	private readonly START_MOMENTUM_FROM = 6
 	public velX = 0;
 
 	constructor(
@@ -17,11 +18,12 @@ export class UseMomentumScroll {
 	) {
 		this.PARENT_ELEMENT = scrollProps.PARENT_ELEMENT
 		this.DIRECTION = scrollProps.DIRECTION
+
 	}
 
 	public beginMomentumTracking() {
 		this.cancelMomentumTracking();
-		if (this.velX > 1.5 || this.velX < -1.5) {
+		if (this.velX > this.START_MOMENTUM_FROM || this.velX < -this.START_MOMENTUM_FROM) {
 			this.momentumID = requestAnimationFrame(this.momentumLoop);
 		}
 	}

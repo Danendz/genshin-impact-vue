@@ -1,21 +1,34 @@
 <template>
-	<section class="home-menu__main">
-		<HomeMainUserInfo />
-		<HomeMainNavigationItems />
-	</section>
+	<Transition :name="`home-main-${props.animationPostfix}`" appear>
+		<section :style="{ transitionDelay: '0.15s' }" v-show="mounted" class="home-menu__main">
+			<HomeMainUserInfo />
+			<HomeMainNavigationItems />
+		</section>
+	</Transition>
 </template>
 
 <script setup lang="ts">
 //components
 import HomeMainUserInfo from './HomeMainUserInfo/HomeMainUserInfo.vue';
 import HomeMainNavigationItems from './HomeMainNavigationItems/HomeMainNavigationItems.vue'
+import { ref, onMounted } from 'vue';
 
+const props = defineProps<{
+	animationPostfix: string
+}>()
+
+const mounted = ref(false)
+
+onMounted(() => {
+	mounted.value = true
+})
 </script>
 
 <style lang="scss">
 .home-menu {
 	&__main {
 		display: flex;
+		z-index: 1;
 		flex-direction: column;
 		width: 100%;
 		max-height: 100vh;

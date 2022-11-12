@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
         <article :style="isBgTransparent ? { backgroundColor: 'transparent' } : {}" v-show="active_state"
-            @click.self="closeModal" class="modal">
+            @mousedown.self="closeModal" class="modal">
             <section :class="[props.modalStyle]">
                 <slot />
             </section>

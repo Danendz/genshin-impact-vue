@@ -2,18 +2,20 @@
     <PreventClickEvent :is-scrolling="isScrolling" @click-function="setCurrentCharacter" v-if="store.currentCharacter"
         :class="['character-card', { 'active-character-card': character.name_key === store.currentCharacter.name_key }]">
 
-        <div :class="['character-top-bg', `rarity-${character.rarity}`]"></div>
-        <LazyImg :options="{
-            src: CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_BIG_LQ),
-            loading: CharacterHelper.getPlaceholderIcon(CharacterImage.ICON_BIG),
-            delay: 300,
-            alt: 'character'
-        }" class="character-icon" />
-        <LazyImg :options="{
-            src: CharacterHelper.getElementImage(character.vision.toLowerCase()),
-            delay: 300,
-            alt: 'vision'
-        }" class="vision-icon" />
+        <div :class="['character-top-bg', `rarity-${character.rarity}`]">
+            <LazyImg :options="{
+                src: CharacterHelper.getCharacterImage(character.name_key, CharacterImage.ICON_BIG_LQ),
+                loading: CharacterHelper.getPlaceholderIcon(CharacterImage.ICON_BIG),
+                delay: 300,
+                alt: 'character'
+            }" class="character-icon" />
+            <LazyImg :options="{
+                src: CharacterHelper.getElementImage(character.vision.toLowerCase()),
+                delay: 300,
+                alt: 'vision'
+            }" class="vision-icon" />
+        </div>
+
         <figcaption class="character-lvl">Lvl 90</figcaption>
 
     </PreventClickEvent>
@@ -70,20 +72,20 @@ const setCurrentCharacter = () => {
     transition: .3s;
     overflow: hidden;
 
-    .character-top-bg,
-    .character-icon {
+    .character-top-bg {
+        width: 100%;
         border-radius: 4px;
         height: 85%;
         margin-bottom: auto;
         border-bottom-left-radius: 0;
+        overflow: hidden;
+        display: flex;
         border-bottom-right-radius: 25%;
-    }
 
-    .character-top-bg {
-        position: absolute;
-        width: 100%;
-        top: 0;
-        z-index: -1;
+        .character-icon {
+            width: auto;
+            height: 100%;
+        }
     }
 
     .character-icon {

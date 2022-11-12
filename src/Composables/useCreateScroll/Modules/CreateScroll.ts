@@ -94,7 +94,9 @@ export class CreateScroll {
 
 	private mouseMoveHandler = (event: MouseEvent) => {
 		if (!this.isScrolling.value) this.isScrolling.value = true
+
 		this.momentumScroll.cancelMomentumTracking();
+
 		const eventMove = event[this.DIRECTION.clientDirection]
 
 		this.scrollProps.dir = eventMove - this.pos.clientDir
