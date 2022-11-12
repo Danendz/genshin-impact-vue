@@ -6,7 +6,7 @@
 				<TotalItem :index="index" :item="item" />
 			</Transition>
 		</div>
-		<div :style="{ position: 'absolute', width: '100%', height: '100%', maxWidth: '1250px' }">
+		<div :style="{ position: 'absolute', width: '100%', height: '100%', maxWidth: '1250px', zIndex: -1 }">
 			<BackButton :button-type="'close'" :is-with-background="true" class="banners-obtained-items-total__close"
 				@click="hideObtainItems" />
 		</div>
@@ -57,12 +57,14 @@ const goToItem = (item: CharacterOrWeapon) => {
 	justify-content: center;
 	align-items: center;
 	gap: 5px;
+	z-index: 0;
 
 	&__item-box {
 		width: 100%;
 		max-width: 111.5px;
 		transition: .25s;
 		cursor: pointer;
+		z-index: 0;
 		will-change: transform;
 
 		&:hover {
