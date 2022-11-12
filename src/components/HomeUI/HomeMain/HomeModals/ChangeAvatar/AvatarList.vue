@@ -3,8 +3,10 @@
 		<section ref="scrollList" class="change-avatar-container__avatar-list">
 			<PreventClickEvent :is-scrolling="isScrolling"
 				@click-function="emit('setSelectedAvatar', character.name_key)" v-for="character in characters"
-				:key="character.name_key"
-				:class="['change-avatar-container__avatar', { 'change-avatar-container__avatar_active': isCurrentAvatar(character.name_key) }]">
+				:key="character.name_key" :class="['change-avatar-container__avatar',
+					{ 'change-avatar-container__avatar_active': isSelectedAvatar(character.name_key) },
+					{ 'change-avatar-container__avatar_current': isCurrentAvatar(character.name_key) }
+				]">
 
 				<CircleCharacter :name_key="character.name_key" />
 
@@ -31,14 +33,16 @@ import { ref, onMounted } from 'vue';
 
 const props = defineProps<{
 	selectedAvatar: ISelectedAvatar,
-	characters: Character[]
+	characters: Character[],
+	currentAvatar: string
 }>()
 
 const emit = defineEmits<{
 	(e: 'setSelectedAvatar', name_key: string): void;
 }>()
 
-const isCurrentAvatar = (name_key: string) => props.selectedAvatar.name_key === name_key;
+const isSelectedAvatar = (name_key: string) => props.selectedAvatar.name_key === name_key;
+const isCurrentAvatar = (name_key: string) => props.currentAvatar === name_key;
 
 const scrollList = ref<HTMLElement | null>(null)
 const { isScrolling, createScrolling } = useCreateScroll()
@@ -80,9 +84,14 @@ onMounted(() => {
 		transition: all .2s;
 		cursor: pointer;
 		border-radius: 5px;
+		border: 2px solid transparent;
 
 		&_active {
 			background-color: #ede5da;
+		}
+
+		&_current {
+			border-color: #ede5da;
 		}
 
 		&::before {
@@ -138,8 +147,8 @@ onMounted(() => {
 
 @media only screen and (orientation: landscape) and (max-width: 915px) {
 	.change-avatar-container__avatar-list {
-		grid-template-columns: repeat(auto-fill, 14vw);
-		grid-auto-rows: 14vw;
+		grid-template-columns: repeat(auto-fill, min(14vw, 80px));
+		grid-auto-rows: min(14vw, 80px);
 
 		.change-avatar-container__avatar {
 			padding: 7px;

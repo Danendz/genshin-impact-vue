@@ -149,8 +149,8 @@ const setActiveDetails = (value: boolean) => {
 
 @media only screen and (orientation: portrait) {
     .attributes-content {
-        background-color: rgba(0, 0, 0, 0.384);
-        backdrop-filter: blur(2px);
+        background-color: rgba(0, 0, 0, 0.507);
+        backdrop-filter: blur(0px);
     }
 }
 

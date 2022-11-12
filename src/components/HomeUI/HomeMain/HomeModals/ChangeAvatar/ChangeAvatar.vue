@@ -1,8 +1,8 @@
 <template>
 	<HomeModal @set-modal="props.setModal" :title="'Change Avatar'">
 		<section v-if="getCharacters && selectedAvatar" class="change-avatar-container">
-			<AvatarList :characters="getCharacters" :selected-avatar="selectedAvatar"
-				@set-selected-avatar="setSelectedAvatar" />
+			<AvatarList :current-avatar="getUser.userAvatar" :characters="getCharacters"
+				:selected-avatar="selectedAvatar" @set-selected-avatar="setSelectedAvatar" />
 			<SelectedAvatar @confirm-selection="confirmSelection" :selected-avatar="selectedAvatar" />
 		</section>
 	</HomeModal>

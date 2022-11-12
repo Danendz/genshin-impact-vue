@@ -78,6 +78,7 @@ const setPopupShow = (value: boolean) => {
 		max-height: 120px;
 		border-radius: 50%;
 		border: 4px solid white;
+		cursor: pointer;
 	}
 
 	figcaption {
