@@ -1,6 +1,6 @@
 <template>
   <PageTransition :condition-item="[getImages, getCharacters]" :error="[getImagesError, getError]"
-    :loader-title="'Меню'">
+    :loader-title="'меню'">
     <HomeLayout :images="getImages" />
   </PageTransition>
 </template>

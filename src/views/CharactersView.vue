@@ -38,7 +38,6 @@ onMounted(() => {
         store.setCurrentCharacter(findedCharacter)
         return;
     }
-
     if (name) {
         fetchCharacters(name.toString())
     } else {

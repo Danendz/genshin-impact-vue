@@ -24,9 +24,7 @@ import ScrollCharacters from './ScrollCharacters.vue';
     &__container {
         position: relative;
     }
-
 }
-
 
 @media only screen and (max-width: 915px) {
     .characters-scroll {

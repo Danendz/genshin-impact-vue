@@ -1,8 +1,9 @@
 <template>
 	<HomeModal @set-modal="props.setModal" :title="'Change Avatar'">
 		<section v-if="getCharacters && selectedAvatar" class="change-avatar-container">
-			<AvatarList :current-avatar="getUser.userAvatar" :characters="getCharacters"
-				:selected-avatar="selectedAvatar" @set-selected-avatar="setSelectedAvatar" />
+			<AvatarList :active-state="activeState" :id="idByNameKey" :current-avatar="getUser.userAvatar"
+				:characters="getCharacters" :selected-avatar="selectedAvatar"
+				@set-selected-avatar="setSelectedAvatar" />
 			<SelectedAvatar @confirm-selection="confirmSelection" :selected-avatar="selectedAvatar" />
 		</section>
 	</HomeModal>
@@ -45,6 +46,7 @@ const setSelectedAvatar = (name_key: string) => {
 	}
 }
 
+
 const confirmSelection = () => {
 	if (selectedAvatar.value) {
 		setAvatar(selectedAvatar.value.name_key)
@@ -60,6 +62,13 @@ const nameByNameKey = computed(() => {
 		}, {})
 	}
 	return {}
+})
+
+const idByNameKey = computed(() => {
+	if (getCharacters.value && selectedAvatar.value) {
+		return getCharacters.value.findIndex((c) => c.name_key === getUser.value.userAvatar)
+	}
+	return 0
 })
 
 onMounted(() => {

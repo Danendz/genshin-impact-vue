@@ -46,6 +46,8 @@ export class CreateScroll {
 
 	}
 
+
+
 	private wheelHandler = (e: WheelEvent) => {
 		this.momentumScroll.cancelMomentumTracking();
 		this.momentumScroll.velX = 0;

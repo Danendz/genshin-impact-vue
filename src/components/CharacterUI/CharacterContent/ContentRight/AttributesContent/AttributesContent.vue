@@ -179,7 +179,6 @@ const setActiveDetails = (value: boolean) => {
 
             span {
                 font-size: 11px;
-                font-weight: bold;
                 width: 100%;
             }
         }

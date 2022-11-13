@@ -1,7 +1,7 @@
 <template>
     <section ref="characters_scroll" class="characters-scroll__characters">
         <PreventClickEvent :is-scrolling="isScrolling" @click-function="changeCharacter"
-            :class="['characters-scroll__character', { 'characters-scroll__character_active': store.currentCharacterIndex === index }]"
+            :class="['characters-scroll__character', { 'characters-scroll__character_active': getCurrentCharacterIndex === index }]"
             :index="index" v-for="(character, index) in characters" :key="index">
 
             <ScrollCharacter :character="character" :index="index" />
@@ -22,13 +22,14 @@ import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 //components
 import PreventClickEvent from '@/components/ComponentHelpers/PreventClickEvent.vue';
 import ScrollCharacter from './ScrollCharacter.vue'
+import { useAutoScroll } from '@/Composables/useAutoScroll'
 
 //vue
-import { nextTick, onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useWindowSize } from '@vueuse/core';
 
 //createing stores
-const store = useCurrentCharacter()
+const { getCurrentCharacterIndex, setCurrentCharacter } = useCurrentCharacter()
 const charactersStore = useCharacters()
 const hideLayout = useHideMainCharactersLayout()
 
@@ -37,7 +38,7 @@ const characters = charactersStore.getCharacters
 
 const changeCharacter = (index?: number): void => {
     if (characters.value && index !== undefined) {
-        store.setCurrentCharacter(characters.value[index])
+        setCurrentCharacter(characters.value[index])
     }
 }
 
@@ -47,55 +48,38 @@ const characters_scroll = ref<null | HTMLDivElement>(null)
 const { isScrolling, createScrolling, resetListeners } = useCreateScroll()
 const { width } = useWindowSize()
 
-
-let scrollTypes: 'scrollLeft' | 'scrollTop' = 'scrollLeft'
-let heightWithGap = 70;
 const createScroll = () => {
     if (characters_scroll.value) {
         resetListeners()
         if (width.value <= 915) {
             createScrolling(characters_scroll.value, 'vertical')
-            heightWithGap = 60
-            scrollTypes = 'scrollTop'
         } else {
-            heightWithGap = 70;
-            scrollTypes = 'scrollLeft'
             createScrolling(characters_scroll.value, 'horizontal')
         }
-
     }
 }
 
-
 watch(width, () => {
-    createNewScrollAndScrollToCharacter()
+    createScroll()
 })
 
 onMounted(() => {
-    createNewScrollAndScrollToCharacter()
-})
-
-const createNewScrollAndScrollToCharacter = () => {
     createScroll()
-
-    nextTick(() => {
-        scrollToCharacter()
-    })
-}
+    scrollToCharacter()
+})
 
 //scrolling to current character
 const scrollToCharacter = () => {
-    if (characters_scroll.value && !hideLayout.hide && characters_scroll.value.parentElement) {
-        characters_scroll.value.parentElement.style.scrollBehavior = 'smooth'
-        characters_scroll.value.parentElement[scrollTypes] = heightWithGap * store.currentCharacterIndex
+    if (characters_scroll.value) {
+        useAutoScroll(characters_scroll.value, getCurrentCharacterIndex.value)
     }
 }
 
 //scrolling to current character after animation
 watch(() => hideLayout.hide, () => {
-    nextTick(() => {
+    if (!hideLayout.hide) {
         scrollToCharacter()
-    })
+    }
 })
 
 </script>

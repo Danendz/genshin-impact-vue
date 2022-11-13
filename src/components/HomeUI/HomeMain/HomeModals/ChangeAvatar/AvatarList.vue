@@ -27,14 +27,17 @@ import { Character } from '@/Interfaces/CharacterInterface';
 
 //composables
 import useCreateScroll from '@/Composables/useCreateScroll';
+import { useAutoScroll } from '@/Composables/useAutoScroll';
 
 //vue
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, toRefs, watch } from 'vue';
 
 const props = defineProps<{
 	selectedAvatar: ISelectedAvatar,
 	characters: Character[],
-	currentAvatar: string
+	currentAvatar: string,
+	id: number,
+	activeState: boolean
 }>()
 
 const emit = defineEmits<{
@@ -46,12 +49,27 @@ const isCurrentAvatar = (name_key: string) => props.currentAvatar === name_key;
 
 const scrollList = ref<HTMLElement | null>(null)
 const { isScrolling, createScrolling } = useCreateScroll()
+const { id } = toRefs(props)
+
+const scrollToAvatar = () => {
+	if (scrollList.value) {
+		useAutoScroll(scrollList.value, id.value, true)
+	}
+}
 
 onMounted(() => {
 	if (scrollList.value) {
 		createScrolling(scrollList.value, 'vertical')
+		scrollToAvatar()
 	}
 })
+
+watch(() => props.activeState, () => {
+	if (props.activeState) {
+		scrollToAvatar()
+	}
+})
+
 
 </script>
 

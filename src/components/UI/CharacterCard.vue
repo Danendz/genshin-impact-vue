@@ -80,6 +80,7 @@ const setCurrentCharacter = () => {
         border-bottom-left-radius: 0;
         overflow: hidden;
         display: flex;
+        justify-content: center;
         border-bottom-right-radius: 25%;
 
         .character-icon {
@@ -131,6 +132,10 @@ const setCurrentCharacter = () => {
 
 @media only screen and (max-width: 915px) {
     .character-card {
+        .character-top-bg {
+            height: 82%;
+        }
+
         .vision-icon {
             width: 20px;
         }

@@ -24,76 +24,58 @@ import { useCurrentCharacter } from '@/store/currentCharacter';
 import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
 
 //vueUse
-import { useWindowSize } from '@vueuse/core';
+import { useScreenOrientation } from '@vueuse/core';
+
+//composables
+import { useAutoScroll } from '@/Composables/useAutoScroll'
+
 //vue
-import { onMounted, watch, nextTick, ref } from 'vue';
+import { onMounted, watch, ref } from 'vue';
 
 const setDefaultLayout = useSetDefaultLayout()
-const characterStore = useCurrentCharacter()
+const { getCurrentCharacterIndex } = useCurrentCharacter()
 const charactersStore = useCharacters()
 
 const characters = charactersStore.getFilteredCharacter;
 const filteredOptions = charactersStore.getSelectedFilterOptions
 const showCharactersSelectionList = useShowCharactersSelectionList()
 
-
 //creating vertiacal drag scroll
 const characters_scroll = ref<null | HTMLDivElement>(null)
 
 const { isScrolling, createScrolling } = useCreateScroll()
 
-const { width } = useWindowSize()
-
-watch(width, () => {
-    setColumnsWithHeight()
-})
-
-let heightWithGap = 152
-let columns = 5
+const { orientation } = useScreenOrientation()
 
 const createScroll = () => {
     if (characters_scroll.value) {
         createScrolling(characters_scroll.value, 'vertical')
-        setColumnsWithHeight()
     }
 }
 
-const setColumnsWithHeight = () => {
-    if (width.value <= 740) {
-        heightWithGap = 89
-        columns = 3
-    } else if (width.value <= 915) {
-        heightWithGap = 89
-        columns = 4
-    } else if (width.value <= 1600) {
-        heightWithGap = 152
-        columns = 4
-    } else {
-        heightWithGap = 152
-        columns = 5
+const scrollToCharacter = () => {
+    if (characters_scroll.value) {
+        useAutoScroll(characters_scroll.value, getCurrentCharacterIndex.value)
     }
 }
 
 onMounted(() => {
-    createScroll();
-    if (screen.orientation) {
-        screen.orientation.addEventListener("change", () => {
-            if (screen.orientation.type === 'portrait-primary') {
-                if (showCharactersSelectionList.show) {
-                    setDefaultLayout.setLayout()
-                }
-            }
-        })
+    createScroll()
+    scrollToCharacter()
+})
+
+watch(orientation, () => {
+    if (orientation.value === 'portrait-primary' && showCharactersSelectionList.show) {
+        setDefaultLayout.setLayout()
     }
 })
+
 watch(() => showCharactersSelectionList.show, () => {
-    nextTick(() => {
-        if (showCharactersSelectionList.show && characters_scroll.value && characters_scroll.value.parentElement) {
-            characters_scroll.value.parentElement.style.scrollBehavior = 'smooth'
-            characters_scroll.value.parentElement.scrollTop = heightWithGap * Math.floor((characterStore.currentCharacterIndex / columns))
-        }
-    })
+    if (showCharactersSelectionList.show) {
+        scrollToCharacter()
+    }
 })
+
 
 </script>
 

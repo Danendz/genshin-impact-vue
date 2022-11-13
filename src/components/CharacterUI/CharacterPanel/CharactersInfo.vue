@@ -6,13 +6,14 @@
         </Transition>
         <figcaption class="characters-info__visionAndName">
             <Transition name="fade-up-info" mode="out-in" appear>
-                <span :key=" store.currentCharacter.vision">
-                    {{store.currentCharacter.vision}}
+                <span :key="store.currentCharacter.vision">
+                    {{ store.currentCharacter.vision }}
                 </span>
             </Transition>
             <Transition name="fade-up-info" mode="out-in" appear>
-                <span :style="{width: '100%', whiteSpace: 'nowrap'}"
-                    :key="store.currentCharacter.name">/{{store.currentCharacter.name}}</span>
+                <span :style="{ width: '100%', whiteSpace: 'nowrap' }" :key="store.currentCharacter.name">/{{
+                        store.currentCharacter.name
+                }}</span>
             </Transition>
         </figcaption>
     </figure>
