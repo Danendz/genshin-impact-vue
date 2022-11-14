@@ -36,7 +36,6 @@ export default abstract class ServiceController {
         const paramsFields = fields ? `?fields=${fields}` : ''
 
         const data: Response | string = await useFetch(`${this.fetchUrl}all${paramsFields}`, ErrorMessages.CANT_FETCH_DATA + 'all' + paramsFields)
-
         if (typeof data === 'string') return data;
 
         return await data.json()

@@ -62,6 +62,9 @@ export class CreateScroll {
 
 	private mouseDownHandler = (e: MouseEvent) => {
 		this.PARENT_ELEMENT.style.scrollBehavior = 'auto'
+
+		this.momentumScroll.velX = 0;
+		this.momentumScroll.cancelMomentumTracking()
 		const clientDir = e[this.DIRECTION.clientDirection]
 		this.pos = {
 			dir: this.PARENT_ELEMENT[this.DIRECTION.scrollDirection],
@@ -80,6 +83,7 @@ export class CreateScroll {
 	}
 
 	private touchMoveHandler = (event: TouchEvent) => {
+
 		const eventMove = event.touches[0][this.DIRECTION.clientDirection]
 
 		if (this.scrollProps.isStartOrEnd()) {
@@ -87,7 +91,6 @@ export class CreateScroll {
 		} else {
 			this.mouseUpHandler()
 		}
-
 	}
 
 	private mouseMoveHandler = (event: MouseEvent) => {

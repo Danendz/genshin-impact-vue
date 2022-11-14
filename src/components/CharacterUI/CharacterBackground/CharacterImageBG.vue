@@ -5,7 +5,7 @@
             :key="store.currentCharacter.name_key">
 
             <transition name="fade" mode="in-out">
-                <div alt="character background" :key="bgImage"
+                <div alt="character background" v-if="bgImage"
                     class="character-background-container__character-background"
                     :style="{ backgroundImage: `url(${bgImage})` }"></div>
             </transition>
