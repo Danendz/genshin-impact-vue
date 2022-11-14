@@ -94,7 +94,6 @@ watch(() => hideLayout.hide, () => {
         justify-content: space-between;
 
         span {
-            font-weight: bold;
             color: #4a5267;
             font-size: 15px;
             margin-left: 10px;
@@ -114,11 +113,10 @@ watch(() => hideLayout.hide, () => {
     }
 }
 
-
-@media only screen and (max-width: 740px) and (orientation: landscape) {
+@media only screen and (max-width: 915px) {
     .filters {
-        margin: 7px 0;
-        justify-content: space-between;
+        margin: 5px 0;
+        z-index: 5;
 
         &__reverse-icon {
             width: 16px;
@@ -128,7 +126,7 @@ watch(() => hideLayout.hide, () => {
         &__filter,
         &__reverse,
         &__sort {
-            height: 20px;
+            height: 23px;
         }
 
         &__filter,
@@ -146,6 +144,19 @@ watch(() => hideLayout.hide, () => {
             }
 
             width: 60%
+        }
+    }
+}
+
+
+@media only screen and (max-width: 740px) {
+    .filters {
+        justify-content: space-between;
+
+        &__filter,
+        &__reverse,
+        &__sort {
+            height: 20px;
         }
     }
 }

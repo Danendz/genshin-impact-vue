@@ -81,7 +81,7 @@ watch(() => showCharactersSelectionList.show, () => {
 
 <style lang="scss">
 .character-selection-list {
-    width: fit-content;
+    width: 100%;
     height: 100%;
     position: relative;
 
@@ -90,6 +90,7 @@ watch(() => showCharactersSelectionList.show, () => {
         grid-template-columns: repeat(5, 110px);
         grid-auto-rows: 140px;
         height: fit-content;
+        justify-content: space-between;
         gap: 12px;
         padding: 10px 5px;
     }

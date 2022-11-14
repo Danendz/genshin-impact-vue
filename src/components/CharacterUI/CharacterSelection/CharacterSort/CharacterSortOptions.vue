@@ -67,6 +67,7 @@ const chooseSort = (sortOption: SortType) => {
 
         p {
             font-size: 15px;
+
         }
 
         img {
@@ -89,6 +90,20 @@ const chooseSort = (sortOption: SortType) => {
     }
 }
 
+@media only screen and (max-width: 915px) {
+    .sort-options-container {
+        bottom: 33px;
+
+        .sort-option {
+            padding: 4px;
+
+            p {
+                font-size: 12px;
+            }
+        }
+    }
+}
+
 @media only screen and (max-width: 740px) {
     .sort-options-container {
         width: 100%;
@@ -99,10 +114,6 @@ const chooseSort = (sortOption: SortType) => {
             padding: 4px;
 
             border-radius: 10px;
-
-            p {
-                font-size: 12px;
-            }
 
             img {
                 width: 10px;

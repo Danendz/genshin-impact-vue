@@ -97,6 +97,8 @@ onMounted(() => {
 
 @media only screen and (max-width: 915px) {
 	.selected-filters-container {
+		bottom: 33px;
+
 		&__clear {
 			width: 50px;
 			font-size: 13px;

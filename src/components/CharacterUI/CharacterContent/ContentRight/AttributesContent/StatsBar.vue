@@ -32,7 +32,7 @@ const stats: IStats = statsData;
         border-radius: 5px;
 
         img {
-            width: 12px;
+            width: 14px;
             height: auto;
             margin-right: 3px;
         }
@@ -46,6 +46,10 @@ const stats: IStats = statsData;
 @media only screen and (orientation: portrait) {
     .stats-bar {
         .stat {
+            img {
+                width: 12px;
+            }
+
             font-size: 14px;
         }
     }
@@ -55,6 +59,10 @@ const stats: IStats = statsData;
 @media only screen and (max-width: 915px) and (orientation: landscape) {
     .stats-bar {
         .stat {
+            img {
+                width: 12px;
+            }
+
             padding: 2px 4px;
             font-size: 11px;
         }

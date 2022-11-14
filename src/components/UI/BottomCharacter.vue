@@ -53,7 +53,7 @@ const image = useRequireFile(props.imageUrl)
         border-radius: 50%;
         left: 200px;
         font-weight: bold;
-        font-size: 30px;
+        font-size: 25px;
 
         &:after {
             content: '';
@@ -113,7 +113,7 @@ const image = useRequireFile(props.imageUrl)
         }
 
         .bottom-text {
-            font-size: 20px;
+            font-size: 13px;
             max-width: 300px;
             bottom: 120px;
             left: 100px;
