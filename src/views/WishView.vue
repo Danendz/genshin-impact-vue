@@ -1,9 +1,8 @@
 <template>
     <PageTransition
         :condition-item="[getWeapons, getCharacters, getEventBanner, getEventWeaponBanner, getStandardBanner, getWishVideos]"
-        :error="[getError, getErrorWeapons, getErrorBanner]" loader-title="молитвы">
-        <BannersLayout />
-    </PageTransition>
+        :error="[getError, getErrorWeapons, getErrorBanner]"
+        :component="import('@/components/BannersUI/BannersLayout.vue')" />
 </template>
 
 
@@ -18,9 +17,8 @@ import { useWishVideos } from '@/store/Gacha/wishVideos'
 import PageTransition from '@/components/UI/PageTransition.vue';
 
 //vue
-import { onMounted, defineAsyncComponent } from 'vue';
+import { onMounted } from 'vue';
 
-const BannersLayout = defineAsyncComponent(() => import("@/components/BannersUI/BannersLayout.vue"))
 const { getCharacters, getError, fetchCharacters } = useCharacters()
 const { getWeapons, getErrorWeapons, fetchWeapons } = useWeapons()
 const { getEventBanner, getEventWeaponBanner, getStandardBanner, getErrorBanner, fetchBannersData } = useBannersData()

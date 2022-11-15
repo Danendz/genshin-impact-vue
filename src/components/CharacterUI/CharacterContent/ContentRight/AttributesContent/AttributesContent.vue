@@ -69,7 +69,7 @@ const setActiveDetails = (value: boolean) => {
     border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.06);
 
-    backdrop-filter: blur(3px);
+    /* backdrop-filter: blur(3px); */
 
     .footer-buttons {
         margin-top: auto;

@@ -1,8 +1,6 @@
 <template>
-    <PageTransition :error="[getError]" :condition-item="[getCharacters]" :loader-title="'персонажей'">
-        <CharacterLayout />
-    </PageTransition>
-
+    <PageTransition :component="import('@/components/CharacterUI/CharacterLayout.vue')" :error="[getError]"
+        :condition-item="[getCharacters]" />
 </template>
 
 <script setup lang="ts">
@@ -16,11 +14,9 @@ import PageTransition from '@/components/UI/PageTransition.vue'
 import { useCharacters } from '@/store/Characters/Characters';
 
 //vue
-import { onMounted, defineAsyncComponent } from 'vue';
+import { onMounted, } from 'vue';
 import { useRoute } from 'vue-router';
 import { useCurrentCharacter } from '@/store/currentCharacter';
-
-const CharacterLayout = defineAsyncComponent(() => import('@/components/CharacterUI/CharacterLayout.vue'))
 
 const name = useRoute().params.name
 const { fetchCharacters, getCharacters, getError } = useCharacters()

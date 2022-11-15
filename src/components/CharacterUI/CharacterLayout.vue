@@ -13,6 +13,7 @@
         </Suspense>
         <CharactersBottom />
     </main>
+
 </template>
 <script setup lang="ts">
 //components
@@ -31,6 +32,7 @@ import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionL
 
 //vue
 import { onMounted, defineAsyncComponent, ref, watch } from 'vue';
+
 
 const isCharacterSelectionLoaded = ref(false)
 const showCharactersSelectionList = useShowCharactersSelectionList()
@@ -65,6 +67,7 @@ onMounted(() => {
     position: relative;
     align-items: center;
     margin: 0 auto;
+    z-index: 98;
     height: 100vh;
 }
 </style>

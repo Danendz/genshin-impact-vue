@@ -2,9 +2,11 @@
   <!-- <NavBar /> -->
   <router-view :key="useRoute().fullPath" v-slot="{ Component, route }">
     <Transition name="page" appear>
+
       <div :key="route.name as string">
         <component :is="Component" />
       </div>
+
     </Transition>
   </router-view>
 </template>
@@ -26,7 +28,7 @@ import { RouterView, useRoute } from 'vue-router';
 }
 
 body {
-  background-color: #dfdcd1;
+  background-color: white;
 }
 
 *::-webkit-scrollbar {
