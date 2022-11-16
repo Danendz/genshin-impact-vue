@@ -44,7 +44,7 @@ const store = useCurrentCharacter()
         padding: 0px 5px;
         overflow-y: auto;
         overflow-x: hidden;
-        max-height: 100px;
+        max-height: 90px;
         font-size: 14px;
         word-break: break-word;
     }

@@ -2,7 +2,7 @@
     <AsyncComponent v-bind="properties" v-if="loaded" @vnode-mounted="isMounted = true" />
     <ErrorPage v-else-if="errorTitle" :error-message="errorTitle" />
     <Transition name="loader" appear>
-        <LoaderPage :style="{ pointerEvents: isMounted ? 'none' : 'all' }" v-if="!loaded || !isMounted"
+        <LoaderPage :style="{ pointerEvents: isMounted ? 'none' : 'all' }" v-if="(!loaded || !isMounted) && !errorTitle"
             :progress="progress" />
     </Transition>
 </template>

@@ -63,13 +63,11 @@ const setActiveDetails = (value: boolean) => {
 .attributes-content {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: fit-content;
     gap: 10px;
     padding: 10px;
     border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.06);
-
-    /* backdrop-filter: blur(3px); */
 
     .footer-buttons {
         margin-top: auto;
