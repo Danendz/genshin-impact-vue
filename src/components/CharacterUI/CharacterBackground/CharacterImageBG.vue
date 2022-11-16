@@ -1,23 +1,19 @@
 <template>
-    <transition name="fade-background">
-        <figure v-if="store.currentCharacter"
-            :class="`character-background-container character-background-container_image`"
-            :key="store.currentCharacter.name_key">
+    <figure v-if="store.currentCharacter"
+        :class="`character-background-container character-background-container_image`">
 
-            <transition name="fade" mode="in-out">
-                <div alt="character background" v-if="bgImage"
-                    class="character-background-container__character-background"
-                    :style="{ backgroundImage: `url(${bgImage})` }"></div>
-            </transition>
-            <transition name="fade-right" appear>
+        <transition name="fade-background" mode="in-out" appear>
+            <div alt="character background" :key="bgImage" class="character-background-container__character-background"
+                :style="{ backgroundImage: bgImage ? `url(${bgImage})` : 'unset' }"></div>
+        </transition>
+        <transition name="fade" mode="out-in" appear>
 
-                <img alt="gacha-character" :class="['character-background-container__gacha-image',
-                { 'character-background-container__gacha-image_enter': showCharactersSelectionList.show }]"
-                    v-if="gachaImage" :src="gachaImage" />
+            <img alt="gacha-character" :class="['character-background-container__gacha-image',
+            { 'character-background-container__gacha-image_enter': showCharactersSelectionList.show }]"
+                v-if="gachaImage" :src="gachaImage" />
 
-            </transition>
-        </figure>
-    </transition>
+        </transition>
+    </figure>
 </template>
 
 <script setup lang="ts">
@@ -42,9 +38,9 @@ const showCharactersSelectionList = useShowCharactersSelectionList()
 const [gachaImage, loadGachaImage] = usePreloadImage()
 const [bgImage, loadBgImage] = usePreloadImage()
 
+
 const loadAllImages = (): void => {
     if (store.currentCharacter) {
-
         loadGachaImage(CharacterHelper.getCharacterImage(store.currentCharacter.name_key, CharacterImage.GACHA_SPLASH_LQ))
         loadBgImage(CharacterHelper.getCharacterImage(store.currentCharacter.name_key, CharacterImage.NAMECARD_HQ))
     }
@@ -61,6 +57,7 @@ watch(() => store.currentCharacter, () => {
         loadAllImages()
     }
 })
+
 </script>
 
 <style lang="scss">
@@ -111,7 +108,17 @@ watch(() => store.currentCharacter, () => {
     .character-background-container {
         &__gacha-image {
             &_enter {
-                transform: translateX(15%);
+                transform: translateX(5%);
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 915px) {
+    .character-background-container {
+        &__gacha-image {
+            &_enter {
+                transform: translateX(0%);
             }
         }
     }
