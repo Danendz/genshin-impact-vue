@@ -1,8 +1,8 @@
 export enum OptionsKeys {
-    ATTRIBUTES  = 'Attributes',
-    WEAPONS = 'Weapons',
-    ARTIFACTS = 'Artifacts',
-    CONSTELLATION = 'Constellation',
-    TALENTS = 'Talents',
-    PROFILE = 'Profile'
+    ATTRIBUTES = 'attributes',
+    WEAPONS = 'weapons',
+    ARTIFACTS = 'artifacts',
+    CONSTELLATION = 'constellation',
+    TALENTS = 'talents',
+    PROFILE = 'profile'
 }

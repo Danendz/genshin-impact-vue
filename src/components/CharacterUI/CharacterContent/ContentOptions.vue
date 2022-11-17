@@ -4,7 +4,7 @@
             <li v-for="_, key, index in props.optionsList" :key="index"
                 :class="['content-options__option', { 'content-options__option_active': activeCategory.active_category === key }]"
                 @click="activeCategory.setActiveCategory(key)">
-                <p>{{ key }}</p>
+                <p>{{ t(`characters.sections.${key}`) }}</p>
             </li>
         </ul>
     </aside>
@@ -14,6 +14,9 @@
 import { OptionsKeys } from '@/Enums/OptionsKeys';
 import { useActiveCategory } from '@/store/ActiveCategory';
 
+//composables
+import { useGetTranslator } from '@/Composables/useGetTranslator';
+
 interface Props {
     optionsList: {
         [Property in OptionsKeys]: () => Promise<unknown>
@@ -21,7 +24,7 @@ interface Props {
 }
 const props = defineProps<Props>();
 const activeCategory = useActiveCategory()
-
+const { t } = useGetTranslator()
 </script>
 
 <style lang="scss">

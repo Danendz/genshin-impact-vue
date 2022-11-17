@@ -7,8 +7,9 @@
         <CharacterSortOptions @toggle-sort="toggleSort" :sort-active="sortActive" />
         <button class="filters__sort" @click="toggleSort">
 
-            <span>{{ charactersFilters.sort ? charactersFilters.sort[0].toUpperCase() +
-                    charactersFilters.sort.substring(1) : "All"
+            <span>{{ charactersFilters.sort
+                    ? t(`characters.sort-options.${charactersFilters.sort}`)
+                    : t('characters.sort-options.all')
             }}</span>
 
             <img alt="filters__arrow" :class="[{ 'filters__arrow_active': sortActive }]"
@@ -34,7 +35,9 @@ import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
 //vue
 import { ref, watch } from 'vue';
+import { useGetTranslator } from '@/Composables/useGetTranslator';
 
+const { t } = useGetTranslator()
 const charactersFilters = useCharacters().sort
 const filterActive = ref(false)
 const sortActive = ref(false)
@@ -115,7 +118,7 @@ watch(() => hideLayout.hide, () => {
 
 @media only screen and (max-width: 915px) {
     .filters {
-        margin: 5px 0;
+        margin: 2px 0 10px 0;
         z-index: 5;
 
         &__reverse-icon {

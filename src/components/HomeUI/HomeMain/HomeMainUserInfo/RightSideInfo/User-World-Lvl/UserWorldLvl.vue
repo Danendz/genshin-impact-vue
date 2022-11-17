@@ -1,6 +1,6 @@
 <template>
 	<figure class="home-menu__user-world-lvl home-info-default-text">
-		<figcaption>World Level</figcaption>
+		<figcaption>{{ props.title }}:</figcaption>
 		<span>{{ getUserWorldLvl }}</span>
 		<button class="home-menu__info-button">
 			<Icon icon="fa6-solid:info" />
@@ -16,6 +16,9 @@ import { useUserData } from '@/store/Home/UserData'
 
 const { getUserWorldLvl } = useUserData()
 
+const props = defineProps<{
+	title: string
+}>()
 
 </script>
 

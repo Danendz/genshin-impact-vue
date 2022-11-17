@@ -58,7 +58,6 @@ export const useCharactersFilter = (characters: Ref<Character[] | null>) => {
 				return res
 
 			}
-			return filterCharacters.value
 		}
 		return forFilterCharacters.value
 	})

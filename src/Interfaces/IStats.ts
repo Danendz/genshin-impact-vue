@@ -7,7 +7,7 @@ interface Stat {
     }
 }
 export interface IStats {
-    'Base Stats': Stat,
-    'Advanced Stats': Stat,
-    'Elemental Type': Stat
+    'base-stats': Stat,
+    'advanced-stats': Stat,
+    'elemental-type': Stat
 }

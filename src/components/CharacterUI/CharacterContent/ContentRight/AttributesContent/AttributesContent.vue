@@ -2,13 +2,14 @@
     <section class="attributes-content" v-if="store.currentCharacter">
         <BaseInfo :current-character="store.currentCharacter" />
         <StatsBar />
-        <button aria-label="character details toggle" @click="() => setActiveDetails(true)"
-            class="details-btn">Details</button>
+        <button aria-label="character details toggle" @click="() => setActiveDetails(true)" class="details-btn">
+            <p>{{ t('characters.details') }}</p>
+        </button>
         <FriendshipAndDescription />
         <footer class="footer-buttons">
             <button aria-label="dressing room">
                 <img alt="dressing_room" :src="CharacterHelper.getGenshinSiteIcons('stats-icons/dressing_room')" />
-                <span>Dressing Room</span>
+                <span>{{ t('characters.dressing-room') }}</span>
             </button>
         </footer>
     </section>
@@ -41,9 +42,12 @@ import CharacterHelper from '@/helpers/CharacterHelper';
 import { ref, defineAsyncComponent } from 'vue';
 import LoaderSpinner from '@/components/UI/LoaderSpinner.vue';
 
+//composables
+import { useGetTranslator } from '@/Composables/useGetTranslator';
+
 const detailsLoaded = ref(false)
 const DetailsInfo = defineAsyncComponent(() => import('./DetailsInfo.vue'))
-
+const { t } = useGetTranslator()
 const store = useCurrentCharacter()
 
 const active_details = ref<boolean>(false)

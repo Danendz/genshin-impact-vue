@@ -3,7 +3,7 @@
 		<img :src="HomeHelper.getHomeIcon('adventure')" />
 		<section class="home-menu__experience">
 			<section class="home-menu__experience-amount">
-				<p>Adventure EXP</p>
+				<p>{{ props.title }}</p>
 				<span>{{ getUser.adventureExp }} / {{ getNextRankExp }}</span>
 			</section>
 
@@ -17,8 +17,11 @@
 import HomeHelper from '@/helpers/HomeHelper';
 import { useUserData } from '@/store/Home/UserData';
 
-
 const { getUser, getNextRankExp } = useUserData()
+
+const props = defineProps<{
+	title: string
+}>()
 
 </script>
 

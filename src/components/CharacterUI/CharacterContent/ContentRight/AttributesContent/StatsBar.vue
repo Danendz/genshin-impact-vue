@@ -1,8 +1,8 @@
 <template>
     <section class="stats-bar">
-        <figure class="stat" v-for="value, key in stats['Base Stats'].stat" :key="key">
+        <figure class="stat" v-for="value, key in stats['base-stats'].stat" :key="key">
             <img :alt='`${key}`' :src="CharacterHelper.getGenshinSiteIcons(value.icon)" />
-            <figcaption>{{ key }}</figcaption>
+            <figcaption>{{ t(`characters.stats.${key}`) }}</figcaption>
             <figcaption class="stat-value">{{ value.value }}</figcaption>
         </figure>
     </section>
@@ -16,7 +16,13 @@ import { IStats } from '@/Interfaces/IStats';
 import statsData from '@/assets/Data/stats.json'
 import CharacterHelper from '@/helpers/CharacterHelper';
 
+//composables
+import { useGetTranslator } from '@/Composables/useGetTranslator';
+
+const { t } = useGetTranslator()
+
 const stats: IStats = statsData;
+
 
 </script>
 

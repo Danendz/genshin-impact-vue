@@ -1,14 +1,15 @@
-import { CharacterRarity, CharacterWeapon, CharacterElement, CharacterRegion } from '@/Enums/CharacterEnums'
+import { CharacterRarity, CharacterWeapon, CharacterElementKey, CharacterRegionKey, CharacterWeaponType, CharacterElement, CharacterRegion } from '@/Enums/CharacterEnums'
 
 interface BaseInformation {
     name: string,
     name_key: string,
-    nation: CharacterRegion,
-    vision: CharacterElement,
-    weapon: CharacterWeapon,
+    nation?: CharacterRegion,
+    nation_key: CharacterRegionKey,
+    weapon?: CharacterWeapon,
     rarity: CharacterRarity,
-    vision_key?: Uppercase<CharacterElement>,
-    weapon_type?: Uppercase<CharacterWeapon>
+    weapon_type: CharacterWeaponType,
+    vision_key: CharacterElementKey,
+    vision?: CharacterElement,
 }
 
 interface AdditionalInformation {

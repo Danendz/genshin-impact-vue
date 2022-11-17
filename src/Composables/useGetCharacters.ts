@@ -10,8 +10,11 @@ import { DataResponseType } from '@/Types/DataResponseType'
 
 //json
 import FetchCharactersCategory from '@/assets/Data/Fetch_Characters_Category.json'
+import { useGlobalLanguage } from '@/store/globalLanguage'
 
 const characterService = new CharacterService()
+const { getActiveCategory } = useActiveCategory()
+const { getShortLang } = useGlobalLanguage()
 
 const useGetCharactersNames = async () => {
     const data: DataResponseType<string[]> = await characterService.getNames()
@@ -19,8 +22,7 @@ const useGetCharactersNames = async () => {
 }
 
 const useGetCharacters = async () => {
-    const { active_category } = useActiveCategory()
-    const data: DataResponseType<Character[]> = await characterService.get<Character>(FetchCharactersCategory[active_category]);
+    const data: DataResponseType<Character[]> = await characterService.get<Character>(FetchCharactersCategory[getActiveCategory.value], getShortLang());
     return data
 }
 

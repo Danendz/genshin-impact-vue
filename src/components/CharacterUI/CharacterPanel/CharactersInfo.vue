@@ -2,7 +2,7 @@
     <figure class="characters-info" v-if="store.currentCharacter">
         <Transition name="fade-up-info" mode="out-in" appear>
             <img :key="store.currentCharacter.vision" alt="vision"
-                :src="CharacterHelper.getElementImage(store.currentCharacter.vision.toLowerCase())" />
+                :src="CharacterHelper.getElementImage(store.currentCharacter.vision_key.toLowerCase())" />
         </Transition>
         <figcaption class="characters-info__visionAndName">
             <Transition name="fade-up-info" mode="out-in" appear>

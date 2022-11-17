@@ -1,7 +1,7 @@
 <template>
     <section class="details-container">
         <section class="details-stats" v-for="value, key in stats" :key="key">
-            <summary>{{ key }}</summary>
+            <summary>{{ t(`characters.stats.${key}`) }}</summary>
             <article class="details-stats-stat-container">
                 <figure :class="['details-stats-stat', { white: index % 2 === 0, black: index % 2 !== 0 }]"
                     v-for="stat, statKey, index in value.stat" :key="statKey">
@@ -12,7 +12,7 @@
                             : CharacterHelper.getGenshinSiteIcons('stats-icons/empty'),
                         alt: stat.value
                     }" />
-                    <h3>{{ statKey }}</h3>
+                    <h3>{{ t(`characters.stats.${statKey}`) }}</h3>
                     <figcaption>{{ stat.value }}</figcaption>
 
                 </figure>
@@ -28,9 +28,16 @@ import CharacterHelper from '@/helpers/CharacterHelper';
 //data
 import statsData from '@/assets/Data/stats.json'
 
+//components
+import LazyImg from '@/components/UI/Lazy-Img.vue';
+
 //interfaces
 import { IStats } from '@/Interfaces/IStats'
-import LazyImg from '@/components/UI/Lazy-Img.vue';
+
+//composables
+import { useGetTranslator } from '@/Composables/useGetTranslator';
+
+const { t } = useGetTranslator()
 
 const stats: IStats = statsData;
 </script>

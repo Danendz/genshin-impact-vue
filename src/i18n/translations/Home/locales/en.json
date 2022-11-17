@@ -1,0 +1,31 @@
+{
+	"home": {
+		"navigation-items": {
+			"shop": "Shop",
+			"party-setup": "Party Setup",
+			"friends": "Friends",
+			"achievements": "Achievements",
+			"archive": "Archive",
+			"character-archive": "Character Archive",
+			"character": "Character",
+			"inventory": "Inventory",
+			"quests": "Quests",
+			"map": "Map",
+			"events": "Events",
+			"adventurer-handbook": "Adventurer Handbook",
+			"wish": "Wish",
+			"battle-pass": "Battle Pass",
+			"coop-mode": "Co-Op Mode",
+			"special-event": "Special Event",
+			"community": "Community",
+			"feedback": "Feedback",
+			"survey": "Survey"
+		},
+		"user-info": {
+			"adventure-rank": "Adventure Rank",
+			"adventure-exp": "Adventure Exp",
+			"world-level": "World Level",
+			"birthday": "Birthday"
+		}
+	}
+}

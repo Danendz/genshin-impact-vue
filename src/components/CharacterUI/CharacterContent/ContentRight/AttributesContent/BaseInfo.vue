@@ -9,7 +9,7 @@
                     icon="mdi:star-four-points" :data-index="index" />
             </TransitionGroup>
         </p>
-        <p class="base-lvl">Level 90 / <span class="max-lvl">90</span></p>
+        <p class="base-lvl">{{ t('characters.level') }} 90 / <span class="max-lvl">90</span></p>
         <progress class="lvl-progress" value="100" max="100" />
     </header>
 </template>
@@ -21,12 +21,15 @@ import { Character } from '@/Interfaces/CharacterInterface';
 //iconify
 import { Icon } from '@iconify/vue'
 
+//composables
+import { useGetTranslator } from '@/Composables/useGetTranslator';
+
 interface Props {
     currentCharacter: Character
 }
 
 const props = defineProps<Props>();
-
+const { t } = useGetTranslator()
 </script>
 
 <style lang="scss">

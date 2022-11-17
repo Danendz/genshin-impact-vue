@@ -1,0 +1,31 @@
+{
+	"home": {
+		"navigation-items": {
+			"shop": "Магазин",
+			"party-setup": "Отряд",
+			"friends": "Друзья",
+			"achievements": "Достижения",
+			"archive": "Архив",
+			"character-archive": "Галерея персонажей",
+			"character": "Персонаж",
+			"inventory": "Инвентарь",
+			"quests": "Задания",
+			"map": "Карта",
+			"events": "События",
+			"adventurer-handbook": "Приключения",
+			"wish": "Молитва",
+			"battle-pass": "Боевой пропуск",
+			"coop-mode": "Мультиплеер",
+			"special-event": "Особое событие",
+			"community": "Сообщество",
+			"feedback": "Поддержка",
+			"survey": "Опрос"
+		},
+		"user-info": {
+			"adventure-rank": "Ранг приключений",
+			"adventure-exp": "Опыт приключений",
+			"world-level": "Уровень мира",
+			"birthday": "День рождения"
+		}
+	}
+}

@@ -5,12 +5,13 @@
             { 'filter-option__input-dot_checked': selectedFilterOptions.includes(option) },
             { 'filter-option__input-dot_fix-dot': index % 2 !== 0 }
         ]" /></span>
-        <p>{{ option }}</p>
+        <p>{{ t(`characters.filter-options.${option.toLowerCase()}`) }}</p>
     </section>
 </template>
 
 <script setup lang="ts">
 //components
+import { useGetTranslator } from '@/Composables/useGetTranslator';
 import { FilterType } from '@/Interfaces/FilterCharacter';
 import { useCharacters } from '@/store/Characters/Characters';
 
@@ -22,10 +23,12 @@ interface Props {
 
 const props = defineProps<Props>()
 const characters = useCharacters()
+const { t } = useGetTranslator()
 
 const selectedFilterOptions = characters.getSelectedFilterOptions
 
 const setFilter = () => {
+
     characters.addOrRemoveFilterOption(props.option, props.optionKey)
 }
 </script>
@@ -37,6 +40,7 @@ const setFilter = () => {
     align-items: center;
     cursor: pointer;
     gap: 10px;
+    white-space: nowrap;
     height: 50px;
     font-size: 17px;
     background-color: #25313f;

@@ -5,9 +5,10 @@
 				@click="goTo({ name: value.routeName ?? value.iconName })"
 				:style="{ backgroundImage: `url(${HomeHelper.getHomeIcon(value.iconName)})` }">
 
-				<figcaption>{{ key }}</figcaption>
+				<figcaption>{{ t(`home.navigation-items.${key}`) }}</figcaption>
 			</figure>
 		</section>
+		<button @click="switchLanguage">Switch language</button>
 	</section>
 </template>
 
@@ -21,6 +22,11 @@ import home_menu from '@/assets/Data/home_menu.json'
 //vue
 import { useRouter } from 'vue-router';
 
+//composables
+import { useGetTranslator } from '@/Composables/useGetTranslator';
+import { useGlobalLanguage } from '@/store/globalLanguage';
+import { Languages } from '@/Enums/Languages';
+
 interface IMenuItems {
 	iconName: string,
 	routeName?: string
@@ -28,6 +34,13 @@ interface IMenuItems {
 
 interface IMenu {
 	[name: string]: IMenuItems
+}
+
+const { t } = useGetTranslator()
+const { setLanguage, getLanguage } = useGlobalLanguage()
+
+const switchLanguage = () => {
+	setLanguage(getLanguage.value === Languages.EN ? Languages.RU : Languages.EN)
 }
 
 const menu: IMenu = home_menu

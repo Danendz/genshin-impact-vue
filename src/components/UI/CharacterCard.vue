@@ -10,13 +10,13 @@
                 alt: 'character'
             }" class="character-icon" />
             <LazyImg :options="{
-                src: CharacterHelper.getElementImage(character.vision.toLowerCase()),
+                src: CharacterHelper.getElementImage(character.vision_key.toLowerCase()),
                 delay: 300,
                 alt: 'vision'
             }" class="vision-icon" />
         </div>
 
-        <figcaption class="character-lvl">Lvl 90</figcaption>
+        <figcaption class="character-lvl">{{ t('characters.lvl') }} 90</figcaption>
 
     </PreventClickEvent>
 </template>
@@ -37,6 +37,7 @@ import { Character } from '@/Interfaces/CharacterInterface';
 
 //stores
 import { useCurrentCharacter } from '@/store/currentCharacter'
+import { useGetTranslator } from '@/Composables/useGetTranslator';
 
 interface Props {
     character: Character,
@@ -44,7 +45,7 @@ interface Props {
     isScrolling: boolean
 }
 
-
+const { t } = useGetTranslator()
 const props = defineProps<Props>()
 const store = useCurrentCharacter()
 
@@ -70,7 +71,9 @@ const setCurrentCharacter = () => {
     position: relative;
     z-index: 1;
     transition: .3s;
+    box-shadow: 0px 0px 3px 2px transparent;
     overflow: hidden;
+    will-change: transform;
 
     .character-top-bg {
         width: 100%;
@@ -107,8 +110,12 @@ const setCurrentCharacter = () => {
     }
 
     &:hover {
-        transform: scale(1.02);
         box-shadow: 0px 0px 3px 2px white;
+        transform: scale(1.02);
+    }
+
+    &:hover &::before {
+        opacity: 1;
     }
 
     &:active {

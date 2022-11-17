@@ -53,9 +53,10 @@ watch(() => hideLayout.hide, () => {
     background-color: rgba(38, 50, 64, 0.994);
     z-index: 4;
     color: white;
-    width: calc(100% + 10px);
+    min-width: calc(100% + 10px);
+    width: fit-content;
     height: 100vh;
-    padding: 10px 20px;
+    padding: 10px 0px 10px 20px;
     user-select: none;
 
     &__container {

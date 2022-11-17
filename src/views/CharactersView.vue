@@ -14,7 +14,7 @@ import PageTransition from '@/components/UI/PageTransition.vue'
 import { useCharacters } from '@/store/Characters/Characters';
 
 //vue
-import { onMounted, } from 'vue';
+import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useCurrentCharacter } from '@/store/currentCharacter';
 

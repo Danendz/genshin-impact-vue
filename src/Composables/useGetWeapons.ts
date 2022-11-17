@@ -3,11 +3,13 @@ import WeaponService from '@/API/WeaponService'
 
 //interface
 import { Weapon } from '@/Interfaces/WeaponInterface'
+import { useGlobalLanguage } from '@/store/globalLanguage'
 
 //types
 import { DataResponseType } from '@/Types/DataResponseType'
 
 const weaponService = new WeaponService()
+const { getShortLang } = useGlobalLanguage()
 
 const useGetWeaponsNames = async () => {
     const data: DataResponseType<string[]> = await weaponService.getNames()
@@ -15,7 +17,7 @@ const useGetWeaponsNames = async () => {
 }
 
 const useGetWeapons = async (fields?: string[]) => {
-    const data: DataResponseType<Weapon[]> = await weaponService.get<Weapon>(fields);
+    const data: DataResponseType<Weapon[]> = await weaponService.get<Weapon>(fields, getShortLang());
     return data
 }
 

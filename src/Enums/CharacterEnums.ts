@@ -10,6 +10,13 @@ export enum CharacterWeapon {
     CLAYMORE = 'Claymore',
     POLEARM = 'Polearm'
 }
+export enum CharacterWeaponType {
+    SWORD = 'SWORD',
+    BOW = 'BOW',
+    CATALYST = 'CATALYST',
+    CLAYMORE = 'CLAYMORE',
+    POLEARM = 'POLEARM'
+}
 
 export enum CharacterElement {
     GEO = 'Geo',
@@ -21,11 +28,30 @@ export enum CharacterElement {
     ELECTRO = 'Electro'
 }
 
+export enum CharacterElementKey {
+    GEO = 'GEO',
+    CRYO = 'CRYO',
+    PYRO = 'PYRO',
+    ANEMO = 'ANEMO',
+    HYDRO = 'HYDRO',
+    DENDRO = 'DENDRO',
+    ELECTRO = 'ELECTRO'
+}
+
 export enum CharacterRegion {
     MONDSTADT = 'Mondstadt',
     INAZUMA = 'Inazuma',
     LIYUE = 'Liyue',
     SUMERU = 'Sumeru'
+}
+
+export enum CharacterRegionKey {
+    MONDSTADT = 'MONDSTADT',
+    SNEZHNAYA = "SNEZHNAYA",
+    INAZUMA = 'INAZUMA',
+    LIYUE = 'LIYUE',
+    SUMERU = 'SUMERU',
+    TEYVAT = 'TEYVAT'
 }
 
 export enum CharacterImage {

@@ -1,8 +1,30 @@
 {
-    "Attributes": ["name", "name_key", "weapon", "nation", "rarity", "vision", "description"],
-    "Weapons": ["weapon_type"],
-    "Artifacts": ["nothing"],
-    "Constellation": ["constellation", "constellations"],
-    "Talents": ["skillTalents", "passiveTalents"],
-    "Profile": ["affiliation", "birthday", "title"]
+    "attributes": [
+        "name",
+        "name_key",
+        "rarity",
+        "description",
+        "weapon_type",
+        "vision_key",
+        "nation_key"
+    ],
+    "weapons": [
+        "weapon"
+    ],
+    "artifacts": [
+        "nothing"
+    ],
+    "constellation": [
+        "constellation",
+        "constellations"
+    ],
+    "talents": [
+        "skillTalents",
+        "passiveTalents"
+    ],
+    "profile": [
+        "affiliation",
+        "birthday",
+        "title"
+    ]
 }

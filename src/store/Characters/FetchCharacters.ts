@@ -9,22 +9,26 @@ import { Character } from "@/Interfaces/CharacterInterface"
 import { useActiveCategory } from "../ActiveCategory"
 
 //vue
-import { computed, ComputedRef, Ref, ref } from "vue"
+import { computed, ComputedRef, Ref, ref, watch } from "vue"
+import { useGlobalLanguage } from "../globalLanguage"
+import { OptionsKeys } from "@/Enums/OptionsKeys"
 
 export const useFetchCharacters = () => {
 	const characters = ref<Character[] | null>(null)
 	const error = ref<string | null>(null)
-	const alreadyLoaded: string[] = ["Attributes"]
-	const active_category = useActiveCategory()
+	let alreadyLoaded: string[] = []
+	const { getActiveCategory, setActiveCategory } = useActiveCategory()
+	const { getLanguage } = useGlobalLanguage()
 
-	const fetchCharacters = async (name?: string) => {
+	const fetchCharacters = async (name?: string, force?: boolean) => {
 		const isNotArray = !Array.isArray(characters.value)
 		const isArrayButLengthLessThanOrEqualToOne = Array.isArray(characters.value) && characters.value.length <= 1
 		const hasError = error.value
 		//fetching new data
-		if (isNotArray || isArrayButLengthLessThanOrEqualToOne || hasError) {
+		if (isNotArray || isArrayButLengthLessThanOrEqualToOne || hasError || force) {
 			characters.value = null
 			error.value = null
+			alreadyLoaded = [OptionsKeys.ATTRIBUTES]
 			let data;
 			if (name) {
 				data = await useGetCharacterByName(name.toLowerCase())
@@ -36,10 +40,10 @@ export const useFetchCharacters = () => {
 
 		} else {
 			//if data already fetched so we can't fetch it again
-			if (!alreadyLoaded.includes(active_category.active_category)) {
+			if (!alreadyLoaded.includes(getActiveCategory.value)) {
 				const data = await useGetCharacters()
 				addData(data)
-				alreadyLoaded.push(active_category.active_category)
+				alreadyLoaded.push(getActiveCategory.value)
 			}
 		}
 	}
@@ -94,6 +98,11 @@ export const useFetchCharacters = () => {
 
 	const getError: ComputedRef<Ref<string | null>> = computed(() => {
 		return error
+	})
+
+	watch(getLanguage, () => {
+		setActiveCategory(OptionsKeys.ATTRIBUTES)
+		fetchCharacters(undefined, true)
 	})
 
 	return {

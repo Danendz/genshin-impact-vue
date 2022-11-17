@@ -7,6 +7,7 @@ import { EventBanners } from "@/Interfaces/EventBanners";
 import { EventWeaponBanners } from "@/Interfaces/EventWeaponsBanners";
 import { StandardBanner } from "@/Interfaces/StandardBanner";
 import { Weapon } from "@/Interfaces/WeaponInterface";
+
 type currentBannersInfo = CurrentEventBanner | CurrentEventWeaponBanner
 type currentBannersData = EventBanners | EventWeaponBanners
 
@@ -32,10 +33,10 @@ export default abstract class ServiceController {
     }
 
     //get all items with full information
-    public async get<T extends fetchingItemsType>(fields?: string[]): Promise<T[] | string> {
+    public async get<T extends fetchingItemsType>(fields?: string[], lang?: string): Promise<T[] | string> {
         const paramsFields = fields ? `?fields=${fields}` : ''
-
-        const data: Response | string = await useFetch(`${this.fetchUrl}all${paramsFields}`, ErrorMessages.CANT_FETCH_DATA + 'all' + paramsFields)
+        const lng = `lang=${lang}`
+        const data: Response | string = await useFetch(`${this.fetchUrl}all${paramsFields}&${lng}`, ErrorMessages.CANT_FETCH_DATA + 'all' + paramsFields)
         if (typeof data === 'string') return data;
 
         return await data.json()

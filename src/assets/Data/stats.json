@@ -1,123 +1,123 @@
 {
-    "Base Stats": {
+    "base-stats": {
         "stat": {
-            "Max HP": {
+            "max-hp": {
                 "value": "9,514",
                 "icon": "stats-icons/hp"
             },
-            "ATK": {
+            "atk": {
                 "value": "534",
                 "icon": "stats-icons/atk"
             },
-            "DEF": {
+            "def": {
                 "value": "705",
                 "icon": "stats-icons/def"
             },
-            "Elementary Mastery": {
+            "em": {
                 "value": "120",
                 "icon": "stats-icons/em"
             },
-            "Max Stamina": {
+            "max-stamina": {
                 "value": "240",
                 "icon": "stats-icons/stamina"
             }
         }
     },
-    "Advanced Stats": {
+    "advanced-stats": {
         "stat": {
-            "CRIT Rate": {
+            "crit-rate": {
                 "value": "5.0%",
                 "icon": "stats-icons/crit"
             },
-            "CRIT DMG": {
+            "crit-dmg": {
                 "value": "50.0%",
                 "icon": ""
             },
-            "Healing Bonus": {
+            "healing-bonus": {
                 "value": "0.0%",
                 "icon": "stats-icons/healing_bonus"
             },
-            "Incoming Healing Bonus": {
+            "incoming-healing-bonus": {
                 "value": "0.0%",
                 "icon": ""
             },
-            "Energy Recharge": {
+            "er": {
                 "value": "100.0%",
                 "icon": "stats-icons/er"
             },
-            "CD Reduction": {
+            "cd-reduction": {
                 "value": "0.0%",
                 "icon": "stats-icons/cd_reduction"
             },
-            "Shield Strength": {
+            "shield-strength": {
                 "value": "0.0%",
                 "icon": "stats-icons/shield_strength"
             }
         }
     },
-    "Elemental Type": {
+    "elemental-type": {
         "stat": {
-            "Pyro DMG Bonus": {
+            "pyro-bonus": {
                 "value": "0.0%",
                 "icon": "stats-icons/pyro.svg"
             },
-            "Pyro RES": {
+            "pyro-res": {
                 "value": "0.0%",
                 "icon": ""
             },
-            "Hydro DMG Bonus": {
+            "hydro-bonus": {
                 "value": "0.0%",
                 "icon": "stats-icons/hydro.svg"
             },
-            "Hydro RES": {
+            "hydro-res": {
                 "value": "0.0%",
                 "icon": ""
             },
-            "Dendro DMG Bonus": {
+            "dendro-bonus": {
                 "value": "0.0%",
                 "icon": "stats-icons/dendro.svg"
             },
-            "Dendro RES": {
+            "dendro-res": {
                 "value": "0.0%",
                 "icon": ""
             },
-            "Electro DMG Bonus": {
+            "electro-bonus": {
                 "value": "0.0%",
                 "icon": "stats-icons/electro.svg"
             },
-            "Electro RES": {
+            "electro-res": {
                 "value": "0.0%",
                 "icon": ""
             },
-            "Anemo DMG Bonus": {
+            "anemo-bonus": {
                 "value": "0.0%",
                 "icon": "stats-icons/anemo.svg"
             },
-            "Anemo RES": {
+            "anemo-res": {
                 "value": "0.0%",
                 "icon": ""
             },
-            "Cryo DMG Bonus": {
+            "cryo-bonus": {
                 "value": "0.0%",
                 "icon": "stats-icons/cryo.svg"
             },
-            "Cryo RES": {
+            "cryo-res": {
                 "value": "0.0%",
                 "icon": ""
             },
-            "Geo DMG Bonus": {
+            "geo-bonus": {
                 "value": "0.0%",
                 "icon": "stats-icons/geo.svg"
             },
-            "Geo RES": {
+            "geo-res": {
                 "value": "0.0%",
                 "icon": ""
             },
-            "Physical DMG Bonus": {
+            "physical-bonus": {
                 "value": "0.0%",
                 "icon": "stats-icons/physical.svg"
             },
-            "Physical RES": {
+            "physical-res": {
                 "value": "0.0%",
                 "icon": ""
             }

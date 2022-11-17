@@ -3,9 +3,14 @@
         <section ref="target" v-if="props.sortActive" class="sort-options-container">
             <figure v-for="sortOption in sort" :key="sortOption" @click="() => chooseSort(sortOption)"
                 :class="['sort-option', { active: charactersFilters.sort === sortOption }]">
-                <p>{{ sortOption ? sortOption[0].toUpperCase() + sortOption.substring(1) : "All" }}</p>
+
+                <p>{{ sortOption
+                        ? t(`characters.sort-options.${sortOption}`)
+                        : t('characters.sort-options.all')
+                }}</p>
                 <img :class="[{ activeImg: charactersFilters.sort === sortOption }]" alt="current"
                     src="@/assets/Icons/complete.webp" />
+
             </figure>
         </section>
     </Transition>
@@ -20,8 +25,7 @@ import { sort, SortType } from '@/Interfaces/FilterCharacter';
 
 //vue
 import { ref } from 'vue'
-
-const target = ref(null)
+import { useGetTranslator } from '@/Composables/useGetTranslator';
 
 interface Props {
     sortActive: boolean;
@@ -32,6 +36,8 @@ const emit = defineEmits<{
     (event: 'toggleSort'): void
 }>()
 
+const { t } = useGetTranslator()
+const target = ref(null)
 const charactersFilters = useCharacters().sort
 
 const chooseSort = (sortOption: SortType) => {
@@ -92,7 +98,7 @@ const chooseSort = (sortOption: SortType) => {
 
 @media only screen and (max-width: 915px) {
     .sort-options-container {
-        bottom: 33px;
+        bottom: 35px;
 
         .sort-option {
             padding: 4px;
@@ -108,7 +114,7 @@ const chooseSort = (sortOption: SortType) => {
     .sort-options-container {
         width: 100%;
         border-radius: 10px;
-        bottom: 30px;
+        bottom: 31px;
 
         .sort-option {
             padding: 4px;

@@ -1,6 +1,6 @@
 import { OptionsKeys } from "@/Enums/OptionsKeys";
 import { defineStore } from "pinia";
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useCharacters } from "./Characters/Characters";
 
 type allowedCharacterCategories = OptionsKeys
@@ -12,8 +12,12 @@ export const useActiveCategory = defineStore('ActiveCategory', () => {
         active_category.value = category
     }
 
+    const getActiveCategory = computed(() => {
+        return active_category
+    })
+
     watch(active_category, async () => {
         await useCharacters().fetchCharacters()
     })
-    return { active_category, setActiveCategory }
+    return { active_category, setActiveCategory, getActiveCategory }
 })

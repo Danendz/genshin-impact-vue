@@ -1,6 +1,6 @@
 <template>
 	<figure class="home-menu__user-rank home-info-default-text">
-		<figcaption>Adventure Rank </figcaption>
+		<figcaption>{{ title }}:</figcaption>
 		<span>{{ props.user.adventureRank }}</span>
 		<button class="home-menu__info-button">
 			<Icon icon="fa6-solid:info" />
@@ -14,7 +14,8 @@ import { IUser } from '@/store/Home/UserData';
 import { Icon } from '@iconify/vue';
 
 const props = defineProps<{
-	user: IUser
+	user: IUser,
+	title: string
 }>()
 
 </script>

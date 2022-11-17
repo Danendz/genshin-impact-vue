@@ -33,12 +33,12 @@ import { OptionsKeys } from '@/Enums/OptionsKeys';
 import { ref, watch } from 'vue'
 
 const options_list = {
-    'Attributes': () => import('./ContentRight/AttributesContent/AttributesContent.vue'),
-    'Weapons': () => import('./ContentRight/WeaponsContent.vue'),
-    'Artifacts': () => import('./ContentRight/AttributesContent/AttributesContent.vue'),
-    'Constellation': () => import('./ContentRight/AttributesContent/AttributesContent.vue'),
-    'Talents': () => import('./ContentRight/AttributesContent/AttributesContent.vue'),
-    'Profile': () => import('./ContentRight/AttributesContent/AttributesContent.vue')
+    'attributes': () => import('./ContentRight/AttributesContent/AttributesContent.vue'),
+    'weapons': () => import('./ContentRight/WeaponsContent.vue'),
+    'artifacts': () => import('./ContentRight/AttributesContent/AttributesContent.vue'),
+    'constellation': () => import('./ContentRight/AttributesContent/AttributesContent.vue'),
+    'talents': () => import('./ContentRight/AttributesContent/AttributesContent.vue'),
+    'profile': () => import('./ContentRight/AttributesContent/AttributesContent.vue')
 }
 const charactersStore = useCharacters()
 const activeCategory = useActiveCategory()

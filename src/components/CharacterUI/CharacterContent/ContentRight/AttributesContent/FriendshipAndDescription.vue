@@ -1,7 +1,7 @@
 <template>
     <figure class="friendship">
         <img alt="friendship" :src="CharacterHelper.getGenshinSiteIcons('stats-icons/friendship')" />
-        <figcaption>Friendship</figcaption>
+        <figcaption>{{ t('characters.friendship') }}</figcaption>
         <figcaption class="friendship-lvl">8</figcaption>
     </figure>
     <progress class="friendship-progress" value="90" max="100" />
@@ -19,7 +19,12 @@ import { useCurrentCharacter } from '@/store/currentCharacter'
 //helpers
 import CharacterHelper from '@/helpers/CharacterHelper';
 
+//composables
+import { useGetTranslator } from '@/Composables/useGetTranslator';
+
 const store = useCurrentCharacter()
+
+const { t } = useGetTranslator()
 </script>
 
 <style lang="scss">
