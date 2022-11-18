@@ -97,12 +97,35 @@ const goTo = (routeObj: { name: string }) => {
 					box-shadow: 0px 0px 5px 4px #f7e4ba;
 				}
 
+				&::after {
+					content: '';
+					position: absolute;
+					top: 0;
+					width: 10px;
+					height: 10px;
+					box-sizing: border-box;
+					display: block;
+					width: 10px;
+					height: 10px;
+					transform: rotate(135deg) scale(var(--ggs, 1));
+					background: linear-gradient(45deg, transparent 50%, white 50%);
+					border-radius: 2px;
+					opacity: 0;
+
+				}
+
+
 				&:hover {
 					transform: scale(1.05) translateZ(0);
 				}
 
 				&:hover::before {
 					opacity: 1;
+				}
+
+				&:hover::after {
+					opacity: 1;
+					animation: HomeItemActive 1s infinite linear;
 				}
 
 				&:active {
@@ -120,8 +143,20 @@ const goTo = (routeObj: { name: string }) => {
 			}
 		}
 	}
+}
 
+@keyframes HomeItemActive {
+	0% {
+		translate: 0 0px;
+	}
 
+	50% {
+		translate: 0 3px;
+	}
+
+	100% {
+		translate: 0 0px;
+	}
 }
 
 @media only screen and (max-width: 915px) {

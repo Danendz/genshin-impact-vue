@@ -4,7 +4,9 @@
             <li v-for="_, key, index in props.optionsList" :key="index"
                 :class="['content-options__option', { 'content-options__option_active': activeCategory.active_category === key }]"
                 @click="activeCategory.setActiveCategory(key)">
-                <p>{{ t(`characters.sections.${key}`) }}</p>
+                <p>{{ t(`characters.sections.${key}`) }}
+                </p>
+
             </li>
         </ul>
     </aside>
@@ -41,18 +43,37 @@ const { t } = useGetTranslator()
             padding-bottom: 16px;
             color: rgb(212, 212, 212);
             transition: .3s;
+            position: relative;
 
             &::before {
                 content: '';
+                margin-right: 10px;
                 z-index: -1;
                 transition: .5s;
                 box-sizing: border-box;
                 display: block;
-                margin-right: 10px;
-                transform: rotate(45deg) scale(var(--ggs, 1));
-                width: 12px;
-                height: 12px;
-                border: 6px solid rgb(163, 163, 163);
+                transform: rotate(45deg) scale(var(--ggs, 0.6));
+                width: 15px;
+                height: 15px;
+                border-radius: 2px;
+                background-color: rgb(163, 163, 163);
+                border: 1px solid rgb(163, 163, 163);
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                width: 10px;
+                height: 10px;
+                box-sizing: border-box;
+                display: block;
+                width: 15px;
+                height: 15px;
+                transform: rotate(45deg) scale(var(--ggs, 0.45));
+                background: linear-gradient(45deg, transparent 50%, white 50%);
+                border-radius: 2px;
+                opacity: 0;
             }
 
             &:hover {
@@ -63,14 +84,31 @@ const { t } = useGetTranslator()
                 color: white;
 
                 &::before {
-                    content: '';
-                    border: 1px solid rgb(163, 163, 163);
-                    background: linear-gradient(45deg, transparent 50%, white 50%);
+                    background-color: transparent;
+                    transform: rotate(45deg) scale(var(--ggs, 0.9));
+                }
+
+                &::after {
+                    opacity: 1;
+                    animation: ActiveOption 1s infinite linear;
                 }
             }
         }
+    }
+}
 
 
+@keyframes ActiveOption {
+    0% {
+        translate: 0;
+    }
+
+    50% {
+        translate: 4px;
+    }
+
+    100% {
+        translate: 0;
     }
 }
 
