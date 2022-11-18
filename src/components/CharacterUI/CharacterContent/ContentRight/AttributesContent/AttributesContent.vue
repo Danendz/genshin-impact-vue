@@ -153,6 +153,7 @@ const setActiveDetails = (value: boolean) => {
     .attributes-content {
         background-color: rgba(0, 0, 0, 0.507);
         backdrop-filter: blur(0px);
+        height: 100%;
     }
 }
 

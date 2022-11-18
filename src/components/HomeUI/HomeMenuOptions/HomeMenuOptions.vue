@@ -5,18 +5,23 @@
 			<Icon icon="mdi:bulletin-board" />
 			<Icon icon="fluent:mail-20-filled" />
 			<Icon icon="ic:sharp-access-time" />
-			<Icon icon="ci:settings-filled" />
+			<Icon @click="emit('set-active-option', 'settings', true)" icon="ci:settings-filled" />
 		</section>
 	</Transition>
 </template>
 
 
 <script setup lang="ts">
+import { HomeOptionStates } from '@/Interfaces/HomeOptionsStates';
 import { Icon } from '@iconify/vue';
 import { onMounted, ref } from 'vue';
 
 const props = defineProps<{
 	animationPostfix: string
+}>()
+
+const emit = defineEmits<{
+	(e: 'set-active-option', key: keyof HomeOptionStates, value: boolean): void
 }>()
 
 const mounted = ref(false)
@@ -41,6 +46,14 @@ onMounted(() => {
 	background: linear-gradient(to bottom, #4b5269 0%, #4b526960 100%);
 	padding: 0px 15px;
 	font-size: 40px;
+
+	svg {
+		transition: .2s;
+	}
+
+	svg:hover {
+		color: white;
+	}
 }
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {

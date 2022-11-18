@@ -1,21 +1,12 @@
 <template>
     <section class="filters">
         <CharacterFilterOptions @toggle-filter-component="toggleFilterComponent" :filter-active="filterActive" />
+
         <ButtonWithIcon @click="() => toggleFilterComponent()" class="filters__filter" icon="el:filter"
             icon-class="filters__filter-icon" />
 
-        <CharacterSortOptions @toggle-sort="toggleSort" :sort-active="sortActive" />
-        <button class="filters__sort" @click="toggleSort">
-
-            <span>{{ charactersFilters.sort
-                    ? t(`characters.sort-options.${charactersFilters.sort}`)
-                    : t('characters.sort-options.all')
-            }}</span>
-
-            <img alt="filters__arrow" :class="[{ 'filters__arrow_active': sortActive }]"
-                src="@/assets/Icons/triangle-up.webp" />
-
-        </button>
+        <TogglerWithList :translate-path="'characters.sort-options'" :active-option="charactersFilters.sort"
+            :options="sort" @choose-option="chooseSort" />
 
         <ButtonWithIcon icon="bx:sort" @click="reverse" class="filters__reverse" icon-class="filters__reverse-icon" />
         <CharacterSelectedFilters />
@@ -25,19 +16,19 @@
 <script setup lang="ts">
 //components
 import CharacterFilterOptions from './CharacterFilterOptions/CharacterFilterOptions.vue';
-import CharacterSortOptions from './CharacterSort/CharacterSortOptions.vue';
 import CharacterSelectedFilters from './CharacterSelectedFilters/CharacterSelectedFilters.vue'
 import ButtonWithIcon from '@/components/UI/ButtonWithIcon.vue';
+import TogglerWithList from '@/components/UI/toggler/TogglerWithList.vue';
 
 //store
 import { useCharacters } from '@/store/Characters/Characters';
 import { useHideMainCharactersLayout } from '@/store/hideMainCharactersLayout';
 
+import { sort, SortType } from '@/Interfaces/FilterCharacter';
+
 //vue
 import { ref, watch } from 'vue';
-import { useGetTranslator } from '@/Composables/useGetTranslator';
 
-const { t } = useGetTranslator()
 const charactersFilters = useCharacters().sort
 const filterActive = ref(false)
 const sortActive = ref(false)
@@ -48,8 +39,8 @@ const toggleFilterComponent = (value?: boolean) => {
     if (!filterActive.value) useCharacters().confirm = true;
 }
 
-const toggleSort = () => {
-    sortActive.value = !sortActive.value
+const chooseSort = (value: string) => {
+    charactersFilters.sort = value as SortType;
 }
 
 const reverse = () => {
@@ -75,8 +66,7 @@ watch(() => hideLayout.hide, () => {
     }
 
     &__filter,
-    &__reverse,
-    &__sort {
+    &__reverse {
         border: 0;
         height: 30px;
         cursor: pointer;
@@ -89,31 +79,6 @@ watch(() => hideLayout.hide, () => {
         width: 10%;
     }
 
-    &__sort {
-        border-radius: 20px;
-        width: 70%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        span {
-            color: #4a5267;
-            font-size: 15px;
-            margin-left: 10px;
-        }
-
-        img {
-            width: 10px;
-            height: auto;
-            margin-right: 10px;
-            transition: .3s;
-
-            .filters__arrow_active {
-                transform: rotate(180deg);
-            }
-        }
-
-    }
 }
 
 @media only screen and (max-width: 915px) {
@@ -127,26 +92,13 @@ watch(() => hideLayout.hide, () => {
         }
 
         &__filter,
-        &__reverse,
-        &__sort {
+        &__reverse {
             height: 23px;
         }
 
         &__filter,
         &__reverse {
             width: 15%;
-        }
-
-        &__sort {
-            span {
-                font-size: 12px;
-            }
-
-            img {
-                width: 7px;
-            }
-
-            width: 60%
         }
     }
 }
@@ -157,8 +109,7 @@ watch(() => hideLayout.hide, () => {
         justify-content: space-between;
 
         &__filter,
-        &__reverse,
-        &__sort {
+        &__reverse {
             height: 20px;
         }
     }

@@ -2,8 +2,9 @@
     <section @mousedown="(e: MouseEvent) => e.preventDefault()" :class="['character-selection-list',
     {'character-selection-list_filter-active': filteredOptions.length}]">
         <section class="character-selection-list__characters" ref="characters_scroll">
-            <p v-if="characters && !characters.length" class="character-selection-list__no-characters">No characters
-                found!</p>
+            <p v-if="characters && !characters.length" class="character-selection-list__no-characters">
+                {{ t("characters.characters-not-found") }}
+            </p>
             <TransitionGroup v-else :css="false">
                 <CharacterCard v-for="character, index in characters" :key="character.name_key" :character="character"
                     :character-index="index" :is-scrolling="isScrolling" />
@@ -31,10 +32,12 @@ import { useAutoScroll } from '@/Composables/useAutoScroll'
 
 //vue
 import { onMounted, watch, ref } from 'vue';
+import { useGetTranslator } from '@/Composables/useGetTranslator';
 
 const setDefaultLayout = useSetDefaultLayout()
 const { getCurrentCharacterIndex } = useCurrentCharacter()
 const charactersStore = useCharacters()
+const { t } = useGetTranslator()
 
 const characters = charactersStore.getFilteredCharacter;
 const filteredOptions = charactersStore.getSelectedFilterOptions
@@ -112,6 +115,7 @@ watch(() => showCharactersSelectionList.show, () => {
         align-items: center;
         font-size: 40px;
         color: white;
+        text-align: center;
         position: absolute;
     }
 }
@@ -137,7 +141,6 @@ watch(() => showCharactersSelectionList.show, () => {
 
         &__no-characters {
             width: 100%;
-            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -149,8 +152,11 @@ watch(() => showCharactersSelectionList.show, () => {
 }
 
 @media only screen and (max-width: 740px) {
-
     .character-selection-list {
+        &__no-characters {
+            font-size: 15px;
+        }
+
         &__characters {
             grid-template-columns: repeat(3, 60px);
         }

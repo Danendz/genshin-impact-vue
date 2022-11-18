@@ -41,8 +41,12 @@ export const useGlobalLanguage = defineStore('global language', () => {
 		return language.value.split('-').shift()
 	}
 
+	const getAvailableLanguages = () => {
+		return Object.values(Languages)
+	}
+
 	const setLocalStorageLanguage = () => {
 		localStorage.setItem(LocalStorageData.LANGUAGE, language.value)
 	}
-	return { setLanguage, getLanguage, getShortLang }
+	return { setLanguage, getLanguage, getShortLang, getAvailableLanguages }
 })

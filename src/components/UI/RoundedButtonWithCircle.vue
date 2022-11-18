@@ -27,6 +27,7 @@ const props = defineProps<{
 	padding: 0 15px;
 	transition: all .3s;
 	border: 1px solid rgb(177, 177, 177) !important;
+	cursor: pointer;
 
 	p {
 		color: white;
@@ -78,11 +79,11 @@ const props = defineProps<{
 		height: 35px;
 
 		.gi-circle-o {
-			font-size: 16px;
+			font-size: 12px;
 		}
 
 		p {
-			font-size: 17px;
+			font-size: 14px;
 		}
 	}
 }

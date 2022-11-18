@@ -1,22 +1,19 @@
 <template>
 	<div class="selected-option">
-		<span>{{ renames[props.option] || props.option }}</span>
+		<span>{{ t(`characters.filter-options.${props.option.toLowerCase()}`) }}</span>
 	</div>
 </template>
 
 <script setup lang="ts">
+import { useGetTranslator } from '@/Composables/useGetTranslator';
+
 
 interface Props {
 	option: string;
 }
 
-const renames: Record<string, string> = {
-	'5': "5 Star",
-	'4': "4 Star"
-}
-
 const props = defineProps<Props>()
-
+const { t } = useGetTranslator()
 </script>
 
 <style lang="scss">

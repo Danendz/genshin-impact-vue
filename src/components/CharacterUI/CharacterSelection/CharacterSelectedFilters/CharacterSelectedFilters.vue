@@ -7,8 +7,9 @@
 				</div>
 
 			</div>
-			<button @click.left="charactersStore.defaultFilter()"
-				class="selected-filters-container__clear">Clear</button>
+			<button @click.left="charactersStore.defaultFilter()" class="selected-filters-container__clear">{{
+					t('characters.clear')
+			}}</button>
 		</div>
 	</Transition>
 </template>
@@ -22,6 +23,7 @@ import { useCharacters } from '@/store/Characters/Characters';
 
 //composables
 import useCreateScroll from '@/Composables/useCreateScroll';
+import { useGetTranslator } from '@/Composables/useGetTranslator';
 
 //vue
 import { ref, onMounted } from 'vue'
@@ -37,14 +39,16 @@ onMounted(() => {
 		createScrolling(filter_scroll.value, 'horizontal')
 	}
 })
+
+const { t } = useGetTranslator()
 </script>
 
 
 <style lang="scss">
 .selected-filters-container {
 	display: flex;
-	left: 10px;
-	width: calc(100% - 20px);
+
+	width: 100%;
 	position: absolute;
 	height: fit-content;
 	align-items: center;
@@ -77,7 +81,7 @@ onMounted(() => {
 		color: white;
 		font-weight: bold;
 		font-size: 18px;
-		width: 80px;
+		width: fit-content;
 		height: fit-content;
 		margin-left: 10px;
 		text-align: center;
@@ -89,22 +93,20 @@ onMounted(() => {
 	}
 }
 
-@media only screen and (max-width: 740px) {
-	.selected-filters-container {
-		bottom: 30px;
-	}
-}
 
 @media only screen and (max-width: 915px) {
 	.selected-filters-container {
-		bottom: 33px;
+		bottom: 38px;
 
 		&__clear {
-			width: 50px;
 			font-size: 13px;
 		}
 	}
+}
 
-
+@media only screen and (max-width: 740px) {
+	.selected-filters-container {
+		bottom: 33px;
+	}
 }
 </style>

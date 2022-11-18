@@ -26,6 +26,17 @@
 			"adventure-exp": "Adventure Exp",
 			"world-level": "World Level",
 			"birthday": "Birthday"
-		}
+		},
+		"settings": {
+			"en-US": "English",
+			"ru-RU": "Русский Язык",
+			"settings": "Settings",
+			"language-select": "Language select",
+			"titles": {
+				"language": "Language",
+				"other": "Other"
+			}
+		},
+		"use": "Use"
 	}
 }

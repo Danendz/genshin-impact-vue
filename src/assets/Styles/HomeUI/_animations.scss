@@ -46,3 +46,19 @@
   opacity: 0;
   transform: scale(0.9);
 }
+
+.home-options-fade-enter-active,
+.home-options-fade-leave-active {
+  transition: all 0.4s;
+}
+
+.home-options-fade-enter-from {
+  position: absolute;
+  top: 0;
+  opacity: 0;
+}
+.home-options-fade-leave-to {
+  position: absolute;
+  top: 0;
+  opacity: 0;
+}

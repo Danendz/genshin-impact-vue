@@ -5,7 +5,8 @@
                 <h2 class="filter-options__title">Filter</h2>
                 <FilterContainer v-for="value, key in filter" :key="key" :options="value" :key-title="key" />
             </div>
-            <button class="filter-options__confirm" @click="emit('toggleFilterComponent')">Confirm Filter</button>
+            <RoundedButtonWithCircle class="filter-options__confirm" @click="emit('toggleFilterComponent')"
+                :title="t('characters.confirm')" />
         </section>
     </transition>
 </template>
@@ -22,6 +23,8 @@ import { filter } from '@/Interfaces/FilterCharacter'
 
 //vue
 import { watch } from 'vue';
+import RoundedButtonWithCircle from '@/components/UI/RoundedButtonWithCircle.vue';
+import { useGetTranslator } from '@/Composables/useGetTranslator';
 
 interface Props {
     filterActive: boolean
@@ -31,6 +34,7 @@ const props = defineProps<Props>()
 const emit = defineEmits<{
     (event: 'toggleFilterComponent', value?: boolean): void
 }>()
+const { t } = useGetTranslator()
 
 const hideLayout = useHideMainCharactersLayout()
 
@@ -56,7 +60,7 @@ watch(() => hideLayout.hide, () => {
     min-width: calc(100% + 10px);
     width: fit-content;
     height: 100vh;
-    padding: 10px 0px 10px 20px;
+    padding: 10px 0px 0px 20px;
     user-select: none;
 
     &__container {
@@ -71,22 +75,8 @@ watch(() => hideLayout.hide, () => {
     }
 
     &__confirm {
-        height: 35px;
-        border-radius: 15px;
-        border: 0;
-        font-size: 15px;
-        font-weight: bold;
-        margin-bottom: 5px;
-        cursor: pointer;
-        color: rgba(38, 50, 64, 0.994);
-
-        transition: .3s;
-
-        background-color: rgba(255, 255, 255, 0.575);
-
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.928);
-        }
+        align-self: center;
+        margin: 10px 0;
     }
 }
 
@@ -105,8 +95,9 @@ watch(() => hideLayout.hide, () => {
         }
 
         &__confirm {
-            height: 25px;
+            height: 30px;
             font-size: 12px;
+            margin: 5px 0;
         }
     }
 

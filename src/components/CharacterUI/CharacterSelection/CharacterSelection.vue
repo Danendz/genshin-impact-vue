@@ -7,8 +7,7 @@
         <section v-show="showCharactersSelectionList.show" class="character-selection-main">
             <aside class="CharacterSelection">
                 <header>
-                    <!-- <img /> -->
-                    <h2>Character Selection</h2>
+                    <h2>{{ t('characters.character-selection') }}</h2>
                 </header>
                 <CharacterSelectionList />
                 <CharacterSelectionFilters />
@@ -26,10 +25,13 @@ import CharacterSelectionFilters from './CharacterSelectionFilters.vue';
 import { useShowCharactersSelectionList } from '@/store/showCharactersSelectionList';
 import useToggleCharacterSelelectionList from '@/Composables/useToggleSelectionList';
 import BackButton from '@/components/UI/BackButton.vue';
+import { useGetTranslator } from '@/Composables/useGetTranslator';
 
 const showCharactersSelectionList = useShowCharactersSelectionList()
 
 const { toggleSelectionList } = useToggleCharacterSelelectionList()
+
+const { t } = useGetTranslator()
 
 </script>
 

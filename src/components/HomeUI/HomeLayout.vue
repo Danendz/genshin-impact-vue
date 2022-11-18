@@ -1,10 +1,12 @@
 <template>
 	<HomeBackground :images="props.images" />
-
-	<main class="home-menu">
-		<HomeMenuOptions :animation-postfix="animationOrientation" />
-		<HomeMain :animation-postfix="animationOrientation" />
-	</main>
+	<Transition name="fade">
+		<main v-show="!optionStates.settings" class="home-menu">
+			<HomeMenuOptions @set-active-option="setOption" :animation-postfix="animationOrientation" />
+			<HomeMain :animation-postfix="animationOrientation" />
+		</main>
+	</Transition>
+	<HomeOptionsComponents :set-option-state="setOption" :options-states="optionStates" />
 </template>
 
 
@@ -13,10 +15,12 @@
 import HomeMenuOptions from './HomeMenuOptions/HomeMenuOptions.vue';
 import HomeMain from './HomeMain/HomeMain.vue'
 import HomeBackground from './HomeBackground/HomeBackground.vue'
+import HomeOptionsComponents from './HomeOptionsComponents/HomeOptionsComponents.vue';
 
 //vue
 import { ref, onMounted, watch } from 'vue';
 import { useScreenOrientation } from '@vueuse/core';
+import { HomeOptionStates } from '@/Interfaces/HomeOptionsStates';
 
 interface Props {
 	images: string[] | null
@@ -24,6 +28,18 @@ interface Props {
 
 const props = defineProps<Props>()
 const { orientation } = useScreenOrientation()
+
+const optionStates = ref<HomeOptionStates>({
+	camera: false,
+	eventHub: false,
+	mail: false,
+	time: false,
+	settings: false,
+})
+
+const setOption = (key: keyof HomeOptionStates, value: boolean) => {
+	optionStates.value[key] = value;
+}
 
 const animationOrientation = ref<'landscape' | 'portrait'>('landscape')
 

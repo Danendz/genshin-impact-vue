@@ -6,7 +6,7 @@
 
 		<p class="change-avatar-container__selected-avatar-name">{{ selectedAvatar.name }}</p>
 
-		<RoundedButtonWithCircle @click="emit('confirmSelection')" :title="'Use'" />
+		<RoundedButtonWithCircle @click="emit('confirmSelection')" :title="t('home.use')" />
 
 	</section>
 </template>
@@ -16,6 +16,7 @@
 //components
 import CircleCharacter from '@/components/UI/CircleCharacter.vue';
 import RoundedButtonWithCircle from '@/components/UI/RoundedButtonWithCircle.vue'
+import { useGetTranslator } from '@/Composables/useGetTranslator';
 
 //interfaces
 import { ISelectedAvatar } from '@/Interfaces/SelectedAvatar';
@@ -27,6 +28,8 @@ const props = defineProps<{
 const emit = defineEmits<{
 	(e: 'confirmSelection'): void
 }>();
+
+const { t } = useGetTranslator()
 
 </script>
 
