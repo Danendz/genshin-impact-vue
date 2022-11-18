@@ -78,7 +78,7 @@ const content_component = computed(() => {
 <style lang="scss">
 .home-settings {
 	width: 100%;
-	height: 100%;
+	height: 100vh;
 	position: absolute;
 	display: flex;
 	gap: 20px;

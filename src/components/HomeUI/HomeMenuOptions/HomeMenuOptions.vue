@@ -62,7 +62,7 @@ onMounted(() => {
 			gap: 10px;
 			min-width: 20px;
 			padding: 0px 5px;
-			font-size: 20px;
+			font-size: 30px;
 		}
 	}
 }
