@@ -198,15 +198,27 @@ const content_component = computed(() => {
 			flex-direction: column-reverse;
 			justify-content: flex-end;
 
+			.home-settings__active-option-content {
+				padding-right: 0;
+
+				.home-settings__active-list {
+					padding-right: 0;
+				}
+			}
+
 			.home-settings__options {
 				overflow-x: auto;
 				overflow-y: hidden;
+				display: flex;
+				background-color: rgba(0, 0, 0, 0.123);
+
 				height: fit-content;
 				width: 100%;
-				padding-bottom: 5px;
+				padding: 5px;
+				border-radius: 10px;
 
 				&::-webkit-scrollbar {
-					height: 5px;
+					height: 0px;
 				}
 
 				ul {

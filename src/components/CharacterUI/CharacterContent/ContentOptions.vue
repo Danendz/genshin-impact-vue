@@ -56,14 +56,27 @@ const { t } = useGetTranslator()
 @media only screen and (max-width: 700px) and (orientation: portrait) {
     .content-options {
         order: 2;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.507);
+
+        margin-bottom: 2px;
+        border-radius: 10px;
+        overflow-x: auto;
+
+        &::-webkit-scrollbar {
+            height: 0px;
+        }
 
         ul {
-            font-size: 16px;
+            font-size: 15px;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 5px;
+            gap: 5px;
+            padding: 10px;
+            width: fit-content;
+
+            p {
+                white-space: nowrap;
+            }
         }
     }
 }

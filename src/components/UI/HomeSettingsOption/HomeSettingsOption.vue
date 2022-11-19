@@ -55,6 +55,7 @@ const props = defineProps<Props>()
 
 			span {
 				margin-left: auto;
+				font-size: 15px;
 			}
 
 			img {
@@ -74,6 +75,12 @@ const props = defineProps<Props>()
 
 		.home-settings__select {
 			max-width: 200px;
+
+			button {
+				span {
+					font-size: 14px;
+				}
+			}
 		}
 	}
 }
@@ -87,6 +94,12 @@ const props = defineProps<Props>()
 
 		.home-settings__select {
 			max-width: 150px;
+
+			button {
+				span {
+					font-size: 12px;
+				}
+			}
 		}
 	}
 }

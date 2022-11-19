@@ -2,7 +2,6 @@
 	<Suspense v-if="props.optionsStates.settings">
 		<template #default>
 			<HomeSettings @set-option-state="setOptionState" :state="props.optionsStates.settings" />
-
 		</template>
 		<template #fallback>
 			<LoaderSpinner />
