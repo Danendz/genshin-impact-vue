@@ -59,7 +59,7 @@ const { t } = useGetTranslator()
         width: 100%;
         background-color: rgba(0, 0, 0, 0.507);
 
-        margin-bottom: 2px;
+        margin-bottom: 6%;
         border-radius: 10px;
         overflow-x: auto;
 
@@ -71,7 +71,7 @@ const { t } = useGetTranslator()
             font-size: 15px;
             display: flex;
             gap: 5px;
-            padding: 10px;
+            padding: 5px;
             width: fit-content;
 
             p {
