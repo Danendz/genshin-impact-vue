@@ -3,7 +3,7 @@
 		<section :key="activeWish" :style="{ transitionDelay: '0.5s' }" class="banners-obtained-item-info ">
 
 			<img class="banners-obtained-item-info__vision" alt="vision" v-if="isCharacter(item)" draggable="false"
-				:src="CharacterHelper.getElementImage(item.vision)" />
+				:src="CharacterHelper.getElementImage(item.vision_key)" />
 
 			<img class="banners-obtained-item-info__weapon-icon" :alt="item.type" draggable="false"
 				:src="WishHelper.getWishWeaponsIcons(item.type)" v-else />

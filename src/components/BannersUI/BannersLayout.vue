@@ -4,8 +4,9 @@
 		<ObtainedItems />
 		<Transition name="fade" appear>
 			<section v-show="!getIsWishing" class="banners-container__layout">
+
 				<WishCurrency />
-				<BannersImages :activeBannerImage="getActiveBannerImage" @set-active="setActive" />
+				<BannersImages :activeBannerImage="getActiveBannerImage" />
 				<!-- <BannerInformation /> -->
 				<NotEnoughFunds />
 				<WishButtons />
@@ -35,9 +36,8 @@ import { BannerTypes } from '@/Enums/WishEnums';
 
 //vue
 import { onMounted } from 'vue'
-import BannerInformation from './BannersInformation/BannerInformation.vue';
 
-const { getActiveBannerImage, getActiveBannerWish, setActiveBannerImage, setActiveBannerWish } = useActiveBanner()
+const { getActiveBannerImage, getActiveBannerWish, setActiveBannerWish } = useActiveBanner()
 const { getEventBanner } = useBannersData()
 const { getShowObtainedItems, setShowObtainedItems, clearObtainedItems, setActiveWish } = useObtainedItems()
 const { setCurrentWishVideo } = useWishVideos()
@@ -60,11 +60,6 @@ onMounted(() => {
 	}
 })
 
-function setActive(index: number, banner: BannerTypes, eventIndex?: number): void {
-	if (banner === BannerTypes.EVENT && eventIndex === undefined) throw new Error("Вы не указали ивентовый индекс для персонажа!")
-	setActiveBannerWish([banner, eventIndex])
-	setActiveBannerImage(index)
-}
 
 </script>
 
@@ -104,7 +99,7 @@ function setActive(index: number, banner: BannerTypes, eventIndex?: number): voi
 	}
 }
 
-@media only screen and (max-width: 915px) and (orientation: landscape) {
+@media only screen and (max-width: 1200px) and (orientation: landscape) {
 	.banners-container {
 
 		&__layout {

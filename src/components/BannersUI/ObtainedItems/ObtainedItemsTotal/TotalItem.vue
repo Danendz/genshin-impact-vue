@@ -6,7 +6,7 @@
 		<TotalItemImage :item="item" @is-character="isCharacter" />
 
 		<img draggable="false" v-if="isCharacter(item)" class="total-item__item-vision"
-			:src="CharacterHelper.getElementImage(item.vision)" />
+			:src="CharacterHelper.getElementImage(item.vision_key)" />
 
 		<section class="total-item__item-rarity">
 			<Icon icon="bxs:star" v-for="num in item.rarity" :key="num" />
@@ -28,7 +28,6 @@ import CharacterHelper from '@/helpers/CharacterHelper';
 //components
 import TotalItemBackgroundImage from './TotalItemBackgroundImage.vue';
 import TotalItemImage from './TotalItemImage.vue';
-import TotalItemShadows from './TotalItemShadows.vue';
 
 //iconify
 import { Icon } from '@iconify/vue';

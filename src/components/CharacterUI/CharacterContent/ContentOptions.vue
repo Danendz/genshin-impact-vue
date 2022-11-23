@@ -61,6 +61,7 @@ const { t } = useGetTranslator()
 
         margin-bottom: 6%;
         border-radius: 10px;
+        padding: 2px;
         overflow-x: auto;
 
         &::-webkit-scrollbar {
