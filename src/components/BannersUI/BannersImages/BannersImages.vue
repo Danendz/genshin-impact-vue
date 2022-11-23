@@ -92,7 +92,8 @@ const getBannerImages = (banner: BannersEntities, name?: string) => {
 	.banners-lg {
 		width: 90%;
 		align-items: center;
-
+		justify-content: unset;
+		height: 45vw;
 	}
 }
 
