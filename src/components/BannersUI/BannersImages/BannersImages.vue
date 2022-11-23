@@ -14,6 +14,7 @@
 
 
 <script setup lang="ts">
+import BannerIcon from './BannerIcon/BannerIcon.vue';
 //enums
 import { BannersEntities } from '@/Enums/BannersEnums';
 //helpers
@@ -25,7 +26,6 @@ import { useWish } from '@/store/Gacha/Wish';
 
 //vue
 import { onMounted, ref } from 'vue';
-import BannerIcon from './BannerIcon/BannerIcon.vue';
 
 interface Props {
 	activeBannerImage: number
@@ -63,7 +63,6 @@ const getBannerImages = (banner: BannersEntities, name?: string) => {
 @import '@/assets/Styles/animations/banners';
 @import '@/assets/Styles/animations';
 
-.banners-sm,
 .banners-lg {
 	user-select: none;
 	-webkit-user-drag: none;

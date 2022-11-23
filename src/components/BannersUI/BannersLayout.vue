@@ -4,7 +4,7 @@
 		<ObtainedItems />
 		<Transition name="fade" appear>
 			<section v-show="!getIsWishing" class="banners-container__layout">
-
+				<!-- <BannerHeader /> -->
 				<WishCurrency />
 				<BannersImages :activeBannerImage="getActiveBannerImage" />
 				<!-- <BannerInformation /> -->
@@ -20,9 +20,9 @@
 import BannerVideo from './BannersVideos/BannerVideo.vue';
 import BannersImages from './BannersImages/BannersImages.vue';
 import NotEnoughFunds from './NotEnoughFunds/NotEnoughFunds.vue';
-import WishCurrency from './WishCurrency/WishCurrency.vue'
 import ObtainedItems from './ObtainedItems/ObtainedItems.vue'
 import WishButtons from './WishButtons.vue';
+import BannerHeader from './BannerHeader/BannerHeader.vue';
 
 //stores
 import { useBannersData } from '@/store/Gacha/bannersData';
@@ -36,6 +36,7 @@ import { BannerTypes } from '@/Enums/WishEnums';
 
 //vue
 import { onMounted } from 'vue'
+import WishCurrency from './WishCurrency/WishCurrency.vue';
 
 const { getActiveBannerImage, getActiveBannerWish, setActiveBannerWish } = useActiveBanner()
 const { getEventBanner } = useBannersData()

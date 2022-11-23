@@ -1,5 +1,6 @@
 <template>
-	<section v-if="getCurrentVideo" class="banners-video-container">
+	<section v-if="getCurrentVideo"
+		:class="['banners-video-container', { 'banners-video-container_hide-tint': getIsWishing }]">
 		<transition name="fade">
 			<button v-show="!skipHided" @click="skipWish" class="banners-video-container__skip">
 				Skip
@@ -72,6 +73,23 @@ watch(wishVideo, () => {
 
 <style lang="scss">
 .banners-video-container {
+	&::before {
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.116);
+		left: 0;
+		top: 0;
+		z-index: 1;
+		pointer-events: none;
+	}
+
+	&_hide-tint {
+		&::before {
+			opacity: 0;
+		}
+	}
 
 	&__bg-video {
 		height: 100%;
@@ -82,7 +100,6 @@ watch(wishVideo, () => {
 		top: 50%;
 		transform: translate(-50%, -50%);
 		position: absolute;
-
 	}
 
 	&__skip {

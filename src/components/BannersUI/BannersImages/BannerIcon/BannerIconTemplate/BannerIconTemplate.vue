@@ -48,6 +48,8 @@ function setActive(): void {
 
 <style lang="scss">
 .banners-sm__banner {
+	user-select: none;
+	-webkit-user-drag: none;
 	position: relative;
 	width: 150px;
 	height: 75px;
@@ -201,8 +203,11 @@ function setActive(): void {
 
 @media only screen and (max-width: 1200px) and (orientation: landscape) {
 	.banners-sm__banner {
-		width: 120px;
-		height: 60px;
+		width: 15vw;
+		max-width: 140px;
+		height: 10vh;
+		min-height: 60px;
+		max-height: 90px;
 
 		&::before {
 			height: 90%;
@@ -215,6 +220,14 @@ function setActive(): void {
 		.banners-sm__inner-border,
 		.banners-sm__outer-border {
 			height: 90%;
+		}
+
+		&:hover {
+			.banners-sm__images {
+				img {
+					transform: scale(1) translateY(-23%);
+				}
+			}
 		}
 
 		.banners-sm__images {

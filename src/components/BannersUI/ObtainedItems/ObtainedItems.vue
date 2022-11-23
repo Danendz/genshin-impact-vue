@@ -46,7 +46,7 @@ const nextWish = () => {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background-color: rgba(0, 0, 0, 0.267);
+		background-color: rgba(0, 0, 0, 0.349);
 		z-index: 9;
 		user-select: none;
 	}

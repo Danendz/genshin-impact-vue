@@ -62,16 +62,22 @@ const getIndex = (banner: BannerTypes.EVENT_WEAPON | BannerTypes.STANDARD): numb
 .banners-sm {
 	display: flex;
 	gap: 10px;
-	z-index: 2;
+	z-index: 1;
 	position: absolute;
 	top: 0px;
+	justify-content: center;
+	width: 100%;
+
 }
 
 @media only screen and (max-width: 1200px) and (orientation: landscape) {
 	.banners-sm {
 		flex-direction: column;
 		position: relative;
-
+		justify-content: center;
+		/* background-color: rgba(0, 0, 0, 0.26); */
+		height: 100%;
+		width: unset;
 	}
 }
 
