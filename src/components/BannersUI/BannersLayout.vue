@@ -4,8 +4,7 @@
 		<ObtainedItems />
 		<Transition name="fade" appear>
 			<section v-show="!getIsWishing" class="banners-container__layout">
-				<!-- <BannerHeader /> -->
-				<WishCurrency />
+				<BannerHeader />
 				<BannersImages :activeBannerImage="getActiveBannerImage" />
 				<!-- <BannerInformation /> -->
 				<NotEnoughFunds />
@@ -36,7 +35,6 @@ import { BannerTypes } from '@/Enums/WishEnums';
 
 //vue
 import { onMounted } from 'vue'
-import WishCurrency from './WishCurrency/WishCurrency.vue';
 
 const { getActiveBannerImage, getActiveBannerWish, setActiveBannerWish } = useActiveBanner()
 const { getEventBanner } = useBannersData()

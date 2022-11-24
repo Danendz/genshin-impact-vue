@@ -28,4 +28,17 @@
 		line-height: 0;
 	}
 }
+
+@media only screen and (max-width: 1200px) and (orientation: landscape) {
+	.wish-info {
+		display: none;
+	}
+}
+
+@media only screen and (orientation: portrait) {
+	.wish-info {
+		gap: 15px;
+
+	}
+}
 </style>

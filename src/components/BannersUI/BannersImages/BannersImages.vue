@@ -1,10 +1,10 @@
 <template>
-	<Transition name="banner-down" appear>
-		<BannerIcon :active-banner-image="activeBannerImage" />
+	<Transition name="banner-fade" appear>
+		<BannerIcon class="mobile-banners-icons" :active-banner-image="activeBannerImage" />
 	</Transition>
 	<Transition name="fade-right" appear>
-		<section v-show="!getIsWishing" class="banners-lg">
-			<Transition name="banner-right" mode="out-in" appear>
+		<section v-show="!getIsWishing" :class="['banners-lg', { 'banners-lg__standard-banner': isStandard }]">
+			<Transition name="banner-right" mode="out-in" @before-enter="setStandard" appear>
 				<img :key="props.activeBannerImage" draggable="false" class="banners-lg__img"
 					:src="bannerImages[activeBannerImage]" />
 			</Transition>
@@ -36,9 +36,19 @@ const { getEventBanner, getEventWeaponBanner } = useBannersData()
 const { getIsWishing } = useWish()
 
 const bannerImages = ref<string[]>([])
+const isStandard = ref(false);
+
+const setStandard = () => {
+	if (props.activeBannerImage === bannerImages.value.length - 1) {
+		isStandard.value = true;
+	} else {
+		isStandard.value = false;
+	}
+}
 
 onMounted(() => {
 	setBannerImages()
+	setStandard()
 })
 
 const setBannerImages = () => {
@@ -82,9 +92,12 @@ const getBannerImages = (banner: BannersEntities, name?: string) => {
 	&__img {
 		width: 100%;
 		height: auto;
-
 	}
 
+}
+
+.mobile-banners-icons {
+	display: none;
 }
 
 @media only screen and (orientation: portrait) {
@@ -96,17 +109,29 @@ const getBannerImages = (banner: BannersEntities, name?: string) => {
 	}
 }
 
+@media only screen and (max-width: 1200px) {
+	.mobile-banners-icons {
+		display: flex;
+	}
+}
+
 @media only screen and (max-width: 1200px) and (orientation: landscape) {
 	.banners-lg {
 		width: 80%;
 	}
+
+
 }
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
 	.banners-lg {
 		max-width: 600px;
-		max-height: 75vh;
 		overflow: hidden;
+
+		&__standard-banner {
+			align-self: flex-start;
+			margin-top: 10px;
+		}
 	}
 }
 

@@ -67,14 +67,14 @@ function setActive(): void {
 
 		img {
 			width: 50%;
-			transform: scale(1) translateY(-14%);
+			transform: scale(1.1) translateY(-14%);
 		}
 	}
 
 	img {
 		width: 100%;
 		height: fit-content;
-		transform: scale(1.5) translateY(16%);
+		transform: scale(1.6) translateY(16%);
 		transition: .2s;
 	}
 
@@ -169,7 +169,7 @@ function setActive(): void {
 		}
 
 		img {
-			transform: scale(1.5) translateY(14%) !important;
+			transform: scale(1.5) translateY(12%) !important;
 		}
 
 		&::before {
@@ -189,13 +189,13 @@ function setActive(): void {
 
 	&:hover {
 		img {
-			transform: scale(2.2) translateY(5%);
+			transform: scale(2.1) translateY(5%);
 		}
 	}
 
 	&.banners-sm__banner_active {
 		img {
-			transform: scale(2.2) translateY(4%) !important;
+			transform: scale(2.1) translateY(4%) !important;
 		}
 	}
 }
@@ -203,7 +203,7 @@ function setActive(): void {
 
 @media only screen and (max-width: 1200px) and (orientation: landscape) {
 	.banners-sm__banner {
-		width: 15vw;
+		width: 13vw;
 		max-width: 140px;
 		height: 10vh;
 		min-height: 60px;

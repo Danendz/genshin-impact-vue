@@ -1,21 +1,19 @@
 <template>
-	<Transition name="fade-up" appear>
-		<section v-show="!getIsWishing" v-if="getActiveBannerWish" class="banners-currency">
-			<figure @click="setPrimogems(getPrimogems + 1600)" class="banners-currency__primogems">
-				<img src="@/assets/Icons/wishIcons/wish_Primogem.png" />
-				<figcaption>{{ getPrimogems }}</figcaption>
-				<i class="gi-plus banners-currency__plus" />
-			</figure>
+	<section v-if="getActiveBannerWish" class="banners-currency">
+		<figure @click="setPrimogems(getPrimogems + 1600)" class="banners-currency__primogems">
+			<img src="@/assets/Icons/wishIcons/wish_Primogem.png" />
+			<figcaption>{{ getPrimogems }}</figcaption>
+			<i class="gi-plus banners-currency__plus" />
+		</figure>
 
-			<figure class="banners-currency__wishes">
-				<img v-if="getActiveBannerWish[0] === BannerTypes.STANDARD"
-					src="@/assets/Icons/wishIcons/standardWish.webp" />
-				<img v-else src="@/assets/Icons/wishIcons/eventWish.webp" />
-				<figcaption>{{ getWishes(getActiveBannerWish[0]) }}</figcaption>
-			</figure>
-			<CloseButton />
-		</section>
-	</Transition>
+		<figure class="banners-currency__wishes">
+			<img v-if="getActiveBannerWish[0] === BannerTypes.STANDARD"
+				src="@/assets/Icons/wishIcons/standardWish.webp" />
+			<img v-else src="@/assets/Icons/wishIcons/eventWish.webp" />
+			<figcaption>{{ getWishes(getActiveBannerWish[0]) }}</figcaption>
+		</figure>
+		<CloseButton />
+	</section>
 </template>
 
 <script setup lang="ts">
@@ -23,14 +21,12 @@ import CloseButton from '@/components/UI/CloseButton.vue';
 import { BannerTypes } from '@/Enums/WishEnums';
 import { useActiveBanner } from '@/store/Gacha/activeBanner';
 import { usePrimogems } from '@/store/Gacha/primogems';
-import { useWish } from '@/store/Gacha/Wish';
 import { useWishes } from '@/store/Gacha/wishes';
 
 
 const { getPrimogems, setPrimogems } = usePrimogems()
 const { getWishes } = useWishes()
 const { getActiveBannerWish } = useActiveBanner()
-const { getIsWishing } = useWish()
 </script>
 
 <style lang="scss">
@@ -91,6 +87,7 @@ const { getIsWishing } = useWish()
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
 	.banners-currency {
+		top: 5px;
 
 		&__primogems,
 		&__wishes {
@@ -108,6 +105,12 @@ const { getIsWishing } = useWish()
 				font-size: 20px;
 			}
 		}
+	}
+}
+
+@media only screen and (orientation: portrait) {
+	.banners-currency {
+		gap: 5px;
 	}
 }
 </style>
