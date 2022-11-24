@@ -119,18 +119,16 @@ const getBannerImages = (banner: BannersEntities, name?: string) => {
 	.banners-lg {
 		width: 80%;
 	}
-
-
 }
 
 @media only screen and (max-width: 915px) and (orientation: landscape) {
 	.banners-lg {
-		max-width: 600px;
+		max-width: 70vw;
 		overflow: hidden;
 
 		&__standard-banner {
-			align-self: flex-start;
-			margin-top: 10px;
+			align-self: center;
+			margin-bottom: 15px;
 		}
 	}
 }

@@ -1,6 +1,6 @@
 <template>
 	<figure @click="setActive"
-		:class="['banners-sm__banner', { 'banners-sm__banner_active': props.activeBannerImage === index }, {'banners-sm__standard-fix': isStandard}]">
+		:class="['banners-sm__banner', { 'banners-sm__banner_active': props.activeBannerImage === index }]">
 
 		<img v-if="typeof url === 'string'" draggable="false" alt="mini-item" :src="url" />
 
@@ -28,7 +28,6 @@ interface Props {
 	activeBannerImage: number,
 	eventCharacterIndex?: number,
 	bannerType: BannerTypes,
-	isStandard?: boolean,
 	url: string | string[]
 
 }
@@ -48,6 +47,9 @@ function setActive(): void {
 
 <style lang="scss">
 .banners-sm__banner {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
 	user-select: none;
 	-webkit-user-drag: none;
 	position: relative;
@@ -64,6 +66,7 @@ function setActive(): void {
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		align-self: center;
 
 		img {
 			width: 50%;
@@ -72,7 +75,7 @@ function setActive(): void {
 	}
 
 	img {
-		width: 100%;
+		width: 90%;
 		height: fit-content;
 		transform: scale(1.6) translateY(16%);
 		transition: .2s;
@@ -182,23 +185,6 @@ function setActive(): void {
 	}
 }
 
-.banners-sm__standard-fix {
-	img {
-		transform: scale(2.2) translateY(6%);
-	}
-
-	&:hover {
-		img {
-			transform: scale(2.1) translateY(5%);
-		}
-	}
-
-	&.banners-sm__banner_active {
-		img {
-			transform: scale(2.1) translateY(4%) !important;
-		}
-	}
-}
 
 
 @media only screen and (max-width: 1200px) and (orientation: landscape) {

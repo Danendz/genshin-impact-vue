@@ -11,10 +11,9 @@
 			:active-banner-image="props.activeBannerImage" :banner-type="BannerTypes.EVENT_WEAPON"
 			:url="getEventImages(getEventWeaponBanner.event_five_star_weapons, 'weapon')" />
 
-		<BannerIconTemplate :is-standard="true" :key="getIndex(BannerTypes.STANDARD)"
-			:index="getIndex(BannerTypes.STANDARD)" :active-banner-image="props.activeBannerImage"
-			:banner-type="BannerTypes.STANDARD"
-			:url="CharacterHelper.getCharacterImage('qiqi', CharacterImage.GACHA_SPLASH_LQ)" />
+		<BannerIconTemplate :key="getIndex(BannerTypes.STANDARD)" :index="getIndex(BannerTypes.STANDARD)"
+			:active-banner-image="props.activeBannerImage" :banner-type="BannerTypes.STANDARD"
+			:url="CharacterHelper.getCharacterImage('qiqi', CharacterImage.BANNER_ICON)" />
 	</section>
 </template>
 
@@ -41,7 +40,7 @@ const { getEventBanner, getEventWeaponBanner } = useBannersData()
 const getEventImages = (eventImages: string[], characterOrWeapon: 'character' | 'weapon') => {
 	if (characterOrWeapon === 'character') {
 		return eventImages.map((name) =>
-			CharacterHelper.getCharacterImage(name, CharacterImage.PORTRAIT));
+			CharacterHelper.getCharacterImage(name, CharacterImage.BANNER_ICON));
 	} else {
 		return eventImages.map((name) =>
 			WeaponHelper.getWeaponsImage(name, CharacterImage.GACHA_SPLASH_LQ));

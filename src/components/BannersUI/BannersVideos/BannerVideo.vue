@@ -82,6 +82,7 @@ watch(wishVideo, () => {
 		left: 0;
 		top: 0;
 		z-index: 1;
+		transition: .2s;
 		pointer-events: none;
 	}
 

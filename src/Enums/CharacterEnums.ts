@@ -33,6 +33,7 @@ export enum CharacterRegionKey {
 export enum CharacterImage {
     CARD = 'card',
     PORTRAIT = 'portrait',
+    BANNER_ICON = 'banner-icon',
     ICON_SIDE = 'icon-side',
     ICON_SIDE_LQ = 'icon-side-lq',
     GACHA_SPLASH = 'gacha-splash',
