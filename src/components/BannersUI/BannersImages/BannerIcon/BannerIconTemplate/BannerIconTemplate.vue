@@ -66,7 +66,6 @@ function setActive(): void {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		align-self: center;
 
 		img {
 			width: 50%;
