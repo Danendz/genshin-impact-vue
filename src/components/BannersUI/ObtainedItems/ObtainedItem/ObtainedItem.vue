@@ -84,6 +84,7 @@ const changeWish = () => {
 @media only screen and (max-width:915px) and (orientation: landscape) {
 	.banners-obtained-item {
 		width: 100%;
+		max-width: 750px;
 	}
 }
 </style>

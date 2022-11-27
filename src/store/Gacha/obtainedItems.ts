@@ -18,7 +18,7 @@ export const useObtainedItems = defineStore('obtained items', () => {
 
 	const setObtainedItems = (value: CharacterOrWeapon[]) => {
 		if (obtainedItems.value.length >= 1) obtainedItems.value = []
-		obtainedItems.value = value
+		obtainedItems.value = value;
 		setAlreadyObtainedItems()
 		updateLocalStorageItems()
 	}
@@ -50,6 +50,10 @@ export const useObtainedItems = defineStore('obtained items', () => {
 		activeWish.value = value
 	}
 
+	const getSortedObtainedItems = () => {
+		return obtainedItems.value.sort((itemA, itemB) => parseInt(itemB.rarity.toString()) - parseInt(itemA.rarity.toString()))
+	}
+
 	const getObtainedItems = computed(() => {
 		return obtainedItems
 	})
@@ -73,6 +77,7 @@ export const useObtainedItems = defineStore('obtained items', () => {
 		getAlreadyObtainedItems,
 		getShowObtainedItems,
 		getActiveWish,
+		getSortedObtainedItems,
 		setObtainedItems,
 		clearObtainedItems,
 		setShowObtainedItems,

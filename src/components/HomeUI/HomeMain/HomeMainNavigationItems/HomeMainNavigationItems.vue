@@ -99,6 +99,7 @@ const goTo = (routeObj: { name: string }) => {
 					display: block;
 					width: 10px;
 					height: 10px;
+					filter: drop-shadow(0px 0px 2px white);
 					transform: rotate(135deg) scale(var(--ggs, 1));
 					background: linear-gradient(45deg, transparent 50%, white 50%);
 					border-radius: 2px;

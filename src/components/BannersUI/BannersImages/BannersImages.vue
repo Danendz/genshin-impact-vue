@@ -2,6 +2,7 @@
 	<Transition name="banner-fade" appear>
 		<BannerIcon class="mobile-banners-icons" :active-banner-image="activeBannerImage" />
 	</Transition>
+	<i v-if="getActiveBannerImage !== 0" @click="toggleBanner(-1)" class="gi-arrow-left" />
 	<Transition name="fade-right" appear>
 		<section v-show="!getIsWishing" :class="['banners-lg', { 'banners-lg__standard-banner': isStandard }]">
 			<Transition name="banner-right" mode="out-in" @before-enter="setStandard" appear>
@@ -10,6 +11,8 @@
 			</Transition>
 		</section>
 	</Transition>
+	<i v-if="getTotalBannerWishes && getActiveBannerImage !== getTotalBannerWishes?.length - 1" @click="toggleBanner(1)"
+		class="gi-arrow-right" />
 </template>
 
 
@@ -26,12 +29,14 @@ import { useWish } from '@/store/Gacha/Wish';
 
 //vue
 import { onMounted, ref } from 'vue';
+import { useActiveBanner } from '@/store/Gacha/activeBanner';
 
 interface Props {
 	activeBannerImage: number
 }
 
 const props = defineProps<Props>()
+const { setActiveBannerImage, getActiveBannerImage, getTotalBannerWishes } = useActiveBanner()
 const { getEventBanner, getEventWeaponBanner } = useBannersData()
 const { getIsWishing } = useWish()
 
@@ -45,6 +50,17 @@ const setStandard = () => {
 		isStandard.value = false;
 	}
 }
+
+const toggleBanner = (value: number) => {
+	if (!getTotalBannerWishes.value?.length) return;
+
+	const nextImage = getActiveBannerImage.value + value;
+
+	if (nextImage >= 0 && nextImage < getTotalBannerWishes.value.length) {
+		setActiveBannerImage(nextImage);
+	}
+}
+
 
 onMounted(() => {
 	setBannerImages()
@@ -84,16 +100,38 @@ const getBannerImages = (banner: BannersEntities, name?: string) => {
 	width: 90%;
 	position: relative;
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
-	align-items: flex-end;
+	align-items: center;
 	gap: 10px;
 
 	&__img {
 		width: 100%;
 		height: auto;
 	}
+}
 
+.gi-arrow-left,
+.gi-arrow-right {
+	color: rgba(255, 255, 255, 0.856);
+	position: absolute;
+	line-height: 0;
+	font-size: 40px;
+	cursor: pointer;
+	transition: .1s;
+}
+
+.gi-arrow-left:hover,
+.gi-arrow-right:hover {
+	color: white;
+	transform: scale(1.1);
+}
+
+.gi-arrow-left {
+	left: 0;
+}
+
+.gi-arrow-right {
+	right: 0;
 }
 
 .mobile-banners-icons {
@@ -113,6 +151,11 @@ const getBannerImages = (banner: BannersEntities, name?: string) => {
 	.mobile-banners-icons {
 		display: flex;
 	}
+
+	.gi-arrow-left,
+	.gi-arrow-right {
+		display: none;
+	}
 }
 
 @media only screen and (max-width: 1200px) and (orientation: landscape) {
@@ -124,7 +167,6 @@ const getBannerImages = (banner: BannersEntities, name?: string) => {
 @media only screen and (max-width: 915px) and (orientation: landscape) {
 	.banners-lg {
 		max-width: 70vw;
-		overflow: hidden;
 
 		&__standard-banner {
 			align-self: center;

@@ -1,7 +1,7 @@
 <template>
 	<div class="banners-obtained-items-total">
 		<div @click="goToItem(item)" class="banners-obtained-items-total__item-box"
-			v-for="item, index in getObtainedItems" :key="index">
+			v-for="item, index in getSortedObtainedItems()" :key="index">
 			<Transition name="total-items" appear>
 				<TotalItem :index="index" :item="item" />
 			</Transition>
@@ -23,7 +23,7 @@ import { isCharacter } from '@/Composables/isCharacter';
 import { CharacterOrWeapon } from '@/Composables/UseWishing';
 import BackButton from '@/components/UI/BackButton.vue';
 
-const { getObtainedItems, setShowObtainedItems, clearObtainedItems, setActiveWish } = useObtainedItems()
+const { getSortedObtainedItems, setShowObtainedItems, clearObtainedItems, setActiveWish } = useObtainedItems()
 const { setIsWishing } = useWish()
 const router = useRouter()
 

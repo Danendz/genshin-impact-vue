@@ -33,11 +33,10 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const { setActiveBannerImage, setActiveBannerWish } = useActiveBanner()
+const { setActiveBannerImage } = useActiveBanner()
 
 function setActive(): void {
 	if (props.bannerType === BannerTypes.EVENT && props.eventCharacterIndex === undefined) throw new Error("Вы не указали ивентовый индекс для персонажа!")
-	setActiveBannerWish([props.bannerType, props.eventCharacterIndex])
 	setActiveBannerImage(props.index)
 }
 

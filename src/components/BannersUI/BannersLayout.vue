@@ -1,5 +1,5 @@
 <template>
-	<section class="banners-container">
+	<section v-if="getTotalBannerWishes" class="banners-container">
 		<BannerVideo />
 		<ObtainedItems />
 		<Transition name="fade" appear>
@@ -36,19 +36,18 @@ import { BannerTypes } from '@/Enums/WishEnums';
 //vue
 import { onMounted } from 'vue'
 
-const { getActiveBannerImage, getActiveBannerWish, setActiveBannerWish } = useActiveBanner()
-const { getEventBanner } = useBannersData()
+const { getActiveBannerImage, getTotalBannerWishes, getActiveBannerWish, setActiveBannerImage, setTotalBannerWishes } = useActiveBanner()
+const { getEventBanner, getEventWeaponBanner } = useBannersData()
 const { getShowObtainedItems, setShowObtainedItems, clearObtainedItems, setActiveWish } = useObtainedItems()
 const { setCurrentWishVideo } = useWishVideos()
 const { getIsWishing, setIsWishing } = useWish()
 
 onMounted(() => {
+	if (!getTotalBannerWishes.value) {
+		setBannersForToggle()
+	}
 	if (!getActiveBannerWish.value) {
-		if (getEventBanner.value?.event_five_star_banners_names.length) {
-			setActiveBannerWish([BannerTypes.EVENT, 0])
-		} else {
-			setActiveBannerWish([BannerTypes.STANDARD])
-		}
+		setActiveBannerImage(0);
 	}
 	if (!getShowObtainedItems.value) {
 		setShowObtainedItems(false)
@@ -57,7 +56,21 @@ onMounted(() => {
 		setCurrentWishVideo(3, 1, true)
 		setActiveWish(0)
 	}
+
 })
+
+const banners: [BannerTypes, number?][] = []
+
+const setBannersForToggle = () => {
+	if (getEventBanner.value?.event_five_star_character && getEventWeaponBanner.value?.event_five_star_weapons) {
+		for (let i = 0; i < getEventBanner.value.event_five_star_character.length; i++) {
+			banners.push([BannerTypes.EVENT, i])
+		}
+		banners.push([BannerTypes.EVENT_WEAPON]);
+		banners.push([BannerTypes.STANDARD]);
+	}
+	setTotalBannerWishes(banners);
+}
 
 
 </script>

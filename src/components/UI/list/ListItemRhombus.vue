@@ -53,6 +53,7 @@ const props = defineProps<Props>()
 		display: block;
 		width: 15px;
 		height: 15px;
+		filter: drop-shadow(0px 0px 5px white);
 		transform: rotate(45deg) scale(var(--ggs, 0.45));
 		background: linear-gradient(45deg, transparent 50%, white 50%);
 		border-radius: 2px;

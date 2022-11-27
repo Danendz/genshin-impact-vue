@@ -121,6 +121,7 @@ const getWishInfoAnimation = () => {
 
 		&__weapon-icon {
 			width: 15%;
+			max-width: 80px;
 		}
 
 		&__name-rarity {
@@ -133,6 +134,12 @@ const getWishInfoAnimation = () => {
 
 @media only screen and (max-width:915px) and (orientation: landscape) {
 	.banners-obtained-item-info {
+		margin-left: 20px;
+
+		&__vision {
+			max-height: 50px;
+		}
+
 		&__weapon-icon {
 			width: 15%;
 		}

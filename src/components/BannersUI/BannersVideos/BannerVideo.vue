@@ -78,7 +78,7 @@ watch(wishVideo, () => {
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		background-color: rgba(0, 0, 0, 0.116);
+		background-color: rgba(0, 0, 0, 0.164);
 		left: 0;
 		top: 0;
 		z-index: 1;
