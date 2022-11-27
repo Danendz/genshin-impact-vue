@@ -1,13 +1,13 @@
 <template>
     <figure class="characters-info" v-if="store.currentCharacter">
         <Transition name="fade-up-info" mode="out-in" appear>
-            <img :key="store.currentCharacter.vision" alt="vision"
+            <img :key="store.currentCharacter.vision_key" alt="vision"
                 :src="CharacterHelper.getElementImage(store.currentCharacter.vision_key.toLowerCase())" />
         </Transition>
         <figcaption class="characters-info__visionAndName">
             <Transition name="fade-up-info" mode="out-in" appear>
-                <span :key="store.currentCharacter.vision">
-                    {{ store.currentCharacter.vision }}
+                <span :key="store.currentCharacter.vision_key">
+                    {{ t(`characters.filter-options.${store.currentCharacter.vision_key.toLowerCase()}`) }}
                 </span>
             </Transition>
             <Transition name="fade-up-info" mode="out-in" appear>
@@ -26,7 +26,11 @@ import CharacterHelper from '@/helpers/CharacterHelper';
 //stores
 import { useCurrentCharacter } from '@/store/currentCharacter';
 
+//composables
+import { useGetTranslator } from '@/Composables/useGetTranslator';
+
 const store = useCurrentCharacter()
+const { t } = useGetTranslator()
 
 </script>
 
